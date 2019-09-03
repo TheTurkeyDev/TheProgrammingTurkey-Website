@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import PageWrapper from "./pages/base/page-wrapper";
+import PageWrapper from "./base/page-wrapper";
 
-class App extends Component {
+class Info extends Component {
     constructor(props) {
         super(props);
 
@@ -11,10 +11,10 @@ class App extends Component {
     render() {
         return (
             <PageWrapper>
-
-            </PageWrapper >
+                <span>HI Info!</span>
+            </PageWrapper>
         );
     }
 }
 
-export default App;
+export default Info;

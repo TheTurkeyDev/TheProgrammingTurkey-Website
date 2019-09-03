@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 class TopNav extends Component {
     constructor(props) {
@@ -13,23 +14,23 @@ class TopNav extends Component {
                 <nav className="navbar navbar-expand-sm">
                     <ul className="navbar-nav m-auto">
                         <li className="nav-item">
-                            <a className="nav-link" href="/">Home</a>
+                            <Link className="nav-link" to="/">Home</Link>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="/projects/all" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</a>
+                            <Link className="nav-link dropdown-toggle" to="/projects/all" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</Link>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a className="dropdown-item" href="/projects/all">All</a>
-                                <a className="dropdown-item" href="/projects/ld">Ludum Dare</a>
-                                <a className="dropdown-item" href="/projects/games">Games</a>
-                                <a className="dropdown-item" href="/projects/mods">Mods</a>
-                                <a className="dropdown-item" href="/projects/other">Others</a>
+                                <Link className="dropdown-item" to="/projects/all">All</Link>
+                                <Link className="dropdown-item" to="/projects/ld">Ludum Dare</Link>
+                                <Link className="dropdown-item" to="/projects/games">Games</Link>
+                                <Link className="dropdown-item" to="/projects/mods">Mods</Link>
+                                <Link className="dropdown-item" to="/projects/other">Others</Link>
                             </div>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/info">Info/Contact</a>
+                            <Link className="nav-link" to="/info">Info/Contact</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/testpage">Test</a>
+                            <Link className="nav-link" to="/testpage">Test</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="" onClick={() => window.open('http://maven.theprogrammingturkey.com/')}>Maven</a>
