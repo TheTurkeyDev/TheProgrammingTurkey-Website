@@ -17,13 +17,12 @@ class TopNav extends Component {
                             <Link className="nav-link" to="/">Home</Link>
                         </li>
                         <li className="nav-item dropdown">
-                            <Link className="nav-link dropdown-toggle" to="/projects/all" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</Link>
+                            <Link className="nav-link dropdown-toggle" to="/projects?type=all" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projects</Link>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <Link className="dropdown-item" to="/projects/all">All</Link>
-                                <Link className="dropdown-item" to="/projects/ld">Ludum Dare</Link>
-                                <Link className="dropdown-item" to="/projects/games">Games</Link>
-                                <Link className="dropdown-item" to="/projects/mods">Mods</Link>
-                                <Link className="dropdown-item" to="/projects/other">Others</Link>
+                                <Link className="dropdown-item" to="/projects?type=all">All</Link>
+                                <Link className="dropdown-item" to="/projects?type=ld">Ludum Dare</Link>
+                                <Link className="dropdown-item" to="/projects?type=mods">Mods</Link>
+                                <Link className="dropdown-item" to="/projects?type=other">Others</Link>
                             </div>
                         </li>
                         <li className="nav-item">

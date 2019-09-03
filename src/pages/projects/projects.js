@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
-import PageWrapper from "./base/page-wrapper";
+import PageWrapper from "../base/page-wrapper";
 
 class Projects extends Component {
     constructor(props) {
@@ -9,12 +10,22 @@ class Projects extends Component {
     }
 
     render() {
-        let type = this.props.match.params.type;
+        console.log(this.props);
+        let type = "all";
+        if (this.props.location && this.props.location.search) {
+            let params = this.props.location.search.substring(1).split("&");
+            params.forEach((element) => {
+                let keyVal = element.split("=");
+                if (keyVal[0] === "type")
+                    type = keyVal[1];
+            });
+        }
+
         return (
             <PageWrapper>
                 {
                     (type === "all" || type === "ld") &&
-                    <div className="text-center container-fluid">
+                    <div className="text-center container-fluid mt-3">
                         <div className="row">
                             <div className="col">
                                 <h1><u>Ludum Dare Games</u></h1>
@@ -85,19 +96,72 @@ class Projects extends Component {
                                 </a>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
-                                <a href="LD28.php">
+                                <Link to="/projects/ld28">
                                     <img src="/images/ld28.png" alt="28_Logo" width="224px" height="126px" />
                                     <div><span>Ninja Theif</span></div>
                                     <div><span>LudumDare 28</span></div>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
-                                <a href="LD27.php">
+                                <Link to="/projects/ld27">
                                     <img src="/images/ld27.png" alt="27_Logo" width="224px" height="126px" />
                                     <div><span>Flash Memory</span></div>
                                     <div><span>LudumDare 27</span></div>
-                                </a>
+                                </Link>
                             </div>
+                        </div>
+                    </div>
+                }
+                {
+                    (type === "all" || type === "other") &&
+                    <div className="text-center container-fluid mt-3">
+                        <div className="row">
+                            <div className="col">
+                                <h1><u>Test Games</u></h1>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="/projects/pizzaman">
+                                    Pizza Man - A game made to test my GameAPI!
+                              </Link>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <h1><u>API's and Sorts</u></h1>
+                            </div>
+                        </div>
+                        <div className="row"></div>
+
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                            <a onclick="javascript:window.open('https://github.com/Turkey2349/VolatiliaAPI-Java'); return false;">
+                                VolatiliaAPI - Java
+			                </a>
+                        </div>
+
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                            <Link to="/projects/volatiliaAPIOGL">
+                                VolatiliaAPI - Java OpenGL API
+			                </Link>
+                        </div>
+
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                            <a onclick="javascript:window.open('https://github.com/Turkey2349/VolatiliaAPI-WebAccess'); return false;">
+                                VolatiliaAPI - WebAccess
+			                </a>
+                        </div>
+
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-2">>
+                            <Link to="gameapi">
+                                VolatiliaAPI - Java Swing API
+			                </Link>
+                        </div>
+
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                            <a onclick="javascript:window.open('https://github.com/Turkey2349/NHLStatsAPI-Java'); return false;">
+                                NHL Stats API
+			                </a>
                         </div>
                     </div>
                 }
