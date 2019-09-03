@@ -35,6 +35,9 @@ class TopNav extends Component {
                         <li className="nav-item">
                             <a className="nav-link" href="" onClick={() => window.open('http://maven.theprogrammingturkey.com/')}>Maven</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="" onClick={() => window.open('https://discord.gg/wkgyaxs')}>Discord</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
