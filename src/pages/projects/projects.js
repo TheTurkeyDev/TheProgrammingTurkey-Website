@@ -10,7 +10,6 @@ class Projects extends Component {
     }
 
     render() {
-        console.log(this.props);
         let type = "all";
         if (this.props.location && this.props.location.search) {
             let params = this.props.location.search.substring(1).split("&");
@@ -112,6 +111,118 @@ class Projects extends Component {
                         </div>
                     </div>
                 }
+
+                {
+                    (type === "all" || type === "mods") &&
+                    <div className="text-center container-fluid mt-3">
+                        <div className="row">
+                            <div className="col">
+                                <h1><u>Mods</u></h1>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="chance-cubes-mc">
+                                    <img src="/images/chance_cubes.png" alt="cc_logo" width="224px" height="126px" />
+                                    <div><span>Chance Cubes</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="head-crumbs">
+                                    <img src="/images/chance_cubes.png" alt="hc_logo" width="224px" height="126px" />
+                                    <div><span>Head Crumbs</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="wither-crumbs">
+                                    <img src="/images/wither_crumbs.png" alt="wc_logo" width="224px" height="126px" />
+                                    <div><span>Wither Crumbs</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="block-of-charcoal">
+                                    <img src="/images/chance_cubes.png" alt="boc_logo" width="224px" height="126px" />
+                                    <div><span>A Block of Charcoal</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="block-of-flint">
+                                    <img src="/images/chance_cubes.png" alt="bof_logo" width="224px" height="126px" />
+                                    <div><span>A Block of Flint</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="chance-cubes-sdv">
+                                    <img src="/images/comz.png" alt="comz_logo" width="224px" height="126px" />
+                                    <div><span>Call of minecraft: Zombies</span></div>
+                                    <div><span>Minecraft (Plugin/ Bukkit)</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="comz">
+                                    <img src="/images/chance_cubes.png" alt="cc_logo" width="224px" height="126px" />
+                                    <div><span>Chance Cubes</span></div>
+                                    <div><span>Stardew Valley</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="colored-name-tags">
+                                    <img src="/images/chance_cubes.png" alt="cn_logo" width="224px" height="126px" />
+                                    <div><span>Colored Name Tags</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="block-highlighter">
+                                    <img src="/images/chance_cubes.png" alt="bh_logo" width="224px" height="126px" />
+                                    <div><span>Block Highlighter</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="progression-tweaks">
+                                    <img src="/images/chance_cubes.png" alt="pt_logo" width="224px" height="126px" />
+                                    <div><span>Progression Tweaks</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="gobble-core">
+                                    <img src="/images/chance_cubes.png" alt="gc_logo" width="224px" height="126px" />
+                                    <div><span>Gobble Core</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="custom-ui">
+                                    <img src="/images/chance_cubes.png" alt="cu_logo" width="224px" height="126px" />
+                                    <div><span>CustomUI</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="turkey-util">
+                                    <img src="/images/chance_cubes.png" alt="tu_logo" width="224px" height="126px" />
+                                    <div><span>TurkeyUtil</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="void-compression">
+                                    <img src="/images/chance_cubes.png" alt="vc_logo" width="224px" height="126px" />
+                                    <div><span>Void Compression</span></div>
+                                    <div><span>Minecraft</span></div>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                }
+
                 {
                     (type === "all" || type === "other") &&
                     <div className="text-center container-fluid mt-3">
@@ -122,9 +233,9 @@ class Projects extends Component {
                         </div>
                         <div className="row">
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
-                                <Link to="/projects/pizzaman">
+                                <Link to="/projects/pizza-man">
                                     Pizza Man - A game made to test my GameAPI!
-                              </Link>
+                                </Link>
                             </div>
                         </div>
                         <div className="row">
@@ -132,36 +243,32 @@ class Projects extends Component {
                                 <h1><u>API's and Sorts</u></h1>
                             </div>
                         </div>
-                        <div className="row"></div>
-
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
-                            <a onclick="javascript:window.open('https://github.com/Turkey2349/VolatiliaAPI-Java'); return false;">
-                                VolatiliaAPI - Java
-			                </a>
-                        </div>
-
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
-                            <Link to="/projects/volatiliaAPIOGL">
-                                VolatiliaAPI - Java OpenGL API
-			                </Link>
-                        </div>
-
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
-                            <a onclick="javascript:window.open('https://github.com/Turkey2349/VolatiliaAPI-WebAccess'); return false;">
-                                VolatiliaAPI - WebAccess
-			                </a>
-                        </div>
-
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-2">>
-                            <Link to="gameapi">
-                                VolatiliaAPI - Java Swing API
-			                </Link>
-                        </div>
-
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
-                            <a onclick="javascript:window.open('https://github.com/Turkey2349/NHLStatsAPI-Java'); return false;">
-                                NHL Stats API
-			                </a>
+                        <div className="row">
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-Java')}>
+                                    VolatiliaAPI - Java
+			                    </a>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="/projects/volatiliaapi-ogl">
+                                    VolatiliaAPI - Java OpenGL API
+			                    </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-WebAccess')}>
+                                    VolatiliaAPI - WebAccess
+			                    </a>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <Link to="gameapi">
+                                    VolatiliaAPI - Java Swing API
+			                    </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <a onClick={() => window.open('https://github.com/Turkey2349/NHLStatsAPI-Java')}>
+                                    NHL Stats API
+			                    </a>
+                            </div>
                         </div>
                     </div>
                 }
