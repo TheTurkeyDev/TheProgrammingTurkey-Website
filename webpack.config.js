@@ -8,6 +8,16 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/'
   },
+  externals: [
+    {
+      "chart.js": {
+        root: "Chart",
+        commonjs2: "Chartjs",
+        commonjs: "Chartjs",
+        amd: "Chartjs"
+      }
+    }
+  ],
   module: {
     rules: [
       {

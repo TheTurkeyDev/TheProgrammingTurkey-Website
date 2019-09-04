@@ -7,7 +7,8 @@ import Notfound from './notfound';
 
 import Info from './pages/info';
 import Projects from './pages/projects/projects';
-import MCModSupport from "./pages/projects/mc-mod-support"
+import MCModSupport from "./pages/projects/mc-mod-support";
+import LDStats from "./pages/projects/ludum-dare/ld-stats";
 
 const routing = (
     <Router>
@@ -16,7 +17,8 @@ const routing = (
             <Route exact path="/projects" component={Projects} />
             {/*<Route path="/projects/:name" component={Projects} />*/}
             <Route exact path="/mod-support" component={MCModSupport} />
-            
+            <Route exact path="/ld-stats" component={LDStats} />
+
             <Route exact path="/info" component={Info} />
             <Route component={Notfound} />
         </Switch>
