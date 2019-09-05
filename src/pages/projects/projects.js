@@ -130,28 +130,28 @@ class Projects extends Component {
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
                                 <Link to="head-crumbs">
-                                    <img src="/images/chance_cubes.png" alt="hc_logo" width="224px" height="126px" />
-                                    <div><span>Head Crumbs</span></div>
+                                    <img src="/images/wither_crumbs.png" alt="hc_logo" width="224px" height="126px" />
+                                    <div><span>Headcrumbs</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
                                 <Link to="wither-crumbs">
                                     <img src="/images/wither_crumbs.png" alt="wc_logo" width="224px" height="126px" />
-                                    <div><span>Wither Crumbs</span></div>
+                                    <div><span>Withercrumbs</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
                                 <Link to="block-of-charcoal">
-                                    <img src="/images/chance_cubes.png" alt="boc_logo" width="224px" height="126px" />
+                                    <img src="/images/charcoal_block.png" alt="boc_logo" width="224px" height="126px" />
                                     <div><span>A Block of Charcoal</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
                                 <Link to="block-of-flint">
-                                    <img src="/images/chance_cubes.png" alt="bof_logo" width="224px" height="126px" />
+                                    <img src="/images/flint_block.png" alt="bof_logo" width="224px" height="126px" />
                                     <div><span>A Block of Flint</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
@@ -172,14 +172,14 @@ class Projects extends Component {
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
                                 <Link to="colored-name-tags">
-                                    <img src="/images/chance_cubes.png" alt="cn_logo" width="224px" height="126px" />
+                                    <img src="/images/colored_name_tags.png" alt="cn_logo" width="224px" height="126px" />
                                     <div><span>Colored Name Tags</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
                                 <Link to="block-highlighter">
-                                    <img src="/images/chance_cubes.png" alt="bh_logo" width="224px" height="126px" />
+                                    <img src="/images/block_highlighter.png" alt="bh_logo" width="224px" height="126px" />
                                     <div><span>Block Highlighter</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
@@ -193,7 +193,7 @@ class Projects extends Component {
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
                                 <Link to="gobble-core">
-                                    <img src="/images/chance_cubes.png" alt="gc_logo" width="224px" height="126px" />
+                                    <img src="/images/gobble_core.png" alt="gc_logo" width="224px" height="126px" />
                                     <div><span>Gobble Core</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
@@ -207,7 +207,7 @@ class Projects extends Component {
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
                                 <Link to="turkey-util">
-                                    <img src="/images/chance_cubes.png" alt="tu_logo" width="224px" height="126px" />
+                                    <img src="/images/turkey_util.png" alt="tu_logo" width="224px" height="126px" />
                                     <div><span>TurkeyUtil</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
@@ -245,21 +245,25 @@ class Projects extends Component {
                         </div>
                         <div className="row">
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <img src="/images/volatillia_api_java.png" alt="vapi_java_logo" width="224px" height="126px" />
                                 <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-Java')}>
                                     VolatiliaAPI - Java
 			                    </a>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <img src="/images/volatillia_api_java_opengl.png" alt="vapi_java_ogl_logo" width="224px" height="126px" />
                                 <Link to="/projects/volatiliaapi-ogl">
                                     VolatiliaAPI - Java OpenGL API
 			                    </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <img src="/images/volatillia_api_web_access.png" alt="vapi_web_access_logo" width="224px" height="126px" />
                                 <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-WebAccess')}>
                                     VolatiliaAPI - WebAccess
 			                    </a>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-2">
+                                <img src="/images/volatillia_api_java_swing.png" alt="vapi_java_swing_logo" width="224px" height="126px" />
                                 <Link to="gameapi">
                                     VolatiliaAPI - Java Swing API
 			                    </Link>
