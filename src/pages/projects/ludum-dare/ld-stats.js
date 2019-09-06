@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-
 import Chart from "chart.js";
 
-import PageWrapper from "../../base/page-wrapper"
-
+import PageWrapper from "../../base/page-wrapper";
 
 /*Overall, Theme, Innovation, Fun, Graphics, Audio*/
 const ld27 = { display: "LD27 (1437 games)", totalGames: 1437, overall: 1142, theme: 603, innovation: 931, fun: 1141, graphics: 1040, audio: 0 };
@@ -21,6 +19,8 @@ const comps = [ld27, ld28, ld29, ld30, ld31, ld32, ld34, ld35, ld37, ld39];
 class LDStats extends Component {
     constructor(props) {
         super(props);
+
+        this.state = { stats: {}, percentile: {} }
 
         this.statsRef = React.createRef();
         this.percentileRef = React.createRef();
@@ -139,10 +139,19 @@ class LDStats extends Component {
                 }
             ]
         };
-        var ctx = this.statsRef.current.getContext("2d");
-        new Chart(ctx, { type: 'line', data: stats });
-        ctx = this.percentileRef.current.getContext("2d");
-        new Chart(ctx, { type: 'line', data: percentile });
+
+        const myChartStats = this.statsRef.current.getContext("2d");
+        new Chart(myChartStats, {
+            type: "line",
+            data: stats
+        });
+
+        const myChartPercent = this.percentileRef.current.getContext("2d");
+        new Chart(myChartPercent, {
+            type: "line",
+            data: stats
+        });
+        this.setState({ stats: stats, percentile: percentile });
     }
 
     render() {
