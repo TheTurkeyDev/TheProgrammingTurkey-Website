@@ -159,14 +159,14 @@ class LDStats extends Component {
             <PageWrapper>
                 <div id="Charts">
                     <header>
-                        <hgroup>
+                        <hgroup className="text-center">
                             <h1>My Ludum Dare Stats</h1>
                         </hgroup>
                     </header>
-                    <div id="LD_Stats">
-                        <center><p></p><h2> Category Placement Ranks (Lower is Better) </h2><p></p></center>
+                    <div id="LD_Stats" className="text-center">
+                        <h2> Category Placement Ranks (Lower is Better) </h2>
                         <canvas ref={this.statsRef} width="1057" height="424" style={{ display: "block", width: "1057px", height: "424px" }}></canvas>
-                        <center><p></p><h2> Percentile Placement Ranks (Higher is Better) </h2><p></p></center>
+                        <h2 className="mt-5"> Percentile Placement Ranks (Higher is Better) </h2>
                         <canvas ref={this.percentileRef} width="1057" height="424" style={{ display: "block", width: "1057px", height: "424px" }}></canvas>
                     </div>
                 </div>
