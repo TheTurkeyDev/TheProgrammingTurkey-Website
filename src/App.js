@@ -35,11 +35,11 @@ class App extends Component {
                     <div className="card m-5 shadow">
                         <div className="card-body">
                             <h5 className="card-title">Weebsite To-Do List</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Dark Theme</li>
-                                <li class="list-group-item">Game/ Project Pages</li>
-                                <li class="list-group-item">Twitch View</li>
-                                <li class="list-group-item">Test Section</li>
+                            <ul className="list-group list-group-flush">
+                                <li className="list-group-item">Dark Theme</li>
+                                <li className="list-group-item">Game/ Project Pages</li>
+                                <li className="list-group-item">Twitch View</li>
+                                <li className="list-group-item">Test Section</li>
                             </ul>
                         </div>
                     </div>

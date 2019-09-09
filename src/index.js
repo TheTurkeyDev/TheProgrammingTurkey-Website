@@ -9,6 +9,7 @@ import Info from './pages/info';
 import Projects from './pages/projects/projects';
 import MCModSupport from "./pages/projects/mc-mod-support";
 import LDStats from "./pages/projects/ludum-dare/ld-stats";
+import ChanceCubesStats from "./pages/projects/mods/chance-cubes-stats";
 
 const routing = (
     <Router>
@@ -18,6 +19,7 @@ const routing = (
             {/*<Route path="/projects/:name" component={Projects} />*/}
             <Route exact path="/mod-support" component={MCModSupport} />
             <Route exact path="/ld-stats" component={LDStats} />
+            <Route exact path="/chance-cubes-stats" component={ChanceCubesStats} />
 
             <Route exact path="/info" component={Info} />
             <Route component={Notfound} />
