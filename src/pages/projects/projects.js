@@ -113,6 +113,14 @@ class Projects extends Component {
                 }
 
                 {
+                    type === "mods" &&
+                    <div className="text-center mt-3">
+                        <h4 style={{ textDecoration: "underline" }}><Link to="/mod-support">View My Current Mod Version Support Chart</Link></h4>
+                    </div>
+                }
+
+                {
+
                     (type === "all" || type === "mods") &&
                     <div className="text-center container-fluid mt-3">
                         <div className="row">
@@ -268,7 +276,7 @@ class Projects extends Component {
 			                    </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                            <a onClick={() => window.open('https://github.com/Turkey2349/NHLStatsAPI-Java')}>
+                                <a onClick={() => window.open('https://github.com/Turkey2349/NHLStatsAPI-Java')}>
                                     <img src="/images/nhl_logo.png" alt="vc_logo" width="224px" height="126px" />
                                     <div><span>NHL Stats API</span></div>
                                 </a>

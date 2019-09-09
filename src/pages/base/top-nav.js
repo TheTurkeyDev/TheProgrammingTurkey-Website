@@ -29,9 +29,6 @@ class TopNav extends Component {
                             <Link className="nav-link" to="/info">Info/Contact</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/testpage">Test</Link>
-                        </li>
-                        <li className="nav-item">
                             <a className="nav-link" href="" onClick={() => window.open('http://maven.theprogrammingturkey.com/')}>Maven</a>
                         </li>
                         <li className="nav-item dropdown">
