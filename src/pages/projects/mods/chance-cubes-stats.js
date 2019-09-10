@@ -16,7 +16,13 @@ class ChanceCubesStats extends Component {
     constructor(props) {
         super(props);
 
+        let now = new Date();
+        let twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(now.getMonth() - 2);
+
         this.state = {
+            startDate: twoMonthsAgo,
+            endDate: now,
             totalRuns: 0,
             totalDays: 1,
             averageRunsMonth: 0,
@@ -36,10 +42,6 @@ class ChanceCubesStats extends Component {
         this.mcVersionPieGraphRef = React.createRef();
         this.mcVersionLineGraphRef = React.createRef();
         this.runTotalsGraphRef = React.createRef();
-        this.totalStatRef = React.createRef();
-        this.averageStatRef = React.createRef();
-        this.mostStatRef = React.createRef();
-        this.dailyRunsStatRef = React.createRef();
     }
 
     getColorForKey(key) {
@@ -59,7 +61,6 @@ class ChanceCubesStats extends Component {
         fetch(proxyUrl + targetUrl).then(response =>
             response.json()
         ).then((json) => {
-            console.log(json);
             this.updateGraphs(json);
             this.updateMoreStats(json);
         });
@@ -362,7 +363,6 @@ class ChanceCubesStats extends Component {
     }
 
     updateMoreStats(json) {
-        console.log("here");
         this.setState({
             totalRuns: json["Total Runs"],
             totalDays: json["Total Days"],
@@ -377,22 +377,23 @@ class ChanceCubesStats extends Component {
             saturdayAverage: parseInt(json["DailyTotals"][1] / json["DailyTotals"][8]),
             sundayAverage: parseInt(json["DailyTotals"][2] / json["DailyTotals"][9])
         });
-
-        var dayText = "";
-
-        dayText += "Monday: " + numberWithCommas(parseInt(json["DailyTotals"][3] / json["DailyTotals"][10])) + "<br>";
-        dayText += "Tuesday: " + numberWithCommas(parseInt(json["DailyTotals"][4] / json["DailyTotals"][11])) + "<br>";
-        dayText += "Wednesday: " + numberWithCommas(parseInt(json["DailyTotals"][5] / json["DailyTotals"][12])) + "<br>";
-        dayText += "Thursaday: " + numberWithCommas(parseInt(json["DailyTotals"][6] / json["DailyTotals"][13])) + "<br>";
-        dayText += "Friday: " + numberWithCommas(parseInt(json["DailyTotals"][0] / json["DailyTotals"][7])) + "<br>";
-        dayText += "Saturday: " + numberWithCommas(parseInt(json["DailyTotals"][1] / json["DailyTotals"][8])) + "<br>";
-        dayText += "Sunday: " + numberWithCommas(parseInt(json["DailyTotals"][2] / json["DailyTotals"][9]));
-
-        document.getElementById("Daily_Runs").innerHTML = dayText;
     }
 
     numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    formatDate(date) {
+        let month = '' + (date.getMonth() + 1);
+        let day = '' + date.getDate();
+        let year = date.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
     }
 
 
@@ -435,9 +436,9 @@ class ChanceCubesStats extends Component {
                         <hgroup className="text-center">
                             <h1>Chance Cubes Version Stats</h1>
                             Start:
-                                <input type="date" id="date_start" min="2017-05-05" max="2017-05-06" value="2017-05-05" onChange={() => updateStatData()} />
+                                <input type="date" id="date_start" min="2017-05-05" max="2017-05-06" value={this.formatDate(this.state.startDate)} onChange={() => updateStatData()} />
                             End:
-                                <input type="date" id="date_end" min="2017-05-05" max="2017-05-06" value="2017-05-05" onChange={() => updateStatData()} />
+                                <input type="date" id="date_end" min="2017-05-05" max="2017-05-06" value={this.formatDate(this.state.endDate)} onChange={() => updateStatData()} />
                         </hgroup>
                     </header>
                     <div id="LD_Stats" className="text-center">
@@ -452,24 +453,44 @@ class ChanceCubesStats extends Component {
                         <h2> Run Totals </h2>
                         <canvas ref={this.runTotalsGraphRef} width="995" height="400"></canvas>
                         <div>
-                            <div ref={this.totalStatRef}>
-                                <p>{`Total Mod Runs: ${this.numberWithCommas(this.state.totalRuns)} (${this.numberWithCommas(this.state.totalDays)} days)`}</p>
+                            <div>
+                                <p>
+                                    {`Total Mod Runs: ${this.numberWithCommas(this.state.totalRuns)} (${this.numberWithCommas(this.state.totalDays)} days)`}
+                                </p>
                             </div>
-                            <div ref={this.averageStatRef}>
-                                <p>{`Average Daily Mod Runs: ${this.numberWithCommas(this.state.averageRunsMonth)} (Last 30 days)`}</p>
+                            <div>
+                                <p>
+                                    {`Average Daily Mod Runs: ${this.numberWithCommas(this.state.averageRunsMonth)} (Last 30 days)`}
+                                </p>
                             </div>
-                            <div ref={this.mostStatRef}>
-                                <p>{`Most Single Day Runs: ${this.numberWithCommas(this.state.mostRuns)} (${this.state.mostRunsDay})`}</p>
+                            <div>
+                                <p>
+                                    {`Most Single Day Runs: ${this.numberWithCommas(this.state.mostRuns)} (${this.state.mostRunsDay})`}
+                                </p>
                             </div>
                             <p>--- Average runs per day ---</p>
-                            <div ref={this.dailyRunsStatRef}>
-                                <p>Monday: {this.state.mondayAverage}</p>
-                                <p>Tuesday: {this.state.tuesdayAverage}</p>
-                                <p>Wednesday: {this.state.wednesdayAverage}</p>
-                                <p>Thursaday: {this.state.thursdayAverage}</p>
-                                <p>Friday: {this.state.fridayAverage}</p>
-                                <p>Saturday: {this.state.saturdayAverage}</p>
-                                <p>Sunday: {this.state.saturdayAverage}</p>
+                            <div>
+                                <p>
+                                    Monday: {this.numberWithCommas(this.state.mondayAverage)}
+                                </p>
+                                <p>
+                                    Tuesday: {this.numberWithCommas(this.state.tuesdayAverage)}
+                                </p>
+                                <p>
+                                    Wednesday: {this.numberWithCommas(this.state.wednesdayAverage)}
+                                </p>
+                                <p>
+                                    Thursaday: {this.numberWithCommas(this.state.thursdayAverage)}
+                                </p>
+                                <p>
+                                    Friday: {this.numberWithCommas(this.state.fridayAverage)}
+                                </p>
+                                <p>
+                                    Saturday: {this.numberWithCommas(this.state.saturdayAverage)}
+                                </p>
+                                <p>
+                                    Sunday: {this.numberWithCommas(this.state.saturdayAverage)}
+                                </p>
                             </div>
                         </div>
                     </div>
