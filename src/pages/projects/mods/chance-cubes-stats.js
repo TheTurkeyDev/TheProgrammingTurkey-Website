@@ -16,7 +16,20 @@ class ChanceCubesStats extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { stats: {}, percentile: {} }
+        this.state = {
+            totalRuns: 0,
+            totalDays: 1,
+            averageRunsMonth: 0,
+            mostRuns: 0,
+            mostRunsDay: "1/1/0000",
+            mondayAverage: 0,
+            tuesdayAverage: 0,
+            wednesdayAverage: 0,
+            thursdayAverage: 0,
+            fridayAverage: 0,
+            saturdayAverage: 0,
+            sundayAverage: 0
+        }
 
         this.versionLineGraphRef = React.createRef();
         this.versionPieGraphRef = React.createRef();
@@ -41,11 +54,14 @@ class ChanceCubesStats extends Component {
         var start = document.getElementById("date_start").value;
         var end = document.getElementById("date_end").value
 
-        fetch(`https://theprogrammingturkey.com/ChanceCubesStatsGet.php?Start=${start}&End=${end}`).then((response) => {
-            return response.json();
-        }).then((json) => {
-            updateGraphs(json);
-            updateMoreStats(json);
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+            targetUrl = `https://theprogrammingturkey.com/ChanceCubesStatsGet.php?Start=${start}&End=${end}`
+        fetch(proxyUrl + targetUrl).then(response =>
+            response.json()
+        ).then((json) => {
+            console.log(json);
+            this.updateGraphs(json);
+            this.updateMoreStats(json);
         });
     }
 
@@ -63,21 +79,21 @@ class ChanceCubesStats extends Component {
             datasets[index] = {
                 label: key,
                 fill: false,
-                backgroundColor: getColorForKey(key),
-                borderColor: getColorForKey(key),
+                backgroundColor: this.getColorForKey(key),
+                borderColor: this.getColorForKey(key),
                 data: json["Versions"][key]
             }
 
             if (json["Versions"][key][json["Versions"][key].length - 1] != 0) {
                 labels[index2] = key;
-                labelColors[index2] = getColorForKey(key);
+                labelColors[index2] = this.getColorForKey(key);
                 pieData[index2] = json["Versions"][key][json["Versions"][key].length - 1];
                 index2++;
             }
             index++;
         }
 
-        var ctx = document.getElementById("Versions_Line_Graph").getContext("2d");
+        var ctx = this.versionLineGraphRef.current.getContext("2d");
         if (charts[0] != null) {
             charts[0].destroy();
         }
@@ -106,7 +122,7 @@ class ChanceCubesStats extends Component {
         });
 
         // Versions Pie Graph
-        var ctx = document.getElementById("Versions_Pie_Graph").getContext("2d");
+        var ctx = this.versionPieGraphRef.current.getContext("2d");
         if (charts[1] != null) {
             charts[1].destroy();
         }
@@ -148,7 +164,7 @@ class ChanceCubesStats extends Component {
 
         // MC Versions Line Graph
         datasets = [];
-        percentDataset = [];
+        let percentDataset = [];
         labels = [];
         pieData = [];
         labelColors = [];
@@ -158,17 +174,17 @@ class ChanceCubesStats extends Component {
             datasets[index] = {
                 label: key,
                 fill: false,
-                backgroundColor: getColorForKey(key),
-                borderColor: getColorForKey(key),
+                backgroundColor: this.getColorForKey(key),
+                borderColor: this.getColorForKey(key),
                 data: json["MC Versions"][key]
             }
 
             if (!(key === "All")) {
                 labels[index] = key;
-                labelColors[index] = getColorForKey(key);
+                labelColors[index] = this.getColorForKey(key);
                 pieData[index] = json["MC Versions"][key][json["MC Versions"][key].length - 1];
 
-                keyData = [];
+                let keyData = [];
                 index2 = 0;
                 for (var key2 in json["MC Versions"][key]) {
                     keyData[index2] = parseInt(json["MC Versions"][key][key2]) / parseInt(json["MC Versions"]["All"][index2]);
@@ -178,8 +194,8 @@ class ChanceCubesStats extends Component {
                 percentDataset[index] = {
                     label: key,
                     fill: false,
-                    backgroundColor: getColorForKey(key),
-                    borderColor: getColorForKey(key),
+                    backgroundColor: this.getColorForKey(key),
+                    borderColor: this.getColorForKey(key),
                     data: keyData
                 }
 
@@ -187,7 +203,7 @@ class ChanceCubesStats extends Component {
             }
         }
 
-        var ctx = document.getElementById("MC_Versions_Line_Graph").getContext("2d");
+        var ctx = this.mcVersionLineGraphRef.current.getContext("2d");
         if (charts[2] != null) {
             charts[2].destroy();
         }
@@ -215,7 +231,7 @@ class ChanceCubesStats extends Component {
             }
         });
 
-        var ctx = document.getElementById("MC_Versions_Percent_Line_Graph").getContext("2d");
+        var ctx = this.mcVersionLineGraphRef.current.getContext("2d");
         if (charts[5] != null) {
             charts[5].destroy();
         }
@@ -244,7 +260,7 @@ class ChanceCubesStats extends Component {
         });
 
         // MC Versions Pie Graph
-        var ctx = document.getElementById("MC_Versions_Pie_Graph").getContext("2d");
+        var ctx = this.mcVersionPieGraphRef.current.getContext("2d");
         if (charts[3] != null) {
             charts[3].destroy();
         }
@@ -307,7 +323,7 @@ class ChanceCubesStats extends Component {
             data: json["MonthlyTotals"]
         }
 
-        var ctx = document.getElementById("Run_Totals").getContext("2d");
+        var ctx = this.runTotalsGraphRef.current.getContext("2d");
         if (charts[4] != null) {
             charts[4].destroy();
         }
@@ -346,9 +362,21 @@ class ChanceCubesStats extends Component {
     }
 
     updateMoreStats(json) {
-        document.getElementById("Total").innerHTML = "Total Mod Runs: " + numberWithCommas(json["Total Runs"]) + " (" + numberWithCommas(json["Total Days"] + " days)");
-        document.getElementById("Average").innerHTML = "Average Daily Mod Runs: " + numberWithCommas(parseInt(json["Total Runs Last Month"] / 30) + " (Last 30 days)");
-        document.getElementById("Most").innerHTML = "Most Single Day Runs: " + numberWithCommas(json["Most"]) + " (" + json["Most Date"] + ")";
+        console.log("here");
+        this.setState({
+            totalRuns: json["Total Runs"],
+            totalDays: json["Total Days"],
+            averageRunsMonth: parseInt(json["Total Runs Last Month"] / 30),
+            mostRuns: json["Most"],
+            mostRunsDay: json["Most Date"],
+            mondayAverage: parseInt(json["DailyTotals"][3] / json["DailyTotals"][10]),
+            tuesdayAverage: parseInt(json["DailyTotals"][4] / json["DailyTotals"][11]),
+            wednesdayAverage: parseInt(json["DailyTotals"][5] / json["DailyTotals"][12]),
+            thursdayAverage: parseInt(json["DailyTotals"][6] / json["DailyTotals"][13]),
+            fridayAverage: parseInt(json["DailyTotals"][0] / json["DailyTotals"][7]),
+            saturdayAverage: parseInt(json["DailyTotals"][1] / json["DailyTotals"][8]),
+            sundayAverage: parseInt(json["DailyTotals"][2] / json["DailyTotals"][9])
+        });
 
         var dayText = "";
 
@@ -389,14 +417,14 @@ class ChanceCubesStats extends Component {
             mm = '0' + mm
         }
 
-        startDay = yearPrior + '-' + monthPrior + '-' + dd;
+        let startDay = yearPrior + '-' + monthPrior + '-' + dd;
         today = yyyy + '-' + mm + '-' + dd;
         document.getElementById("date_start").setAttribute("max", today);
         document.getElementById("date_end").setAttribute("max", today);
         document.getElementById("date_start").setAttribute("value", startDay);
         document.getElementById("date_end").setAttribute("value", today);
 
-        updateStatData();
+        this.updateStatData();
     }
 
     render() {
@@ -413,22 +441,36 @@ class ChanceCubesStats extends Component {
                         </hgroup>
                     </header>
                     <div id="LD_Stats" className="text-center">
-                        <p><h2> Version usage </h2></p>
+                        <h2> Version usage </h2>
                         <canvas ref={this.versionLineGraphRef} width="995" height="400"></canvas>
-                        <p><h2> Version usage % </h2></p>
+                        <h2> Version usage % </h2>
                         <canvas ref={this.versionPieGraphRef} width="995" height="400"></canvas>
-                        <p><h2> MC Version usage % </h2></p>
+                        <h2> MC Version usage % </h2>
                         <canvas ref={this.mcVersionPieGraphRef} width="995" height="400"></canvas>
-                        <p><h2> MC Version usage % over Time</h2></p>
+                        <h2> MC Version usage % over Time</h2>
                         <canvas ref={this.mcVersionLineGraphRef} width="995" height="400"></canvas>
-                        <p><h2> Run Totals </h2></p>
+                        <h2> Run Totals </h2>
                         <canvas ref={this.runTotalsGraphRef} width="995" height="400"></canvas>
                         <div>
-                            <div ref={this.totalStatRef}></div>
-                            <div ref={this.averageStatRef}></div>
-                            <div ref={this.mostStatRef}></div>
+                            <div ref={this.totalStatRef}>
+                                <p>{`Total Mod Runs: ${this.numberWithCommas(this.state.totalRuns)} (${this.numberWithCommas(this.state.totalDays)} days)`}</p>
+                            </div>
+                            <div ref={this.averageStatRef}>
+                                <p>{`Average Daily Mod Runs: ${this.numberWithCommas(this.state.averageRunsMonth)} (Last 30 days)`}</p>
+                            </div>
+                            <div ref={this.mostStatRef}>
+                                <p>{`Most Single Day Runs: ${this.numberWithCommas(this.state.mostRuns)} (${this.state.mostRunsDay})`}</p>
+                            </div>
                             <p>--- Average runs per day ---</p>
-                            <div ref={this.dailyRunsStatRef}></div>
+                            <div ref={this.dailyRunsStatRef}>
+                                <p>Monday: {this.state.mondayAverage}</p>
+                                <p>Tuesday: {this.state.tuesdayAverage}</p>
+                                <p>Wednesday: {this.state.wednesdayAverage}</p>
+                                <p>Thursaday: {this.state.thursdayAverage}</p>
+                                <p>Friday: {this.state.fridayAverage}</p>
+                                <p>Saturday: {this.state.saturdayAverage}</p>
+                                <p>Sunday: {this.state.saturdayAverage}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
