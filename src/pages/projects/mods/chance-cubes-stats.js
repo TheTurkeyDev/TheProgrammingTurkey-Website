@@ -39,6 +39,7 @@ class ChanceCubesStats extends Component {
 
         this.versionLineGraphRef = React.createRef();
         this.versionPieGraphRef = React.createRef();
+        this.mcVersionUsageGraphRef = React.createRef();
         this.mcVersionPieGraphRef = React.createRef();
         this.mcVersionLineGraphRef = React.createRef();
         this.runTotalsGraphRef = React.createRef();
@@ -56,9 +57,12 @@ class ChanceCubesStats extends Component {
         var start = document.getElementById("date_start").value;
         var end = document.getElementById("date_end").value
 
-        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-            targetUrl = `https://theprogrammingturkey.com/ChanceCubesStatsGet.php?Start=${start}&End=${end}`
-        fetch(proxyUrl + targetUrl).then(response =>
+        let url = `https://api.theprogrammingturkey.com/chance_cubes/ChanceCubesStats.php?Start=${start}&End=${end}`;
+
+        if (process.env.NODE_ENV == "development")
+            url = 'https://cors-anywhere.herokuapp.com/' + url;
+
+        fetch(url).then(response =>
             response.json()
         ).then((json) => {
             this.updateGraphs(json);
@@ -204,7 +208,7 @@ class ChanceCubesStats extends Component {
             }
         }
 
-        var ctx = this.mcVersionLineGraphRef.current.getContext("2d");
+        var ctx = this.mcVersionUsageGraphRef.current.getContext("2d");
         if (charts[2] != null) {
             charts[2].destroy();
         }
@@ -442,17 +446,19 @@ class ChanceCubesStats extends Component {
                         </hgroup>
                     </header>
                     <div id="LD_Stats" className="text-center">
-                        <h2> Version usage </h2>
+                        <h2 className="mt-5"> Version usage </h2>
                         <canvas ref={this.versionLineGraphRef} width="995" height="400"></canvas>
-                        <h2> Version usage % </h2>
+                        <h2 className="mt-5"> Version usage % </h2>
                         <canvas ref={this.versionPieGraphRef} width="995" height="400"></canvas>
-                        <h2> MC Version usage % </h2>
+                        <h2 className="mt-5"> MC Version usage</h2>
+                        <canvas ref={this.mcVersionUsageGraphRef} width="995" height="400"></canvas>
+                        <h2 className="mt-5"> MC Version usage % </h2>
                         <canvas ref={this.mcVersionPieGraphRef} width="995" height="400"></canvas>
-                        <h2> MC Version usage % over Time</h2>
+                        <h2 className="mt-5"> MC Version usage % over Time</h2>
                         <canvas ref={this.mcVersionLineGraphRef} width="995" height="400"></canvas>
-                        <h2> Run Totals </h2>
+                        <h2 className="mt-5"> Run Totals </h2>
                         <canvas ref={this.runTotalsGraphRef} width="995" height="400"></canvas>
-                        <div>
+                        <div className="mt-3">
                             <div>
                                 <p>
                                     {`Total Mod Runs: ${this.numberWithCommas(this.state.totalRuns)} (${this.numberWithCommas(this.state.totalDays)} days)`}
