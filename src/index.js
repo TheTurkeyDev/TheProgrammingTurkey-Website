@@ -6,9 +6,23 @@ import App from './App';
 import Notfound from './notfound';
 
 import Info from './pages/info';
+
 import Projects from './pages/projects/projects';
 import MCModSupport from "./pages/projects/mc-mod-support";
+
 import LDStats from "./pages/projects/ludum-dare/ld-stats";
+import LD39 from "./pages/projects/ludum-dare/ld-39";
+import LD37 from "./pages/projects/ludum-dare/ld-37";
+import LD35 from "./pages/projects/ludum-dare/ld-35";
+import LD34 from "./pages/projects/ludum-dare/ld-34";
+import LD33 from "./pages/projects/ludum-dare/ld-33";
+import LD32 from "./pages/projects/ludum-dare/ld-32";
+import LD31 from "./pages/projects/ludum-dare/ld-31";
+import LD30 from "./pages/projects/ludum-dare/ld-30";
+import LD29 from "./pages/projects/ludum-dare/ld-29";
+import LD28 from "./pages/projects/ludum-dare/ld-28";
+import LD27 from "./pages/projects/ludum-dare/ld-27";
+
 import ChanceCubesStats from "./pages/projects/mods/chance-cubes-stats";
 
 const routing = (
@@ -16,7 +30,17 @@ const routing = (
         <Switch>
             <Route exact path="/" component={App} />
             <Route exact path="/projects" component={Projects} />
-            {/*<Route path="/projects/:name" component={Projects} />*/}
+            <Route exact path="/projects/ld39" component={LD39} />
+            <Route exact path="/projects/ld37" component={LD37} />
+            <Route exact path="/projects/ld35" component={LD35} />
+            <Route exact path="/projects/ld34" component={LD34} />
+            <Route exact path="/projects/ld33" component={LD33} />
+            <Route exact path="/projects/ld32" component={LD32} />
+            <Route exact path="/projects/ld31" component={LD31} />
+            <Route exact path="/projects/ld30" component={LD30} />
+            <Route exact path="/projects/ld29" component={LD29} />
+            <Route exact path="/projects/ld28" component={LD28} />
+            <Route exact path="/projects/ld27" component={LD27} />
             <Route exact path="/mod-support" component={MCModSupport} />
             <Route exact path="/ld-stats" component={LDStats} />
             <Route exact path="/chance-cubes-stats" component={ChanceCubesStats} />
