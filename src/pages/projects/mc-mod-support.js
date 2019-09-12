@@ -67,11 +67,46 @@ class MCModSupport extends Component {
                                 }
                             </tbody>
                         </table>
-                        <div><span className="mt-2" style={{ background: "#7CFC00", padding: "0px 15px 0px 14px" }}>S-A</span><span> = Supported with asctive development</span></div>
-                        <div><span className="mt-2" style={{ background: "#006400", padding: "0px 9px 0px 8px" }}>S-NA</span><span> = Supported, but no active development</span></div>
-                        <div><span className="mt-2" style={{ background: "#FFFF00", padding: "0px 21px 0px 20px" }}>IP</span><span> = Port currently being developed for this version</span></div>
-                        <div><span className="mt-2" style={{ background: "#00BFFF", padding: "0px 5px 0px 5px" }}>NS-PS</span><span> = Not supported, but a port is planned for this version</span></div>
-                        <div><span className="mt-2" style={{ background: "#8B0000", padding: "0px 3px 0px 3px" }}>NS-NP</span><span> = Not supported and this version is not planned to recieve a port</span></div>
+                        <div>
+                            <span className="mt-2" style={{ background: "#7CFC00", padding: "0px 15px 0px 14px" }}>
+                                S-A
+                            </span>
+                            <span>
+                                = Supported with active development
+                            </span>
+                        </div>
+                        <div>
+                            <span className="mt-2" style={{ background: "#006400", padding: "0px 9px 0px 8px" }}>
+                                S-NA
+                            </span>
+                            <span>
+                                = Supported, but no active development
+                            </span>
+                        </div>
+                        <div>
+                            <span className="mt-2" style={{ background: "#FFFF00", padding: "0px 21px 0px 20px" }}>
+                                IP
+                            </span>
+                            <span>
+                                = Port currently being developed for this version
+                            </span>
+                        </div>
+                        <div>
+                            <span className="mt-2" style={{ background: "#00BFFF", padding: "0px 5px 0px 5px" }}>
+                                NS-PS
+                            </span>
+                            <span>
+                                = Not supported, but a port is planned for this version
+                            </span>
+                        </div>
+                        <div>
+                            <span className="mt-2" style={{ background: "#8B0000", padding: "0px 3px 0px 3px" }}>
+                                NS-NP
+                            </span>
+                            <span>
+                                = Not supported and this version is not planned to recieve a port
+                            </span>
+                        </div>
                     </div>
                 </div>
             </PageWrapper>
