@@ -32,67 +32,67 @@ class Projects extends Component {
                         </div>
                         <div className="row">
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a href="LD39.php">
+                                <Link to="/projects/ld39">
                                     <img src="/images/ld39.png" alt="39_Logo" width="224px" height="126px" />
                                     <div><span>Power Synergy</span></div>
                                     <div><span>LudumDare 39</span></div>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a href="LD37.php">
+                                <Link to="/projects/ld37">
                                     <img src="/images/ld37.png" alt="37_Logo" width="224px" height="126px" />
                                     <div><span>Hedge Maze Overlord</span></div>
                                     <div><span>LudumDare 37</span></div>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a href="LD35.php">
+                                <Link to="/projects/ld35">
                                     <img src="/images/ld35.png" alt="35_Logo" width="224px" height="126px" />
                                     <div><span>Geo-Shifter</span></div>
                                     <div><span>LudumDare 35</span></div>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a href="LD34.php">
+                                <Link to="/projects/ld34">
                                     <img src="/images/ld34.png" alt="34_Logo" width="224px" height="126px" />
                                     <div><span>Turkeyconn Simulator 2016</span></div>
                                     <div><span>LudumDare 34</span></div>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a href="LD33.php">
+                                <Link to="/projects/ld33">
                                     <img src="/images/ld33.png" alt="33_Logo" width="224px" height="126px" />
                                     <div><span>God-Kill-A</span></div>
                                     <div><span>LudumDare 33</span></div>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a href="LD32.php">
+                                <Link to="/projects/ld32">
                                     <img src="/images/ld32.png" alt="32_Logo" width="224px" height="126px" />
                                     <div><span>Unconventional Dungeon</span></div>
                                     <div><span>LudumDare 32</span></div>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a href="LD31.php">
+                                <Link to="/projects/ld31">
                                     <img src="/images/ld31.png" alt="31_Logo" width="224px" height="126px" />
                                     <div><span>Game Evolution</span></div>
                                     <div><span>LudumDare 31</span></div>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a href="LD30.php">
+                                <Link to="/projects/ld30">
                                     <img src="/images/ld30.png" alt="30_Logo" width="224px" height="126px" />
                                     <div><span>World Swap</span></div>
                                     <div><span>LudumDare 30</span></div>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a href="LD29.php">
+                                <Link to="/projects/ld29">
                                     <img src="/images/ld29.png" alt="29_Logo" width="224px" height="126px" />
                                     <div><span>Maze Sweeper</span></div>
                                     <div><span>LudumDare 29</span></div>
-                                </a>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
                                 <Link to="/projects/ld28">

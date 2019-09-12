@@ -57,12 +57,7 @@ class ChanceCubesStats extends Component {
         var start = document.getElementById("date_start").value;
         var end = document.getElementById("date_end").value
 
-        let url = `https://api.theprogrammingturkey.com/chance_cubes/ChanceCubesStats.php?Start=${start}&End=${end}`;
-
-        if (process.env.NODE_ENV == "development")
-            url = 'https://cors-anywhere.herokuapp.com/' + url;
-
-        fetch(url).then(response =>
+        fetch(`https://api.theprogrammingturkey.com/chance_cubes/ChanceCubesStats.php?Start=${start}&End=${end}`).then(response =>
             response.json()
         ).then((json) => {
             this.updateGraphs(json);
