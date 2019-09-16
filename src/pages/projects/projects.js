@@ -130,98 +130,98 @@ class Projects extends Component {
                         </div>
                         <div className="row">
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="chance-cubes-mc">
+                                <Link to="/projects/chance-cubes-mc">
                                     <img src="/images/chance_cubes.png" alt="cc_logo" width="224px" height="126px" />
                                     <div><span>Chance Cubes</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="head-crumbs">
+                                <Link to="/projects/head-crumbs">
                                     <img src="/images/wither_crumbs.png" alt="hc_logo" width="224px" height="126px" />
                                     <div><span>Headcrumbs</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="wither-crumbs">
+                                <Link to="/projects/wither-crumbs">
                                     <img src="/images/wither_crumbs.png" alt="wc_logo" width="224px" height="126px" />
                                     <div><span>Withercrumbs</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="block-of-charcoal">
+                                <Link to="/projects/block-of-charcoal">
                                     <img src="/images/charcoal_block.png" alt="boc_logo" width="224px" height="126px" />
                                     <div><span>A Block of Charcoal</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="block-of-flint">
+                                <Link to="/projects/block-of-flint">
                                     <img src="/images/flint_block.png" alt="bof_logo" width="224px" height="126px" />
                                     <div><span>A Block of Flint</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="chance-cubes-sdv">
+                                <Link to="/projects/comz">
                                     <img src="/images/comz.png" alt="comz_logo" width="224px" height="126px" />
                                     <div><span>Call of minecraft: Zombies</span></div>
                                     <div><span>Minecraft (Plugin/ Bukkit)</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="comz">
+                                <Link to="/projects/chance-cubes-sdv">
                                     <img src="/images/chance_cubes.png" alt="cc_logo" width="224px" height="126px" />
                                     <div><span>Chance Cubes</span></div>
                                     <div><span>Stardew Valley</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="colored-name-tags">
+                                <Link to="/projects/colored-name-tags">
                                     <img src="/images/colored_name_tags.png" alt="cn_logo" width="224px" height="126px" />
                                     <div><span>Colored Name Tags</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="block-highlighter">
+                                <Link to="/projects/block-highlighter">
                                     <img src="/images/block_highlighter.png" alt="bh_logo" width="224px" height="126px" />
                                     <div><span>Block Highlighter</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="progression-tweaks">
+                                <Link to="/projects/progression-tweaks">
                                     <img src="/images/progression_tweaks.png" alt="pt_logo" width="224px" height="126px" />
                                     <div><span>Progression Tweaks</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="gobble-core">
+                                <Link to="/projects/gobble-core">
                                     <img src="/images/gobble_core.png" alt="gc_logo" width="224px" height="126px" />
                                     <div><span>Gobble Core</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="custom-ui">
+                                <Link to="/projects/custom-ui">
                                     <img src="/images/custom_ui.png" alt="cu_logo" width="224px" height="126px" />
                                     <div><span>CustomUI</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="turkey-util">
+                                <Link to="/projects/turkey-util">
                                     <img src="/images/turkey_util.png" alt="tu_logo" width="224px" height="126px" />
                                     <div><span>TurkeyUtil</span></div>
                                     <div><span>Minecraft</span></div>
                                 </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="void-compression">
+                                <Link to="/projects/void-compression">
                                     <img src="/images/void_compression.png" alt="vc_logo" width="224px" height="126px" />
                                     <div><span>Void Compression</span></div>
                                     <div><span>Minecraft</span></div>
@@ -247,36 +247,53 @@ class Projects extends Component {
                         </div>
                         <div className="row">
                             <div className="col">
+                                <h1><u>Applications</u></h1>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                                <Link to="/projects/gg-server">
+                                    <div><span>GG Server</span></div>
+                                </Link>
+                            </div>
+                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                                <Link to="/projects/turkey-bot">
+                                    <div><span>TurkeyBot</span></div>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
                                 <h1><u>API's and Sorts</u></h1>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <img src="/images/volatillia_api_java.png" alt="vapi_java_logo" width="224px" height="126px" />
-                                <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-Java')}>
-                                    VolatiliaAPI - Java
-			                    </a>
+                                <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-Java')} href="">
+                                    <img src="/images/volatillia_api_java.png" alt="vapi_java_logo" width="224px" height="126px" />
+                                    <div><span>VolatiliaAPI - Java</span></div>
+                                </a>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <img src="/images/volatillia_api_java_opengl.png" alt="vapi_java_ogl_logo" width="224px" height="126px" />
                                 <Link to="/projects/volatiliaapi-ogl">
-                                    VolatiliaAPI - Java OpenGL API
-			                    </Link>
+                                    <img src="/images/volatillia_api_java_opengl.png" alt="vapi_java_ogl_logo" width="224px" height="126px" />
+                                    <div><span>VolatiliaAPI - Java OpenGL API</span></div>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <img src="/images/volatillia_api_web_access.png" alt="vapi_web_access_logo" width="224px" height="126px" />
-                                <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-WebAccess')}>
-                                    VolatiliaAPI - WebAccess
-			                    </a>
+                                <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-WebAccess')} href="">
+                                    <img src="/images/volatillia_api_web_access.png" alt="vapi_web_access_logo" width="224px" height="126px" />
+                                    <div><span>VolatiliaAPI - WebAccess</span></div>
+                                </a>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <img src="/images/volatillia_api_java_swing.png" alt="vapi_java_swing_logo" width="224px" height="126px" />
-                                <Link to="gameapi">
-                                    VolatiliaAPI - Java Swing API
-			                    </Link>
+                                <Link to="/projects/gameapi">
+                                    <img src="/images/volatillia_api_java_swing.png" alt="vapi_java_swing_logo" width="224px" height="126px" />
+                                    <div><span>VolatiliaAPI - Java Swing API</span></div>
+                                </Link>
                             </div>
                             <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a onClick={() => window.open('https://github.com/Turkey2349/NHLStatsAPI-Java')}>
+                                <a onClick={() => window.open('https://github.com/Turkey2349/NHLStatsAPI-Java')} href="">
                                     <img src="/images/nhl_logo.png" alt="vc_logo" width="224px" height="126px" />
                                     <div><span>NHL Stats API</span></div>
                                 </a>
