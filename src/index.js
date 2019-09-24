@@ -28,6 +28,7 @@ import GGServer from './pages/projects/other/gg-server';
 import TurkeyBot from './pages/projects/other/turkey-bot';
 
 import ChanceCubesStats from './pages/projects/mods/chance-cubes-stats';
+import ChanceCubesMC from './pages/projects/mods/chance-cubes';
 
 const routing = (
     <Router>
@@ -48,6 +49,7 @@ const routing = (
             <Route exact path='/projects/pizza-man' component={PizzaMan} />
             <Route exact path='/projects/gg-server' component={GGServer} />
             <Route exact path='/projects/turkey-bot' component={TurkeyBot} />
+            <Route exact path='/projects/chance-cubes-mc' component={ChanceCubesMC} />
             <Route exact path='/mod-support' component={MCModSupport} />
             <Route exact path='/ld-stats' component={LDStats} />
             <Route exact path='/chance-cubes-stats' component={ChanceCubesStats} />

@@ -54,9 +54,9 @@ class App extends Component {
                         </div>
 
                         <div className="card-footer">
-                            <Link className="mr-2" to="/LD39">Game</Link>
+                            <Link className="mr-2" to="/projects/LD39">Game</Link>
                             <span>|</span>
-                            <a className="ml-2 mr-2" href="/ldjam.com">Ludum Dare</a>
+                            <a className="ml-2 mr-2" href="https://ldjam.com">Ludum Dare</a>
                             <span>|</span>
                             <Link className="ml-2" to="/ld-stats">Stats</Link>
                         </div>
