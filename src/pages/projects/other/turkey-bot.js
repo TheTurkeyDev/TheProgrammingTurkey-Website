@@ -16,8 +16,16 @@ class TurkeyBot extends Component {
                         <h4> A Twitch chat moderation bot</h4>
                     </div>
                     <p>
-                        TurkeyBot is a chat bot that allows for moderation of Twitch chats as well as provides helpful tools for the caster to use to allow for more efficiency.
+                        TurkeyBot is a chat bot that allows for moderation of Twitch chats as well 
+                        as provides helpful tools for the caster to use to allow for more efficiency.
 					</p>
+                    <p>
+                        ** Disclaimer: This project is fairly old and has not been updated in some time.
+                        Because of this, not everything still works due to Twitch's internal
+                        changes of their endpoints. If you are looking for a smaller indie style bot,
+                        check out my friend 
+                        <a href="" onClick={() => window.open("http://mjrbot.mjrlegends.com")}> MJR's chat moderation bot</a>
+                    </p>
                     <h2>Some of these tools include:</h2>
                     <div>
                         <ul className="list-group">
