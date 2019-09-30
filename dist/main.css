@@ -5,3 +5,32 @@
 .dropdown>.dropdown-toggle:active {
     pointer-events: none;
 }
+
+.bg-primary {
+    background-color: #222831 !important;
+    color: #eeeeee;
+}
+
+.bg-primary a, .bg-secondary a {
+    color: #b55400 !important;
+}
+
+.bg-secondary {
+    background-color: #393e46 !important;
+    color: #eeeeee;
+    border-color: #222831;
+}
+
+.navbar a, .txt-color-primary {
+    color: #eeeeee !important;
+}
+
+.dropdown-menu > a:hover, .dropdown-menu > a:focus {
+    background-image:none !important;
+    background-color:#222831;
+}
+
+/* 
+b55400
+eeeeee
+*/

@@ -13,7 +13,7 @@ class App extends Component {
         return (
             <PageWrapper>
                 <div className="text-center">
-                    <div className="card m-5 shadow">
+                    <div className="card m-5 shadow bg-secondary">
                         <div className="card-body">
                             <h5 className="card-title">Whats Going on Here?</h5>
                             <p className="card-text">
@@ -32,18 +32,18 @@ class App extends Component {
                             </p>
                         </div>
                     </div>
-                    <div className="card m-5 shadow">
+                    <div className="card m-5 shadow bg-secondary">
                         <div className="card-body">
                             <h5 className="card-title">Weebsite To-Do List</h5>
                             <ul className="list-group list-group-flush">
-                                <li className="list-group-item">Dark Theme</li>
-                                <li className="list-group-item">Game/ Project Pages</li>
-                                <li className="list-group-item">Twitch View</li>
-                                <li className="list-group-item">Test Section</li>
+                                <li className="list-group-item bg-secondary">Dark Theme (Working on it)</li>
+                                <li className="list-group-item bg-secondary">Game/ Project Pages</li>
+                                <li className="list-group-item bg-secondary">Twitch View</li>
+                                <li className="list-group-item bg-secondary">Test Section</li>
                             </ul>
                         </div>
                     </div>
-                    <div className="card m-5 shadow">
+                    <div className="card m-5 shadow bg-secondary">
                         <div className="card-body">
                             <h5 className="card-title">Ludum Dare 39!</h5>
                             <h6 className="card-subtitle">That's a wrap!</h6>
