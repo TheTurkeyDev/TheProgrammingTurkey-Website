@@ -38,7 +38,7 @@ class MCModSupport extends Component {
                     <div className="m-2">
                         <table className="table">
                             <thead>
-                                <tr className="text-center">
+                                <tr className="text-center text-light">
                                     <th scope="col">Mod/ Version</th>
                                     <th scope="col">1.7.10</th>
                                     <th scope="col">1.8</th>
@@ -54,7 +54,7 @@ class MCModSupport extends Component {
                                 {Object.keys(projects).map((mod) => {
                                     return (
                                         <tr key={mod}>
-                                            <th scope="row" className="p-1">{mod}</th>
+                                            <th scope="row" className="p-1 text-light">{mod}</th>
                                             {projects[mod].map((supportID, index) => {
                                                 return (
                                                     <td key={`${mod}-${index}`} className="p-1 text-center" style={{ backgroundColor: support[supportID].bg }}>

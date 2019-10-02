@@ -15,10 +15,17 @@
     color: #b55400 !important;
 }
 
+.text-light {
+    color: #eeeeee !important;
+}
+
 .bg-secondary {
     background-color: #393e46 !important;
     color: #eeeeee;
     border-color: #222831;
+}
+.bg-secondary .shadow, .bg-secondary.shadow {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.30)!important
 }
 
 .navbar a, .txt-color-primary {
