@@ -3,6 +3,24 @@ import { Link } from "react-router-dom";
 
 import PageWrapper from "../base/page-wrapper";
 
+const LDGames = [
+    { title: "Power Synergy", subtitle: "LudumDare 39", link: "/projects/ld39", image: "/images/ld39.png" },
+    { title: "Hedge Maze Overlord", subtitle: "LudumDare 37", link: "/projects/ld37", image: "/images/ld37.png" },
+    { title: "Geo-Shifter", subtitle: "LudumDare 35", link: "/projects/ld35", image: "/images/ld35.png" },
+    { title: "Turkeyconn Simulator 2016", subtitle: "LudumDare 34", link: "/projects/ld34", image: "/images/ld34.png" },
+    { title: "God-Kill-A", subtitle: "LudumDare 33", link: "/projects/ld33", image: "/images/ld33.png" },
+    { title: "Unconventional Dungeon", subtitle: "LudumDare 32", link: "/projects/ld32", image: "/images/ld32.png" },
+    { title: "Game Evolution", subtitle: "LudumDare 31", link: "/projects/ld31", image: "/images/ld31.png" },
+    { title: "World Swap", subtitle: "LudumDare 30", link: "/projects/ld30", image: "/images/ld30.png" },
+    { title: "Maze Sweeper", subtitle: "LudumDare 29", link: "/projects/ld29", image: "/images/ld29.png" },
+    { title: "Ninja Theif", subtitle: "LudumDare 28", link: "/projects/ld28", image: "/images/ld28.png" },
+    { title: "Flash Memory", subtitle: "LudumDare 27", link: "/projects/ld27", image: "/images/ld27.png" },
+];
+
+const Mods = [
+    { title: "", subtitle: "", link: "", image: "" },
+];
+
 class Projects extends Component {
     constructor(props) {
         super(props);
@@ -31,83 +49,19 @@ class Projects extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld39">
-                                    <img src="/images/ld39.png" alt="39_Logo" width="224px" height="126px" />
-                                    <div><span>Power Synergy</span></div>
-                                    <div><span>LudumDare 39</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld37">
-                                    <img src="/images/ld37.png" alt="37_Logo" width="224px" height="126px" />
-                                    <div><span>Hedge Maze Overlord</span></div>
-                                    <div><span>LudumDare 37</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld35">
-                                    <img src="/images/ld35.png" alt="35_Logo" width="224px" height="126px" />
-                                    <div><span>Geo-Shifter</span></div>
-                                    <div><span>LudumDare 35</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld34">
-                                    <img src="/images/ld34.png" alt="34_Logo" width="224px" height="126px" />
-                                    <div><span>Turkeyconn Simulator 2016</span></div>
-                                    <div><span>LudumDare 34</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld33">
-                                    <img src="/images/ld33.png" alt="33_Logo" width="224px" height="126px" />
-                                    <div><span>God-Kill-A</span></div>
-                                    <div><span>LudumDare 33</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld32">
-                                    <img src="/images/ld32.png" alt="32_Logo" width="224px" height="126px" />
-                                    <div><span>Unconventional Dungeon</span></div>
-                                    <div><span>LudumDare 32</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld31">
-                                    <img src="/images/ld31.png" alt="31_Logo" width="224px" height="126px" />
-                                    <div><span>Game Evolution</span></div>
-                                    <div><span>LudumDare 31</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld30">
-                                    <img src="/images/ld30.png" alt="30_Logo" width="224px" height="126px" />
-                                    <div><span>World Swap</span></div>
-                                    <div><span>LudumDare 30</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld29">
-                                    <img src="/images/ld29.png" alt="29_Logo" width="224px" height="126px" />
-                                    <div><span>Maze Sweeper</span></div>
-                                    <div><span>LudumDare 29</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld28">
-                                    <img src="/images/ld28.png" alt="28_Logo" width="224px" height="126px" />
-                                    <div><span>Ninja Theif</span></div>
-                                    <div><span>LudumDare 28</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/ld27">
-                                    <img src="/images/ld27.png" alt="27_Logo" width="224px" height="126px" />
-                                    <div><span>Flash Memory</span></div>
-                                    <div><span>LudumDare 27</span></div>
-                                </Link>
-                            </div>
+                            {
+                                LDGames.map((game) => {
+                                    return (
+                                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-pop-in">
+                                            <Link to={game.link}>
+                                                <img src={game.image} alt="Logo" width="224px" height="126px" />
+                                                <div><span>{game.title}</span></div>
+                                                <div><span>{game.subtitle}</span></div>
+                                            </Link>
+                                        </div>
+                                    );
+                                })
+                            }
                         </div>
                     </div>
                 }

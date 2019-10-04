@@ -1,0 +1,30 @@
+.anim-pop-in {
+    -webkit-animation: fadeInFromBot 1s ease-out;
+    animation: fadeInFromBot 1s ease-out;
+}
+
+/* Safari 4.0 - 8.0 */
+
+@-webkit-keyframes fadeInFromBot {
+    from {
+        opacity: 0; 
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1; 
+        transform: scale(1);
+    }
+}
+
+/* Standard syntax */
+
+@keyframes fadeInFromBot {
+    from {
+        opacity: 0; 
+        -webkit-transform: scale(0.5);
+    }
+    to {
+        opacity: 1; 
+        -webkit-transform: scale(1);
+    }
+}
