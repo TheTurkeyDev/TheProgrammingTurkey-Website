@@ -29,10 +29,13 @@ class GGServer extends Component {
                         of what was said.
                     </p>
                     <div>
-                        <a href="" onClick={() => window.open('https://github.com/Turkey2349/GGServer')}>GGServer Repository</a>
+                        <a href="https://github.com/Turkey2349/GGServer">GGServer Repository</a>
                     </div>
                     <div>
-                        <a href="" onClick={() => window.open('https://github.com/Turkey2349/TurkeyBot-Lurk')}>Twitch Service Repository</a>
+                        <a href="https://github.com/Turkey2349/TurkeyBot-Lurk">Twitch Service Repository</a>
+                    </div>
+                    <div>
+                        <a href="https://github.com/Turkey2349/TurkeyBot-Reddit">Reddit Comment Scanner Repository</a>
                     </div>
                     <p>
                         If this project gains popularity I'll add more here.

@@ -18,7 +18,20 @@ const LDGames = [
 ];
 
 const Mods = [
-    { title: "", subtitle: "", link: "", image: "" },
+    { title: "Chance Cubes", subtitle: "Minecraft", link: "/projects/chance-cubes-mc", image: "/images/chance_cubes.png" },
+    { title: "Headcrumbs", subtitle: "Minecraft", link: "/projects/head-crumbs", image: "/images/wither_crumbs.png" },
+    { title: "Withercrumbs", subtitle: "Minecraft", link: "/projects/wither-crumbs", image: "/images/wither_crumbs.png" },
+    { title: "A Block of Charcoal", subtitle: "Minecraft", link: "/projects/block-of-charcoal", image: "/images/charcoal_block.png" },
+    { title: "A Block of Flint", subtitle: "Minecraft", link: "/projects/block-of-flint", image: "/images/flint_block.png" },
+    { title: "Call of minecraft: Zombies", subtitle: "Minecraft (Plugin/ Bukkit)", link: "/projects/comz", image: "/images/comz.png" },
+    { title: "Chance Cubes", subtitle: "Stardew Valley", link: "/projects/chance-cubes-sdv", image: "/images/chance_cubes.png" },
+    { title: "Colored Name Tags", subtitle: "Minecraft", link: "/projects/colored-name-tags", image: "/images/colored_name_tags.png" },
+    { title: "Block Highlighter", subtitle: "Minecraft", link: "/projects/block-highlighter", image: "/images/block_highlighter.png" },
+    { title: "Progression Tweaks", subtitle: "Minecraft", link: "/projects/progression-tweaks", image: "/images/progression_tweaks.png" },
+    { title: "Gobble Core", subtitle: "Minecraft", link: "/projects/gobble-core", image: "/images/gobble_core.png" },
+    { title: "CustomUI", subtitle: "Minecraft", link: "/projects/custom-ui", image: "/images/custom_ui.png" },
+    { title: "TurkeyUtil", subtitle: "Minecraft", link: "/projects/turkey-util", image: "/images/turkey_util.png" },
+    { title: "Void Compression", subtitle: "Minecraft", link: "/projects/void-compression", image: "/images/void_compression.png" },
 ];
 
 class Projects extends Component {
@@ -83,104 +96,19 @@ class Projects extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/chance-cubes-mc">
-                                    <img src="/images/chance_cubes.png" alt="cc_logo" width="224px" height="126px" />
-                                    <div><span>Chance Cubes</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/head-crumbs">
-                                    <img src="/images/wither_crumbs.png" alt="hc_logo" width="224px" height="126px" />
-                                    <div><span>Headcrumbs</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/wither-crumbs">
-                                    <img src="/images/wither_crumbs.png" alt="wc_logo" width="224px" height="126px" />
-                                    <div><span>Withercrumbs</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/block-of-charcoal">
-                                    <img src="/images/charcoal_block.png" alt="boc_logo" width="224px" height="126px" />
-                                    <div><span>A Block of Charcoal</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/block-of-flint">
-                                    <img src="/images/flint_block.png" alt="bof_logo" width="224px" height="126px" />
-                                    <div><span>A Block of Flint</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/comz">
-                                    <img src="/images/comz.png" alt="comz_logo" width="224px" height="126px" />
-                                    <div><span>Call of minecraft: Zombies</span></div>
-                                    <div><span>Minecraft (Plugin/ Bukkit)</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/chance-cubes-sdv">
-                                    <img src="/images/chance_cubes.png" alt="cc_logo" width="224px" height="126px" />
-                                    <div><span>Chance Cubes</span></div>
-                                    <div><span>Stardew Valley</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/colored-name-tags">
-                                    <img src="/images/colored_name_tags.png" alt="cn_logo" width="224px" height="126px" />
-                                    <div><span>Colored Name Tags</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/block-highlighter">
-                                    <img src="/images/block_highlighter.png" alt="bh_logo" width="224px" height="126px" />
-                                    <div><span>Block Highlighter</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/progression-tweaks">
-                                    <img src="/images/progression_tweaks.png" alt="pt_logo" width="224px" height="126px" />
-                                    <div><span>Progression Tweaks</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/gobble-core">
-                                    <img src="/images/gobble_core.png" alt="gc_logo" width="224px" height="126px" />
-                                    <div><span>Gobble Core</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/custom-ui">
-                                    <img src="/images/custom_ui.png" alt="cu_logo" width="224px" height="126px" />
-                                    <div><span>CustomUI</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/turkey-util">
-                                    <img src="/images/turkey_util.png" alt="tu_logo" width="224px" height="126px" />
-                                    <div><span>TurkeyUtil</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/void-compression">
-                                    <img src="/images/void_compression.png" alt="vc_logo" width="224px" height="126px" />
-                                    <div><span>Void Compression</span></div>
-                                    <div><span>Minecraft</span></div>
-                                </Link>
-                            </div>
+                            {
+                                Mods.map((mod) => {
+                                    return (
+                                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-pop-in">
+                                            <Link to={mod.link}>
+                                                <img src={mod.image} alt="Logo" width="224px" height="126px" />
+                                                <div><span>{mod.title}</span></div>
+                                                <div><span>{mod.subtitle}</span></div>
+                                            </Link>
+                                        </div>
+                                    );
+                                })
+                            }
                         </div>
                     </div>
                 }
