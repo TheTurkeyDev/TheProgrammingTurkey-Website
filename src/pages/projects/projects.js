@@ -65,7 +65,7 @@ class Projects extends Component {
                             {
                                 LDGames.map((game) => {
                                     return (
-                                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-pop-in">
+                                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
                                             <Link to={game.link}>
                                                 <img src={game.image} alt="Logo" width="224px" height="126px" />
                                                 <div><span>{game.title}</span></div>
@@ -99,7 +99,7 @@ class Projects extends Component {
                             {
                                 Mods.map((mod) => {
                                     return (
-                                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-pop-in">
+                                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
                                             <Link to={mod.link}>
                                                 <img src={mod.image} alt="Logo" width="224px" height="126px" />
                                                 <div><span>{mod.title}</span></div>

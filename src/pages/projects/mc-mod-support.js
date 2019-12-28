@@ -8,21 +8,22 @@ const support = [
     { bg: "#FFFF00", text: "IP" },
     { bg: "#00BFFF", text: "NS-PS" },
     { bg: "#8B0000", text: "NS-NP" },
+    { bg: "#E24C00", text: "NS-M" },
 ];
 
 const projects = {
-    "Chance Cubes": [1, 1, 1, 1, 1, 0, 1, 0],
-    "A Block of Charcoal": [1, 4, 4, 1, 1, 0, 1, 0],
-    "A Block of Flint": [4, 4, 4, 4, 4, 0, 1, 0],
-    "Headcrumbs": [1, 4, 1, 1, 1, 0, 4, 2],
-    "Withercrumbs": [1, 4, 4, 1, 4, 0, 4, 3],
-    "Colored Name Tags": [4, 4, 4, 4, 4, 0, 4, 3],
-    "Block Highlighter": [4, 4, 4, 1, 4, 0, 4, 3],
-    "Progression Tweaks": [4, 4, 4, 4, 4, 1, 4, 4],
-    "Gobble Core": [4, 4, 4, 1, 1, 1, 4, 4],
-    "Custom UI": [4, 4, 1, 1, 1, 1, 4, 4],
-    "TurkeyUtil": [1, 4, 4, 4, 4, 4, 4, 4],
-    "Void Compression": [1, 4, 4, 4, 4, 4, 4, 4],
+    "Chance Cubes": [1, 1, 1, 1, 1, 0, 1, 0, 3],
+    "A Block of Charcoal": [1, 4, 4, 1, 1, 0, 1, 0, 3],
+    "A Block of Flint": [4, 4, 4, 4, 4, 0, 1, 0, 3],
+    "Headcrumbs": [1, 4, 1, 1, 1, 0, 4, 2, 5],
+    "Withercrumbs": [1, 4, 4, 1, 4, 0, 4, 3, 5],
+    "Colored Name Tags": [4, 4, 4, 4, 4, 0, 4, 5, 5],
+    "Block Highlighter": [4, 4, 4, 1, 4, 0, 4, 5, 5],
+    "Progression Tweaks": [4, 4, 4, 4, 4, 1, 4, 4, 4],
+    "Gobble Core": [4, 4, 4, 1, 1, 1, 4, 4, 4],
+    "Custom UI": [4, 4, 1, 1, 1, 1, 4, 4, 4],
+    "TurkeyUtil": [1, 4, 4, 4, 4, 4, 4, 4, 4],
+    "Void Compression": [1, 4, 4, 4, 4, 4, 4, 4, 4]
 };
 
 class MCModSupport extends Component {
@@ -48,6 +49,7 @@ class MCModSupport extends Component {
                                     <th scope="col">1.12</th>
                                     <th scope="col">1.13</th>
                                     <th scope="col">1.14</th>
+                                    <th scope="col">1.15</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,6 +107,14 @@ class MCModSupport extends Component {
                             </span>
                             <span>
                                 = Not supported and this version is not planned to recieve a port
+                            </span>
+                        </div>
+                        <div>
+                            <span className="mt-2" style={{ background: "#E24C00", padding: "0px 7px 0px 6px" }}>
+                                NS-M
+                            </span>
+                            <span>
+                                = Not supported and this version might recieve a port in the future, but is unknown
                             </span>
                         </div>
                     </div>
