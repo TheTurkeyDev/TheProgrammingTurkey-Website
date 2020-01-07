@@ -13,8 +13,8 @@ const support = [
 
 const projects = {
     "Chance Cubes": [1, 1, 1, 1, 1, 0, 1, 0, 3],
-    "A Block of Charcoal": [1, 4, 4, 1, 1, 0, 1, 0, 3],
-    "A Block of Flint": [4, 4, 4, 4, 4, 0, 1, 0, 3],
+    "A Block of Charcoal": [1, 4, 4, 1, 1, 0, 1, 0, 0],
+    "A Block of Flint": [4, 4, 4, 4, 4, 0, 1, 0, 0],
     "Headcrumbs": [1, 4, 1, 1, 1, 0, 4, 2, 5],
     "Withercrumbs": [1, 4, 4, 1, 4, 0, 4, 3, 5],
     "Colored Name Tags": [4, 4, 4, 4, 4, 0, 4, 5, 5],

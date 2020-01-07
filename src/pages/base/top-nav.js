@@ -34,8 +34,9 @@ class TopNav extends Component {
                         <li className="nav-item dropdown">
                             <p className="nav-link dropdown-toggle txt-color-primary" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other Links</p>
                             <div className="dropdown-menu bg-secondary" aria-labelledby="navbarDropdown" style={{ marginTop: "-24px" }}>
-                                <a className="dropdown-item" href="" onClick={() => window.open('https://discord.gg/wkgyaxs')}>Discord</a>
                                 <a className="dropdown-item" href="" onClick={() => window.open('https://twitch.tv/turkey2349')}>Twitch</a>
+                                <a className="dropdown-item" href="" onClick={() => window.open('https://www.youtube.com/user/IProgram4Fun')}>YouTube</a>
+                                <a className="dropdown-item" href="" onClick={() => window.open('https://discord.gg/wkgyaxs')}>Discord</a>
                                 <a className="dropdown-item" href="" onClick={() => window.open('https://github.com/Turkey2349')}>Github</a>
                                 <a className="dropdown-item" href="" onClick={() => window.open('https://ldjam.com')}>Ludum Dare</a>
                             </div>
