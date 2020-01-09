@@ -23,6 +23,7 @@ const Mods = [
     { title: "Withercrumbs", subtitle: "Minecraft", link: "/projects/wither-crumbs", image: "/images/wither_crumbs.png" },
     { title: "A Block of Charcoal", subtitle: "Minecraft", link: "/projects/block-of-charcoal", image: "/images/charcoal_block.png" },
     { title: "A Block of Flint", subtitle: "Minecraft", link: "/projects/block-of-flint", image: "/images/flint_block.png" },
+    { title: "Raft Twitch Integration", subtitle: "Raft", link: "/projects/raft-integration", image: "http://files.theprogrammingturkey.com/images/raft_twitch_integration_mod_logo.jpg" },
     { title: "Call of minecraft: Zombies", subtitle: "Minecraft (Plugin/ Bukkit)", link: "/projects/comz", image: "/images/comz.png" },
     { title: "Chance Cubes", subtitle: "Stardew Valley", link: "/projects/chance-cubes-sdv", image: "/images/chance_cubes.png" },
     { title: "Colored Name Tags", subtitle: "Minecraft", link: "/projects/colored-name-tags", image: "/images/colored_name_tags.png" },

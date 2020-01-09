@@ -31,6 +31,7 @@ import ChanceCubesStats from './pages/projects/mods/chance-cubes-stats';
 import ChanceCubesMC from './pages/projects/mods/chance-cubes';
 import HeadCrumbs from './pages/projects/mods/head-crumbs';
 import WitherCrumbs from './pages/projects/mods/wither-crumbs';
+import RaftIntegration from './pages/projects/mods/raft-integration';
 
 const routing = (
     <Router>
@@ -54,6 +55,7 @@ const routing = (
             <Route exact path='/projects/chance-cubes-mc' component={ChanceCubesMC} />
             <Route exact path='/projects/head-crumbs' component={HeadCrumbs} />
             <Route exact path='/projects/wither-crumbs' component={WitherCrumbs} />
+            <Route exact path='/projects/raft-integration' component={RaftIntegration} />
             <Route exact path='/mod-support' component={MCModSupport} />
             <Route exact path='/ld-stats' component={LDStats} />
             <Route exact path='/chance-cubes-stats' component={ChanceCubesStats} />

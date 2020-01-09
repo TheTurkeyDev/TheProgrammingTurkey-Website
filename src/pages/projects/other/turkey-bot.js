@@ -34,7 +34,7 @@ class TurkeyBot extends Component {
                                     "Follower notification and tracker", "Current viewer stats", "Custom in channel bot name",
                                     "Custom chat moderation", "In-chat mini-games"].map((item, index) => {
                                         return (
-                                            <li key={index} className="list-group-item">
+                                            <li key={index} className="list-group-item bg-primary" style={{borderColor:"#131313"}}>
                                                 {item}
                                             </li>
                                         )

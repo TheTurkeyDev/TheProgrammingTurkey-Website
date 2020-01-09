@@ -50,7 +50,10 @@ class ChanceCubesStats extends Component {
             usedColors[usedColors.length] = key;
         }
 
-        return colors[usedColors.indexOf(key)];
+        let index = usedColors.indexOf(key);
+        index = index % colors.length;
+
+        return colors[index];
     }
 
     updateStatData() {
@@ -435,9 +438,9 @@ class ChanceCubesStats extends Component {
                         <hgroup className="text-center">
                             <h1>Chance Cubes Version Stats</h1>
                             Start:
-                                <input type="date" id="date_start" min="2017-05-05" max="2017-05-06" value={this.formatDate(this.state.startDate)} onChange={() => updateStatData()} />
+                                <input type="date" id="date_start" min="2017-05-05" max="2017-05-06" value={this.formatDate(this.state.startDate)} onChange={() => this.updateStatData()} />
                             End:
-                                <input type="date" id="date_end" min="2017-05-05" max="2017-05-06" value={this.formatDate(this.state.endDate)} onChange={() => updateStatData()} />
+                                <input type="date" id="date_end" min="2017-05-05" max="2017-05-06" value={this.formatDate(this.state.endDate)} onChange={() => this.updateStatData()} />
                         </hgroup>
                     </header>
                     <div id="LD_Stats" className="text-center">
