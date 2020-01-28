@@ -19,11 +19,12 @@ const LDGames = [
 
 const Mods = [
     { title: "Chance Cubes", subtitle: "Minecraft", link: "/projects/chance-cubes-mc", image: "/images/chance_cubes.png" },
-    { title: "Headcrumbs", subtitle: "Minecraft", link: "/projects/head-crumbs", image: "/images/wither_crumbs.png" },
-    { title: "Withercrumbs", subtitle: "Minecraft", link: "/projects/wither-crumbs", image: "/images/wither_crumbs.png" },
+    { title: "Raft Twitch Integration", subtitle: "Raft", link: "/projects/raft-integration", image: "http://files.theprogrammingturkey.com/images/raft_twitch_integration_mod_logo.jpg" },
+    { title: "Slime Rancher Twitch Integration", subtitle: "Slime Rancher", link: "/projects/raft-integration", image: "http://files.theprogrammingturkey.com/images/raft_twitch_integration_mod_logo.jpg" },
     { title: "A Block of Charcoal", subtitle: "Minecraft", link: "/projects/block-of-charcoal", image: "/images/charcoal_block.png" },
     { title: "A Block of Flint", subtitle: "Minecraft", link: "/projects/block-of-flint", image: "/images/flint_block.png" },
-    { title: "Raft Twitch Integration", subtitle: "Raft", link: "/projects/raft-integration", image: "http://files.theprogrammingturkey.com/images/raft_twitch_integration_mod_logo.jpg" },
+    { title: "Headcrumbs", subtitle: "Minecraft", link: "/projects/head-crumbs", image: "/images/wither_crumbs.png" },
+    { title: "Withercrumbs", subtitle: "Minecraft", link: "/projects/wither-crumbs", image: "/images/wither_crumbs.png" },
     { title: "Call of minecraft: Zombies", subtitle: "Minecraft (Plugin/ Bukkit)", link: "/projects/comz", image: "/images/comz.png" },
     { title: "Chance Cubes", subtitle: "Stardew Valley", link: "/projects/chance-cubes-sdv", image: "/images/chance_cubes.png" },
     { title: "Colored Name Tags", subtitle: "Minecraft", link: "/projects/colored-name-tags", image: "/images/colored_name_tags.png" },
@@ -55,32 +56,6 @@ class Projects extends Component {
         return (
             <PageWrapper>
                 {
-                    (type === "all" || type === "ld") &&
-                    <div className="text-center container-fluid mt-3">
-                        <div className="row">
-                            <div className="col">
-                                <h1><u>Ludum Dare Games</u></h1>
-                            </div>
-                        </div>
-                        <div className="row">
-                            {
-                                LDGames.map((game) => {
-                                    return (
-                                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
-                                            <Link to={game.link}>
-                                                <img src={game.image} alt="Logo" width="224px" height="126px" />
-                                                <div><span>{game.title}</span></div>
-                                                <div><span>{game.subtitle}</span></div>
-                                            </Link>
-                                        </div>
-                                    );
-                                })
-                            }
-                        </div>
-                    </div>
-                }
-
-                {
                     type === "mods" &&
                     <div className="text-center mt-3">
                         <h4 style={{ textDecoration: "underline" }}><Link to="/mod-support">View My Current Mod Version Support Chart</Link></h4>
@@ -98,13 +73,38 @@ class Projects extends Component {
                         </div>
                         <div className="row">
                             {
-                                Mods.map((mod) => {
+                                Mods.map((mod, i) => {
                                     return (
-                                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
-                                            <Link to={mod.link}>
-                                                <img src={mod.image} alt="Logo" width="224px" height="126px" />
+                                        <div key={i} className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
+                                            <Link to={mod.link} style={{ overflow: "hidden" }}>
+                                                <img src={mod.image} alt="Logo" width="224px" height="126px" style={{ objectFit: "contain" }} />
                                                 <div><span>{mod.title}</span></div>
                                                 <div><span>{mod.subtitle}</span></div>
+                                            </Link>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+                    </div>
+                }
+                {
+                    (type === "all" || type === "ld") &&
+                    <div className="text-center container-fluid mt-3">
+                        <div className="row">
+                            <div className="col">
+                                <h1><u>Ludum Dare Games</u></h1>
+                            </div>
+                        </div>
+                        <div className="row">
+                            {
+                                LDGames.map((game, i) => {
+                                    return (
+                                        <div key={i} className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
+                                            <Link to={game.link}>
+                                                <img src={game.image} alt="Logo" width="224px" height="126px" />
+                                                <div><span>{game.title}</span></div>
+                                                <div><span>{game.subtitle}</span></div>
                                             </Link>
                                         </div>
                                     );
