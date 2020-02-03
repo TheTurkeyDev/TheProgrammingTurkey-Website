@@ -20,7 +20,7 @@ const LDGames = [
 const Mods = [
     { title: "Chance Cubes", subtitle: "Minecraft", link: "/projects/chance-cubes-mc", image: "/images/chance_cubes.png" },
     { title: "Raft Twitch Integration", subtitle: "Raft", link: "/projects/raft-integration", image: "http://files.theprogrammingturkey.com/images/raft_twitch_integration_mod_logo.jpg" },
-    { title: "Slime Rancher Twitch Integration", subtitle: "Slime Rancher", link: "/projects/raft-integration", image: "http://files.theprogrammingturkey.com/images/raft_twitch_integration_mod_logo.jpg" },
+    { title: "Slime Rancher Twitch Integration", subtitle: "Slime Rancher", link: "/projects/slime-rancher-integration", image: "/images/slime_rancher_twitch_integration.png" },
     { title: "A Block of Charcoal", subtitle: "Minecraft", link: "/projects/block-of-charcoal", image: "/images/charcoal_block.png" },
     { title: "A Block of Flint", subtitle: "Minecraft", link: "/projects/block-of-flint", image: "/images/flint_block.png" },
     { title: "Headcrumbs", subtitle: "Minecraft", link: "/projects/head-crumbs", image: "/images/wither_crumbs.png" },

@@ -15,7 +15,7 @@ class RaftIntegration extends Component {
                     <h1 className="mt-2">Raft Twitch Integration</h1>
                     <h3> Raft Mod </h3>
                     <p>
-                       This mod is made in conjunction with a few twitch interfact applications and allows streamers 
+                       This mod is made in conjunction with a few twitch interfacing applications and allows streamers 
                        to add in game based events that get triggered from Twitch events.
                     </p>
                     <p>
