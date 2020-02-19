@@ -27,14 +27,14 @@ class App extends Component {
                             </p>
 
                             <p className="card-text">
-                                Not all pages and links are currently avaiable and over time I will slowly be adding everything back.
+                                Not all pages and links are currently available and over time I will slowly be adding everything back.
                                     Please be patient with me!
                             </p>
                         </div>
                     </div>
                     <div className="card m-5 shadow bg-secondary">
                         <div className="card-body">
-                            <h5 className="card-title">Weebsite To-Do List</h5>
+                            <h5 className="card-title">Website To-Do List</h5>
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item bg-secondary">Dark Theme (Working on it)</li>
                                 <li className="list-group-item bg-secondary">Game/ Project Pages</li>
