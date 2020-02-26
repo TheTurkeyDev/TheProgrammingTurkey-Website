@@ -12,13 +12,13 @@ const support = [
 ];
 
 const projects = {
-    "Chance Cubes": [1, 1, 1, 1, 1, 0, 1, 0, 3],
-    "A Block of Charcoal": [1, 4, 4, 1, 1, 0, 1, 0, 0],
-    "A Block of Flint": [4, 4, 4, 4, 4, 0, 1, 0, 0],
-    "Headcrumbs": [1, 4, 1, 1, 1, 0, 4, 2, 5],
-    "Withercrumbs": [1, 4, 4, 1, 4, 0, 4, 3, 5],
-    "Colored Name Tags": [4, 4, 4, 4, 4, 0, 4, 5, 5],
-    "Block Highlighter": [4, 4, 4, 1, 4, 0, 4, 5, 5],
+    "Chance Cubes": [1, 1, 1, 1, 1, 1, 1, 0, 3],
+    "A Block of Charcoal": [1, 4, 4, 1, 1, 1, 1, 0, 0],
+    "A Block of Flint": [4, 4, 4, 4, 4, 1, 1, 0, 0],
+    "Headcrumbs": [1, 4, 1, 1, 1, 1, 4, 2, 5],
+    "Withercrumbs": [1, 4, 4, 1, 4, 1, 4, 3, 5],
+    "Colored Name Tags": [4, 4, 4, 4, 4, 1, 4, 5, 5],
+    "Block Highlighter": [4, 4, 4, 1, 4, 1, 4, 5, 5],
     "Progression Tweaks": [4, 4, 4, 4, 4, 1, 4, 4, 4],
     "Gobble Core": [4, 4, 4, 1, 1, 1, 4, 4, 4],
     "Custom UI": [4, 4, 1, 1, 1, 1, 4, 4, 4],
@@ -56,7 +56,7 @@ class MCModSupport extends Component {
                                 {Object.keys(projects).map((mod) => {
                                     return (
                                         <tr key={mod}>
-                                            <th scope="row" className="p-1 text-light">{mod}</th>
+                                            <th scope="row" className="p-1 text-light"> {mod} </th>
                                             {projects[mod].map((supportID, index) => {
                                                 return (
                                                     <td key={`${mod}-${index}`} className="p-1 text-center" style={{ backgroundColor: support[supportID].bg }}>
@@ -82,7 +82,7 @@ class MCModSupport extends Component {
                                 S-NA
                             </span>
                             <span>
-                                = Supported, but no active development
+                                = Supported, but no active development; Will receive bug fixes if necessary.
                             </span>
                         </div>
                         <div>
