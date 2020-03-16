@@ -12,7 +12,7 @@ const support = [
 ];
 
 const projects = {
-    "Chance Cubes": [1, 1, 1, 1, 1, 1, 1, 0, 3],
+    "Chance Cubes": [1, 1, 1, 1, 1, 1, 1, 0, 2],
     "A Block of Charcoal": [1, 4, 4, 1, 1, 1, 1, 0, 0],
     "A Block of Flint": [4, 4, 4, 4, 4, 1, 1, 0, 0],
     "Headcrumbs": [1, 4, 1, 1, 1, 1, 4, 2, 5],
