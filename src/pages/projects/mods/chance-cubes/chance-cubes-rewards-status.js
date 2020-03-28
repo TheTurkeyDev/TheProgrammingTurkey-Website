@@ -26,7 +26,7 @@ class ChanceCubesRewardsStatus extends Component {
         super(props);
         this.state = { rewards: {} };
 
-        fetch("http://api.theprogrammingturkey.com/chance_cubes/RewardStatusAPI.php")
+        fetch("https://api.theprogrammingturkey.com/chance_cubes/RewardStatusAPI.php")
             .then(resp => resp.json())
             .then(json => {
                 let rewards = {};
