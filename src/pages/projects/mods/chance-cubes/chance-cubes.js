@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import PageWrapper from "../../base/page-wrapper";
+import PageWrapper from "../../../base/page-wrapper";
 
 class ChanceCubesMC extends Component {
     constructor(props) {

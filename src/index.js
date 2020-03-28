@@ -27,8 +27,9 @@ import PizzaMan from './pages/projects/other/pizza-man';
 import GGServer from './pages/projects/other/gg-server';
 import TurkeyBot from './pages/projects/other/turkey-bot';
 
-import ChanceCubesStats from './pages/projects/mods/chance-cubes-stats';
-import ChanceCubesMC from './pages/projects/mods/chance-cubes';
+import ChanceCubesStats from './pages/projects/mods/chance-cubes/chance-cubes-stats';
+import ChanceCubesMC from './pages/projects/mods/chance-cubes/chance-cubes';
+import ChanceCubesRewardsStatus from './pages/projects/mods/chance-cubes/chance-cubes-rewards-status'
 import HeadCrumbs from './pages/projects/mods/head-crumbs';
 import WitherCrumbs from './pages/projects/mods/wither-crumbs';
 import RaftIntegration from './pages/projects/mods/raft-integration';
@@ -60,7 +61,9 @@ const routing = (
             <Route exact path='/projects/slime-rancher-integration' component={SlimeRancherIntegration} />
             <Route exact path='/mod-support' component={MCModSupport} />
             <Route exact path='/ld-stats' component={LDStats} />
-            <Route exact path='/chance-cubes-stats' component={ChanceCubesStats} />
+            <Route exact path='/chancecubes/stats' component={ChanceCubesStats} />
+            <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
+            ChanceCubesRewardsStatus
 
             <Route exact path='/info' component={Info} />
             <Route component={Notfound} />
