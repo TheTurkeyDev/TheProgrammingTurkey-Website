@@ -3,10 +3,11 @@ import React, { Component } from "react";
 import PageWrapper from "../../../base/page-wrapper"
 
 const statusInfo = [
-    { bg: "#b0b0b0", text: "Untested" },
+    { bg: "#8f8f8f", text: "Untested" },
     { bg: "#046e22", text: "Working" },
-    { bg: "#d15b00", text: "Not Working" },
-    { bg: "#bf0000", text: "Bugged" }
+    { bg: "#edda09", text: "Not Working" },
+    { bg: "#bf0000", text: "Bugged" },
+    { bg: "#1f1f1f", text: "Not Available" }
 ];
 
 const gameVersions = [
@@ -46,9 +47,9 @@ class ChanceCubesRewardsStatus extends Component {
 
                 <div className="text-center ml-2 fluid-container row">
                     {
-                        statusInfo.map(json => {
+                        statusInfo.map((json, i) => {
                             return (
-                                <div className="col-auto m-2" style={{ background: json.bg, width: "125px" }}>
+                                <div key={i} className="col-auto m-2" style={{ background: json.bg, width: "125px" }}>
                                     {json.text}
                                 </div>
                             )
@@ -57,7 +58,7 @@ class ChanceCubesRewardsStatus extends Component {
                 </div>
                 <div>
                     <div className="m-2">
-                        <table className="table">
+                        <table className="table sticky-table">
                             <thead>
                                 <tr className="text-center text-light">
                                     <th scope="col">Reward/ Version</th>
@@ -77,14 +78,14 @@ class ChanceCubesRewardsStatus extends Component {
                                     Object.keys(this.state.rewards).sort((a, b) => a.localeCompare(b)).map((reward) => {
                                         return (
                                             <tr key={reward}>
-                                                <th scope="row" className="p-1 text-light"> {reward} </th>
+                                                <td scope="row" className="p-1 text-light"> {reward} </td>
                                                 {
                                                     gameVersions.map((version, index) => {
                                                         let status = 0;
                                                         if (this.state.rewards[reward].hasOwnProperty(version))
                                                             status = this.state.rewards[reward][version];
                                                         return (
-                                                            <td key={`${version}-${index}`} className="p-1 text-center" style={{ backgroundColor: statusInfo[status]["bg"] }}>
+                                                            <td key={`${version}-${index}`} className="p-1 text-center" style={{ backgroundColor: statusInfo[status]["bg"], borderRight: "1px solid #ababab" }}>
                                                             </td>
                                                         )
                                                     })

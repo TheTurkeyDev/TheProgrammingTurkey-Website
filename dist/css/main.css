@@ -24,17 +24,32 @@
     color: #eeeeee;
     border-color: #222831;
 }
+
 .bg-secondary .shadow, .bg-secondary.shadow {
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.30)!important
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .30)!important
 }
 
 .navbar a, .txt-color-primary {
     color: #eeeeee !important;
 }
 
-.dropdown-menu > a:hover, .dropdown-menu > a:focus {
-    background-image:none !important;
-    background-color:#222831;
+.dropdown-menu>a:hover, .dropdown-menu>a:focus {
+    background-image: none !important;
+    background-color: #222831;
+}
+
+/* Style the header */
+
+.sticky-table {
+    position: relative;
+    border-collapse: collapse;
+}
+
+.sticky-table th {
+    position: sticky;
+    top: 0;
+    border-top: 0px;
+    background-color: #222831;
 }
 
 /* 
