@@ -44,7 +44,56 @@ class ChanceCubesRewardsStatus extends Component {
     render() {
         return (
             <PageWrapper>
+                <div className="m-2">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col text-right" style={{ width: "150px", maxWidth: "150px" }}>
+                                Game Version
+                                </div>
+                            <div className="col" style={{ width: "150px", maxWidth: "150px" }}>
+                                Reward Status
+                                </div>
+                            <div className="col" style={{ width: "150px", maxWidth: "150px" }}>
+                                %
+                                </div>
+                            <div className="col m-0 p-0" style={{ width: "150px", maxWidth: "150px" }}>
+                                Rewards Working
+                                </div>
+                            <div className="col" style={{ width: "150px", maxWidth: "150px" }}>
+                                %
+                                </div>
+                            <div className="col">
 
+                            </div>
+                        </div>
+                        {
+                            Object.entries(this.computeVersionCompletion()).map(entry => {
+                                return (
+                                    <div key={entry[0]} className="row">
+                                        <div className="col text-right" style={{ width: "150px", maxWidth: "150px" }}>
+                                            {entry[0]}:
+                                            </div>
+                                        <div className="col" style={{ width: "150px", maxWidth: "150px" }}>
+                                            {entry[1].completed}/{entry[1].total}
+                                        </div>
+                                        <div className="col" style={{ width: "150px", maxWidth: "150px" }}>
+                                            {(entry[1].completed / entry[1].total * 100).toFixed(2)}%
+                                            </div>
+                                        <div className="col" style={{ width: "150px", maxWidth: "150px" }}>
+                                            {entry[1].working} / {entry[1].completed}
+                                        </div>
+                                        <div className="col" style={{ width: "150px", maxWidth: "150px" }}>
+                                            {(entry[1].working / (entry[1].completed == 0 ? 1 : entry[1].completed) * 100).toFixed(2)}%
+                                            </div>
+                                        <div className="col">
+
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+                </div>
                 <div className="text-center ml-2 fluid-container row">
                     {
                         statusInfo.map((json, i) => {
@@ -97,8 +146,31 @@ class ChanceCubesRewardsStatus extends Component {
                         </table>
                     </div>
                 </div>
-            </PageWrapper>
+            </PageWrapper >
         );
+    }
+
+    computeVersionCompletion() {
+        let versions = {};
+        Object.keys(this.state.rewards).forEach((reward) => {
+            gameVersions.forEach(version => {
+                if (!versions.hasOwnProperty(version))
+                    versions[version] = { completed: 0, total: 0, working: 0 };
+
+                let status = this.state.rewards[reward][version];
+                if (status != 4) {
+                    versions[version].total += 1;
+
+                    if (status && status != 0) {
+                        versions[version].completed += 1;
+                        if (status == 1) {
+                            versions[version].working += 1;
+                        }
+                    }
+                }
+            });
+        });
+        return versions;
     }
 }
 
