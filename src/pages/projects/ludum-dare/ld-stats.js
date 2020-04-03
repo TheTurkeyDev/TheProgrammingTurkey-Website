@@ -149,7 +149,7 @@ class LDStats extends Component {
         const myChartPercent = this.percentileRef.current.getContext("2d");
         new Chart(myChartPercent, {
             type: "line",
-            data: stats
+            data: percentile
         });
         this.setState({ stats: stats, percentile: percentile });
     }

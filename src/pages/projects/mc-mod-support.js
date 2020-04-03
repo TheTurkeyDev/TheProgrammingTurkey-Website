@@ -18,7 +18,7 @@ const projects = {
     "Headcrumbs": [1, 4, 1, 1, 1, 1, 4, 2, 5],
     "Withercrumbs": [1, 4, 4, 1, 4, 1, 4, 3, 5],
     "Colored Name Tags": [4, 4, 4, 4, 4, 1, 4, 5, 5],
-    "Block Highlighter": [4, 4, 4, 1, 4, 1, 4, 5, 5],
+    "Block Highlighter": [4, 4, 4, 1, 4, 1, 4, 0, 0],
     "Progression Tweaks": [4, 4, 4, 4, 4, 1, 4, 4, 4],
     "Gobble Core": [4, 4, 4, 1, 1, 1, 4, 4, 4],
     "Custom UI": [4, 4, 1, 1, 1, 1, 4, 4, 4],
