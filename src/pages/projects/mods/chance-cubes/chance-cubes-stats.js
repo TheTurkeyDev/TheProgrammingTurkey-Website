@@ -3,11 +3,13 @@ import Chart from "chart.js";
 
 import PageWrapper from "../../../base/page-wrapper";
 
-const colors = ["#4bbdf4", "#32d68e", "#c990ba", "#dc6242", "#98af92",
-    "#0f7dbc", "#7d6e92", "#b20ee1", "#df1200", "#6d2f2a", "#d0b40d",
-    "#4b09b9", "#b36190", "#bcfbe6", "#ad3016", "#01579B", "#01773a",
-    "#ef8c46", "#ffef69", "#42f962", "#14c5da", "#f5a7fc", "#0a2581",
-    "#2E2E2E", "#4D411E", "##332B14", "##52bd00", "#ff3a3a", "#e91515"];
+const colors = ["#1e90ff", "#191970", "#9acd32", "#ff1493", "#00ced1", "#db7093",
+    "#daa520", "#0000ff", "#98fb98", "#ff00ff", "#cd5c5c", "#ffa07a", "#dda0dd",
+    "#800080", "#0000cd", "#a020f0", "#7fffd4", "#ffb6c1", "#ffd700", "#ff0000",
+    "#d2691e", "#000080", "#ff6347", "#4682b4", "#dc143c", "#adff2f", "#d2b48c",
+    "#ee82ee", "#808000", "#ff69b4", "#9370db", "#9932cc", "#8fbc8f", "#00bfff",
+    "#ff8c00", "#008080", "#32cd32", "#f0e68c", "#87ceeb", "#ffff00", "#00ff00",
+    "#00fa9a","#708090"];
 
 var usedColors = [];
 var charts = [];
