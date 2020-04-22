@@ -16,7 +16,7 @@ class LD46 extends Component {
                     <p>
                         This game was made for ludum dare 46!
                         It's been awhile.... Like awhile awhile sine I've done a Ludum Dare, but I finally got around to doing another one!
-                        Life has been all over the place. COVID-19 currently has my state under a stay at home order and to top it off. I'm
+                        Life has been all over the place. COVID-19 currently has my state under a stay at home order and to top it off, I'm
                         graduating college in less than 2 weeks from the time of completing this game. Sounds like a great time to make a
                         Ludum Dare game! This time was special too as I completed this game in a team with SpaceMyName who made the art
                         assets and sounds!
@@ -36,8 +36,7 @@ class LD46 extends Component {
                     </div>
                     <div className="mt-3">
                         <h1>TimeLapse!</h1>
-                        Coming soon!
-                        {/*<iframe width="560" height="315" src="https://www.youtube.com/embed/QAds-HlyJ70" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>*/}
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/S_9nnH3hBDA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div >
             </PageWrapper >
