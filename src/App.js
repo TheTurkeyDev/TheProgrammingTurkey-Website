@@ -45,7 +45,7 @@ class App extends Component {
                     </div>
                     <div className="card m-5 shadow bg-secondary">
                         <div className="card-body">
-                            <h5 className="card-title">Ludum Dare 39!</h5>
+                            <h5 className="card-title">Ludum Dare 46!</h5>
                             <h6 className="card-subtitle">That's a wrap!</h6>
                             <p className="card-text">
                                 Well another Ludum Dare has come and passed.
@@ -54,7 +54,7 @@ class App extends Component {
                         </div>
 
                         <div className="card-footer">
-                            <Link className="mr-2" to="/projects/LD39">Game</Link>
+                            <Link className="mr-2" to="/projects/LD46">Game</Link>
                             <span>|</span>
                             <a className="ml-2 mr-2" href="https://ldjam.com">Ludum Dare</a>
                             <span>|</span>
