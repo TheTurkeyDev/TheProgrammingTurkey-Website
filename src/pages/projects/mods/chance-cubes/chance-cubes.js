@@ -20,7 +20,6 @@ class ChanceCubesMC extends Component {
                         The Idea for the mod started in as a replacement for the mod Lucky Blocks after it's terms of use prevented it
                         from being used in public mod packs. While the original premise of the mod remains, I have slowly been adding my own
                         twists and ideas to the mod as it develops.
-
                     </p>
                     <div>
                         <a className="mr-1" href="https://www.curseforge.com/minecraft/mc-mods/chance-cubes">
@@ -31,7 +30,7 @@ class ChanceCubesMC extends Component {
                             Source Code
                         </a>
                         |
-                        <Link className="ml-1 mr-1" to="/chance-cubes-stats">
+                        <Link className="ml-1 mr-1" to="/chancecubes/stats">
                             Stats
                         </Link>
                     </div>
@@ -40,7 +39,7 @@ class ChanceCubesMC extends Component {
                     </div>
                     <div className="mt-2">
                         <a className="ml-1" href="https://www.youtube.com/watch?v=zxzvBvMB0qQ">
-                            Village Contrusction Reward
+                            Village Construction Reward
                         </a>
                     </div>
                     <div className="mt-2">

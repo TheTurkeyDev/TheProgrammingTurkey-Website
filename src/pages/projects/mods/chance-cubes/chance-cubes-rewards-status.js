@@ -124,7 +124,49 @@ class ChanceCubesRewardsStatus extends Component {
                             </thead>
                             <tbody>
                                 {
-                                    Object.keys(this.state.rewards).sort((a, b) => a.localeCompare(b)).map((reward) => {
+                                    Object.keys(this.state.rewards).filter(entry => !entry.startsWith("chancecubes:cr_")).sort((a, b) => a.localeCompare(b)).map((reward) => {
+                                        return (
+                                            <tr key={reward}>
+                                                <td scope="row" className="p-1 text-light"> {reward} </td>
+                                                {
+                                                    gameVersions.map((version, index) => {
+                                                        let status = 0;
+                                                        if (this.state.rewards[reward].hasOwnProperty(version))
+                                                            status = this.state.rewards[reward][version];
+                                                        return (
+                                                            <td key={`${version}-${index}`} className="p-1 text-center" style={{ backgroundColor: statusInfo[status]["bg"], borderRight: "1px solid #ababab" }}>
+                                                            </td>
+                                                        )
+                                                    })
+                                                }
+                                            </tr>)
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="mt-4">
+                        <h3 className="m-0">Custom User Rewards</h3>
+                    </div>
+                    <div className="m-2">
+                        <table className="table sticky-table">
+                            <thead>
+                                <tr className="text-center text-light">
+                                    <th scope="col">Reward/ Version</th>
+                                    <th scope="col">1.7.10</th>
+                                    <th scope="col">1.8</th>
+                                    <th scope="col">1.9</th>
+                                    <th scope="col">1.10</th>
+                                    <th scope="col">1.11</th>
+                                    <th scope="col">1.12</th>
+                                    <th scope="col">1.13</th>
+                                    <th scope="col">1.14</th>
+                                    <th scope="col">1.15</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    Object.keys(this.state.rewards).filter(entry => entry.startsWith("chancecubes:cr_")).sort((a, b) => a.localeCompare(b)).map((reward) => {
                                         return (
                                             <tr key={reward}>
                                                 <td scope="row" className="p-1 text-light"> {reward} </td>
@@ -153,22 +195,24 @@ class ChanceCubesRewardsStatus extends Component {
     computeVersionCompletion() {
         let versions = {};
         Object.keys(this.state.rewards).forEach((reward) => {
-            gameVersions.forEach(version => {
-                if (!versions.hasOwnProperty(version))
-                    versions[version] = { completed: 0, total: 0, working: 0 };
+            if (!reward.startsWith("chancecubes:cr")) {
+                gameVersions.forEach(version => {
+                    if (!versions.hasOwnProperty(version))
+                        versions[version] = { completed: 0, total: 0, working: 0 };
 
-                let status = this.state.rewards[reward][version];
-                if (status != 4) {
-                    versions[version].total += 1;
+                    let status = this.state.rewards[reward][version];
+                    if (status != 4) {
+                        versions[version].total += 1;
 
-                    if (status && status != 0) {
-                        versions[version].completed += 1;
-                        if (status == 1) {
-                            versions[version].working += 1;
+                        if (status && status != 0) {
+                            versions[version].completed += 1;
+                            if (status == 1) {
+                                versions[version].working += 1;
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         });
         return versions;
     }

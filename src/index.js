@@ -65,7 +65,6 @@ const routing = (
             <Route exact path='/ld-stats' component={LDStats} />
             <Route exact path='/chancecubes/stats' component={ChanceCubesStats} />
             <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
-            ChanceCubesRewardsStatus
 
             <Route exact path='/info' component={Info} />
             <Route component={Notfound} />
