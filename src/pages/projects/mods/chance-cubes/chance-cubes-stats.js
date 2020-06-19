@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Chart from "chart.js";
 
-import PageWrapper from "../../../base/page-wrapper";
+import { PageWrapper } from "../../../base/page-wrapper";
 
 const colors = ["#1e90ff", "#191970", "#9acd32", "#ff1493", "#00ced1", "#db7093",
     "#daa520", "#0000ff", "#98fb98", "#ff00ff", "#cd5c5c", "#ffa07a", "#dda0dd",

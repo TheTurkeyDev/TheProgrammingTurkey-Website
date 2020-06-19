@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Chart from "chart.js";
 
-import PageWrapper from "../../base/page-wrapper";
+import { PageWrapper } from "../../base/page-wrapper";
 
 /*Overall, Theme, Innovation, Fun, Graphics, Audio*/
 const ld27 = { display: "LD27 (1437 games)", totalGames: [1437, 0], overall: [1142, 2.17], theme: [603, 3.13], innovation: [931, 2.43], fun: [1141, 1.88], graphics: [1040, 2.05], audio: [0, 0] };
@@ -17,137 +17,114 @@ const ld39 = { display: "LD39 (990 games)", totalGames: [990, 0], overall: [410,
 const ld46 = { display: "LD46 (3576 games)", totalGames: [3576, 0], overall: [1650, 3.306], theme: [1509, 3.528], innovation: [1237, 3.278], fun: [2078, 2.861], graphics: [2039, 2.861], audio: [1400, 2.75] };
 const comps = [ld27, ld28, ld29, ld30, ld31, ld32, ld34, ld35, ld37, ld39, ld46];
 
-class LDStats extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = { stats: {}, percentile: {} }
-
-        this.statsRef = React.createRef();
-        this.percentileRef = React.createRef();
-    }
-
-    getCategory(cat) {
-        var data = [];
-        for (var i = 0; i < comps.length; i++)
-            if (cat === "display")
-                data[i] = comps[i][cat];
-            else
-                data[i] = comps[i][cat][1];
-
-        return data;
-    }
-
-    getPercentile(cat) {
-        var toReturn = new Array();
-        for (var i = 0; i < comps.length; i++) {
-            toReturn.push(Math.round((1 - ((comps[i][cat] == 0 ? comps[i]["totalGames"][0] : comps[i][cat][0]) / comps[i]["totalGames"][0])) * 100));
-        }
-        return toReturn;
-    }
+export function LDStats() {
+    const [stats, setStats] = useState({});
+    const [percentile, setPercentile] = useState({});
+    let statsRef = useRef();
+    let percentileRef = useRef();
 
 
-    componentDidMount() {
-        let stats = {
-            labels: this.getCategory("display"),
+    useEffect(() => {
+        let statsConf = {
+            labels: getCategory("display"),
             datasets: [
                 {
                     label: "Overall",
                     fill: false,
                     backgroundColor: "rgba(34, 153, 84,0.5)",
                     borderColor: "rgba(34, 153, 84,0.8)",
-                    data: this.getCategory("overall")
+                    data: getCategory("overall")
                 },
                 {
                     label: "Theme",
                     fill: false,
                     backgroundColor: "rgba(230, 126, 34,0.5)",
                     borderColor: "rgba(230, 126, 34,0.8)",
-                    data: this.getCategory("theme")
+                    data: getCategory("theme")
                 },
                 {
                     label: "Innovation",
                     fill: false,
                     backgroundColor: "rgba(169, 50, 38,0.5)",
                     borderColor: "rgba(169, 50, 38,0.8)",
-                    data: this.getCategory("innovation")
+                    data: getCategory("innovation")
                 },
                 {
                     label: "Fun",
                     fill: false,
                     backgroundColor: "rgba(244, 208, 63,0.5)",
                     borderColor: "rgba(244, 208, 63,0.8)",
-                    data: this.getCategory("fun")
+                    data: getCategory("fun")
                 },
                 {
                     label: "Graphics",
                     fill: false,
                     backgroundColor: "rgba(46, 134, 193,0.5)",
                     borderColor: "rgba(46, 134, 193,0.8)",
-                    data: this.getCategory("graphics")
+                    data: getCategory("graphics")
                 },
                 {
                     label: "Audio",
                     fill: false,
                     backgroundColor: "rgba(125, 60, 152,0.5)",
                     borderColor: "rgba(125, 60, 152,0.8)",
-                    data: this.getCategory("audio")
+                    data: getCategory("audio")
                 }
             ]
         };
 
-        let percentile = {
-            labels: this.getCategory("display"),
+        let percentileConf = {
+            labels: getCategory("display"),
             datasets: [
                 {
                     label: "Overall",
                     fill: false,
                     backgroundColor: "rgba(34, 153, 84,0.5)",
                     borderColor: "rgba(34, 153, 84,0.8)",
-                    data: this.getPercentile("overall")
+                    data: getPercentile("overall")
                 },
                 {
                     label: "Theme",
                     fill: false,
                     backgroundColor: "rgba(230, 126, 34,0.5)",
                     borderColor: "rgba(230, 126, 34,0.8)",
-                    data: this.getPercentile("theme")
+                    data: getPercentile("theme")
                 },
                 {
                     label: "Innovation",
                     fill: false,
                     backgroundColor: "rgba(169, 50, 38,0.5)",
                     borderColor: "rgba(169, 50, 38,0.8)",
-                    data: this.getPercentile("innovation")
+                    data: getPercentile("innovation")
                 },
                 {
                     label: "Fun",
                     fill: false,
                     backgroundColor: "rgba(244, 208, 63,0.5)",
                     borderColor: "rgba(244, 208, 63,0.8)",
-                    data: this.getPercentile("fun")
+                    data: getPercentile("fun")
                 },
                 {
                     label: "Graphics",
                     fill: false,
                     backgroundColor: "rgba(46, 134, 193,0.5)",
                     borderColor: "rgba(46, 134, 193,0.8)",
-                    data: this.getPercentile("graphics")
+                    data: getPercentile("graphics")
                 },
                 {
                     label: "Audio",
                     fill: false,
                     backgroundColor: "rgba(125, 60, 152,0.5)",
                     borderColor: "rgba(125, 60, 152,0.8)",
-                    data: this.getPercentile("audio")
+                    data: getPercentile("audio")
                 }
             ]
         };
 
-        const myChartStats = this.statsRef.current.getContext("2d");
+        const myChartStats = statsRef.current.getContext("2d");
         new Chart(myChartStats, {
             type: "line",
-            data: stats,
+            data: statsConf,
             options: {
                 scales: {
                     yAxes: [{
@@ -161,33 +138,49 @@ class LDStats extends Component {
             }
         });
 
-        const myChartPercent = this.percentileRef.current.getContext("2d");
+        const myChartPercent = percentileRef.current.getContext("2d");
         new Chart(myChartPercent, {
             type: "line",
-            data: percentile
+            data: percentileConf
         });
-        this.setState({ stats: stats, percentile: percentile });
-    }
+        setStats(statsConf);
+        setPercentile(percentileConf);
+    }, []);
 
-    render() {
-        return (
-            <PageWrapper>
-                <div id="Charts">
-                    <header>
-                        <hgroup className="text-center">
-                            <h1>My Ludum Dare Stats</h1>
-                        </hgroup>
-                    </header>
-                    <div id="LD_Stats" className="text-center">
-                        <h2 className="mt-5"> Percentile Placement Ranks (Higher is Better) </h2>
-                        <canvas ref={this.percentileRef} width="1057" height="424" style={{ display: "block", width: "1057px", height: "424px" }}></canvas>
-                        <h2> Category Rating out of 5 </h2>
-                        <canvas ref={this.statsRef} width="1057" height="424" style={{ display: "block", width: "1057px", height: "424px" }}></canvas>
-                    </div>
+    return (
+        <PageWrapper>
+            <div id="Charts">
+                <header>
+                    <hgroup className="text-center">
+                        <h1>My Ludum Dare Stats</h1>
+                    </hgroup>
+                </header>
+                <div id="LD_Stats" className="text-center">
+                    <h2 className="mt-5"> Percentile Placement Ranks (Higher is Better) </h2>
+                    <canvas ref={percentileRef} width="1057" height="424" style={{ display: "block", width: "1057px", height: "424px" }}></canvas>
+                    <h2> Category Rating out of 5 </h2>
+                    <canvas ref={statsRef} width="1057" height="424" style={{ display: "block", width: "1057px", height: "424px" }}></canvas>
                 </div>
-            </PageWrapper>
-        )
-    }
+            </div>
+        </PageWrapper>
+    )
 }
 
-export default LDStats;
+function getPercentile(cat) {
+    var toReturn = new Array();
+    for (var i = 0; i < comps.length; i++) {
+        toReturn.push(Math.round((1 - ((comps[i][cat] == 0 ? comps[i]["totalGames"][0] : comps[i][cat][0]) / comps[i]["totalGames"][0])) * 100));
+    }
+    return toReturn;
+}
+
+function getCategory(cat) {
+    var data = [];
+    for (var i = 0; i < comps.length; i++)
+        if (cat === "display")
+            data[i] = comps[i][cat];
+        else
+            data[i] = comps[i][cat][1];
+
+    return data;
+}

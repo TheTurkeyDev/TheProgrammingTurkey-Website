@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 
-import PageWrapper from "../base/page-wrapper";
+import { PageWrapper } from "../base/page-wrapper";
 
 const LDGames = [
     { title: "Turkey's Plant Emporium", subtitle: "LudumDare 46", link: "/projects/ld46", image: "/images/ld46.png" },
@@ -37,157 +37,148 @@ const Mods = [
     { title: "Void Compression", subtitle: "Minecraft", link: "/projects/void-compression", image: "/images/void_compression.png" },
 ];
 
-class Projects extends Component {
-    constructor(props) {
-        super(props);
-
+export function Projects() {
+    let type = "all";
+    if (this.props.location && this.props.location.search) {
+        let params = this.props.location.search.substring(1).split("&");
+        params.forEach((element) => {
+            let keyVal = element.split("=");
+            if (keyVal[0] === "type")
+                type = keyVal[1];
+        });
     }
 
-    render() {
-        let type = "all";
-        if (this.props.location && this.props.location.search) {
-            let params = this.props.location.search.substring(1).split("&");
-            params.forEach((element) => {
-                let keyVal = element.split("=");
-                if (keyVal[0] === "type")
-                    type = keyVal[1];
-            });
-        }
+    return (
+        <PageWrapper>
+            {
+                type === "mods" &&
+                <div className="text-center mt-3">
+                    <h4 style={{ textDecoration: "underline" }}><Link to="/mod-support">View My Current Mod Version Support Chart</Link></h4>
+                </div>
+            }
 
-        return (
-            <PageWrapper>
-                {
-                    type === "mods" &&
-                    <div className="text-center mt-3">
-                        <h4 style={{ textDecoration: "underline" }}><Link to="/mod-support">View My Current Mod Version Support Chart</Link></h4>
-                    </div>
-                }
+            {
 
-                {
-
-                    (type === "all" || type === "mods") &&
-                    <div className="text-center container-fluid mt-3">
-                        <div className="row">
-                            <div className="col">
-                                <h1><u>Mods</u></h1>
-                            </div>
-                        </div>
-                        <div className="row">
-                            {
-                                Mods.map((mod, i) => {
-                                    return (
-                                        <div key={i} className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
-                                            <Link to={mod.link} style={{ overflow: "hidden" }}>
-                                                <img src={mod.image} alt="Logo" width="224px" height="126px" style={{ objectFit: "contain" }} />
-                                                <div><span>{mod.title}</span></div>
-                                                <div><span>{mod.subtitle}</span></div>
-                                            </Link>
-                                        </div>
-                                    );
-                                })
-                            }
+                (type === "all" || type === "mods") &&
+                <div className="text-center container-fluid mt-3">
+                    <div className="row">
+                        <div className="col">
+                            <h1><u>Mods</u></h1>
                         </div>
                     </div>
-                }
-                {
-                    (type === "all" || type === "ld") &&
-                    <div className="text-center container-fluid mt-3">
-                        <div className="row">
-                            <div className="col">
-                                <h1><u>Ludum Dare Games</u></h1>
-                            </div>
-                        </div>
-                        <div className="row">
-                            {
-                                LDGames.map((game, i) => {
-                                    return (
-                                        <div key={i} className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
-                                            <Link to={game.link}>
-                                                <img src={game.image} alt="Logo" width="224px" height="126px" />
-                                                <div><span>{game.title}</span></div>
-                                                <div><span>{game.subtitle}</span></div>
-                                            </Link>
-                                        </div>
-                                    );
-                                })
-                            }
+                    <div className="row">
+                        {
+                            Mods.map((mod, i) => {
+                                return (
+                                    <div key={i} className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
+                                        <Link to={mod.link} style={{ overflow: "hidden" }}>
+                                            <img src={mod.image} alt="Logo" width="224px" height="126px" style={{ objectFit: "contain" }} />
+                                            <div><span>{mod.title}</span></div>
+                                            <div><span>{mod.subtitle}</span></div>
+                                        </Link>
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+                </div>
+            }
+            {
+                (type === "all" || type === "ld") &&
+                <div className="text-center container-fluid mt-3">
+                    <div className="row">
+                        <div className="col">
+                            <h1><u>Ludum Dare Games</u></h1>
                         </div>
                     </div>
-                }
-                {
-                    (type === "all" || type === "other") &&
-                    <div className="text-center container-fluid mt-3">
-                        <div className="row">
-                            <div className="col">
-                                <h1><u>Test Games</u></h1>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/pizza-man">
-                                    Pizza Man - A game made to test my GameAPI!
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <h1><u>Applications</u></h1>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/gg-server">
-                                    <div><span>GG Server</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/turkey-bot">
-                                    <div><span>TurkeyBot</span></div>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <h1><u>API's and Sorts</u></h1>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-Java')} href="">
-                                    <img src="/images/volatillia_api_java.png" alt="vapi_java_logo" width="224px" height="126px" />
-                                    <div><span>VolatiliaAPI - Java</span></div>
-                                </a>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/volatiliaapi-ogl">
-                                    <img src="/images/volatillia_api_java_opengl.png" alt="vapi_java_ogl_logo" width="224px" height="126px" />
-                                    <div><span>VolatiliaAPI - Java OpenGL API</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-WebAccess')} href="">
-                                    <img src="/images/volatillia_api_web_access.png" alt="vapi_web_access_logo" width="224px" height="126px" />
-                                    <div><span>VolatiliaAPI - WebAccess</span></div>
-                                </a>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <Link to="/projects/gameapi">
-                                    <img src="/images/volatillia_api_java_swing.png" alt="vapi_java_swing_logo" width="224px" height="126px" />
-                                    <div><span>VolatiliaAPI - Java Swing API</span></div>
-                                </Link>
-                            </div>
-                            <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
-                                <a onClick={() => window.open('https://github.com/Turkey2349/NHLStatsAPI-Java')} href="">
-                                    <img src="/images/nhl_logo.png" alt="vc_logo" width="224px" height="126px" />
-                                    <div><span>NHL Stats API</span></div>
-                                </a>
-                            </div>
+                    <div className="row">
+                        {
+                            LDGames.map((game, i) => {
+                                return (
+                                    <div key={i} className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
+                                        <Link to={game.link}>
+                                            <img src={game.image} alt="Logo" width="224px" height="126px" />
+                                            <div><span>{game.title}</span></div>
+                                            <div><span>{game.subtitle}</span></div>
+                                        </Link>
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+                </div>
+            }
+            {
+                (type === "all" || type === "other") &&
+                <div className="text-center container-fluid mt-3">
+                    <div className="row">
+                        <div className="col">
+                            <h1><u>Test Games</u></h1>
                         </div>
                     </div>
-                }
-            </PageWrapper>
-        );
-    }
+                    <div className="row">
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                            <Link to="/projects/pizza-man">
+                                Pizza Man - A game made to test my GameAPI!
+                                </Link>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <h1><u>Applications</u></h1>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                            <Link to="/projects/gg-server">
+                                <div><span>GG Server</span></div>
+                            </Link>
+                        </div>
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                            <Link to="/projects/turkey-bot">
+                                <div><span>TurkeyBot</span></div>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <h1><u>API's and Sorts</u></h1>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                            <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-Java')} href="">
+                                <img src="/images/volatillia_api_java.png" alt="vapi_java_logo" width="224px" height="126px" />
+                                <div><span>VolatiliaAPI - Java</span></div>
+                            </a>
+                        </div>
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                            <Link to="/projects/volatiliaapi-ogl">
+                                <img src="/images/volatillia_api_java_opengl.png" alt="vapi_java_ogl_logo" width="224px" height="126px" />
+                                <div><span>VolatiliaAPI - Java OpenGL API</span></div>
+                            </Link>
+                        </div>
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                            <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-WebAccess')} href="">
+                                <img src="/images/volatillia_api_web_access.png" alt="vapi_web_access_logo" width="224px" height="126px" />
+                                <div><span>VolatiliaAPI - WebAccess</span></div>
+                            </a>
+                        </div>
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                            <Link to="/projects/gameapi">
+                                <img src="/images/volatillia_api_java_swing.png" alt="vapi_java_swing_logo" width="224px" height="126px" />
+                                <div><span>VolatiliaAPI - Java Swing API</span></div>
+                            </Link>
+                        </div>
+                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                            <a onClick={() => window.open('https://github.com/Turkey2349/NHLStatsAPI-Java')} href="">
+                                <img src="/images/nhl_logo.png" alt="vc_logo" width="224px" height="126px" />
+                                <div><span>NHL Stats API</span></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </PageWrapper>
+    );
 }
-
-export default Projects;

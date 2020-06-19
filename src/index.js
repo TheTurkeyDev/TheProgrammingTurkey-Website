@@ -2,39 +2,39 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 
-import App from './App';
-import Notfound from './notfound';
+import { App } from './App';
+import { Notfound } from './notfound';
 
-import Info from './pages/info';
+import { Info } from './pages/info';
 
-import Projects from './pages/projects/projects';
-import MCModSupport from './pages/projects/mc-mod-support';
+import { Projects } from './pages/projects/projects';
+import { MCModSupport } from './pages/projects/mc-mod-support';
 
-import LDStats from './pages/projects/ludum-dare/ld-stats';
-import LD46 from './pages/projects/ludum-dare/ld-46';
-import LD39 from './pages/projects/ludum-dare/ld-39';
-import LD37 from './pages/projects/ludum-dare/ld-37';
-import LD35 from './pages/projects/ludum-dare/ld-35';
-import LD34 from './pages/projects/ludum-dare/ld-34';
-import LD33 from './pages/projects/ludum-dare/ld-33';
-import LD32 from './pages/projects/ludum-dare/ld-32';
-import LD31 from './pages/projects/ludum-dare/ld-31';
-import LD30 from './pages/projects/ludum-dare/ld-30';
-import LD29 from './pages/projects/ludum-dare/ld-29';
-import LD28 from './pages/projects/ludum-dare/ld-28';
-import LD27 from './pages/projects/ludum-dare/ld-27';
+import { LDStats } from './pages/projects/ludum-dare/ld-stats';
+import { LD46 } from './pages/projects/ludum-dare/ld-46';
+import { LD39 } from './pages/projects/ludum-dare/ld-39';
+import { LD37 } from './pages/projects/ludum-dare/ld-37';
+import { LD35 } from './pages/projects/ludum-dare/ld-35';
+import { LD34 } from './pages/projects/ludum-dare/ld-34';
+import { LD33 } from './pages/projects/ludum-dare/ld-33';
+import { LD32 } from './pages/projects/ludum-dare/ld-32';
+import { LD31 } from './pages/projects/ludum-dare/ld-31';
+import { LD30 } from './pages/projects/ludum-dare/ld-30';
+import { LD29 } from './pages/projects/ludum-dare/ld-29';
+import { LD28 } from './pages/projects/ludum-dare/ld-28';
+import { LD27 } from './pages/projects/ludum-dare/ld-27';
 
-import PizzaMan from './pages/projects/other/pizza-man';
-import GGServer from './pages/projects/other/gg-server';
-import TurkeyBot from './pages/projects/other/turkey-bot';
+import { PizzaMan } from './pages/projects/other/pizza-man';
+import { GGServer } from './pages/projects/other/gg-server';
+import { TurkeyBot } from './pages/projects/other/turkey-bot';
 
 import ChanceCubesStats from './pages/projects/mods/chance-cubes/chance-cubes-stats';
-import ChanceCubesMC from './pages/projects/mods/chance-cubes/chance-cubes';
-import ChanceCubesRewardsStatus from './pages/projects/mods/chance-cubes/chance-cubes-rewards-status'
-import HeadCrumbs from './pages/projects/mods/head-crumbs';
-import WitherCrumbs from './pages/projects/mods/wither-crumbs';
-import RaftIntegration from './pages/projects/mods/raft-integration';
-import SlimeRancherIntegration from './pages/projects/mods/slime-rancher-integration';
+import { ChanceCubesMC } from './pages/projects/mods/chance-cubes/chance-cubes';
+import { ChanceCubesRewardsStatus } from './pages/projects/mods/chance-cubes/chance-cubes-rewards-status'
+import { HeadCrumbs } from './pages/projects/mods/head-crumbs';
+import { WitherCrumbs } from './pages/projects/mods/wither-crumbs';
+import { RaftIntegration } from './pages/projects/mods/raft-integration';
+import { SlimeRancherIntegration } from './pages/projects/mods/slime-rancher-integration';
 
 const routing = (
     <Router>
