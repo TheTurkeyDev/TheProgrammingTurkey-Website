@@ -37,10 +37,10 @@ const Mods = [
     { title: "Void Compression", subtitle: "Minecraft", link: "/projects/void-compression", image: "/images/void_compression.png" },
 ];
 
-export function Projects() {
+export function Projects(props) {
     let type = "all";
-    if (this.props.location && this.props.location.search) {
-        let params = this.props.location.search.substring(1).split("&");
+    if (props.location && props.location.search) {
+        let params = props.location.search.substring(1).split("&");
         params.forEach((element) => {
             let keyVal = element.split("=");
             if (keyVal[0] === "type")

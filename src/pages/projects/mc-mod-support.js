@@ -12,18 +12,18 @@ const support = [
 ];
 
 const projects = {
-    "Chance Cubes": [1, 1, 1, 1, 1, 1, 1, 0, 0],
-    "A Block of Charcoal": [1, 4, 4, 1, 1, 1, 1, 0, 0],
-    "A Block of Flint": [4, 4, 4, 4, 4, 1, 1, 0, 0],
-    "Headcrumbs": [1, 4, 1, 1, 1, 1, 4, 2, 5],
-    "Withercrumbs": [1, 4, 4, 1, 4, 1, 4, 3, 5],
-    "Colored Name Tags": [4, 4, 4, 4, 4, 1, 4, 5, 5],
-    "Block Highlighter": [4, 4, 4, 1, 4, 1, 4, 0, 0],
-    "Progression Tweaks": [4, 4, 4, 4, 4, 1, 4, 4, 4],
-    "Gobble Core": [4, 4, 4, 1, 1, 1, 4, 4, 4],
-    "Custom UI": [4, 4, 1, 1, 1, 1, 4, 4, 4],
-    "TurkeyUtil": [1, 4, 4, 4, 4, 4, 4, 4, 4],
-    "Void Compression": [1, 4, 4, 4, 4, 4, 4, 4, 4]
+    "Chance Cubes": [1, 1, 1, 1, 1, 1, 1, 0, 0, 3],
+    "A Block of Charcoal": [1, 4, 4, 1, 1, 1, 1, 0, 0, 3],
+    "A Block of Flint": [4, 4, 4, 4, 4, 1, 1, 0, 0, 3],
+    "Headcrumbs": [1, 4, 1, 1, 1, 1, 4, 5, 5, 5],
+    "Withercrumbs": [1, 4, 4, 1, 4, 1, 4, 4, 5, 5],
+    "Colored Name Tags": [4, 4, 4, 4, 4, 1, 4, 4, 3, 3],
+    "Block Highlighter": [4, 4, 4, 1, 4, 1, 4, 0, 0, 2],
+    "Progression Tweaks": [4, 4, 4, 4, 4, 1, 4, 4, 4, 4],
+    "Gobble Core": [4, 4, 4, 1, 1, 1, 4, 4, 4, 4],
+    "Custom UI": [4, 4, 1, 1, 1, 1, 4, 4, 4, 4],
+    "TurkeyUtil": [1, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    "Void Compression": [1, 4, 4, 4, 4, 4, 4, 4, 4, 4]
 };
 
 export function MCModSupport() {
@@ -44,6 +44,7 @@ export function MCModSupport() {
                                 <th scope="col">1.13</th>
                                 <th scope="col">1.14</th>
                                 <th scope="col">1.15</th>
+                                <th scope="col">1.16</th>
                             </tr>
                         </thead>
                         <tbody>

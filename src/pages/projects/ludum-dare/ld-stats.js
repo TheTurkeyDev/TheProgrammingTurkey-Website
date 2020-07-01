@@ -18,8 +18,6 @@ const ld46 = { display: "LD46 (3576 games)", totalGames: [3576, 0], overall: [16
 const comps = [ld27, ld28, ld29, ld30, ld31, ld32, ld34, ld35, ld37, ld39, ld46];
 
 export function LDStats() {
-    const [stats, setStats] = useState({});
-    const [percentile, setPercentile] = useState({});
     let statsRef = useRef();
     let percentileRef = useRef();
 
@@ -143,8 +141,6 @@ export function LDStats() {
             type: "line",
             data: percentileConf
         });
-        setStats(statsConf);
-        setPercentile(percentileConf);
     }, []);
 
     return (
