@@ -28,7 +28,7 @@ import { PizzaMan } from './pages/projects/other/pizza-man';
 import { GGServer } from './pages/projects/other/gg-server';
 import { TurkeyBot } from './pages/projects/other/turkey-bot';
 
-import ChanceCubesStats from './pages/projects/mods/chance-cubes/chance-cubes-stats';
+import { ChanceCubesStats } from './pages/projects/mods/chance-cubes/chance-cubes-stats';
 import { ChanceCubesMC } from './pages/projects/mods/chance-cubes/chance-cubes';
 import { ChanceCubesRewardsStatus } from './pages/projects/mods/chance-cubes/chance-cubes-rewards-status'
 import { HeadCrumbs } from './pages/projects/mods/head-crumbs';
