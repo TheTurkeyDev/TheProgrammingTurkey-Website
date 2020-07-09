@@ -64,7 +64,7 @@ export function ChanceCubesRewardsStatus() {
                         </div>
                     </div>
                     {
-                        Object.entries(computeVersionCompletion()).map(entry => {
+                        Object.entries(computeVersionCompletion(rewards)).map(entry => {
                             return (
                                 <div key={entry[0]} className="row">
                                     <div className="col text-right" style={{ width: "150px", maxWidth: "150px" }}>
