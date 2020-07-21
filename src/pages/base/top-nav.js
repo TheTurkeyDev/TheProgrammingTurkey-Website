@@ -16,6 +16,7 @@ export function TopNav() {
                             <Link className="dropdown-item" to="/projects?type=all">All</Link>
                             <Link className="dropdown-item" to="/projects?type=ld">Ludum Dare</Link>
                             <Link className="dropdown-item" to="/projects?type=mods">Mods</Link>
+                            <Link className="dropdown-item" to="/projects?type=webapps">Web Apps</Link>
                             <Link className="dropdown-item" to="/projects?type=other">Others</Link>
                         </div>
                     </li>
@@ -28,10 +29,10 @@ export function TopNav() {
                     <li className="nav-item dropdown">
                         <p className="nav-link dropdown-toggle txt-color-primary" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other Links</p>
                         <div className="dropdown-menu bg-secondary" aria-labelledby="navbarDropdown" style={{ marginTop: "-24px" }}>
-                            <a className="dropdown-item" href="" onClick={() => window.open('https://twitch.tv/turkey2349')}>Twitch</a>
-                            <a className="dropdown-item" href="" onClick={() => window.open('https://www.youtube.com/user/IProgram4Fun')}>YouTube</a>
+                            <a className="dropdown-item" href="" onClick={() => window.open('theturkey.dev/twitch')}>Twitch</a>
+                            <a className="dropdown-item" href="" onClick={() => window.open('theturkey.dev/youtube')}>YouTube</a>
                             <a className="dropdown-item" href="" onClick={() => window.open('https://discord.gg/DkexpJj')}>Discord</a>
-                            <a className="dropdown-item" href="" onClick={() => window.open('https://github.com/Turkey2349')}>Github</a>
+                            <a className="dropdown-item" href="" onClick={() => window.open('theturkey.dev/github')}>Github</a>
                             <a className="dropdown-item" href="" onClick={() => window.open('https://ldjam.com')}>Ludum Dare</a>
                         </div>
                     </li>

@@ -7,21 +7,21 @@
 }
 
 .bg-primary {
-    background-color: #222831 !important;
-    color: #eeeeee;
+    background-color: #212529 !important;
+    color: #f3f3f3;
 }
 
 .bg-primary a, .bg-secondary a {
-    color: #b55400 !important;
+    color: #00B4D8 !important;
 }
 
 .text-light {
-    color: #eeeeee !important;
+    color: #f3f3f3 !important;
 }
 
 .bg-secondary {
-    background-color: #393e46 !important;
-    color: #eeeeee;
+    background-color: #343a40 !important;
+    color: #f3f3f3;
     border-color: #222831;
 }
 

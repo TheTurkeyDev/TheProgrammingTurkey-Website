@@ -18,8 +18,14 @@ const LDGames = [
     { title: "Flash Memory", subtitle: "LudumDare 27", link: "/projects/ld27", image: "/images/ld27.png" },
 ];
 
+const WebApps = [
+    { title: "FPD Stats", subtitle: "Hockey Stat Tracker", link: "http://fpdstats.com", image: "/images/fpd_stats.png" },
+    { title: "Sport Scores Bot", subtitle: "Twitch Bot", link: "https://sportscoresbot.com", image: "/images/sport_scores_bot.png" },
+    { title: "Misc Apps", subtitle: "Small Projects", link: "https://theturkey.dev/apps", image: "/images/turkey_avatar.png", width: "126px" }
+];
+
 const Mods = [
-    { title: "Chance Cubes", subtitle: "Minecraft", link: "/projects/chance-cubes-mc", image: "/images/chance_cubes.png" },
+    { title: "Chance Cubes", subtitle: "Minecraft", link: "/projects/chance-cubes-mc", image: "/images/chance_cubes_dark.png" },
     { title: "Raft Twitch Integration", subtitle: "Raft", link: "/projects/raft-integration", image: "http://files.theprogrammingturkey.com/images/raft_twitch_integration_mod_logo.jpg" },
     { title: "Slime Rancher Twitch Integration", subtitle: "Slime Rancher", link: "/projects/slime-rancher-integration", image: "/images/slime_rancher_twitch_integration.png" },
     { title: "Call of minecraft: Zombies", subtitle: "Minecraft (Plugin/ Bukkit)", link: "/projects/comz", image: "/images/comz.png" },
@@ -27,7 +33,7 @@ const Mods = [
     { title: "A Block of Flint", subtitle: "Minecraft", link: "/projects/block-of-flint", image: "/images/flint_block.png" },
     { title: "Headcrumbs", subtitle: "Minecraft", link: "/projects/head-crumbs", image: "/images/wither_crumbs.png" },
     { title: "Withercrumbs", subtitle: "Minecraft", link: "/projects/wither-crumbs", image: "/images/wither_crumbs.png" },
-    { title: "Chance Cubes", subtitle: "Stardew Valley", link: "/projects/chance-cubes-sdv", image: "/images/chance_cubes.png" },
+    { title: "Chance Cubes", subtitle: "Stardew Valley", link: "/projects/chance-cubes-sdv", image: "/images/chance_cubes_dark.png" },
     { title: "Colored Name Tags", subtitle: "Minecraft", link: "/projects/colored-name-tags", image: "/images/colored_name_tags.png" },
     { title: "Block Highlighter", subtitle: "Minecraft", link: "/projects/block-highlighter", image: "/images/block_highlighter.png" },
     { title: "Progression Tweaks", subtitle: "Minecraft", link: "/projects/progression-tweaks", image: "/images/progression_tweaks.png" },
@@ -70,12 +76,37 @@ export function Projects(props) {
                         {
                             Mods.map((mod, i) => {
                                 return (
-                                    <div key={i} className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
+                                    <div key={i} className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3 anim-slide-in">
                                         <Link to={mod.link} style={{ overflow: "hidden" }}>
                                             <img src={mod.image} alt="Logo" width="224px" height="126px" style={{ objectFit: "contain" }} />
                                             <div><span>{mod.title}</span></div>
                                             <div><span>{mod.subtitle}</span></div>
                                         </Link>
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+                </div>
+            }
+            {
+                (type === "all" || type === "webapps") &&
+                <div className="text-center container-fluid mt-3">
+                    <div className="row">
+                        <div className="col">
+                            <h1><u>Web Apps</u></h1>
+                        </div>
+                    </div>
+                    <div className="row">
+                        {
+                            WebApps.map((app, i) => {
+                                return (
+                                    <div key={i} className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3 anim-slide-in">
+                                        <a href={app.link}>
+                                            <img src={app.image} alt="Logo" width={app.width ? app.width : '224px'} height={app.height ? app.height : '126px'} />
+                                            <div><span>{app.title}</span></div>
+                                            <div><span>{app.subtitle}</span></div>
+                                        </a>
                                     </div>
                                 );
                             })
@@ -95,7 +126,7 @@ export function Projects(props) {
                         {
                             LDGames.map((game, i) => {
                                 return (
-                                    <div key={i} className="col-sm-6 col-md-4 col-lg-3 mt-3 anim-slide-in">
+                                    <div key={i} className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3 anim-slide-in">
                                         <Link to={game.link}>
                                             <img src={game.image} alt="Logo" width="224px" height="126px" />
                                             <div><span>{game.title}</span></div>
@@ -117,7 +148,7 @@ export function Projects(props) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
                             <Link to="/projects/pizza-man">
                                 Pizza Man - A game made to test my GameAPI!
                                 </Link>
@@ -129,12 +160,12 @@ export function Projects(props) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
                             <Link to="/projects/gg-server">
                                 <div><span>GG Server</span></div>
                             </Link>
                         </div>
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
                             <Link to="/projects/turkey-bot">
                                 <div><span>TurkeyBot</span></div>
                             </Link>
@@ -146,31 +177,31 @@ export function Projects(props) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
                             <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-Java')} href="">
                                 <img src="/images/volatillia_api_java.png" alt="vapi_java_logo" width="224px" height="126px" />
                                 <div><span>VolatiliaAPI - Java</span></div>
                             </a>
                         </div>
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
                             <Link to="/projects/volatiliaapi-ogl">
                                 <img src="/images/volatillia_api_java_opengl.png" alt="vapi_java_ogl_logo" width="224px" height="126px" />
                                 <div><span>VolatiliaAPI - Java OpenGL API</span></div>
                             </Link>
                         </div>
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
                             <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-WebAccess')} href="">
                                 <img src="/images/volatillia_api_web_access.png" alt="vapi_web_access_logo" width="224px" height="126px" />
                                 <div><span>VolatiliaAPI - WebAccess</span></div>
                             </a>
                         </div>
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
                             <Link to="/projects/gameapi">
                                 <img src="/images/volatillia_api_java_swing.png" alt="vapi_java_swing_logo" width="224px" height="126px" />
                                 <div><span>VolatiliaAPI - Java Swing API</span></div>
                             </Link>
                         </div>
-                        <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
                             <a onClick={() => window.open('https://github.com/Turkey2349/NHLStatsAPI-Java')} href="">
                                 <img src="/images/nhl_logo.png" alt="vc_logo" width="224px" height="126px" />
                                 <div><span>NHL Stats API</span></div>
