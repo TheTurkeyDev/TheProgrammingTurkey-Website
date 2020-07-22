@@ -19,7 +19,7 @@ export function WitherCrumbs() {
                         Info Page and Download
                         </a>
                         |
-                        <a className="ml-1" href="https://github.com/Turkey2349/WitherCrumbs">
+                        <a className="ml-1" href="https://github.com/TheTurkeyDev/WitherCrumbs">
                         Source Code
                         </a>
                 </div>

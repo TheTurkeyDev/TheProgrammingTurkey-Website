@@ -28,7 +28,7 @@ export function LD35() {
                         Ludum Dare Page
                         </a>
                         |
-                        <a className="ml-1" href="" onClick={() => window.open('https://github.com/Turkey2349/LudumDare35')}>
+                        <a className="ml-1" href="" onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare35')}>
                         Source Code
                         </a>
                 </div>

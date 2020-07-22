@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export function TopNav() {
     return (
         <div className="w-100 bg-dark navbar-dark text-center">
-            <h1 className="m-auto text-light">The Programming Turkey</h1>
+            <h1 className="m-auto text-light">TurkeyDev</h1>
             <nav className="navbar navbar-expand-sm">
                 <ul className="navbar-nav m-auto">
                     <li className="nav-item">

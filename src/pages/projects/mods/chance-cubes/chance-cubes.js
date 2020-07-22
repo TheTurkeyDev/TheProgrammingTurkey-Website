@@ -21,7 +21,7 @@ export function ChanceCubesMC() {
                         Info Page and Download
                         </a>
                         |
-                        <a className="ml-1" href="https://github.com/Turkey2349/ChanceCubes">
+                        <a className="ml-1" href="https://github.com/TheTurkeyDev/ChanceCubes">
                         Source Code
                         </a>
                         |

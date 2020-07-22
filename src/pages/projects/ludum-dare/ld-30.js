@@ -34,7 +34,7 @@ export function LD30() {
                         Ludum Dare Page
                         </a>
                         |
-                        <a className="ml-1" href="" onClick={() => window.open('https://github.com/Turkey2349/LudumDare30')}>
+                        <a className="ml-1" href="" onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare30')}>
                         Source Code
                         </a>
                 </div>

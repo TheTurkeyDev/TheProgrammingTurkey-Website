@@ -17,7 +17,7 @@ export function App() {
                             Now I am redoing it all with React and bootstrap! Why react? Well I'm learning it to work with it on another
                             project, so I'm using it here to aid in my testing and learning.
                             The source code for my website is actually available to everyone
-                                <a href="https://github.com/Turkey2349/TheProgrammingTurkey-Website"> on my Github page!</a>
+                                <a href="https://github.com/TheTurkeyDev/TheProgrammingTurkey-Website"> on my Github page!</a>
                         </p>
 
                         <p className="card-text">

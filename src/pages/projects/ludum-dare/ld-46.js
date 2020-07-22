@@ -25,7 +25,7 @@ export function LD46() {
                         Ludum Dare Page
                         </a>
                         |
-                        <a className="ml-1" href="" onClick={() => window.open('https://github.com/Turkey2349/LudumDare46')}>
+                        <a className="ml-1" href="" onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare46')}>
                         Source Code
                         </a>
                 </div>

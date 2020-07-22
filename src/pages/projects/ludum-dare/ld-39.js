@@ -24,7 +24,7 @@ export function LD39() {
                         Ludum Dare Page
                         </a>
                         |
-                        <a className="ml-1" href="" onClick={() => window.open('https://github.com/Turkey2349/LudumDare39')}>
+                        <a className="ml-1" href="" onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare39')}>
                         Source Code
                         </a>
                 </div>

@@ -26,7 +26,7 @@ export function SlimeRancherIntegration() {
                     <li className="list-group-item bg-primary pt-0 pb-0">Day / Night toggle</li>
                 </ul>
                 <div className="mt-4">
-                    <a className="ml-1" href="https://github.com/Turkey2349/Slime-Rancher-Twitch-Integration">
+                    <a className="ml-1" href="https://github.com/TheTurkeyDev/Slime-Rancher-Twitch-Integration">
                         Source Code
                         </a>
                 </div>

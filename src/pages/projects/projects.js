@@ -178,7 +178,7 @@ export function Projects(props) {
                     </div>
                     <div className="row">
                         <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
-                            <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-Java')} href="">
+                            <a onClick={() => window.open('https://github.com/TheTurkeyDev/VolatiliaAPI-Java')} href="">
                                 <img src="/images/volatillia_api_java.png" alt="vapi_java_logo" width="224px" height="126px" />
                                 <div><span>VolatiliaAPI - Java</span></div>
                             </a>
@@ -190,7 +190,7 @@ export function Projects(props) {
                             </Link>
                         </div>
                         <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
-                            <a onClick={() => window.open('https://github.com/Turkey2349/VolatiliaAPI-WebAccess')} href="">
+                            <a onClick={() => window.open('https://github.com/TheTurkeyDev/VolatiliaAPI-WebAccess')} href="">
                                 <img src="/images/volatillia_api_web_access.png" alt="vapi_web_access_logo" width="224px" height="126px" />
                                 <div><span>VolatiliaAPI - WebAccess</span></div>
                             </a>
@@ -202,7 +202,7 @@ export function Projects(props) {
                             </Link>
                         </div>
                         <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-3">
-                            <a onClick={() => window.open('https://github.com/Turkey2349/NHLStatsAPI-Java')} href="">
+                            <a onClick={() => window.open('https://github.com/TheTurkeyDev/NHLStatsAPI-Java')} href="">
                                 <img src="/images/nhl_logo.png" alt="vc_logo" width="224px" height="126px" />
                                 <div><span>NHL Stats API</span></div>
                             </a>

@@ -30,7 +30,7 @@ export function RaftIntegration() {
                     <li className="list-group-item bg-primary pt-0 pb-0">Spawn a meteor shower</li>
                 </ul>
                 <div className="mt-4">
-                    <a className="ml-1" href="https://github.com/Turkey2349/Raft-Game-Twitch-Integration">
+                    <a className="ml-1" href="https://github.com/TheTurkeyDev/Raft-Game-Twitch-Integration">
                         Source Code
                         </a>
                 </div>
