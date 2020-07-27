@@ -10,11 +10,11 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
+            - run: npm run build
   deploy:
      machine:
        enabled: true
      steps:
-       - run: npm run build
        - run:
            name: Deploy
            command: $SSH_COMMAND
