@@ -10,11 +10,11 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
-            - run: webpack -p --progress --config webpack.config.js
   deploy:
      machine:
        enabled: true
      steps:
+       - run: webpack -p --progress --config webpack.config.js
        - run:
            name: Deploy
            command: $SSH_COMMAND
