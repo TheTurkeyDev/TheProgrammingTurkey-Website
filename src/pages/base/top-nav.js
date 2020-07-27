@@ -29,10 +29,10 @@ export function TopNav() {
                     <li className="nav-item dropdown">
                         <p className="nav-link dropdown-toggle txt-color-primary" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other Links</p>
                         <div className="dropdown-menu bg-secondary" aria-labelledby="navbarDropdown" style={{ marginTop: "-24px" }}>
-                            <a className="dropdown-item" href="" onClick={() => window.open('theturkey.dev/twitch')}>Twitch</a>
-                            <a className="dropdown-item" href="" onClick={() => window.open('theturkey.dev/youtube')}>YouTube</a>
+                            <a className="dropdown-item" href="" onClick={() => window.open('https://theturkey.dev/twitch')}>Twitch</a>
+                            <a className="dropdown-item" href="" onClick={() => window.open('https://theturkey.dev/youtube')}>YouTube</a>
                             <a className="dropdown-item" href="" onClick={() => window.open('https://discord.gg/DkexpJj')}>Discord</a>
-                            <a className="dropdown-item" href="" onClick={() => window.open('theturkey.dev/github')}>Github</a>
+                            <a className="dropdown-item" href="" onClick={() => window.open('https://theturkey.dev/github')}>Github</a>
                             <a className="dropdown-item" href="" onClick={() => window.open('https://ldjam.com')}>Ludum Dare</a>
                         </div>
                     </li>
