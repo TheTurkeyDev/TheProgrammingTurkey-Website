@@ -1,3 +1,7 @@
+#root {
+    overflow-x: hidden;
+}
+
 .dropdown:hover>.dropdown-menu {
     display: block;
 }
@@ -52,7 +56,35 @@
     background-color: #222831;
 }
 
-/* 
-b55400
-eeeeee
-*/
+/* ===== TOOL TIP ====*/
+
+.mypopover {
+    position: relative;
+    display: inline-block;
+}
+
+.mypopover i {
+    color: white
+}
+
+.mypopover .mypopovertext {
+    visibility: hidden;
+    width: 400px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -50%;
+    right: 100%;
+    margin-left: -200px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.mypopover:hover .mypopovertext {
+    visibility: visible;
+    opacity: 1;
+}

@@ -20,24 +20,43 @@ const gameVersions = [
     "1.13",
     "1.14",
     "1.15"
-]
+];
 
-export function ChanceCubesRewardsStatus() {
-    const [rewards, setRewards] = useState({})
+export function ChanceCubesRewardsStatus(props) {
+    const [rewards, setRewards] = useState({});
+    const [notes, setNotes] = useState([]);
+
+    const params = {};
+    if (props.location.search !== "") {
+        props.location.search.substr(1).split("&").forEach(part => {
+            let keyVal = part.split("=");
+            params[keyVal[0]] = keyVal[1];
+        });
+    }
+
     useEffect(() => {
         fetch("https://api.theprogrammingturkey.com/chance_cubes/RewardStatusAPI.php")
             .then(resp => resp.json())
             .then(json => {
                 let rewards = {};
-                json.forEach(element => {
+                json.rewards.forEach(element => {
                     if (!rewards.hasOwnProperty(element.reward_name))
                         rewards[element.reward_name] = {};
                     rewards[element.reward_name][element.game_version] = element.status;
                 });
 
+                setNotes(json.notes);
                 setRewards(rewards);
+
+                if (params.reward)
+                    setTimeout(() => document.getElementById(params.reward).scrollIntoView({ behavior: "smooth", block: "center" }), 1000);
             });
     }, []);
+
+    const copyToClipBoard = (reward) => {
+        navigator.clipboard.writeText(`https://theprogrammingturkey.com/chancecubes/rewardstatus?reward=${reward}`);
+        console.log(`https://theprogrammingturkey.com/chancecubes/rewardstatus?reward=${reward}`);
+    };
 
     return (
         <PageWrapper>
@@ -107,6 +126,7 @@ export function ChanceCubesRewardsStatus() {
                     <table className="table sticky-table">
                         <thead>
                             <tr className="text-center text-light">
+                                <th scope="col"></th>
                                 <th scope="col">Reward/ Version</th>
                                 <th scope="col">1.7.10</th>
                                 <th scope="col">1.8</th>
@@ -123,13 +143,38 @@ export function ChanceCubesRewardsStatus() {
                             {
                                 Object.keys(rewards).filter(entry => !entry.startsWith("chancecubes:cr_")).sort((a, b) => a.localeCompare(b)).map((reward) => {
                                     return (
-                                        <tr key={reward}>
-                                            <td scope="row" className="p-1 text-light"> {reward} </td>
+                                        <tr key={reward} id={reward} className={params.reward === reward ? "highlight-fade" : ""}>
+                                            <td scope="row" className="p-1 text-center text-light"> <i className="fas fa-link" onClick={() => copyToClipBoard(reward)}></i></td>
+                                            <td className="p-1 text-light"> {reward} </td>
                                             {
                                                 gameVersions.map((version, index) => {
                                                     const status = rewards[reward].hasOwnProperty(version) ? rewards[reward][version] : 0;
+                                                    const rewardNotes = notes.filter(note => note.game_version === version && note.reward_name === reward);
                                                     return (
-                                                        <td key={`${version}-${index}`} className="p-1 text-center" style={{ backgroundColor: statusInfo[status]["bg"], borderRight: "1px solid #ababab" }}>
+                                                        <td key={`${version}-${index}`} className="p-1" style={{ backgroundColor: statusInfo[status]["bg"], borderRight: "1px solid #ababab", height: "40px" }}>
+                                                            {
+                                                                rewardNotes.length > 0 &&
+                                                                <div className="mypopover w-100 text-center">
+                                                                    <span><i className="fas fa-info-circle"></i></span>
+                                                                    <div className="mypopovertext">
+                                                                        {
+                                                                            rewardNotes.map(note => {
+                                                                                let date = new Date(note.date);
+                                                                                return (
+                                                                                    <div key={date}>
+                                                                                        <div className="w-100 text-left pl-2" style={{ color: "#b9b9b9" }}>
+                                                                                            {date.toUTCString()}
+                                                                                        </div>
+                                                                                        <div className="w-100 text-center pl-4 pr-4">
+                                                                                            {note.note}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                )
+                                                                            })
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            }
                                                         </td>
                                                     )
                                                 })

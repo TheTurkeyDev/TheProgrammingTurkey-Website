@@ -8,6 +8,20 @@
     animation: slideInFromBot 1.5s ease-out;
 }
 
+.highlight-fade {
+    animation-name: yellowfade;
+    animation-duration: 5s;
+    animation-delay: 2s;
+}
+
+@keyframes yellowfade {
+    from {
+        background: yellow;
+    }
+    to {
+        background: transparent;
+    }
+}
 
 /* Safari 4.0 - 8.0 */
 
