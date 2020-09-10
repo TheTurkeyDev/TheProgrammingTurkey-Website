@@ -19,7 +19,8 @@ const gameVersions = [
     "1.12",
     "1.13",
     "1.14",
-    "1.15"
+    "1.15",
+    "1.16"
 ];
 
 export function ChanceCubesRewardsStatus(props) {
@@ -55,7 +56,6 @@ export function ChanceCubesRewardsStatus(props) {
 
     const copyToClipBoard = (reward) => {
         navigator.clipboard.writeText(`https://theprogrammingturkey.com/chancecubes/rewardstatus?reward=${reward}`);
-        console.log(`https://theprogrammingturkey.com/chancecubes/rewardstatus?reward=${reward}`);
     };
 
     return (
@@ -128,15 +128,9 @@ export function ChanceCubesRewardsStatus(props) {
                             <tr className="text-center text-light">
                                 <th scope="col"></th>
                                 <th scope="col">Reward/ Version</th>
-                                <th scope="col">1.7.10</th>
-                                <th scope="col">1.8</th>
-                                <th scope="col">1.9</th>
-                                <th scope="col">1.10</th>
-                                <th scope="col">1.11</th>
-                                <th scope="col">1.12</th>
-                                <th scope="col">1.13</th>
-                                <th scope="col">1.14</th>
-                                <th scope="col">1.15</th>
+                                {
+                                    gameVersions.map(v => <th scope="col">{v}</th>)
+                                }
                             </tr>
                         </thead>
                         <tbody>
