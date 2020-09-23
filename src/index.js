@@ -35,6 +35,7 @@ import { HeadCrumbs } from './pages/projects/mods/head-crumbs';
 import { WitherCrumbs } from './pages/projects/mods/wither-crumbs';
 import { RaftIntegration } from './pages/projects/mods/raft-integration';
 import { SlimeRancherIntegration } from './pages/projects/mods/slime-rancher-integration';
+import { Support } from './pages/support';
 
 const routing = (
     <Router>
@@ -67,6 +68,7 @@ const routing = (
             <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
 
             <Route exact path='/info' component={Info} />
+            <Route exact path='/support' component={Support} />
             <Route component={Notfound} />
         </Switch>
     </Router>

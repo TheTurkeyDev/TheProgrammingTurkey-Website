@@ -12,7 +12,7 @@ export function Info() {
                         <span>Email:</span>
                     </div>
                     <div>
-                        <span>Turkey2349@gmail.com</span>
+                        <span>turkey@theturkey.dev</span>
                     </div>
                 </div>
                 <h2 className="mt-3">Programming languages</h2>
