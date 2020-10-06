@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { PageWrapper } from "../base/page-wrapper";
 
 const LDGames = [
+    { title: "A Timed Loop", subtitle: "LudumDare 47", link: "/projects/ld47", image: "/images/ld47.png" },
     { title: "Turkey's Plant Emporium", subtitle: "LudumDare 46", link: "/projects/ld46", image: "/images/ld46.png" },
     { title: "Power Synergy", subtitle: "LudumDare 39", link: "/projects/ld39", image: "/images/ld39.png" },
     { title: "Hedge Maze Overlord", subtitle: "LudumDare 37", link: "/projects/ld37", image: "/images/ld37.png" },

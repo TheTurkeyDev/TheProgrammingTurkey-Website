@@ -30,7 +30,6 @@ export function App() {
                     <div className="card-body">
                         <h5 className="card-title">Website To-Do List</h5>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item bg-secondary">Dark Theme (Working on it)</li>
                             <li className="list-group-item bg-secondary">Game/ Project Pages</li>
                             <li className="list-group-item bg-secondary">Twitch View</li>
                             <li className="list-group-item bg-secondary">Test Section</li>
@@ -39,7 +38,7 @@ export function App() {
                 </div>
                 <div className="card m-5 shadow bg-secondary">
                     <div className="card-body">
-                        <h5 className="card-title">Ludum Dare 46!</h5>
+                        <h5 className="card-title">Ludum Dare 47!</h5>
                         <h6 className="card-subtitle">That's a wrap!</h6>
                         <p className="card-text">
                             Well another Ludum Dare has come and passed.
@@ -48,7 +47,7 @@ export function App() {
                     </div>
 
                     <div className="card-footer">
-                        <Link className="mr-2" to="/projects/LD46">Game</Link>
+                        <Link className="mr-2" to="/projects/LD47">Game</Link>
                         <span>|</span>
                         <a className="ml-2 mr-2" href="https://ldjam.com">Ludum Dare</a>
                         <span>|</span>

@@ -11,6 +11,7 @@ import { Projects } from './pages/projects/projects';
 import { MCModSupport } from './pages/projects/mc-mod-support';
 
 import { LDStats } from './pages/projects/ludum-dare/ld-stats';
+import { LD47 } from './pages/projects/ludum-dare/ld-47';
 import { LD46 } from './pages/projects/ludum-dare/ld-46';
 import { LD39 } from './pages/projects/ludum-dare/ld-39';
 import { LD37 } from './pages/projects/ludum-dare/ld-37';
@@ -42,6 +43,7 @@ const routing = (
         <Switch>
             <Route exact path='/' component={App} />
             <Route exact path='/projects' component={Projects} />
+            <Route exact path='/projects/ld47' component={LD47} />
             <Route exact path='/projects/ld46' component={LD46} />
             <Route exact path='/projects/ld39' component={LD39} />
             <Route exact path='/projects/ld37' component={LD37} />
