@@ -4,18 +4,19 @@ import Chart from "chart.js";
 import { PageWrapper } from "../../base/page-wrapper";
 
 /*Overall, Theme, Innovation, Fun, Graphics, Audio*/
-const ld27 = { display: "LD27 (1437 games)", totalGames: [1437, 0], overall: [1142, 2.17], theme: [603, 3.13], innovation: [931, 2.43], fun: [1141, 1.88], graphics: [1040, 2.05], audio: [0, 0] };
-const ld28 = { display: "LD28 (1284 games)", totalGames: [1284, 0], overall: [929, 2.39], theme: [618, 2.65], innovation: [918, 2.11], fun: [802, 2.39], graphics: [941, 1.89], audio: [0, 0] };
-const ld29 = { display: "LD29 (1492 games)", totalGames: [1492, 0], overall: [1099, 2.56], theme: [889, 2.84], innovation: [450, 3.21], fun: [1063, 2.38], graphics: [1231, 1.78], audio: [0, 0] };
+const ld27 = { display: "LD27 (1436 games)", totalGames: [1436, 0], overall: [1142, 2.17], theme: [603, 3.13], innovation: [931, 2.43], fun: [1141, 1.88], graphics: [1040, 2.05], audio: [0, 0] };
+const ld28 = { display: "LD28 (1281 games)", totalGames: [1281, 0], overall: [929, 2.39], theme: [618, 2.65], innovation: [918, 2.11], fun: [802, 2.39], graphics: [941, 1.89], audio: [0, 0] };
+const ld29 = { display: "LD29 (1491 games)", totalGames: [1491, 0], overall: [1099, 2.56], theme: [889, 2.84], innovation: [450, 3.21], fun: [1063, 2.38], graphics: [1231, 1.78], audio: [0, 0] };
 const ld30 = { display: "LD30 (1493 games)", totalGames: [1493, 0], overall: [802, 2.96], theme: [546, 3.27], innovation: [959, 2.57], fun: [642, 2.95], graphics: [1135, 2.05], audio: [0, 0] };
 const ld31 = { display: "LD31 (1364 games)", totalGames: [1364, 0], overall: [1025, 2.680], theme: [1098, 2.89], innovation: [1172, 1.89], fun: [1024, 2.47], graphics: [854, 2.63], audio: [0, 0] };
 const ld32 = { display: "LD32 (1353 games)", totalGames: [1353, 0], overall: [1006, 2.6], theme: [843, 2.95], innovation: [1049, 2.16], fun: [893, 2.6], graphics: [985, 2.24], audio: [0, 0] };
-const ld34 = { display: "LD34 (1231 games)", totalGames: [1231, 0], overall: [923, 2.53], theme: [910, 2.76], innovation: [718, 2.72], fun: [926, 2.18], graphics: [886, 1.89], audio: [0, 0] };
-const ld35 = { display: "LD35 (1117 games)", totalGames: [1117, 0], overall: [490, 3.19], theme: [339, 3.55], innovation: [221, 3.53], fun: [392, 3.25], graphics: [542, 2.86], audio: [443, 2.75] };
+const ld34 = { display: "LD34 (1232 games)", totalGames: [1232, 0], overall: [923, 2.53], theme: [910, 2.76], innovation: [718, 2.72], fun: [926, 2.18], graphics: [886, 1.89], audio: [0, 0] };
+const ld35 = { display: "LD35 (1118 games)", totalGames: [1118, 0], overall: [490, 3.19], theme: [339, 3.55], innovation: [221, 3.53], fun: [392, 3.25], graphics: [542, 2.86], audio: [443, 2.75] };
 const ld37 = { display: "LD37 (901 games)", totalGames: [901, 0], overall: [294, 3.32], theme: [264, 3.68], innovation: [119, 3.68], fun: [239, 3.32], graphics: [560, 2.26], audio: [342, 2.68] };
-const ld39 = { display: "LD39 (990 games)", totalGames: [990, 0], overall: [410, 3.174], theme: [323, 3.522], innovation: [170, 3.478], fun: [525, 2.739], graphics: [474, 2.826], audio: [328, 2.81] };
+const ld39 = { display: "LD39 (988 games)", totalGames: [988, 0], overall: [410, 3.174], theme: [323, 3.522], innovation: [170, 3.478], fun: [525, 2.739], graphics: [474, 2.826], audio: [328, 2.81] };
 const ld46 = { display: "LD46 (3576 games)", totalGames: [3576, 0], overall: [1650, 3.306], theme: [1509, 3.528], innovation: [1237, 3.278], fun: [2078, 2.861], graphics: [2039, 2.861], audio: [1400, 2.75] };
-const comps = [ld27, ld28, ld29, ld30, ld31, ld32, ld34, ld35, ld37, ld39, ld46];
+const ld47 = { display: "LD47 (800 games)", totalGames: [800, 0], overall: [482, 3.075], theme: [492,3.105], innovation: [557, 2.625], fun: [239, 3.425], graphics: [551, 2.65], audio: [419, 2.658] };
+const comps = [ld27, ld28, ld29, ld30, ld31, ld32, ld34, ld35, ld37, ld39, ld46, ld47];
 
 export function LDStats() {
     let statsRef = useRef();
