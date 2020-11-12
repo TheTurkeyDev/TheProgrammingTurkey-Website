@@ -29,7 +29,7 @@ export function MCModSupport() {
     const [projects, setProjects] = useState({});
 
     useEffect(() => {
-        fetch("https://api.theprogrammingturkey.com/projectstatusapi.php")
+        fetch("https://api.theturkey.dev/modprojectstatus")
             .then(resp => resp.json())
             .then(json => {
                 let proj = {};
