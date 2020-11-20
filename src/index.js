@@ -37,6 +37,7 @@ import { WitherCrumbs } from './pages/projects/mods/wither-crumbs';
 import { RaftIntegration } from './pages/projects/mods/raft-integration';
 import { SlimeRancherIntegration } from './pages/projects/mods/slime-rancher-integration';
 import { Support } from './pages/support';
+import { StreamLEDControl } from './pages/projects/stream-led-control';
 
 const routing = (
     <Router>
@@ -68,6 +69,8 @@ const routing = (
             <Route exact path='/ld-stats' component={LDStats} />
             <Route exact path='/chancecubes/stats' component={ChanceCubesStats} />
             <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
+
+            <Route exact path='/stream-led-control' component={StreamLEDControl} />
 
             <Route exact path='/info' component={Info} />
             <Route exact path='/support' component={Support} />
