@@ -80,3 +80,23 @@
         -webkit-transform: translate(0px, 0px);
     }
 }
+
+/* Spinner */
+
+@keyframes spinner-spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner-fade {
+    20% {
+        opacity: .1;
+    }
+    40% {
+        opacity: 1;
+    }
+    60% {
+        opacity: .1;
+    }
+}
