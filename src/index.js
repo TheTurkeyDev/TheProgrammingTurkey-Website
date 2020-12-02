@@ -8,34 +8,34 @@ import { Notfound } from './notfound';
 import { Info } from './pages/info';
 
 import { Projects } from './pages/projects/projects';
-import { MCModSupport } from './pages/projects/mc-mod-support';
+import { MCModSupport } from './pages/mods/mc-mod-support';
 
-import { LDStats } from './pages/projects/ludum-dare/ld-stats';
-import { LD47 } from './pages/projects/ludum-dare/ld-47';
-import { LD46 } from './pages/projects/ludum-dare/ld-46';
-import { LD39 } from './pages/projects/ludum-dare/ld-39';
-import { LD37 } from './pages/projects/ludum-dare/ld-37';
-import { LD35 } from './pages/projects/ludum-dare/ld-35';
-import { LD34 } from './pages/projects/ludum-dare/ld-34';
-import { LD33 } from './pages/projects/ludum-dare/ld-33';
-import { LD32 } from './pages/projects/ludum-dare/ld-32';
-import { LD31 } from './pages/projects/ludum-dare/ld-31';
-import { LD30 } from './pages/projects/ludum-dare/ld-30';
-import { LD29 } from './pages/projects/ludum-dare/ld-29';
-import { LD28 } from './pages/projects/ludum-dare/ld-28';
-import { LD27 } from './pages/projects/ludum-dare/ld-27';
+import { LDStats } from './pages/ludum-dare/ld-stats';
+import { LD47 } from './pages/ludum-dare/ld-47';
+import { LD46 } from './pages/ludum-dare/ld-46';
+import { LD39 } from './pages/ludum-dare/ld-39';
+import { LD37 } from './pages/ludum-dare/ld-37';
+import { LD35 } from './pages/ludum-dare/ld-35';
+import { LD34 } from './pages/ludum-dare/ld-34';
+import { LD33 } from './pages/ludum-dare/ld-33';
+import { LD32 } from './pages/ludum-dare/ld-32';
+import { LD31 } from './pages/ludum-dare/ld-31';
+import { LD30 } from './pages/ludum-dare/ld-30';
+import { LD29 } from './pages/ludum-dare/ld-29';
+import { LD28 } from './pages/ludum-dare/ld-28';
+import { LD27 } from './pages/ludum-dare/ld-27';
 
-import { PizzaMan } from './pages/projects/other/pizza-man';
-import { GGServer } from './pages/projects/other/gg-server';
-import { TurkeyBot } from './pages/projects/other/turkey-bot';
+import { PizzaMan } from './pages/projects/pizza-man';
+import { GGServer } from './pages/projects/gg-server';
+import { TurkeyBot } from './pages/projects/turkey-bot';
 
-import { ChanceCubesStats } from './pages/projects/mods/chance-cubes/chance-cubes-stats';
-import { ChanceCubesMC } from './pages/projects/mods/chance-cubes/chance-cubes';
-import { ChanceCubesRewardsStatus } from './pages/projects/mods/chance-cubes/chance-cubes-rewards-status'
-import { HeadCrumbs } from './pages/projects/mods/head-crumbs';
-import { WitherCrumbs } from './pages/projects/mods/wither-crumbs';
-import { RaftIntegration } from './pages/projects/mods/raft-integration';
-import { SlimeRancherIntegration } from './pages/projects/mods/slime-rancher-integration';
+import { ChanceCubesStats } from './pages/chance-cubes/chance-cubes-stats';
+import { ChanceCubesMC } from './pages/chance-cubes/chance-cubes';
+import { ChanceCubesRewardsStatus } from './pages/chance-cubes/chance-cubes-rewards-status'
+import { HeadCrumbs } from './pages/mods/head-crumbs';
+import { WitherCrumbs } from './pages/mods/wither-crumbs';
+import { RaftIntegration } from './pages/mods/raft-integration';
+import { SlimeRancherIntegration } from './pages/mods/slime-rancher-integration';
 import { Support } from './pages/support';
 import { StreamLEDControl } from './pages/projects/stream-led-control';
 
@@ -46,6 +46,8 @@ import { Login } from './pages/auth/login';
 import { UserProfile } from './pages/user/profile';
 import { StreamTimerSetup } from './pages/timer/stream-timer-setup';
 import { Logout } from './pages/auth/logout';
+import { ChanceCubesManageContentCreators } from './pages/chance-cubes/chance-cubes-manage-content-creators';
+import { ProjectStatusEdit } from './pages/projects/project-status-edit';
 
 const routing = (
     <AuthWrapper>
@@ -74,10 +76,13 @@ const routing = (
                 <Route exact path='/projects/wither-crumbs' component={WitherCrumbs} />
                 <Route exact path='/projects/raft-integration' component={RaftIntegration} />
                 <Route exact path='/projects/slime-rancher-integration' component={SlimeRancherIntegration} />
+                <Route exact path='/projects/statusedit' component={ProjectStatusEdit} />
                 <Route exact path='/mod-support' component={MCModSupport} />
                 <Route exact path='/ld-stats' component={LDStats} />
+
                 <Route exact path='/chancecubes/stats' component={ChanceCubesStats} />
                 <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
+                <Route exact path='/chancecubes/managecontentcreators' component={ChanceCubesManageContentCreators} />
 
                 <Route exact path='/stream-led-control' component={StreamLEDControl} />
 

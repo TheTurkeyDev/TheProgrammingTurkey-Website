@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import Chart from "chart.js";
 
-import { PageWrapper } from "../../base/page-wrapper";
+import { PageWrapper } from "../base/page-wrapper";
 
 /*Overall, Theme, Innovation, Fun, Graphics, Audio*/
 const ld27 = { display: "LD27 (1436 games)", totalGames: [1436, 0], overall: [1142, 2.17], theme: [603, 3.13], innovation: [931, 2.43], fun: [1141, 1.88], graphics: [1040, 2.05], audio: [0, 0] };
@@ -15,7 +15,7 @@ const ld35 = { display: "LD35 (1118 games)", totalGames: [1118, 0], overall: [49
 const ld37 = { display: "LD37 (901 games)", totalGames: [901, 0], overall: [294, 3.32], theme: [264, 3.68], innovation: [119, 3.68], fun: [239, 3.32], graphics: [560, 2.26], audio: [342, 2.68] };
 const ld39 = { display: "LD39 (988 games)", totalGames: [988, 0], overall: [410, 3.174], theme: [323, 3.522], innovation: [170, 3.478], fun: [525, 2.739], graphics: [474, 2.826], audio: [328, 2.81] };
 const ld46 = { display: "LD46 (3576 games)", totalGames: [3576, 0], overall: [1650, 3.306], theme: [1509, 3.528], innovation: [1237, 3.278], fun: [2078, 2.861], graphics: [2039, 2.861], audio: [1400, 2.75] };
-const ld47 = { display: "LD47 (800 games)", totalGames: [800, 0], overall: [482, 3.075], theme: [492,3.105], innovation: [557, 2.625], fun: [239, 3.425], graphics: [551, 2.65], audio: [419, 2.658] };
+const ld47 = { display: "LD47 (800 games)", totalGames: [800, 0], overall: [482, 3.075], theme: [492, 3.105], innovation: [557, 2.625], fun: [239, 3.425], graphics: [551, 2.65], audio: [419, 2.658] };
 const comps = [ld27, ld28, ld29, ld30, ld31, ld32, ld34, ld35, ld37, ld39, ld46, ld47];
 
 export function LDStats() {

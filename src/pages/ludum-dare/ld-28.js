@@ -1,6 +1,6 @@
 import React from "react";
 
-import { PageWrapper } from "../../base/page-wrapper";
+import { PageWrapper } from "../base/page-wrapper";
 
 export function LD28() {
     return (

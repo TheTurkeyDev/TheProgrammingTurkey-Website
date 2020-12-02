@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { getDevAPIBase } from "../../network/network";
+import { PageLoading } from "../base/page-loading";
 
 import { PageWrapper } from "../base/page-wrapper"
 
@@ -11,36 +13,35 @@ const support = [
     { bg: "#E24C00", text: "NS-M", desc: "Not supported and this version might recieve a port in the future, but is unknown" },
 ];
 
-const versions = [
-    "1.7.10",
-    "1.8",
-    "1.9",
-    "1.10",
-    "1.11",
-    "1.12",
-    "1.13",
-    "1.14",
-    "1.15",
-    "1.16"
-];
-
-
 export function MCModSupport() {
+    const [loading, setLoading] = useState(true);
     const [projects, setProjects] = useState({});
+    const [versions, setVersions] = useState([]);
 
     useEffect(() => {
-        fetch("https://api.theturkey.dev/modstatus")
+        fetch(`${getDevAPIBase()}/modstatus`)
             .then(resp => resp.json())
             .then(json => {
                 let proj = {};
+                let vs = []
                 json.forEach(status => {
                     if (!proj[status.mod_name])
                         proj[status.mod_name] = {};
                     proj[status.mod_name][status.version] = status.status;
+                    if (!vs.includes(status.version))
+                        vs.push(status.version);
                 });
                 setProjects(proj);
+                setVersions(vs);
+                setLoading(false);
             })
     }, []);
+
+    if (loading) {
+        return (
+            <PageLoading />
+        )
+    }
 
     return (
         <PageWrapper>
@@ -50,16 +51,13 @@ export function MCModSupport() {
                         <thead>
                             <tr className="text-center text-light">
                                 <th scope="col">Mod/ Version</th>
-                                <th scope="col">1.7.10</th>
-                                <th scope="col">1.8</th>
-                                <th scope="col">1.9</th>
-                                <th scope="col">1.10</th>
-                                <th scope="col">1.11</th>
-                                <th scope="col">1.12</th>
-                                <th scope="col">1.13</th>
-                                <th scope="col">1.14</th>
-                                <th scope="col">1.15</th>
-                                <th scope="col">1.16</th>
+                                {
+                                    versions.sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).map(v => {
+                                        return (
+                                            <th key={v} scope="col">{v}</th>
+                                        );
+                                    })
+                                }
                             </tr>
                         </thead>
                         <tbody>

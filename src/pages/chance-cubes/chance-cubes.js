@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { PageWrapper } from "../../../base/page-wrapper";
+import { PageWrapper } from "../base/page-wrapper";
 
 export function ChanceCubesMC() {
     return (

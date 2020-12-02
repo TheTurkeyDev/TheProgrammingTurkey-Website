@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { PageWrapper } from "../../../base/page-wrapper"
+import { PageWrapper } from "../base/page-wrapper"
 
 const statusInfo = [
     { bg: "#8f8f8f", text: "Untested" },

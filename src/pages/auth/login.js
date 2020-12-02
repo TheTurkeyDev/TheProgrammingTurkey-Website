@@ -8,8 +8,6 @@ import { PageWrapper } from '../base/page-wrapper';
 export function Login(props) {
     const auth = useContext(AuthContext);
     //TODO: Cache the state and verify
-    const twtichURL = `https://id.twitch.tv/oauth2/authorize?client_id=ulhcvhvfeiv83t1gduqnow1lispyge&redirect_uri=${getSiteURLBase()}/twitchlogin&response_type=code&scope=viewing_activity_read+openid&state=${nonce(15)}&claims={"id_token":{"preferred_username":null, "picture":null}}`;
-
     const nonce = (length) => {
         let text = "";
         const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -18,6 +16,8 @@ export function Login(props) {
         }
         return text;
     }
+
+    const twtichURL = `https://id.twitch.tv/oauth2/authorize?client_id=ulhcvhvfeiv83t1gduqnow1lispyge&redirect_uri=${getSiteURLBase()}/twitchlogin&response_type=code&scope=viewing_activity_read+openid&state=${nonce(15)}&claims={"id_token":{"preferred_username":null, "picture":null}}`;
 
     //TODO: Send code to the server
     return (

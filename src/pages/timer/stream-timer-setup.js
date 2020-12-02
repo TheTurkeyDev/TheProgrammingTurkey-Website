@@ -155,21 +155,6 @@ export function StreamTimerSetup(props) {
         }
     });
 
-
-    if (!auth.authChecked) {
-        return <PageLoading />;
-    }
-
-    if (!auth.authState) {
-        props.history.push("/login");
-        return <> </>
-    }
-
-    if (!auth.permissions.includes("streamtimer.dashboard")) {
-        props.history.push("/user/profile");
-        return <> </>
-    }
-
     const calcDate = (newDate) => {
         if (newDate == null)
             return;
@@ -313,7 +298,7 @@ export function StreamTimerSetup(props) {
     }
 
     return (
-        <PageWrapper>
+        <AuthPageWrapper history={props.history} perm="streamtimer.dashboard">
             <div className="fluid-container pl-3">
                 <div className="row m-0 mt-3 mb-2">
                     <label className="col m-0 ml-3 align-center" style={{ fontSize: "22px", maxWidth: "100px" }}>
@@ -416,6 +401,6 @@ export function StreamTimerSetup(props) {
                     </canvas>
                 </div>
             </div>
-        </PageWrapper >
+        </AuthPageWrapper >
     );
 }
