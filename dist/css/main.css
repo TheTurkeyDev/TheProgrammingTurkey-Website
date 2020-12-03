@@ -116,6 +116,82 @@ hr {
     opacity: 1;
 }
 
+/*==================Overlay Stuff=====================*/
+
+#overlay {
+    position: fixed;
+    /* Sit on top of the page content */
+    width: 100%;
+    /* Full width (cover the whole page) */
+    height: 100%;
+    /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black background with opacity */
+    z-index: 3;
+    /* Specify a stack order in case you're using a different order for other elements */
+    text-align: center;
+}
+
+#overlay .button {
+    cursor: pointer;
+}
+
+#overlay .button:hover {
+    color: red;
+}
+
+.overlay_contents {
+    width: 60%;
+    padding: 25px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.closeBtn {
+    margin: 10px;
+}
+
+/*==================Snackbar Stuff=====================*/
+
+.toast {
+    min-width: 320px;
+    /* Set a default minimum width */
+    margin-left: -160px;
+    /* Black background color */
+    color: #fff;
+    /* White text color */
+    text-align: center;
+    /* Centered text */
+    border-radius: 25px;
+    /* Rounded borders */
+    padding: 16px;
+    /* Padding */
+    position: fixed;
+    /* Sit on top of the screen */
+    z-index: 5;
+    /* Add a z-index if needed */
+    left: 50%;
+    /* Center the snackbar */
+    bottom: 30px;
+    /* 30px from the bottom */
+    box-shadow: 7px 7px 25px black;
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+
+.toast.show {
+    visibility: visible;
+    /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+      However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 9.7s;
+    animation: fadein 0.5s, fadeout 0.5s 9.7s;
+}
+
 /* Spinner */
 
 .spinner {

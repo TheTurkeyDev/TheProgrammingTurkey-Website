@@ -5,6 +5,7 @@ import { useInterval } from '../../util/use-interval';
 import { AuthContext } from '../../contexts/auth-context';
 import { getDevAPIBase } from '../../network/network';
 import { PageLoading } from '../base/page-loading';
+import { AuthPageWrapper } from '../base/auth-page-wrapper';
 
 export function StreamTimerSetup(props) {
     const canvasRef = useRef(null);

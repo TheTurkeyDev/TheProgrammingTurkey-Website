@@ -1,0 +1,125 @@
+import React, { useContext, useEffect, useState } from "react";
+import { OverlayContext } from "../../contexts/overlay-context";
+import { getDevAPIBase } from "../../network/network";
+import { AuthPageWrapper } from "../base/auth-page-wrapper";
+
+import { NewPermissionOverlay } from "../../overlays/new-permission-overlay";
+import { ConfirmationOverlay } from "../../overlays/confirmation-overlay";
+import { ToastContext } from "../../contexts/toast-context";
+import { TextToast } from "../../toasts/text-toast";
+
+export function PermissionManagement(props) {
+
+    const toast = useContext(ToastContext);
+    const overlay = useContext(OverlayContext);
+
+    const [permissionList, setPermissionList] = useState([]);
+
+    const [updatePermissions, setUpdatePersmissions] = useState(false);
+    const [filter, setFilter] = useState("");
+
+    useEffect(() => {
+        fetch(`${getDevAPIBase()}/admin/getpermissions`,
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': sessionStorage.getItem("access_token")
+                },
+                body: JSON.stringify({
+                    filter: filter
+                })
+            })
+            .then(resp => {
+                if (resp.status === 200)
+                    return resp.json();
+                return null;
+            })
+            .then(json => {
+                if (json)
+                    setPermissionList(json);
+            })
+    }, [updatePermissions]);
+
+    const addNewPerm = () => {
+        overlay.pushCurrentOverlay(<NewPermissionOverlay update={() => setUpdatePersmissions(old => !old)} />);
+    }
+
+    const deletePermConfirm = (perm) => {
+        fetch(`${getDevAPIBase()}/admin/deletepermissions`,
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': sessionStorage.getItem("access_token")
+                },
+                body: JSON.stringify({
+                    permission_id: perm.permission
+                })
+            })
+            .then(resp => {
+                return resp.json();
+            })
+            .then(json => {
+                if (json.message)
+                    toast.pushToast(<TextToast text={json.message} />);
+                setUpdatePersmissions(old => !old);
+            });
+    }
+
+    const deletePerm = (perm) => {
+        overlay.pushCurrentOverlay(<ConfirmationOverlay text={`Are you sure you want to delete the permission ${perm.permission}?`} options={
+            [
+                { text: "Yes", callback: () => { overlay.popCurrentOverlay(); deletePermConfirm(perm); } },
+                { text: "No", callback: () => overlay.popCurrentOverlay() }
+            ]
+        } />);
+    }
+
+    return (
+        <AuthPageWrapper history={props.history} perm="admin.managepermissions">
+            <div className="mr-5 ml-5 mt-2">
+                <div className="mt-3 fluid-container">
+                    <div className="row">
+                        <div className="col mr-2">
+                            <button onClick={() => addNewPerm()}>New Permission</button>
+                        </div>
+                        <div className="col mr-2">
+                            <button onClick={() => setUpdateUsers(old => !old)}>Update</button>
+                        </div>
+                        <div className="col">
+                            <label>Filter</label>
+                            <input className="ml-2" type="text" value={filter} onChange={e => setFilter(e.target.value)} />
+                        </div>
+                    </div>
+                </div>
+                <table className="table text-light text-center ">
+                    <thead>
+                        <tr>
+                            <th scope="col-auto">Actions</th>
+                            <th scope="col-auto">Permission</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            permissionList
+                                .map(perm => {
+                                    return (
+                                        <tr key={perm.permission}>
+                                            <th scope="row" >
+                                                <i className="fas fa-edit clickable mr-2" />
+                                                <i className="fas fa-trash clickable" onClick={() => deletePerm(perm)} />
+                                            </th>
+                                            <td>{perm.permission}</td>
+                                            <td>{perm.description}</td>
+                                        </tr>
+                                    )
+                                })
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </AuthPageWrapper>
+    );
+}

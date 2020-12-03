@@ -1,10 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth-context";
+import { ToastContext } from "../../contexts/toast-context";
 import { getDevAPIBase } from "../../network/network";
 import { AuthPageWrapper } from "../base/auth-page-wrapper";
 
+import { TextToast } from "../../toasts/text-toast";
+
 export function ProjectStatusEdit(props) {
     const auth = useContext(AuthContext);
+    const toast = useContext(ToastContext)
 
     const [loading, setLoading] = useState(true);
     const [projects, setProjects] = useState({});
@@ -15,8 +19,6 @@ export function ProjectStatusEdit(props) {
     const [selectedVersion, setSelectedVersion] = useState("-1");
     const [selectedStatus, setSelectedStatus] = useState("-1");
     const [projectsVisible, setProjectsVisible] = useState(false);
-
-    const [statusText, setStatusText] = useState("");
 
     useEffect(() => {
         fetch(`${getDevAPIBase()}/modstatus`)
@@ -38,22 +40,21 @@ export function ProjectStatusEdit(props) {
     }, []);
 
     const updateProject = () => {
-        setStatusText("Sending...");
         if (!selectedProject) {
-            setStatusText("Missing Project!");
+            toast.pushToast(<TextToast text="Missing Project!" />);
             return;
         }
         if (!selectedVersion || selectedVersion === "-1") {
-            setStatusText("Missing Version!");
+            toast.pushToast(<TextToast text="Missing Version!" />);
             return;
         }
         if (!selectedStatus || selectedStatus === "-1") {
-            setStatusText("Missing Status!");
+            toast.pushToast(<TextToast text="Missing Status!" />);
             return;
         }
 
 
-        fetch(`${getDevAPIBase()}/projects/setprojectstatus`,
+        fetch(`${getDevAPIBase()}/admin/setprojectstatus`,
             {
                 method: 'post',
                 headers: {
@@ -66,9 +67,9 @@ export function ProjectStatusEdit(props) {
                     status: selectedStatus
                 })
             }).then(resp => resp.json()).then(json => {
-                setStatusText(json.response);
+                toast.pushToast(<TextToast text={json.response} />);
             }).catch(e => {
-                setStatusText(e.toString());
+                toast.pushToast(<TextToast text={e.toString()} />);
             });
     }
 
@@ -143,11 +144,6 @@ export function ProjectStatusEdit(props) {
                     </button>
                     <div className="col mr-auto">
                     </div>
-                </div>
-                <div className="row m-0 mt-3">
-                    <span className="col-auto mx-auto">
-                        {statusText}
-                    </span>
                 </div>
             </div>
         </AuthPageWrapper>

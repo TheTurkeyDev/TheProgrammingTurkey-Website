@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
 import { AuthPageWrapper } from '../base/auth-page-wrapper';
@@ -31,6 +31,18 @@ export function UserProfile(props) {
                         auth.permissions.includes("projects.editstatus") &&
                         <div className="row m-0">
                             <Link className="col" to="/projects/statusedit">Edit Project Status'</Link>
+                        </div>
+                    }
+                    {
+                        auth.permissions.includes("admin.usermanage") &&
+                        <div className="row m-0">
+                            <Link className="col" to="/admin/usermanage">Manage Users</Link>
+                        </div>
+                    }
+                    {
+                        auth.permissions.includes("admin.managepermissions") &&
+                        <div className="row m-0">
+                            <Link className="col" to="/admin/permissionmanage">Manage Permission</Link>
                         </div>
                     }
                 </div>

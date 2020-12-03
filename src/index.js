@@ -40,6 +40,8 @@ import { Support } from './pages/support';
 import { StreamLEDControl } from './pages/projects/stream-led-control';
 
 import { AuthWrapper } from './contexts/auth-context';
+import { Overlay } from './contexts/overlay-context';
+import { Toast } from './contexts/toast-context';
 
 import { TwitchLogin } from './pages/auth/twitch-login';
 import { Login } from './pages/auth/login';
@@ -47,58 +49,69 @@ import { UserProfile } from './pages/user/profile';
 import { StreamTimerSetup } from './pages/timer/stream-timer-setup';
 import { Logout } from './pages/auth/logout';
 import { ChanceCubesManageContentCreators } from './pages/chance-cubes/chance-cubes-manage-content-creators';
-import { ProjectStatusEdit } from './pages/projects/project-status-edit';
+import { ProjectStatusEdit } from './pages/admin/project-status-edit';
+import { UserManagement } from './pages/admin/user-management';
+import { PermissionManagement } from './pages/admin/permission-management';
+
 
 const routing = (
     <AuthWrapper>
-        <Router>
-            <Switch>
-                <Route exact path='/' component={App} />
-                <Route exact path='/projects' component={Projects} />
-                <Route exact path='/projects/ld47' component={LD47} />
-                <Route exact path='/projects/ld46' component={LD46} />
-                <Route exact path='/projects/ld39' component={LD39} />
-                <Route exact path='/projects/ld37' component={LD37} />
-                <Route exact path='/projects/ld35' component={LD35} />
-                <Route exact path='/projects/ld34' component={LD34} />
-                <Route exact path='/projects/ld33' component={LD33} />
-                <Route exact path='/projects/ld32' component={LD32} />
-                <Route exact path='/projects/ld31' component={LD31} />
-                <Route exact path='/projects/ld30' component={LD30} />
-                <Route exact path='/projects/ld29' component={LD29} />
-                <Route exact path='/projects/ld28' component={LD28} />
-                <Route exact path='/projects/ld27' component={LD27} />
-                <Route exact path='/projects/pizza-man' component={PizzaMan} />
-                <Route exact path='/projects/gg-server' component={GGServer} />
-                <Route exact path='/projects/turkey-bot' component={TurkeyBot} />
-                <Route exact path='/projects/chance-cubes-mc' component={ChanceCubesMC} />
-                <Route exact path='/projects/head-crumbs' component={HeadCrumbs} />
-                <Route exact path='/projects/wither-crumbs' component={WitherCrumbs} />
-                <Route exact path='/projects/raft-integration' component={RaftIntegration} />
-                <Route exact path='/projects/slime-rancher-integration' component={SlimeRancherIntegration} />
-                <Route exact path='/projects/statusedit' component={ProjectStatusEdit} />
-                <Route exact path='/mod-support' component={MCModSupport} />
-                <Route exact path='/ld-stats' component={LDStats} />
+        <Toast>
+            <Overlay>
+                <Router>
+                    <Switch>
+                        <Route exact path='/' component={App} />
+                        <Route exact path='/projects' component={Projects} />
+                        <Route exact path='/projects/ld47' component={LD47} />
+                        <Route exact path='/projects/ld46' component={LD46} />
+                        <Route exact path='/projects/ld39' component={LD39} />
+                        <Route exact path='/projects/ld37' component={LD37} />
+                        <Route exact path='/projects/ld35' component={LD35} />
+                        <Route exact path='/projects/ld34' component={LD34} />
+                        <Route exact path='/projects/ld33' component={LD33} />
+                        <Route exact path='/projects/ld32' component={LD32} />
+                        <Route exact path='/projects/ld31' component={LD31} />
+                        <Route exact path='/projects/ld30' component={LD30} />
+                        <Route exact path='/projects/ld29' component={LD29} />
+                        <Route exact path='/projects/ld28' component={LD28} />
+                        <Route exact path='/projects/ld27' component={LD27} />
+                        <Route exact path='/projects/pizza-man' component={PizzaMan} />
+                        <Route exact path='/projects/gg-server' component={GGServer} />
+                        <Route exact path='/projects/turkey-bot' component={TurkeyBot} />
+                        <Route exact path='/projects/chance-cubes-mc' component={ChanceCubesMC} />
+                        <Route exact path='/projects/head-crumbs' component={HeadCrumbs} />
+                        <Route exact path='/projects/wither-crumbs' component={WitherCrumbs} />
+                        <Route exact path='/projects/raft-integration' component={RaftIntegration} />
+                        <Route exact path='/projects/slime-rancher-integration' component={SlimeRancherIntegration} />
+                        <Route exact path='/projects/statusedit' component={ProjectStatusEdit} />
+                        <Route exact path='/mod-support' component={MCModSupport} />
+                        <Route exact path='/ld-stats' component={LDStats} />
 
-                <Route exact path='/chancecubes/stats' component={ChanceCubesStats} />
-                <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
-                <Route exact path='/chancecubes/managecontentcreators' component={ChanceCubesManageContentCreators} />
+                        <Route exact path='/chancecubes/stats' component={ChanceCubesStats} />
+                        <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
+                        <Route exact path='/chancecubes/managecontentcreators' component={ChanceCubesManageContentCreators} />
 
-                <Route exact path='/stream-led-control' component={StreamLEDControl} />
+                        <Route exact path='/stream-led-control' component={StreamLEDControl} />
 
-                <Route exact path='/info' component={Info} />
-                <Route exact path='/support' component={Support} />
+                        <Route exact path='/streamtimer' component={StreamTimerSetup} />
 
-                <Route exact path='/login' component={Login} />
-                <Route exact path='/logout' component={Logout} />
-                <Route exact path='/twitchlogin' component={TwitchLogin} />
+                        <Route exact path='/info' component={Info} />
+                        <Route exact path='/support' component={Support} />
 
-                <Route exact path='/user/profile' component={UserProfile} />
+                        <Route exact path='/login' component={Login} />
+                        <Route exact path='/logout' component={Logout} />
+                        <Route exact path='/twitchlogin' component={TwitchLogin} />
 
-                <Route exact path='/streamtimer' component={StreamTimerSetup} />
-                <Route component={Notfound} />
-            </Switch>
-        </Router>
+                        <Route exact path='/user/profile' component={UserProfile} />
+
+                        <Route exact path='/admin/usermanage' component={UserManagement} />
+                        <Route exact path='/admin/permissionmanage' component={PermissionManagement} />
+
+                        <Route component={Notfound} />
+                    </Switch>
+                </Router>
+            </Overlay>
+        </Toast>
     </AuthWrapper>
 )
 
