@@ -9,14 +9,14 @@ export function RewardTypesList(props) {
     const [collapsed, setCollapsed] = useState(false);
 
     return (
-        <div className="m-2 container" style={{ border: `1px solid #06f0fa` }}>
+        <div className="m-2 container" style={{ border: `1px solid ${props.color}` }}>
             <div className="row m-2">
                 <h4>{props.type} Events</h4>
                 <div className="ml-auto" onClick={() => setCollapsed(old => !old)}>
                     {collapsed && <i className="clickable fas fa-chevron-left" />}
                     {!collapsed && <i className="clickable fas fa-chevron-down" />}
                 </div>
-                <div className="ml-3" onClick={() => { }}>
+                <div className="ml-3" onClick={() => props.deleteRewardType()}>
                     <i className="clickable fas fa-trash" />
                 </div>
             </div>
@@ -24,13 +24,13 @@ export function RewardTypesList(props) {
                 !collapsed &&
                 props.json.map((json, id) => {
                     return (
-                        <RewardType key={id} json={json} color={colors[id % colors.length]} settings={props.settings} setRewardTypeState={(blockJson) => props.changeRewardTypeValue(props.type, id, blockJson)} />
+                        <RewardType key={id} json={json} color={colors[id % colors.length]} settings={props.settings} setRewardTypeState={(blockJson) => props.changeRewardTypeValue(id, blockJson)} delete={() => props.deleteRewardTypeIndex(id)} />
                     );
                 })
             }
             {
                 !collapsed &&
-                <button className="ml-2 mt-2" onClick={() => props.insetRewardTypetoJson(props.type)}>Add {props.type} Event</button>
+                <button className="ml-2 mt-2" onClick={() => props.insetRewardTypetoJson()}>Add {props.type} Event</button>
             }
         </div>
     );

@@ -21,7 +21,7 @@ export function RewardType(props) {
                     {collapsed && <i className="fas fa-chevron-left" />}
                     {!collapsed && <i className="fas fa-chevron-down" />}
                 </div>
-                <div className="col-auto" onClick={() => { }}>
+                <div className="col-auto" onClick={() => props.delete()}>
                     <i className="clickable fas fa-trash" />
                 </div>
             </div>
@@ -33,6 +33,14 @@ export function RewardType(props) {
                             <div key={i} className="row m-2">
                                 <label className="col-3 timer-label">{setting.display}:</label>
                                 <input className="col-9" style={{ maxWidth: "250px" }} type="number" value={props.json[setting.key]} onChange={(e) => changeValue(setting.key, parseInt(e.target.value))} />
+                            </div>
+                        );
+                    }
+                    else if (setting.type === "decimal") {
+                        return (
+                            <div key={i} className="row m-2">
+                                <label className="col-3 timer-label">{setting.display}:</label>
+                                <input className="col-9" style={{ maxWidth: "250px" }} type="number" step="0.00001" value={props.json[setting.key]} onChange={(e) => changeValue(setting.key, parseFloat(e.target.value))} />
                             </div>
                         );
                     }
