@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 import { AuthContext } from '../../contexts/auth-context';
-import { getDevAPIBase } from '../../network/network';
+import * as authAPI from "../../network/auth-network";
 import { PageWrapper } from '../base/page-wrapper';
 
 
@@ -23,27 +23,15 @@ export function TwitchLogin(props) {
 
     useEffect(() => {
         async function sendCode() {
-            fetch(getDevAPIBase() + "/auth/twitch/token", {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'code': code
-                },
-            }).then(resp => {
-                if (resp.status == 200) {
-                    return resp.json();
-                }
-                else {
-                    setFailed(true);
-                }
-                return {};
-            }).then(json => {
+            authAPI.loginTwitch(code).then(json => {
                 if (json.access_token) {
                     sessionStorage.setItem("access_token", json.access_token);
                     sessionStorage.setItem("refresh_token", json.refresh_token);
                     auth.login();
                     props.history.push("/");
+                }
+                else {
+                    setFailed(true);
                 }
             });
         }

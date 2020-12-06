@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../contexts/auth-context";
 import { ToastContext } from "../../contexts/toast-context";
-import { getDevAPIBase } from "../../network/network";
+import * as api from "../../network/network";
+import * as authAPI from "../../network/auth-network";
 import { AuthPageWrapper } from "../base/auth-page-wrapper";
 
 import { TextToast } from "../../toasts/text-toast";
 
 export function ProjectStatusEdit(props) {
-    const auth = useContext(AuthContext);
     const toast = useContext(ToastContext)
 
     const [loading, setLoading] = useState(true);
@@ -21,22 +20,20 @@ export function ProjectStatusEdit(props) {
     const [projectsVisible, setProjectsVisible] = useState(false);
 
     useEffect(() => {
-        fetch(`${getDevAPIBase()}/modstatus`)
-            .then(resp => resp.json())
-            .then(json => {
-                let proj = {};
-                let vs = []
-                json.forEach(status => {
-                    if (!proj[status.mod_name])
-                        proj[status.mod_name] = {};
-                    proj[status.mod_name][status.version] = status.status;
-                    if (!vs.includes(status.version))
-                        vs.push(status.version);
-                });
-                setProjects(proj);
-                setVersions(vs);
-                setLoading(false);
-            })
+        api.getModStatus().then(json => {
+            let proj = {};
+            let vs = []
+            json.forEach(status => {
+                if (!proj[status.mod_name])
+                    proj[status.mod_name] = {};
+                proj[status.mod_name][status.version] = status.status;
+                if (!vs.includes(status.version))
+                    vs.push(status.version);
+            });
+            setProjects(proj);
+            setVersions(vs);
+            setLoading(false);
+        })
     }, []);
 
     const updateProject = () => {
@@ -54,23 +51,11 @@ export function ProjectStatusEdit(props) {
         }
 
 
-        fetch(`${getDevAPIBase()}/admin/setprojectstatus`,
-            {
-                method: 'post',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': sessionStorage.getItem("access_token")
-                },
-                body: JSON.stringify({
-                    project: selectedProject,
-                    version: selectedVersion,
-                    status: selectedStatus
-                })
-            }).then(resp => resp.json()).then(json => {
-                toast.pushToast(<TextToast text={json.response} />);
-            }).catch(e => {
-                toast.pushToast(<TextToast text={e.toString()} />);
-            });
+        authAPI.setProjectStatus(selectedProject, selectedVersion, selectedStatus).then(json => {
+            toast.pushToast(<TextToast text={json.response} />);
+        }).catch(e => {
+            toast.pushToast(<TextToast text={e.toString()} />);
+        });
     }
 
     const newVersion = () => {

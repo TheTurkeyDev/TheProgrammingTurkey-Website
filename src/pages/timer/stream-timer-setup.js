@@ -1,16 +1,18 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
-import { PageWrapper } from '../base/page-wrapper';
 
 import { useInterval } from '../../util/use-interval';
 import { AuthContext } from '../../contexts/auth-context';
-import { getDevAPIBase } from '../../network/network';
-import { PageLoading } from '../base/page-loading';
+import { ToastContext } from '../../contexts/toast-context';
+import * as timerAPI from "../../network/timer-network";
 import { AuthPageWrapper } from '../base/auth-page-wrapper';
+
+import { TextToast } from '../../toasts/text-toast';
 
 export function StreamTimerSetup(props) {
     const canvasRef = useRef(null);
 
     const auth = useContext(AuthContext);
+    const toast = useContext(ToastContext);
 
     const [loaded, setLoaded] = useState(0);
     const [refreshtoggle, setRefreshToggle] = useState(false);
@@ -30,6 +32,9 @@ export function StreamTimerSetup(props) {
     const [seconds, setSeconds] = useState(0);
 
     const [prependZeros, setPrependZeros] = useState(true);
+    const [includeZeroDays, setIncludeZeroDays] = useState(true);
+    const [includeZeroHours, setIncludeZeroHours] = useState(true);
+    const [includeZeroMinutes, setIncludeZeroMinutes] = useState(true);
     const [displayMessage, setDisplayMessage] = useState("");
     const [hasEndMessage, setHasEndMessage] = useState(false);
     const [endMessage, setEndMessage] = useState("");
@@ -40,20 +45,9 @@ export function StreamTimerSetup(props) {
 
     useEffect(() => {
         async function loadTimers() {
-            fetch(getDevAPIBase() + `/streamtimer/timers`, {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    'Authorization': sessionStorage.getItem("access_token")
-                }
-            }).then(resp => {
-                if (resp.status == 200)
-                    return resp.json();
-                return null;
-            }).then(json => {
-                if (json)
-                    setValidTimerIDs(json);
-            })
+            timerAPI.getTimers().then(json => {
+                setValidTimerIDs(json);
+            });
         }
         if (auth.authState)
             loadTimers();
@@ -61,18 +55,7 @@ export function StreamTimerSetup(props) {
 
     useEffect(() => {
         async function loadTimer() {
-            fetch(getDevAPIBase() + `/streamtimer/timer/${auth.userID}/${timerID}`, {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': sessionStorage.getItem("access_token")
-                },
-            }).then(resp => {
-                if (resp.status == 200)
-                    return resp.json();
-                return null;
-            }).then(json => {
+            timerAPI.getTimer(auth.userID, timerID).then(json => {
                 if (json) {
                     if (json.reference_datetime)
                         setDate(new Date(json.reference_datetime));
@@ -82,6 +65,9 @@ export function StreamTimerSetup(props) {
                     setTimerDisplay(json.timer_display)
                     setLength(json.length);
                     setPrependZeros(json.prepend_zeros);
+                    setIncludeZeroDays(json.include_zero_days);
+                    setIncludeZeroHours(json.include_zero_hours);
+                    setIncludeZeroMinutes(json.include_zero_minutes);
                     setDisplayMessage(json.display_msg);
                     setEndMessage(json.end_msg);
                     setHasEndMessage(json.has_end_msg);
@@ -131,13 +117,13 @@ export function StreamTimerSetup(props) {
     }, 1000);
 
     useEffect(() => {
-        let displayMessageEdited = displayMessage.replace("{d}", days > 0 ? `${days}` : ``);
-        let firstShown = days > 0;
-        displayMessageEdited = displayMessageEdited.replace("{h}", (hours < 10 && prependZeros && firstShown ? '0' : '') + hours);
-        firstShown = firstShown || hours > 0;
-        displayMessageEdited = displayMessageEdited.replace("{m}", (minutes < 10 && prependZeros && firstShown ? '0' : '') + minutes);
-        firstShown = firstShown || minutes > 0;
-        displayMessageEdited = displayMessageEdited.replace("{s}", (seconds < 10 && prependZeros && firstShown ? '0' : '') + seconds);
+        let showDay = days > 0 || includeZeroDays;
+        let displayMessageEdited = displayMessage.replace("{d}", showDay ? `${days}` : ``);
+        let showHour = showDay || hours > 0 || includeZeroHours;
+        displayMessageEdited = displayMessageEdited.replace("{h}", showHour || showDay ? ((hours < 10 && prependZeros && showHour) ? '0' : '') + hours : '');
+        let showMinute = showHour || minutes > 0 || includeZeroMinutes;
+        displayMessageEdited = displayMessageEdited.replace("{m}", showMinute || showHour ? ((minutes < 10 && prependZeros && showMinute) ? '0' : '') + minutes : '');
+        displayMessageEdited = displayMessageEdited.replace("{s}", (showMinute || seconds < 10 && prependZeros ? '0' : '') + seconds);
 
         const timeOver = seconds <= 0 && minutes <= 0 && hours <= 0 && days <= 0;
         const lines = (timeOver && hasEndMessage ? endMessage : displayMessageEdited).split("\n");
@@ -207,75 +193,42 @@ export function StreamTimerSetup(props) {
     }
 
     const startTimer = () => {
-        fetch(getDevAPIBase() + `/streamtimer/start`, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': sessionStorage.getItem("access_token")
-            },
-            body: JSON.stringify({
-                timer_id: timerID,
-            })
-        }).then(resp => {
-            if (resp.status == 200)
+        timerAPI.startTimer(timerID).then(json => {
+            if (json.success)
                 setRefreshToggle(curr => !curr);
         });
     }
 
     const saveSettings = () => {
-        fetch(getDevAPIBase() + `/streamtimer/save`, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': sessionStorage.getItem("access_token")
-            },
-            body: JSON.stringify({
-                timer_id: timerID,
-                timer_display: timerDisplay,
-                type: timerType,
-                reference_datetime: date.toISOString(),
-                length: length,
-                display_msg: displayMessage,
-                has_end_msg: hasEndMessage,
-                end_msg: endMessage,
-                prepend_zeros: prependZeros,
-                include_zero_days: false,
-                include_zero_hours: false,
-                include_zero_minutes: false,
-                font: font,
-                font_color: fontColor,
-                font_size: fontSize
-            })
-        }).then(resp => {
-            if (resp.status == 200) {
-                return resp.json();
-            }
-            return null;
+        timerAPI.saveTimer({
+            timer_id: timerID,
+            timer_display: timerDisplay,
+            type: timerType,
+            reference_datetime: date.toISOString(),
+            length: length,
+            display_msg: displayMessage,
+            has_end_msg: hasEndMessage,
+            end_msg: endMessage,
+            prepend_zeros: prependZeros,
+            include_zero_days: includeZeroDays,
+            include_zero_hours: includeZeroHours,
+            include_zero_minutes: includeZeroMinutes,
+            font: font,
+            font_color: fontColor,
+            font_size: fontSize
         }).then(json => {
-            if (json) {
+            if (json.success) {
                 const timer = validTimerIDs.filter(t => t.id == json.timer_id);
                 timer.display = json.timer_display;
                 setValidTimerIDs(ids => [...ids.filter(t => t.id != json.timer_id), timer]);
+                toast.pushToast(<TextToast text="Timer Saved!" />);
             }
         });
     }
 
     const newTimer = () => {
-        fetch(getDevAPIBase() + `/streamtimer/newtimer`, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': sessionStorage.getItem("access_token")
-            }
-        }).then(resp => {
-            if (resp.status == 200)
-                return resp.json();
-            return null;
-        }).then(json => {
-            if (json) {
+        timerAPI.newTimer().then(json => {
+            if (json.success) {
                 setValidTimerIDs(ids => [...ids, { id: json.timer_id, display: json.timer_display }]);
                 setTimerID(json.timer_id);
                 setDate(new Date(json.reference_datetime));
@@ -348,10 +301,9 @@ export function StreamTimerSetup(props) {
                 <div className="row m-0 ml-4 mt-1">
                     <label className="col mr-1 timer-label">End Message:</label>
                     <div className="toggle-switch">
-                        <input type="checkbox" checked={hasEndMessage} onChange={(e) => { setHasEndMessage(e.target.checked) }} />
-                        <span className="toggle-slider round"></span>
+                        <input type="checkbox" checked={hasEndMessage} onChange={() => { }} />
+                        <span className="toggle-slider round" onClick={() => setHasEndMessage(old => !old)}></span>
                     </div>
-
                 </div>
                 <div className="row m-0 ml-4 mt-1">
                     <label className="col mr-1 timer-label"></label>
@@ -372,6 +324,34 @@ export function StreamTimerSetup(props) {
                         <input className="col-auto" type="number" value={length} onChange={(e) => { setLength(e.target.value) }} />
                     </div>
                 }
+                <div className="row m-0 ml-4 mt-1">
+                    <label className="col mr-1 timer-label">Prepend Zeros:</label>
+                    <div className="toggle-switch">
+                        <input type="checkbox" checked={prependZeros} onChange={() => { }} />
+                        <span className="toggle-slider round" onClick={() => setPrependZeros(old => !old)}></span>
+                    </div>
+                </div>
+                <div className="row m-0 ml-4 mt-1">
+                    <label className="col mr-1 timer-label">Include Zero Days:</label>
+                    <div className="toggle-switch">
+                        <input type="checkbox" checked={includeZeroDays} onChange={() => { }} />
+                        <span className="toggle-slider round" onClick={() => setIncludeZeroDays(old => !old)}></span>
+                    </div>
+                </div>
+                <div className="row m-0 ml-4 mt-1">
+                    <label className="col mr-1 timer-label">Include Zero Hours:</label>
+                    <div className="toggle-switch">
+                        <input type="checkbox" checked={includeZeroHours} onChange={() => { }} />
+                        <span className="toggle-slider round" onClick={() => setIncludeZeroHours(old => !old)}></span>
+                    </div>
+                </div>
+                <div className="row m-0 ml-4 mt-1">
+                    <label className="col mr-1 timer-label">Include Zero Minutes:</label>
+                    <div className="toggle-switch">
+                        <input type="checkbox" checked={includeZeroMinutes} onChange={() => { }} />
+                        <span className="toggle-slider round" onClick={() => setIncludeZeroMinutes(old => !old)}></span>
+                    </div>
+                </div>
                 <div className="row m-0 ml-2 mt-2">
                     <h4>Font</h4>
                 </div>

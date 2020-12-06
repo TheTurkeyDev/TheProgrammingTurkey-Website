@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth-context";
-import { getDevAPIBase } from "../../network/network";
+import * as api from "../../network/network";
 import { AuthPageWrapper } from "../base/auth-page-wrapper";
 
 export function ChanceCubesManageContentCreators(props) {
@@ -11,16 +11,8 @@ export function ChanceCubesManageContentCreators(props) {
 
     useEffect(() => {
         async function loadUserList() {
-            fetch(getDevAPIBase() + `/chancecubes/userlist`, {
-                method: 'GET',
-                mode: 'cors'
-            }).then(resp => {
-                if (resp.status == 200)
-                    return resp.json();
-                return null;
-            }).then(json => {
-                if (json)
-                    setUserList(json);
+            api.getChanceCubeUserList().then(json => {
+                setUserList(json);
             })
         }
         if (auth.authState)

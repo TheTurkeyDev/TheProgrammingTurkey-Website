@@ -1,19 +1,25 @@
-export function getDevAPIBase()
-{
-    if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
-        return "http://localhost:8081";
-    }
-    else {
-        return "https://api.theturkey.dev";
-    }
+import { getDevAPIBase } from './network-helper';
+
+function getGetParams() {
+    return {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
 }
 
-export function getSiteURLBase()
-{
-    if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
-        return "https://localhost:8080";
-    }
-    else {
-        return "https://theprogrammingturkey.com/";
-    }
+export async function getModStatus() {
+    return await fetch(`${getDevAPIBase()}/modstatus`, getGetParams()).then(resp => {
+        return resp.json()
+    });
+}
+
+export async function getChanceCubeUserList() {
+    return await fetch(`${getDevAPIBase()}/chancecubes/userlist`, getGetParams()).then(resp => {
+        if (resp.status == 200)
+            return resp.json();
+        return [];
+    })
 }

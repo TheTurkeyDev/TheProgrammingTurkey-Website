@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getDevAPIBase } from "../../network/network";
+import * as api from "../../network/network";
 import { PageLoading } from "../base/page-loading";
 
 import { PageWrapper } from "../base/page-wrapper"
@@ -19,22 +19,20 @@ export function MCModSupport() {
     const [versions, setVersions] = useState([]);
 
     useEffect(() => {
-        fetch(`${getDevAPIBase()}/modstatus`)
-            .then(resp => resp.json())
-            .then(json => {
-                let proj = {};
-                let vs = []
-                json.forEach(status => {
-                    if (!proj[status.mod_name])
-                        proj[status.mod_name] = {};
-                    proj[status.mod_name][status.version] = status.status;
-                    if (!vs.includes(status.version))
-                        vs.push(status.version);
-                });
-                setProjects(proj);
-                setVersions(vs);
-                setLoading(false);
-            })
+        api.getModStatus().then(json => {
+            let proj = {};
+            let vs = []
+            json.forEach(status => {
+                if (!proj[status.mod_name])
+                    proj[status.mod_name] = {};
+                proj[status.mod_name][status.version] = status.status;
+                if (!vs.includes(status.version))
+                    vs.push(status.version);
+            });
+            setProjects(proj);
+            setVersions(vs);
+            setLoading(false);
+        });
     }, []);
 
     if (loading) {

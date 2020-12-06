@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { OverlayContext } from "../contexts/overlay-context";
 import { ToastContext } from "../contexts/toast-context";
-import { getDevAPIBase } from "../network/network";
+import * as authAPI from '../network/auth-network';
 import { TextToast } from "../toasts/text-toast";
 
 export function AddUserPermission(props) {
@@ -14,50 +14,18 @@ export function AddUserPermission(props) {
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
-        fetch(`${getDevAPIBase()}/admin/getpermissions`,
-            {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': sessionStorage.getItem("access_token")
-                },
-                body: JSON.stringify({
-                    filter: filter
-                })
-            })
-            .then(resp => {
-                if (resp.status === 200)
-                    return resp.json();
-                return null;
-            })
-            .then(json => {
-                if (json)
-                    setPermissionList(json.filter(perm => !props.assignedPerms.includes(perm.permission)));
-            })
+        authAPI.getAllPermissions(filter).then(json => {
+            setPermissionList(json.filter(perm => !props.assignedPerms.includes(perm.permission)));
+        })
     }, []);
 
     const givePerm = (perm) => {
-        fetch(`${getDevAPIBase()}/admin/giveuserpermission`,
-            {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': sessionStorage.getItem("access_token")
-                },
-                body: JSON.stringify({
-                    user_id: props.userId,
-                    permission: perm
-                })
-            })
-            .then(resp => {
-                return resp.json();
-            })
-            .then(json => {
-                if (json.message)
-                    toast.pushToast(<TextToast text={json.message} />);
-                overlay.popCurrentOverlay();
-                props.update();
-            })
+        authAPI.giveUserPermission(props.userId, perm).then(json => {
+            if (json.message)
+                toast.pushToast(<TextToast text={json.message} />);
+            overlay.popCurrentOverlay();
+            props.update();
+        })
     }
 
     return (

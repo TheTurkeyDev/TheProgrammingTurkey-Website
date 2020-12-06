@@ -52,6 +52,7 @@ import { ChanceCubesManageContentCreators } from './pages/chance-cubes/chance-cu
 import { ProjectStatusEdit } from './pages/admin/project-status-edit';
 import { UserManagement } from './pages/admin/user-management';
 import { PermissionManagement } from './pages/admin/permission-management';
+import { ChanceCubesRewardBuilder } from './pages/chance-cubes/chance-cubes-reward-builder';
 
 
 const routing = (
@@ -90,6 +91,7 @@ const routing = (
                         <Route exact path='/chancecubes/stats' component={ChanceCubesStats} />
                         <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
                         <Route exact path='/chancecubes/managecontentcreators' component={ChanceCubesManageContentCreators} />
+                        <Route exact path='/chancecubes/rewardbuilder' component={ChanceCubesRewardBuilder} />
 
                         <Route exact path='/stream-led-control' component={StreamLEDControl} />
 

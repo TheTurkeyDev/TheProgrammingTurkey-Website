@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { OverlayContext } from "../../contexts/overlay-context";
-import { getDevAPIBase } from "../../network/network";
+import * as authAPI from '../../network/auth-network';
 import { AuthPageWrapper } from "../base/auth-page-wrapper";
 
 import { NewPermissionOverlay } from "../../overlays/new-permission-overlay";
@@ -19,26 +19,9 @@ export function PermissionManagement(props) {
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
-        fetch(`${getDevAPIBase()}/admin/getpermissions`,
-            {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': sessionStorage.getItem("access_token")
-                },
-                body: JSON.stringify({
-                    filter: filter
-                })
-            })
-            .then(resp => {
-                if (resp.status === 200)
-                    return resp.json();
-                return null;
-            })
-            .then(json => {
-                if (json)
-                    setPermissionList(json);
-            })
+        authAPI.getAllPermissions(filter).then(json => {
+            setPermissionList(json);
+        });
     }, [updatePermissions]);
 
     const addNewPerm = () => {
@@ -46,25 +29,11 @@ export function PermissionManagement(props) {
     }
 
     const deletePermConfirm = (perm) => {
-        fetch(`${getDevAPIBase()}/admin/deletepermissions`,
-            {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': sessionStorage.getItem("access_token")
-                },
-                body: JSON.stringify({
-                    permission_id: perm.permission
-                })
-            })
-            .then(resp => {
-                return resp.json();
-            })
-            .then(json => {
-                if (json.message)
-                    toast.pushToast(<TextToast text={json.message} />);
-                setUpdatePersmissions(old => !old);
-            });
+        authAPI.deletePermission(perm.permission).then(json => {
+            if (json.message)
+                toast.pushToast(<TextToast text={json.message} />);
+            setUpdatePersmissions(old => !old);
+        });
     }
 
     const deletePerm = (perm) => {

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { OverlayContext } from "../contexts/overlay-context";
 import { ToastContext } from "../contexts/toast-context";
-import { getDevAPIBase } from "../network/network";
+import * as authAPI from '../network/auth-network';
 import { TextToast } from "../toasts/text-toast";
 
 export function NewPermissionOverlay(props) {
@@ -23,27 +23,12 @@ export function NewPermissionOverlay(props) {
             return;
         }
 
-        fetch(`${getDevAPIBase()}/admin/createpermissions`,
-            {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': sessionStorage.getItem("access_token")
-                },
-                body: JSON.stringify({
-                    permission_id: permissionID,
-                    description: description
-                })
-            })
-            .then(resp => {
-                return resp.json();
-            })
-            .then(json => {
-                if (json.message)
-                    toast.pushToast(<TextToast text={json.message} />);
-                overlay.popCurrentOverlay();
-                props.update();
-            });
+        authAPI.createPermission(permissionID, description).then(json => {
+            if (json.message)
+                toast.pushToast(<TextToast text={json.message} />);
+            overlay.popCurrentOverlay();
+            props.update();
+        });
     }
 
     return (

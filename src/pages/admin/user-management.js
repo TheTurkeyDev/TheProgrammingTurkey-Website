@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { OverlayContext } from "../../contexts/overlay-context";
-import { getDevAPIBase } from "../../network/network";
+import * as authAPI from "../../network/auth-network";
 import { UserManageOverlay } from "../../overlays/user-manage-overlay";
 import { AuthPageWrapper } from "../base/auth-page-wrapper";
 
@@ -14,27 +14,9 @@ export function UserManagement(props) {
     const [usernameFilter, setUsernameFilter] = useState("");
 
     useEffect(() => {
-        fetch(`${getDevAPIBase()}/admin/getusers`,
-            {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': sessionStorage.getItem("access_token")
-                },
-                body: JSON.stringify({
-                    name_filter: usernameFilter,
-                    platforms: ["twitch"],
-                })
-            })
-            .then(resp => {
-                if (resp.status === 200)
-                    return resp.json();
-                return null;
-            })
-            .then(json => {
-                if (json)
-                    setUserList(json);
-            })
+        authAPI.getAllUsers(usernameFilter, ["twitch"]).then(json => {
+            setUserList(json);
+        });
     }, [updateUsers]);
 
     const editUser = (user) => {

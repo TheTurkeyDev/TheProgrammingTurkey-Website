@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { OverlayContext } from "../contexts/overlay-context";
 import { ToastContext } from "../contexts/toast-context";
-import { getDevAPIBase } from "../network/network";
+import * as authAPI from '../network/auth-network';
 import { TextToast } from "../toasts/text-toast";
 import { AddUserPermission } from "./add-user-permission";
 
@@ -17,59 +17,19 @@ export function UserManageOverlay(props) {
     const [permissions, setPermissions] = useState([]);
 
     useEffect(() => {
-        fetch(`${getDevAPIBase()}/admin/getuser`,
-            {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': sessionStorage.getItem("access_token")
-                },
-                body: JSON.stringify({
-                    user_id: props.userId
-                })
-            })
-            .then(resp => {
-                return resp.json();
-            })
-            .then(json => {
-                setUserId(json.user_id);
-                setDisplayName(json.display_name);
-                setPermissions(json.permissions);
-            });
+        authAPI.getUserAdmin(props.userId).then(json => {
+            setUserId(json.user_id);
+            setDisplayName(json.display_name);
+            setPermissions(json.permissions);
+        });
     }, [update]);
 
-    const createPerm = () => {
-        if (!permissionID) {
-            toast.pushToast(<TextToast text={"Permission ID not set!"} />);
-            return;
-        }
-
-        if (!description) {
-            toast.pushToast(<TextToast text={"Description not set!"} />);
-            return;
-        }
-
-        fetch(`${getDevAPIBase()}/admin/createpermissions`,
-            {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': sessionStorage.getItem("access_token")
-                },
-                body: JSON.stringify({
-                    permission_id: permissionID,
-                    description: description
-                })
-            })
-            .then(resp => {
-                return resp.json();
-            })
-            .then(json => {
-                if (json.message)
-                    toast.pushToast(<TextToast text={json.message} />);
-                overlay.popCurrentOverlay();
-                props.update();
-            });
+    const removePerm = (perm) => {
+        authAPI.removeUserPermission(props.userId, perm).then(json => {
+            if (json.message)
+                toast.pushToast(<TextToast text={json.message} />);
+            setUpdate(old => !old);
+        })
     }
 
     const addNewPerm = () => {
@@ -98,6 +58,7 @@ export function UserManageOverlay(props) {
                     permissions.map(perm => {
                         return (
                             <div key={perm} className="row">
+                                <i className="col-auto clickable fas fa-user-minus" onClick={() => removePerm(perm)} />
                                 <span className="col-auto mx-auto">{perm}</span>
                             </div>
                         );

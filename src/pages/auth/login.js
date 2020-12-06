@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/auth-context';
-import { getSiteURLBase } from '../../network/network';
+import { getSiteURLBase } from '../../network/network-helper';
 import { PageWrapper } from '../base/page-wrapper';
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { getDevAPIBase } from '../network/network';
+import * as authAPI from '../network/auth-network';
 
 export const AuthContext = createContext(null);
 
@@ -11,33 +11,12 @@ export function AuthWrapper(props) {
     const [permissions, setPermissions] = useState([]);
 
     useEffect(() => {
-        async function isLoggedin() {
-            fetch(getDevAPIBase() + "/auth/loggedin", {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': sessionStorage.getItem("access_token")
-                }
-            }).then(response => {
-                return response.json();
-            }).then(json => {
+        async function checkLogin() {
+            authAPI.isLoggedIn().then(json => {
                 if (json.loggedin) {
                     setUserName(json.username);
                     setUserID(json.user_id);
-                    fetch(getDevAPIBase() + "/user/perms", {
-                        method: 'GET',
-                        mode: 'cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': sessionStorage.getItem("access_token")
-                        },
-                    }).then(resp => {
-                        if (resp.status == 200) {
-                            return resp.json();
-                        }
-                        return [];
-                    }).then(json => {
+                    authAPI.getUserPerms().then(json => {
                         setPermissions(json);
                         setAuthChecked(true);
                     });
@@ -51,36 +30,15 @@ export function AuthWrapper(props) {
                 setAuthState(json.loggedin);
             })
         }
-        isLoggedin();
+        checkLogin();
     }, []);
 
     const login = () => {
-        fetch(getDevAPIBase() + "/user/info", {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': sessionStorage.getItem("access_token")
-            }
-        }).then(response => {
-            return response.json();
-        }).then(json => {
+        authAPI.getUserInfo().then(json => {
             if (json.user_id) {
                 setUserName(json.display_name);
                 setUserID(json.user_id);
-                fetch(getDevAPIBase() + "/user/perms", {
-                    method: 'GET',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': sessionStorage.getItem("access_token")
-                    },
-                }).then(resp => {
-                    if (resp.status == 200) {
-                        return resp.json();
-                    }
-                    return [];
-                }).then(json => {
+                authAPI.getUserPerms().then(json => {
                     setPermissions(json);
                     setAuthState(true);
                 });

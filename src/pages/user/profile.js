@@ -45,6 +45,12 @@ export function UserProfile(props) {
                             <Link className="col" to="/admin/permissionmanage">Manage Permission</Link>
                         </div>
                     }
+                    {
+                        auth.permissions.includes("chancecubes.rewardbuilder") &&
+                        <div className="row m-0">
+                            <Link className="col" to="/chancecubes/rewardbuilder">Chance Cubes Reward Builder</Link>
+                        </div>
+                    }
                 </div>
             </div>
         </AuthPageWrapper >
