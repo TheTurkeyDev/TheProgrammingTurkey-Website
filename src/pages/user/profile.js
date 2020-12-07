@@ -6,6 +6,9 @@ import { AuthPageWrapper } from '../base/auth-page-wrapper';
 export function UserProfile(props) {
     const auth = useContext(AuthContext);
 
+    const adminPerms = ["chancecubes.managecontentcreators", "projects.editstatus", "admin.usermanage", "admin.managepermissions"];
+    const adminShow = auth.permissions.some(perm => adminPerms.includes(perm));
+
     return (
         <AuthPageWrapper history={props.history} >
             <div>
@@ -22,34 +25,43 @@ export function UserProfile(props) {
                         </div>
                     }
                     {
-                        auth.permissions.includes("chancecubes.managecontentcreators") &&
-                        <div className="row m-0">
-                            <Link className="col" to="/chancecubes/managecontentcreators">Manage Chance Cubes Content Creators</Link>
-                        </div>
-                    }
-                    {
-                        auth.permissions.includes("projects.editstatus") &&
-                        <div className="row m-0">
-                            <Link className="col" to="/projects/statusedit">Edit Project Status'</Link>
-                        </div>
-                    }
-                    {
-                        auth.permissions.includes("admin.usermanage") &&
-                        <div className="row m-0">
-                            <Link className="col" to="/admin/usermanage">Manage Users</Link>
-                        </div>
-                    }
-                    {
-                        auth.permissions.includes("admin.managepermissions") &&
-                        <div className="row m-0">
-                            <Link className="col" to="/admin/permissionmanage">Manage Permission</Link>
-                        </div>
-                    }
-                    {
                         auth.permissions.includes("chancecubes.rewardbuilder") &&
                         <div className="row m-0">
                             <Link className="col" to="/chancecubes/rewardbuilder">Chance Cubes Reward Builder</Link>
                         </div>
+                    }
+                    {
+                        adminShow &&
+                        <>
+                            <div className="row m-0 mt-5">
+                                <h5 className="col">Admin Access</h5>
+                            </div>
+                            <hr />
+                            {
+                                auth.permissions.includes("chancecubes.managecontentcreators") &&
+                                <div className="row m-0">
+                                    <Link className="col" to="/chancecubes/managecontentcreators">Manage Chance Cubes Content Creators</Link>
+                                </div>
+                            }
+                            {
+                                auth.permissions.includes("projects.editstatus") &&
+                                <div className="row m-0">
+                                    <Link className="col" to="/projects/statusedit">Edit Project Status'</Link>
+                                </div>
+                            }
+                            {
+                                auth.permissions.includes("admin.usermanage") &&
+                                <div className="row m-0">
+                                    <Link className="col" to="/admin/usermanage">Manage Users</Link>
+                                </div>
+                            }
+                            {
+                                auth.permissions.includes("admin.managepermissions") &&
+                                <div className="row m-0">
+                                    <Link className="col" to="/admin/permissionmanage">Manage Permission</Link>
+                                </div>
+                            }
+                        </>
                     }
                 </div>
             </div>
