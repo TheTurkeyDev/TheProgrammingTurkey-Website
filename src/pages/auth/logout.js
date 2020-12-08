@@ -7,8 +7,7 @@ export function Logout(props) {
     const auth = useContext(AuthContext);
 
     useEffect(() => {
-        sessionStorage.setItem("access_token", "");
-        sessionStorage.setItem("refresh_token", "");
+        //TODO: logout on backend
         auth.logout();
         props.history.push("/");
     }, []);

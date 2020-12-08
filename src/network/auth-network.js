@@ -5,8 +5,7 @@ export function getGetAuthParams() {
         method: 'GET',
         mode: 'cors',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("access_token")
+            'Content-Type': 'application/json'
         }
     };
 }
@@ -15,8 +14,7 @@ export function getPostAuthParams(body) {
     return {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json",
-            'Authorization': sessionStorage.getItem("access_token")
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(body)
     };
@@ -35,6 +33,12 @@ export async function loginTwitch(code) {
             return resp.json();
         return {};
     })
+}
+
+export async function logout() {
+    return await fetch(getDevAPIBase() + "/auth/logout", getPostAuthParams()).then(resp => {
+        return resp.json();
+    });
 }
 
 export async function isLoggedIn() {

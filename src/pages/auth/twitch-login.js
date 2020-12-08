@@ -24,9 +24,7 @@ export function TwitchLogin(props) {
     useEffect(() => {
         async function sendCode() {
             authAPI.loginTwitch(code).then(json => {
-                if (json.access_token) {
-                    sessionStorage.setItem("access_token", json.access_token);
-                    sessionStorage.setItem("refresh_token", json.refresh_token);
+                if (json.success) {
                     auth.login();
                     props.history.push("/");
                 }

@@ -7,7 +7,7 @@ export function AuthWrapper(props) {
     const [authChecked, setAuthChecked] = useState(false);
     const [authState, setAuthState] = useState(false);
     const [userName, setUserName] = useState("");
-    const [userID, setUserID] = useState(-1);
+    const [userID, setUserID] = useState("");
     const [permissions, setPermissions] = useState([]);
 
     useEffect(() => {
@@ -22,16 +22,14 @@ export function AuthWrapper(props) {
                     });
                 }
                 else {
-                    //TODO: refresh access token?
-                    sessionStorage.setItem("access_token", "");
-                    sessionStorage.setItem("refresh_token", "");
                     setAuthChecked(true);
                 }
                 setAuthState(json.loggedin);
             })
         }
-        checkLogin();
-    }, []);
+        if (!authChecked)
+            checkLogin();
+    }, [authChecked]);
 
     const login = () => {
         authAPI.getUserInfo().then(json => {
@@ -50,13 +48,21 @@ export function AuthWrapper(props) {
     }
 
     const logout = () => {
-        setUserName("");
-        setUserID(-1);
-        setAuthState(false);
+        authAPI.logout().then(json => {
+            if (json.success) {
+                setUserName("");
+                setUserID(-1);
+                setAuthState(false);
+            }
+        });
+    }
+
+    const checkAuth = () => {
+        setAuthChecked(false);
     }
 
     return (
-        <AuthContext.Provider value={{ authChecked, permissions, userName, userID, authState, logout, login }}>
+        <AuthContext.Provider value={{ authChecked, permissions, userName, userID, authState, logout, login, checkAuth }}>
             {props.children}
         </AuthContext.Provider>
     );
