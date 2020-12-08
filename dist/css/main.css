@@ -56,6 +56,10 @@ hr {
     border-color: #40464d!important;
 }
 
+.hidden {
+    display: none;
+}
+
 /* Timer Styles */
 
 .timer-label {
@@ -94,7 +98,7 @@ hr {
     color: white
 }
 
-.mypopover .mypopovertext {
+.mypopover .mypopovertext, .mypopover .mypopovertext-right {
     visibility: hidden;
     width: 400px;
     background-color: #555;
@@ -104,14 +108,23 @@ hr {
     padding: 5px 0;
     position: absolute;
     z-index: 1;
-    top: -50%;
-    right: 100%;
-    margin-left: -200px;
     opacity: 0;
     transition: opacity 0.3s;
 }
 
-.mypopover:hover .mypopovertext {
+.mypopover .mypopovertext {
+    top: -50%;
+    right: 100%;
+    margin-left: -200px;
+}
+
+.mypopover .mypopovertext-right {
+    top: -50%;
+    left: 125%;
+    margin-right: -200px;
+}
+
+.mypopover:hover .mypopovertext, .mypopover:hover .mypopovertext-right {
     visibility: visible;
     opacity: 1;
 }

@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { OverlayContext } from '../../contexts/overlay-context';
+import { ConfirmationOverlay } from '../../overlays/confirmation-overlay';
 import { AuthPageWrapper } from '../base/auth-page-wrapper';
 import { ChanceCubesReward } from './reward-builder/chance-cubes-reward';
 
 export function ChanceCubesRewardBuilder(props) {
 
     const colors = ["#61a11f", "#445f8b", "#a6142a", "#c1fda1", "#fd3bf1", "#3d9bf3", "#62b770", "#af2ea2"];
+
+    const overlay = useContext(OverlayContext);
 
     const [rewards, setRewards] = useState({});
 
@@ -15,9 +19,17 @@ export function ChanceCubesRewardBuilder(props) {
     const addReward = () => {
         setRewards(old => {
             const newObj = { ...old };
-            newObj[`new_reward_${Object.keys(old).length + 1}`] = { "chance": 0 };
+            newObj[`new_reward_${Object.keys(old).length + 1}`] = { chance: 0, isGiantCubeReward: false, dependencies: {} };
             return newObj;
         })
+    }
+
+    const removeReward = (rewardId) => {
+        setRewards(old => {
+            const newObj = { ...old };
+            delete newObj[rewardId];
+            return newObj;
+        });
     }
 
     const setRewardID = (oldId, newId) => {
@@ -38,6 +50,15 @@ export function ChanceCubesRewardBuilder(props) {
         })
     }
 
+    const deleteRewardConfirmOverlay = (reward) => {
+        overlay.pushCurrentOverlay(<ConfirmationOverlay text={`Are you sure you want to delete this reward?`} options={
+            [
+                { text: "Yes", callback: () => { overlay.popCurrentOverlay(); removeReward(reward); } },
+                { text: "No", callback: () => overlay.popCurrentOverlay() }
+            ]
+        } />);
+    }
+
     return (
         <AuthPageWrapper history={props.history} perm="chancecubes.rewardbuilder">
             <div className="w-25" style={{ position: "absolute", right: "5px", top: "65px", height: "450px" }} >
@@ -50,7 +71,7 @@ export function ChanceCubesRewardBuilder(props) {
                 <h1 className="ml-4 mt-2">Chance Cubes Reward Builder</h1>
                 {
                     Object.keys(rewards).map((reward, i) => {
-                        return (<ChanceCubesReward key={i} setRewardID={setRewardID} setRewardState={setRewardState} rewardId={reward} json={rewards[reward]} color={colors[i % colors.length]} />);
+                        return (<ChanceCubesReward key={i} setRewardID={setRewardID} setRewardState={setRewardState} rewardId={reward} json={rewards[reward]} color={colors[i % colors.length]} deleteReward={() => deleteRewardConfirmOverlay(reward)} />);
                     })
                 }
                 <button className="ml-2 mt-2" onClick={() => addReward()}>Add Reward</button>

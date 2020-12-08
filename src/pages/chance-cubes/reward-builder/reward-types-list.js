@@ -21,17 +21,18 @@ export function RewardTypesList(props) {
                 </div>
             </div>
             {
-                !collapsed &&
                 props.json.map((json, id) => {
                     return (
-                        <RewardType key={id} json={json} color={colors[id % colors.length]} settings={props.settings} setRewardTypeState={(blockJson) => props.changeRewardTypeValue(id, blockJson)} delete={() => props.deleteRewardTypeIndex(id)} />
+                        <div key={id} className={`row m-2 ${collapsed ? "hidden" : ""}`}>
+                            <RewardType json={json} color={colors[id % colors.length]} settings={props.settings} setRewardTypeState={(blockJson) => props.changeRewardTypeValue(id, blockJson)} delete={() => props.deleteRewardTypeIndex(id)} />
+                        </div>
                     );
                 })
             }
-            {
-                !collapsed &&
+
+            <div className={`row m-2 ${collapsed ? "hidden" : ""}`}>
                 <button className="ml-2 mt-2" onClick={() => props.insetRewardTypetoJson()}>Add {props.type} Event</button>
-            }
+            </div>
         </div>
     );
 }
