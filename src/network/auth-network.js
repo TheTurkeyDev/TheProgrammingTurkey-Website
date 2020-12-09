@@ -3,7 +3,6 @@ import { getDevAPIBase } from './network-helper';
 export function getGetAuthParams() {
     return {
         method: 'GET',
-        mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -23,7 +22,6 @@ export function getPostAuthParams(body) {
 export async function loginTwitch(code) {
     return await fetch(getDevAPIBase() + "/auth/twitch/token", {
         method: 'POST',
-        mode: 'cors',
         headers: {
             'Content-Type': 'application/json',
             'code': code
