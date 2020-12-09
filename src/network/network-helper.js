@@ -1,7 +1,7 @@
 export function getDevAPIBase()
 {
     if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
-        return "https://localhost/api";
+        return "https://api.test.local";
     }
     else {
         return "https://api.theturkey.dev";
@@ -11,9 +11,9 @@ export function getDevAPIBase()
 export function getSiteURLBase()
 {
     if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
-        return "https://localhost";
+        return "https://test.local";
     }
     else {
-        return "https://theprogrammingturkey.com/";
+        return "https://site.theturkey.dev";
     }
 }
