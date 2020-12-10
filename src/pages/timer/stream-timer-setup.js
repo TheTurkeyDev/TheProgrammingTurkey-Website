@@ -123,7 +123,7 @@ export function StreamTimerSetup(props) {
         displayMessageEdited = displayMessageEdited.replace("{h}", showHour || showDay ? ((hours < 10 && prependZeros && showHour) ? '0' : '') + hours : '');
         let showMinute = showHour || minutes > 0 || includeZeroMinutes;
         displayMessageEdited = displayMessageEdited.replace("{m}", showMinute || showHour ? ((minutes < 10 && prependZeros && showMinute) ? '0' : '') + minutes : '');
-        displayMessageEdited = displayMessageEdited.replace("{s}", (showMinute || seconds < 10 && prependZeros ? '0' : '') + seconds);
+        displayMessageEdited = displayMessageEdited.replace("{s}", ( seconds < 10 && (showMinute || prependZeros) ? '0' : '') + seconds);
 
         const timeOver = seconds <= 0 && minutes <= 0 && hours <= 0 && days <= 0;
         const lines = (timeOver && hasEndMessage ? endMessage : displayMessageEdited).split("\n");
@@ -258,7 +258,7 @@ export function StreamTimerSetup(props) {
                     <label className="col m-0 ml-3 align-center" style={{ fontSize: "22px", maxWidth: "100px" }}>
                         URL:
                     </label>
-                    <input className="col ml-2 mr-4" type="text" readOnly value={`http://apps.theprogrammingturkey.com/streamtimer/${auth.userID}/${timerID}`} style={{ width: "800px" }} />
+                    <input className="col ml-2 mr-4" type="text" readOnly value={`http://apps.theturkey.dev/streamtimer/${auth.userID}/${timerID}`} style={{ width: "800px" }} />
                 </div>
                 <div className="row m-0">
                     <label className="col m-0 ml-3 align-center" style={{ fontSize: "22px", maxWidth: "100px" }}>Timer:</label>

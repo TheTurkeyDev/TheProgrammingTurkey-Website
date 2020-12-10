@@ -53,6 +53,7 @@ import { ProjectStatusEdit } from './pages/admin/project-status-edit';
 import { UserManagement } from './pages/admin/user-management';
 import { PermissionManagement } from './pages/admin/permission-management';
 import { ChanceCubesRewardBuilder } from './pages/chance-cubes/chance-cubes-reward-builder';
+import { UserConnectedAccount } from './pages/user/user-account-connections';
 
 
 const routing = (
@@ -105,6 +106,7 @@ const routing = (
                         <Route exact path='/twitchlogin' component={TwitchLogin} />
 
                         <Route exact path='/user/profile' component={UserProfile} />
+                        <Route exact path='/user/connectedaccounts' component={UserConnectedAccount} />
 
                         <Route exact path='/admin/usermanage' component={UserManagement} />
                         <Route exact path='/admin/permissionmanage' component={PermissionManagement} />

@@ -61,6 +61,12 @@ export function UserProfile(props) {
                                     <Link className="col" to="/admin/permissionmanage">Manage Permission</Link>
                                 </div>
                             }
+                            {
+                                auth.permissions.includes("user.accountconnections") &&
+                                <div className="row m-0">
+                                    <Link className="col" to="/user/connectedaccounts">Connected Accounts</Link>
+                                </div>
+                            }
                         </>
                     }
                 </div>

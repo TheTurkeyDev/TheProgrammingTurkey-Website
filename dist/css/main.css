@@ -29,6 +29,20 @@
     color: #00B4D8;
 }
 
+button {
+    background-color: #343a40 !important;
+    color: #f3f3f3;
+    border: 1px solid #40464d;
+    border-radius: 5px;
+}
+
+button:disabled {
+    background-color: #212529 !important;
+    color: #d1d1d1;
+    border: 1px solid #40464d;
+    border-radius: 5px;
+}
+
 .code {
     background-color: #121212 !important;
     color: #cc11cc;

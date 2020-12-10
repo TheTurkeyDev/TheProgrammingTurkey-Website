@@ -62,6 +62,12 @@ export async function getUserInfo() {
     });
 }
 
+export async function getUserConnectedAccounts() {
+    return await fetch(getDevAPIBase() + "/user/connectedaccounts", getGetAuthParams()).then(resp => {
+        return resp.json();
+    });
+}
+
 export async function getUserAdmin(userId) {
     return await fetch(`${getDevAPIBase()}/admin/getuser`, getPostAuthParams({
         user_id: userId
