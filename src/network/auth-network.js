@@ -36,6 +36,21 @@ export async function loginTwitch(code) {
     });
 }
 
+export async function loginYoutube(code) {
+    return await fetch(getDevAPIBase() + "/auth/youtube/token", {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'code': code
+        }
+    }).then(resp => {
+        if (resp.status == 200)
+            return resp.json();
+        return {};
+    });
+}
+
 export async function logout() {
     return await fetch(getDevAPIBase() + "/auth/logout", getPostAuthParams()).then(resp => {
         return resp.json();
@@ -138,4 +153,38 @@ export async function setProjectStatus(project, version, status) {
         version: version,
         status: status
     })).then(resp => resp.json());
+}
+
+export async function getAllProcessHealth() {
+    return await fetch(`${getDevAPIBase()}/admin/processhealth`, getGetAuthParams()).then(resp => {
+        if (resp.status === 200)
+            return resp.json();
+        return [];
+    });
+}
+
+export async function startStopProcess(stop) {
+    return await fetch(`${getDevAPIBase()}/admin/${stop ? "stop" : "start"}process`, getPostAuthParams({
+        process_id: process.process_id
+    })).then(resp => {
+        return resp.json();
+    });
+}
+
+export async function getToken(forId) {
+    return await fetch(`${getDevAPIBase()}/proc/token?for_id=${forId}`, getGetAuthParams()).then(resp => {
+        return resp.text();
+    });
+}
+
+export async function regenToken(forId) {
+    return await fetch(`${getDevAPIBase()}/proc/regentoken?for_id=${forId}`, getPostAuthParams()).then(resp => {
+        return resp.text();
+    });
+}
+
+export async function getYTSubs(token) {
+    return await fetch(`${getDevAPIBase()}/proc/ytsubs?token=${token}`, getGetAuthParams()).then(resp => {
+        return resp.text();
+    });
 }

@@ -6,7 +6,7 @@ import { AuthPageWrapper } from '../base/auth-page-wrapper';
 export function UserProfile(props) {
     const auth = useContext(AuthContext);
 
-    const adminPerms = ["chancecubes.managecontentcreators", "projects.editstatus", "admin.usermanage", "admin.managepermissions"];
+    const adminPerms = ["chancecubes.managecontentcreators", "projects.editstatus", "admin.usermanage", "admin.managepermissions", "admin.manageprocesses"];
     const adminShow = auth.permissions.some(perm => adminPerms.includes(perm));
 
     return (
@@ -28,6 +28,18 @@ export function UserProfile(props) {
                         auth.permissions.includes("chancecubes.rewardbuilder") &&
                         <div className="row m-0">
                             <Link className="col" to="/chancecubes/rewardbuilder">Chance Cubes Reward Builder</Link>
+                        </div>
+                    }
+                    {
+                        auth.permissions.includes("user.accountconnections") &&
+                        <div className="row m-0">
+                            <Link className="col" to="/user/connectedaccounts">Connected Accounts</Link>
+                        </div>
+                    }
+                    {
+                        auth.permissions.includes("proc.ytsubget") &&
+                        <div className="row m-0">
+                            <Link className="col" to="/user/youtubesubget">YouTube Sub Count</Link>
                         </div>
                     }
                     {
@@ -62,9 +74,9 @@ export function UserProfile(props) {
                                 </div>
                             }
                             {
-                                auth.permissions.includes("user.accountconnections") &&
+                                auth.permissions.includes("admin.manageprocesses") &&
                                 <div className="row m-0">
-                                    <Link className="col" to="/user/connectedaccounts">Connected Accounts</Link>
+                                    <Link className="col" to="/admin/processmanage">Manage Processes</Link>
                                 </div>
                             }
                         </>

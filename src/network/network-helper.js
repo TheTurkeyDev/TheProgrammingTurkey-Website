@@ -17,3 +17,13 @@ export function getSiteURLBase()
         return "https://site.theturkey.dev";
     }
 }
+
+export function getYTSiteURLBase()
+{
+    if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
+        return "https://localhost:8082";
+    }
+    else {
+        return "https://site.theturkey.dev";
+    }
+}

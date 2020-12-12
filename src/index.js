@@ -46,7 +46,7 @@ import { Toast } from './contexts/toast-context';
 import { TwitchLogin } from './pages/auth/twitch-login';
 import { Login } from './pages/auth/login';
 import { UserProfile } from './pages/user/profile';
-import { StreamTimerSetup } from './pages/timer/stream-timer-setup';
+import { StreamTimerSetup } from './pages/small-apps/stream-timer-setup';
 import { Logout } from './pages/auth/logout';
 import { ChanceCubesManageContentCreators } from './pages/chance-cubes/chance-cubes-manage-content-creators';
 import { ProjectStatusEdit } from './pages/admin/project-status-edit';
@@ -54,6 +54,9 @@ import { UserManagement } from './pages/admin/user-management';
 import { PermissionManagement } from './pages/admin/permission-management';
 import { ChanceCubesRewardBuilder } from './pages/chance-cubes/chance-cubes-reward-builder';
 import { UserConnectedAccount } from './pages/user/user-account-connections';
+import { YouTubeLogin } from './pages/auth/youtube-login';
+import { ProcessManagement } from './pages/admin/process-management';
+import { YouTubeSubGetSetup } from './pages/small-apps/youtube-sub-get-setup';
 
 
 const routing = (
@@ -104,12 +107,15 @@ const routing = (
                         <Route exact path='/login' component={Login} />
                         <Route exact path='/logout' component={Logout} />
                         <Route exact path='/twitchlogin' component={TwitchLogin} />
+                        <Route exact path='/youtubelogin' component={YouTubeLogin} />
 
                         <Route exact path='/user/profile' component={UserProfile} />
                         <Route exact path='/user/connectedaccounts' component={UserConnectedAccount} />
+                        <Route exact path='/user/youtubesubget' component={YouTubeSubGetSetup} />
 
                         <Route exact path='/admin/usermanage' component={UserManagement} />
                         <Route exact path='/admin/permissionmanage' component={PermissionManagement} />
+                        <Route exact path='/admin/processmanage' component={ProcessManagement} />
 
                         <Route component={Notfound} />
                     </Switch>
