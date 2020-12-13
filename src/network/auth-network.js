@@ -188,3 +188,16 @@ export async function getYTSubs(token) {
         return resp.text();
     });
 }
+
+export async function getYTSubsDisplaySettings(token) {
+    return await fetch(`${getDevAPIBase()}/proc/ytsubsdisplaysettings?token=${token}`, getGetAuthParams()).then(resp => {
+        return resp.json();
+    });
+}
+
+export async function saveYTSubsDisplaySettings(token, ytsdsJson) {
+    console.log(ytsdsJson);
+    return await fetch(`${getDevAPIBase()}/proc/saveytsubsdisplaysettings?token=${token}`, getPostAuthParams(ytsdsJson)).then(resp => {
+        return resp.json();
+    });
+}

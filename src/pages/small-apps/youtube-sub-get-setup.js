@@ -19,7 +19,7 @@ export function YouTubeSubGetSetup(props) {
     const [subCount, setSubcount] = useState(0);
     const [showURL, setShowURL] = useState(false);
 
-    const [font, setFont] = useState("");
+    const [fontFamily, setFontFamily] = useState("");
     const [fontSize, setFontSize] = useState(12);
     const [fontColor, setFontColor] = useState("");
 
@@ -41,24 +41,31 @@ export function YouTubeSubGetSetup(props) {
 
     useEffect(() => {
         async function loadDisplay() {
-
+            authAPI.getYTSubsDisplaySettings(token).then(json => {
+                if (json.success) {
+                    setBackgroundColor(json.data.preview_bg_color);
+                    setFontFamily(json.data.font_family);
+                    setFontSize(json.data.font_size);
+                    setFontColor(json.data.font_color)
+                }
+            });
         }
 
         if (auth.authState)
             loadDisplay();
-    }, [refreshtoggle, auth.authChecked]);
+    }, [refreshtoggle, token]);
 
     useEffect(() => {
         if (canvasRef.current) {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            //ctx.font = `${fontSize}px ${font}`;
-            //ctx.fillStyle = fontColor;
+            ctx.font = `${fontSize}px ${fontFamily}`;
+            ctx.fillStyle = fontColor;
             // ctx.textAlign = "center";
-            // ctx.textBaseline = "middle";
+            ctx.textBaseline = "top";
             if (loaded) {
-                ctx.fillText(subCount, 10, 10);
+                ctx.fillText(subCount, 0, 0);
             }
             else {
                 ctx.fillText("Loading...", 10, 10);
@@ -67,6 +74,18 @@ export function YouTubeSubGetSetup(props) {
     });
 
     const saveDisplaySettings = () => {
+        console.log(fontSize);
+        authAPI.saveYTSubsDisplaySettings(token, {
+            preview_bg_color: backgroundColor,
+            font_family: fontFamily,
+            font_size: fontSize,
+            font_color: fontColor
+        }).then(json => {
+            if (json.success)
+                toast.pushToast(<TextToast text="Settings Saved!" />);
+            else
+                toast.pushToast(<TextToast text={json.message} />);
+        });
     }
 
     const regenToken = () => {
