@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/auth-context';
-import { getSiteURLBase } from '../../network/network-helper';
+import { getSiteURLBase, getYTSiteURLBase } from '../../network/network-helper';
 import { PageWrapper } from '../base/page-wrapper';
 
 
@@ -18,6 +18,7 @@ export function Login(props) {
     }
 
     const twtichURL = `https://id.twitch.tv/oauth2/authorize?client_id=ulhcvhvfeiv83t1gduqnow1lispyge&redirect_uri=${getSiteURLBase()}/twitchlogin&response_type=code&scope=viewing_activity_read+openid&state=${nonce(15)}&claims={"id_token":{"preferred_username":null, "picture":null}}`;
+    const youtubeURL = `https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.readonly&access_type=offline&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=${getYTSiteURLBase()}/youttubelogin&response_type=code&client_id=922337282637-kujcovknl7iss3957f0rsuftufpkjkpv.apps.googleusercontent.com`;
 
     //TODO: Send code to the server
     return (
@@ -39,7 +40,7 @@ export function Login(props) {
                     </div>
                     <div className="w-100 mb-3">
                         <button disabled style={{ width: "250px", fontSize: "24px", backgroundColor: "#c3c5c7", border: "1px solid red", borderRadius: "5px", boxShadow: "3px 5px #111314" }} >
-                            <a style={{ color: "gray" }}>
+                            <a style={{ color: "red" }}>
                                 <i className="fab fa-youtube mr-1" />
                                 <span>Youtube Login</span>
                             </a>

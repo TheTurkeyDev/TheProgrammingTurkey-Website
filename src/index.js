@@ -57,6 +57,7 @@ import { UserConnectedAccount } from './pages/user/user-account-connections';
 import { YouTubeLogin } from './pages/auth/youtube-login';
 import { ProcessManagement } from './pages/admin/process-management';
 import { YouTubeSubGetSetup } from './pages/small-apps/youtube-sub-get-setup';
+import { TwitchClipFilterer } from './pages/small-apps/twitch-clip-filterer';
 
 
 const routing = (
@@ -98,8 +99,8 @@ const routing = (
                         <Route exact path='/chancecubes/rewardbuilder' component={ChanceCubesRewardBuilder} />
 
                         <Route exact path='/stream-led-control' component={StreamLEDControl} />
-
                         <Route exact path='/streamtimer' component={StreamTimerSetup} />
+                        <Route exact path='/twitchclipfilterer' component={TwitchClipFilterer} />
 
                         <Route exact path='/info' component={Info} />
                         <Route exact path='/support' component={Support} />

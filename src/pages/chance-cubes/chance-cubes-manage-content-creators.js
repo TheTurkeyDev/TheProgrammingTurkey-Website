@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 import * as api from "../../network/network";
+import { getDevAPIBase } from "../../network/network-helper";
 import { AuthPageWrapper } from "../base/auth-page-wrapper";
 
 export function ChanceCubesManageContentCreators(props) {
