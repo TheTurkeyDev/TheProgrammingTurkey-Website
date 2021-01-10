@@ -55,7 +55,7 @@ export function ChanceCubesRewardsStatus(props) {
     }, []);
 
     const copyToClipBoard = (reward) => {
-        navigator.clipboard.writeText(`https://theprogrammingturkey.com/chancecubes/rewardstatus?reward=${reward}`);
+        navigator.clipboard.writeText(`https://theturkey.dev/chancecubes/rewardstatus?reward=${reward}`);
     };
 
     return (
@@ -110,7 +110,7 @@ export function ChanceCubesRewardsStatus(props) {
                     }
                 </div>
             </div>
-            <div className="text-center ml-2 fluid-container row">
+            <div className="text-center m-0 ml-2 fluid-container row">
                 {
                     statusInfo.map((json, i) => {
                         return (

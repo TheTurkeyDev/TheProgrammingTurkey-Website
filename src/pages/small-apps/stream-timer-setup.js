@@ -61,16 +61,16 @@ export function StreamTimerSetup(props) {
                         setDate(new Date(json.reference_datetime));
                     else
                         setDate(new Date());
-                    setTimerType(json.timer_type);
+                    setTimerType(json.type.toLowerCase());
                     setTimerDisplay(json.timer_display)
                     setLength(json.length);
                     setPrependZeros(json.prepend_zeros);
                     setIncludeZeroDays(json.include_zero_days);
                     setIncludeZeroHours(json.include_zero_hours);
                     setIncludeZeroMinutes(json.include_zero_minutes);
-                    setDisplayMessage(json.display_msg);
-                    setEndMessage(json.end_msg);
-                    setHasEndMessage(json.has_end_msg);
+                    setDisplayMessage(json.display_message);
+                    setEndMessage(json.end_message);
+                    setHasEndMessage(json.has_end_message);
                     setFont(json.font);
                     setFontSize(json.font_size);
                     setFontColor(json.font_color);
@@ -123,7 +123,7 @@ export function StreamTimerSetup(props) {
         displayMessageEdited = displayMessageEdited.replace("{h}", showHour || showDay ? ((hours < 10 && prependZeros && showHour) ? '0' : '') + hours : '');
         let showMinute = showHour || minutes > 0 || includeZeroMinutes;
         displayMessageEdited = displayMessageEdited.replace("{m}", showMinute || showHour ? ((minutes < 10 && prependZeros && showMinute) ? '0' : '') + minutes : '');
-        displayMessageEdited = displayMessageEdited.replace("{s}", ( seconds < 10 && (showMinute || prependZeros) ? '0' : '') + seconds);
+        displayMessageEdited = displayMessageEdited.replace("{s}", (seconds < 10 && (showMinute || prependZeros) ? '0' : '') + seconds);
 
         const timeOver = seconds <= 0 && minutes <= 0 && hours <= 0 && days <= 0;
         const lines = (timeOver && hasEndMessage ? endMessage : displayMessageEdited).split("\n");

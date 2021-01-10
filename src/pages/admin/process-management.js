@@ -56,7 +56,7 @@ export function ProcessManagement(props) {
                                     <span>{process.process_id}</span>
                                 </div>
                                 <div className="col-auto p-0" style={{ width: "350px" }}>
-                                    <span>{new Date(process.last_execution + " UTC").toLocaleString()}</span>
+                                    <span>{new Date(process.last_run + " UTC").toLocaleString()}</span>
                                 </div>
                                 <div className="col-1 p-0">
                                     {process.state}

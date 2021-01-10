@@ -1,2 +1,2 @@
-# TheProgrammingTurkey-Website
+# TheTurkeyDev-Website
 Source code for my website
