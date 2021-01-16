@@ -101,7 +101,7 @@ export function YouTubeSubGetSetup(props) {
                     <label className="col m-0 ml-3 align-center" style={{ fontSize: "22px", maxWidth: "100px" }}>
                         URL:
                     </label>
-                    <input className={`col ml-2 mr-4 ${showURL ? "" : "hidden"}`} type="text" readOnly value={`http://apps.theturkey.dev/ytsubget?token=${token}`} style={{ width: "800px" }} />
+                    <input className={`col ml-2 mr-4 ${showURL ? "" : "hidden"}`} type="text" readOnly value={`https://apps.theturkey.dev/ytsubget?token=${token}`} style={{ width: "800px" }} />
                 </div>
                 <div className="row m-0 mt-2">
                     <div className="col m-0 ml-3 align-center" style={{ maxWidth: "100px" }}></div>
