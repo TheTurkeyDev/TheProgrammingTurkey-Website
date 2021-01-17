@@ -21,6 +21,7 @@ export function TwitchBattleshipSetup(props) {
     const [gamePlayType, setGamePlayType] = useState(GamePlayStyle.VOTING);
     const [votingTimer, setVotingTimer] = useState(0);
     const [voteDisplayTimer, setVoteDisplayTimer] = useState(0);
+    const [textColor, setTextColor] = useState("#000000");
 
     useEffect(() => {
         async function getToken() {
@@ -43,6 +44,7 @@ export function TwitchBattleshipSetup(props) {
                     setGamePlayType(data.game_play_type);
                     setVotingTimer(data.voting_timer);
                     setVoteDisplayTimer(data.vote_display_timer);
+                    setTextColor(data.text_color);
                 }
             });
         }
@@ -57,7 +59,8 @@ export function TwitchBattleshipSetup(props) {
             cpu_wins: cpuWins,
             game_play_type: gamePlayType,
             voting_timer: votingTimer,
-            vote_display_timer: voteDisplayTimer
+            vote_display_timer: voteDisplayTimer,
+            text_color: textColor
         }).then(json => {
             if (json.success)
                 toast.pushToast(<TextToast text="Settings Saved!" />);
@@ -114,6 +117,10 @@ export function TwitchBattleshipSetup(props) {
                 <div className="row m-0 ml-4 mt-1">
                     <label className="col mr-1 timer-label">Vote Display Time:</label>
                     <input type="number" value={voteDisplayTimer} onChange={(e) => { setVoteDisplayTimer(e.target.value) }} />
+                </div>
+                <div className="row m-0 ml-4 mt-1">
+                    <label className="col mr-1 timer-label">Text Color:</label>
+                    <input type="color" value={textColor} onChange={(e) => { setTextColor(e.target.value) }} />
                 </div>
 
                 <div className="row m-0 ml-4 mt-1">
