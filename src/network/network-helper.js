@@ -27,3 +27,13 @@ export function getYTSiteURLBase()
         return "https://site.theturkey.dev";
     }
 }
+
+export function getAppsSiteBase()
+{
+    if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
+        return "https://app.test.local";
+    }
+    else {
+        return "https://apps.theturkey.dev";
+    }
+}

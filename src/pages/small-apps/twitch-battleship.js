@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/auth-context';
 import { ToastContext } from '../../contexts/toast-context';
 import * as api from "../../network/twitch-battleship-network";
 import { AuthPageWrapper } from '../base/auth-page-wrapper';
 
 import { TextToast } from '../../toasts/text-toast';
+import { getAppsSiteBase } from '../../network/network-helper';
 
 export function TwitchBattleshipSetup(props) {
     const auth = useContext(AuthContext);
@@ -22,6 +23,7 @@ export function TwitchBattleshipSetup(props) {
     const [votingTimer, setVotingTimer] = useState(0);
     const [voteDisplayTimer, setVoteDisplayTimer] = useState(0);
     const [textColor, setTextColor] = useState("#000000");
+    const [startDelay, setStartDelay] = useState(0);
 
     useEffect(() => {
         async function getToken() {
@@ -45,6 +47,7 @@ export function TwitchBattleshipSetup(props) {
                     setVotingTimer(data.voting_timer);
                     setVoteDisplayTimer(data.vote_display_timer);
                     setTextColor(data.text_color);
+                    setStartDelay(data.start_delay);
                 }
             });
         }
@@ -60,7 +63,8 @@ export function TwitchBattleshipSetup(props) {
             game_play_type: gamePlayType,
             voting_timer: votingTimer,
             vote_display_timer: voteDisplayTimer,
-            text_color: textColor
+            text_color: textColor,
+            start_delay: startDelay
         }).then(json => {
             if (json.success)
                 toast.pushToast(<TextToast text="Settings Saved!" />);
@@ -82,7 +86,7 @@ export function TwitchBattleshipSetup(props) {
                     <label className="col m-0 ml-3 align-center" style={{ fontSize: "22px", maxWidth: "100px" }}>
                         URL:
                     </label>
-                    <input className={`col ml-2 mr-4 ${showURL ? "" : "hidden"}`} type="text" readOnly value={`https://apps.theturkey.dev/twitch/battleship?token=${token}`} style={{ width: "800px" }} />
+                    <input className={`col ml-2 mr-4 ${showURL ? "" : "hidden"}`} type="text" readOnly value={`${getAppsSiteBase()}/twitch/battleship?token=${token}`} style={{ width: "800px" }} />
                 </div>
                 <div className="row m-0 mt-2">
                     <div className="col m-0 ml-3 align-center" style={{ maxWidth: "100px" }}></div>
@@ -122,7 +126,10 @@ export function TwitchBattleshipSetup(props) {
                     <label className="col mr-1 timer-label">Text Color:</label>
                     <input type="color" value={textColor} onChange={(e) => { setTextColor(e.target.value) }} />
                 </div>
-
+                <div className="row m-0 ml-4 mt-1">
+                    <label className="col mr-1 timer-label">Start Delay:</label>
+                    <input type="number" value={startDelay} onChange={(e) => { setStartDelay(parseInt(e.target.value)) }} />
+                </div>
                 <div className="row m-0 ml-4 mt-1">
                     <button onClick={saveDisplaySettings}>
                         Save
