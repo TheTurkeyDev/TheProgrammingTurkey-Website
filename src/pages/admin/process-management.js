@@ -24,7 +24,7 @@ export function ProcessManagement(props) {
     }, []);
 
     return (
-        <AuthPageWrapper history={props.history} perm="admin.manageprocesses">
+        <AuthPageWrapper history={props.history} perm="admin.manageprocesses" parent="/user/profile">
             <div className="container">
                 <div className="row mt-2 mb-2 text-center">
                     <h2 className="col">Process Manager</h2>

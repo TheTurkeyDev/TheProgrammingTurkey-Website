@@ -43,9 +43,9 @@ export function UserProfile(props) {
                         </div>
                     }
                     {
-                        auth.permissions.includes("twitchbattleship") &&
+                        auth.permissions.some(p => p.startsWith("twitchgame.")) &&
                         <div className="row m-0">
-                            <Link className="col" to="/twitchbattleship">Twitch Battleship</Link>
+                            <Link className="col" to="/twitchgames">Twitch Games</Link>
                         </div>
                     }
                     {

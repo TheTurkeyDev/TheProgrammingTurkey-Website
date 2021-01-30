@@ -16,7 +16,9 @@ export function TwitchClipFilterer(props) {
 
     const [channel, setChannel] = useState("63937599");
     const [loading, setLoading] = useState(true);
+    const [prevClips, setPrevClips] = useState([]);
     const [clips, setClips] = useState([]);
+    const [clipTags, setClipTags] = useState([]);
     const [tags, setTags] = useState([]);
 
     const [newTag, setNewTag] = useState("");
@@ -34,6 +36,7 @@ export function TwitchClipFilterer(props) {
         setLoading(true);
         authAPI.getUntaggedClips(channel, "2020-01-05 00:00:01", "2020-12-31 23:59:59").then(json => {
             if (json.success) {
+                setPrevClips(clips);
                 setClips(json.data);
                 toast.pushToast(<TextToast text="Clips loaded!" />);
             }
@@ -75,11 +78,14 @@ export function TwitchClipFilterer(props) {
             loadClips();
         }
         else {
+            let lastClip;
+            setPrevClips(pcs => [clips[0], ...pcs.slice(0, Math.min(20, pcs.length))]);
             setClips(clips => {
                 let temp = [...clips];
-                temp.shift();
+                lastClip = temp.shift();
                 return [...temp];
             });
+
         }
     }
 
@@ -146,7 +152,7 @@ export function TwitchClipFilterer(props) {
                     {
                         tags.filter(tag => tag !== "good" && tag !== "bad" && tag !== "meh").map(tag => {
                             return (
-                                <div className="col-auto mr-1">
+                                <div className="col-auto mr-1" style={clipTags.includes(tag) ? ({ backgroundColor: "#0c940c" }) : {}}>
                                     <button onClick={() => addTagToClip(tag)}>{tag}</button>
                                 </div>
                             );

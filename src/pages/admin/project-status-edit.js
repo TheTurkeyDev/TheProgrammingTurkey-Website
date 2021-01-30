@@ -81,7 +81,7 @@ export function ProjectStatusEdit(props) {
     }
 
     return (
-        <AuthPageWrapper history={props.history} perm="projects.editstatus">
+        <AuthPageWrapper history={props.history} perm="projects.editstatus" parent="/user/profile">
             <div className="fluid-container text-center mt-4" style={{ height: "80vh" }}>
                 <div className="row m-0">
                     <h1 className="col">Project Status Edit</h1>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/auth-context';
 import { ToastContext } from '../../contexts/toast-context';
-import * as api from "../../network/twitch-battleship-network";
+import * as api from "../../network/twitch-games-network";
 import { AuthPageWrapper } from '../base/auth-page-wrapper';
 
 import { TextToast } from '../../toasts/text-toast';
@@ -27,7 +27,7 @@ export function TwitchBattleshipSetup(props) {
 
     useEffect(() => {
         async function getToken() {
-            api.getToken().then(token => {
+            api.getToken('battleship').then(token => {
                 setToken(token);
                 setLoaded(true);
             });
@@ -38,7 +38,7 @@ export function TwitchBattleshipSetup(props) {
 
     useEffect(() => {
         async function loadDisplay() {
-            api.getTwitchBattleshipSettings(token).then(json => {
+            api.getTwitchGameSettings('battleship', token).then(json => {
                 if (json.success) {
                     const data = json.data;
                     setTwitchWins(data.twitch_wins);
@@ -57,7 +57,7 @@ export function TwitchBattleshipSetup(props) {
     }, [refreshtoggle, token]);
 
     const saveDisplaySettings = () => {
-        api.saveTwitchBattleshipSettings(token, {
+        api.saveTwitchGameSettings('battleship', token, {
             twitch_wins: twitchWins,
             cpu_wins: cpuWins,
             game_play_type: gamePlayType,
@@ -74,31 +74,33 @@ export function TwitchBattleshipSetup(props) {
     }
 
     const regenToken = () => {
-        api.regenToken().then(token => {
+        api.regenToken('battleship').then(token => {
             setToken(token);
         })
     }
 
     return (
-        <AuthPageWrapper history={props.history} perm="twitchbattleship">
+        <AuthPageWrapper history={props.history} perm="twitchgame.battleship" parent="/twitchgames">
             <div className="fluid-container pl-3">
+                <div className="row m-0 text-center">
+                    <div className="col m-0">
+                        <h2>Twitch Plays Battleship</h2>
+                    </div>
+                </div>
                 <div className="row m-0 mt-3 mb-2">
                     <label className="col m-0 ml-3 align-center" style={{ fontSize: "22px", maxWidth: "100px" }}>
                         URL:
                     </label>
-                    <input className={`col ml-2 mr-4 ${showURL ? "" : "hidden"}`} type="text" readOnly value={`${getAppsSiteBase()}/twitch/battleship?token=${token}`} style={{ width: "800px" }} />
+                    <input className='col ml-2 mr-4' type="text" readOnly value={showURL ? `${getAppsSiteBase()}/twitch/battleship?token=${token}` : ''} style={{ width: "800px" }} />
                 </div>
                 <div className="row m-0 mt-2">
                     <div className="col m-0 ml-3 align-center" style={{ maxWidth: "100px" }}></div>
                     <button className="col-auto ml-2" onClick={() => setShowURL(old => !old)}>{showURL ? "Hide URL" : "Show Url"}</button>
-                </div>
-                <div className="row m-0 mt-2">
-                    <div className="col m-0 ml-3 align-center" style={{ maxWidth: "100px" }}></div>
                     <button className="col-auto ml-2" onClick={regenToken}>Regen Token</button>
                 </div>
                 <hr />
                 <div className="row m-0">
-                    <h2>Settings</h2>
+                    <h3>Settings</h3>
                 </div>
                 <div className="row m-0 ml-4 mt-1">
                     <label className="col mr-1 timer-label">Twitch Wins:</label>
@@ -123,12 +125,12 @@ export function TwitchBattleshipSetup(props) {
                     <input type="number" value={voteDisplayTimer} onChange={(e) => { setVoteDisplayTimer(e.target.value) }} />
                 </div>
                 <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label">Text Color:</label>
-                    <input type="color" value={textColor} onChange={(e) => { setTextColor(e.target.value) }} />
-                </div>
-                <div className="row m-0 ml-4 mt-1">
                     <label className="col mr-1 timer-label">Start Delay:</label>
                     <input type="number" value={startDelay} onChange={(e) => { setStartDelay(parseInt(e.target.value)) }} />
+                </div>
+                <div className="row m-0 ml-4 mt-1">
+                    <label className="col mr-1 timer-label">Text Color:</label>
+                    <input type="color" value={textColor} onChange={(e) => { setTextColor(e.target.value) }} />
                 </div>
                 <div className="row m-0 ml-4 mt-1">
                     <button onClick={saveDisplaySettings}>

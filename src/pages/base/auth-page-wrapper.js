@@ -29,7 +29,7 @@ export function AuthPageWrapper(props) {
     }
 
     return (
-        <PageWrapper>
+        <PageWrapper parent={props.parent}>
             {props.children}
         </PageWrapper>
     );

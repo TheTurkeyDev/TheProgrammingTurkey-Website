@@ -58,8 +58,10 @@ import { YouTubeLogin } from './pages/auth/youtube-login';
 import { ProcessManagement } from './pages/admin/process-management';
 import { YouTubeSubGetSetup } from './pages/small-apps/youtube-sub-get-setup';
 import { TwitchClipFilterer } from './pages/small-apps/twitch-clip-filterer';
-import { TwitchBattleshipSetup } from './pages/small-apps/twitch-battleship';
 
+import { TwitchGames } from './pages/twitch-games/twitch-games';
+import { TwitchBattleshipSetup } from './pages/twitch-games/twitch-battleship';
+import { TwitchRPSSetup } from './pages/twitch-games/twitch-rps';
 
 const routing = (
     <AuthWrapper>
@@ -102,7 +104,11 @@ const routing = (
                         <Route exact path='/stream-led-control' component={StreamLEDControl} />
                         <Route exact path='/streamtimer' component={StreamTimerSetup} />
                         <Route exact path='/twitchclipfilterer' component={TwitchClipFilterer} />
-                        <Route exact path='/twitchbattleship' component={TwitchBattleshipSetup} />
+
+
+                        <Route exact path='/twitchgames' component={TwitchGames} />
+                        <Route exact path='/twitchgames/battleship' component={TwitchBattleshipSetup} />
+                        <Route exact path='/twitchgames/rps' component={TwitchRPSSetup} />
 
                         <Route exact path='/info' component={Info} />
                         <Route exact path='/support' component={Support} />

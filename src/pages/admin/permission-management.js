@@ -46,7 +46,7 @@ export function PermissionManagement(props) {
     }
 
     return (
-        <AuthPageWrapper history={props.history} perm="admin.managepermissions">
+        <AuthPageWrapper history={props.history} perm="admin.managepermissions" parent="/user/profile">
             <div className="mr-5 ml-5 mt-2">
                 <div className="mt-3 fluid-container">
                     <div className="row">
