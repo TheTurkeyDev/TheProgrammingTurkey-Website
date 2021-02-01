@@ -208,27 +208,3 @@ export async function connectAccount(platform) {
         return resp.json();
     });
 }
-
-export async function pullTwitchClips(channel, startDate, endDate) {
-    return await fetch(`${getDevAPIBase()}/twitchclipfilter/loadClips?channel=${channel}&startDate=${startDate}&endDate=${endDate}`, getPostAuthParams()).then(resp => {
-        return resp.json();
-    });
-}
-
-export async function getUntaggedClips(channel, startDate, endDate) {
-    return await fetch(`${getDevAPIBase()}/twitchclipfilter/getuntaged?channel=${channel}&startDate=${startDate}&endDate=${endDate}`, getGetAuthParams()).then(resp => {
-        return resp.json();
-    });
-}
-
-export async function getTags() {
-    return await fetch(`${getDevAPIBase()}/twitchclipfilter/gettags`, getGetAuthParams()).then(resp => {
-        return resp.json();
-    });
-}
-
-export async function addTagsToClip(clip_id, tags) {
-    return await fetch(`${getDevAPIBase()}/twitchclipfilter/tagclip`, getPostAuthParams({ clip_id, tags })).then(resp => {
-        return resp.json();
-    });
-}

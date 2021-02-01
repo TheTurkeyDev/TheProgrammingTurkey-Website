@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
-import { useInterval } from '../../util/use-interval';
 import { AuthContext } from '../../contexts/auth-context';
 import { ToastContext } from '../../contexts/toast-context';
-import * as authAPI from "../../network/auth-network";
+import * as clipAPI from "../../network/twitch-clips-network";
 import * as networkHelper from '../../network/network-helper';
 import { AuthPageWrapper } from '../base/auth-page-wrapper';
 
@@ -16,7 +15,7 @@ export function TwitchClipFilterer(props) {
 
     const [channel, setChannel] = useState("63937599");
     const [loading, setLoading] = useState(true);
-    const [prevClips, setPrevClips] = useState([]);
+    const [clipIndex, setClipIndex] = useState(0);
     const [clips, setClips] = useState([]);
     const [clipTags, setClipTags] = useState([]);
     const [tags, setTags] = useState([]);
@@ -32,12 +31,15 @@ export function TwitchClipFilterer(props) {
             loadData();
     }, [auth.authChecked]);
 
+    useEffect(() => {
+        loadClipTags();
+    }, [clips, clipIndex]);
+
     const loadClips = () => {
         setLoading(true);
-        authAPI.getUntaggedClips(channel, "2020-01-05 00:00:01", "2020-12-31 23:59:59").then(json => {
+        clipAPI.getUntaggedClips(channel).then(json => {
             if (json.success) {
-                setPrevClips(clips);
-                setClips(json.data);
+                setClips(clips => [...clips, ...json.data]);
                 toast.pushToast(<TextToast text="Clips loaded!" />);
             }
             else {
@@ -48,22 +50,40 @@ export function TwitchClipFilterer(props) {
     }
 
     const loadTags = () => {
-        authAPI.getTags().then(json => {
+        clipAPI.getTags().then(json => {
             if (json.success)
                 setTags(json.data);
         });
     }
 
     const pullClips = () => {
-        authAPI.pullTwitchClips(channel, "2020-01-05 00:00:01", "2020-12-31 23:59:59").then((json) => {
+        clipAPI.pullTwitchClips(channel).then((json) => {
             toast.pushToast(<TextToast text={json.message} />);
         });
     }
 
-    const addTagToClip = async (tag) => {
-        await authAPI.addTagsToClip(clips[0].id, [tag]).then(json => {
-            console.log(json.message);
-        });
+    const updateClipTag = (tag) => {
+        if (clipTags.includes(tag)) {
+            clipAPI.removeTagFromClip(clips[clipIndex].id, [tag]).then(json => {
+                if (json.success)
+                    setClipTags(tags => tags.filter(t => t !== tag));
+            });
+        }
+        else {
+            clipAPI.addTagsToClip(clips[clipIndex].id, [tag]).then(json => {
+                if (json.success)
+                    setClipTags(tags => [...tags, tag]);
+            });
+        }
+    }
+
+    const loadClipTags = () => {
+        if (clips.length > 0) {
+            clipAPI.getClipTags(clips[clipIndex].id).then(json => {
+                if (json.success)
+                    setClipTags(json.data);
+            });
+        }
     }
 
     const addNewTag = () => {
@@ -74,20 +94,24 @@ export function TwitchClipFilterer(props) {
     }
 
     const nextClip = () => {
-        if (clips.length == 1) {
+        if (clipIndex === clips.length - 1) {
             loadClips();
         }
-        else {
-            let lastClip;
-            setPrevClips(pcs => [clips[0], ...pcs.slice(0, Math.min(20, pcs.length))]);
-            setClips(clips => {
-                let temp = [...clips];
-                lastClip = temp.shift();
-                return [...temp];
-            });
+        setClipIndex(index => index + 1);
+    }
 
+    const prevClip = () => {
+        if (clipIndex > 0) {
+            setClipIndex(index => index - 1);
         }
     }
+
+    const getStyle = (tag) => {
+        return clipTags.includes(tag) ? ({ backgroundColor: "#0c940c" }) : {}
+    }
+
+    if (clips.length > 0)
+        console.log(clips[clipIndex].id);
 
     return (
         <AuthPageWrapper history={props.history} perm="twitchclipfilter">
@@ -106,10 +130,10 @@ export function TwitchClipFilterer(props) {
                     </div>
                 </div>
                 <div className="row">
-                    {clips.length > 0 &&
+                    {clips.length > clipIndex &&
                         <div className="col-auto mx-auto">
                             <iframe
-                                src={`https://clips.twitch.tv/embed?clip=${clips[0].id}&parent=${networkHelper.getSiteURLBase().replace("https://", "")}`}
+                                src={`https://clips.twitch.tv/embed?clip=${clips[clipIndex].id}&parent=${networkHelper.getSiteURLBase().replace("https://", "")}`}
                                 height="720"
                                 width="1280"
                                 frameBorder="0"
@@ -118,12 +142,12 @@ export function TwitchClipFilterer(props) {
                             </iframe>
                         </div>
                     }
-                    {clips.length === 0 && loading &&
+                    {(clips.length === 0 || clips.length === clipIndex) && loading &&
                         <div className="col-auto mx-auto">
                             <div className="spinner"></div>
                         </div>
                     }
-                    {clips.length === 0 && !loading &&
+                    {(clips.length === 0 || clips.length === clipIndex) && !loading &&
                         <div className="col-auto mx-auto">
                             <span>No more videos!</span>
                         </div>
@@ -131,17 +155,20 @@ export function TwitchClipFilterer(props) {
                 </div>
                 <div className="row mt-1">
                     <div className="col-auto ml-auto" />
-                    <div className="col-auto mr-2">
-                        <button onClick={() => addTagToClip("good")}>Good</button>
+                    <div className="col-auto">
+                        <button disabled={clipIndex === 0} onClick={prevClip}>Prev</button>
                     </div>
                     <div className="col-auto mr-2">
-                        <button onClick={() => addTagToClip("meh")}>Meh</button>
+                        <button onClick={() => updateClipTag("good")} style={getStyle("good")}>Good</button>
                     </div>
                     <div className="col-auto mr-2">
-                        <button onClick={() => addTagToClip("bad")}>Bad</button>
+                        <button onClick={() => updateClipTag("meh")} style={getStyle("meh")}>Meh</button>
                     </div>
                     <div className="col-auto mr-2">
-                        <button onClick={() => addTagToClip("deleted")}>Delete</button>
+                        <button onClick={() => updateClipTag("bad")} style={getStyle("bad")}>Bad</button>
+                    </div>
+                    <div className="col-auto mr-2">
+                        <button onClick={() => updateClipTag("deleted")} style={getStyle("deleted")}>Delete</button>
                     </div>
                     <div className="col-auto">
                         <button onClick={nextClip}>Next</button>
@@ -152,8 +179,8 @@ export function TwitchClipFilterer(props) {
                     {
                         tags.filter(tag => tag !== "good" && tag !== "bad" && tag !== "meh").map(tag => {
                             return (
-                                <div className="col-auto mr-1" style={clipTags.includes(tag) ? ({ backgroundColor: "#0c940c" }) : {}}>
-                                    <button onClick={() => addTagToClip(tag)}>{tag}</button>
+                                <div className="col-auto mr-1 mb-2">
+                                    <button onClick={() => updateClipTag(tag)} style={getStyle(tag)}>{tag}</button>
                                 </div>
                             );
                         })
