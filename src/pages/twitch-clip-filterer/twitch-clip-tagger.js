@@ -56,12 +56,6 @@ export function TwitchClipTagger(props) {
         });
     }
 
-    const pullClips = () => {
-        clipAPI.pullTwitchClips(channel).then((json) => {
-            toast.pushToast(<TextToast text={json.message} />);
-        });
-    }
-
     const updateClipTag = (tag) => {
         if (clipTags.includes(tag)) {
             clipAPI.removeTagFromClip(clips[clipIndex].id, [tag]).then(json => {
@@ -87,7 +81,7 @@ export function TwitchClipTagger(props) {
     }
 
     const addNewTag = () => {
-        addTagToClip(newTag).then(() => {
+        clipAPI.addTagsToClip(clips[clipIndex].id, [newTag]).then(() => {
             loadTags();
         });
         setNewTag("");
@@ -117,11 +111,6 @@ export function TwitchClipTagger(props) {
         <AuthPageWrapper history={props.history} perm="twitchclipfilter" parent="/twitchclipfilterer/clips">
             <div className="fluid-container pl-3">
                 <div className="row">
-                    <div className="col">
-                        <button onClick={pullClips}>
-                            Pull Clips
-                        </button>
-                    </div>
                     <div className="col">
                         <label>
                             Channel
