@@ -7,6 +7,12 @@ export async function pullTwitchClips(channel) {
     });
 }
 
+export async function getClips(channel, page, amount, filterTags) {
+    return await fetch(`${getDevAPIBase()}/twitchclipfilter/getclips?channel=${channel}&page=${page}&amount=${amount}&filtertags=${filterTags.join(',')}`, authAPI.getGetAuthParams()).then(resp => {
+        return resp.json();
+    });
+}
+
 export async function getUntaggedClips(channel) {
     return await fetch(`${getDevAPIBase()}/twitchclipfilter/getuntaged?channel=${channel}`, authAPI.getGetAuthParams()).then(resp => {
         return resp.json();

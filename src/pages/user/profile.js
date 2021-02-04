@@ -51,7 +51,7 @@ export function UserProfile(props) {
                     {
                         auth.permissions.includes("twitchclipfilter") &&
                         <div className="row m-0">
-                            <Link className="col" to="/twitchclipfilterer">Twitch Clip Filterer</Link>
+                            <Link className="col" to="/twitchclipfilterer/clips">Twitch Clip Filterer</Link>
                         </div>
                     }
 

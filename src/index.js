@@ -57,11 +57,12 @@ import { UserConnectedAccount } from './pages/user/user-account-connections';
 import { YouTubeLogin } from './pages/auth/youtube-login';
 import { ProcessManagement } from './pages/admin/process-management';
 import { YouTubeSubGetSetup } from './pages/small-apps/youtube-sub-get-setup';
-import { TwitchClipFilterer } from './pages/small-apps/twitch-clip-filterer';
+import { TwitchClipTagger } from './pages/twitch-clip-filterer/twitch-clip-tagger';
 
 import { TwitchGames } from './pages/twitch-games/twitch-games';
 import { TwitchBattleshipSetup } from './pages/twitch-games/twitch-battleship';
 import { TwitchRPSSetup } from './pages/twitch-games/twitch-rps';
+import { TwitchClipsList } from './pages/twitch-clip-filterer/twitch-clips-list';
 
 const routing = (
     <AuthWrapper>
@@ -103,7 +104,9 @@ const routing = (
 
                         <Route exact path='/stream-led-control' component={StreamLEDControl} />
                         <Route exact path='/streamtimer' component={StreamTimerSetup} />
-                        <Route exact path='/twitchclipfilterer' component={TwitchClipFilterer} />
+
+                        <Route exact path='/twitchclipfilterer/clips' component={TwitchClipsList} />
+                        <Route exact path='/twitchclipfilterer/tagger' component={TwitchClipTagger} />
 
 
                         <Route exact path='/twitchgames' component={TwitchGames} />

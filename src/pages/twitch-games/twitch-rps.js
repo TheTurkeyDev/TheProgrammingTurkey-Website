@@ -20,6 +20,7 @@ export function TwitchRPSSetup(props) {
 
     const [twitchWins, setTwitchWins] = useState(0);
     const [cpuWins, setCpuWins] = useState(0);
+    const [ties, setTies] = useState(0);
     const [gamePlayType, setGamePlayType] = useState(GamePlayStyle.VOTING);
     const [votingTimer, setVotingTimer] = useState(0);
     const [textColor, setTextColor] = useState("#000000");
@@ -43,6 +44,7 @@ export function TwitchRPSSetup(props) {
                     const data = json.data;
                     setTwitchWins(data.twitch_wins);
                     setCpuWins(data.cpu_wins);
+                    setTies(data.ties);
                     setGamePlayType(data.game_play_type);
                     setVotingTimer(data.voting_timer);
                     setTextColor(data.text_color);
@@ -59,6 +61,7 @@ export function TwitchRPSSetup(props) {
         api.saveTwitchGameSettings(gameName, token, {
             twitch_wins: twitchWins,
             cpu_wins: cpuWins,
+            ties: ties,
             game_play_type: gamePlayType,
             voting_timer: votingTimer,
             text_color: textColor,
@@ -107,6 +110,10 @@ export function TwitchRPSSetup(props) {
                 <div className="row m-0 ml-4 mt-1">
                     <label className="col mr-1 timer-label">CPU Wins:</label>
                     <input type="number" value={cpuWins} onChange={(e) => { setCpuWins(e.target.value) }} />
+                </div>
+                <div className="row m-0 ml-4 mt-1">
+                    <label className="col mr-1 timer-label">Ties:</label>
+                    <input type="number" value={ties} onChange={(e) => { setTies(e.target.value) }} />
                 </div>
                 <div className="row m-0 ml-4 mt-1">
                     <label className="col mr-1 timer-label">Game Play Style:</label>

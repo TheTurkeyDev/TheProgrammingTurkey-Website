@@ -20,7 +20,7 @@ export async function getTwitchGameSettings(game, token) {
 }
 
 export async function saveTwitchGameSettings(game, token, settingsJson) {
-    return await fetch(`${getDevAPIBase()}/twitch/${game}/savesettings?token=${token}`, authAPI.getPostAuthParams(settingsJson)).then(resp => {
+    return await fetch(`${getDevAPIBase()}/twitchgames/${game}/savesettings?token=${token}`, authAPI.getPostAuthParams(settingsJson)).then(resp => {
         return resp.json();
     });
 }

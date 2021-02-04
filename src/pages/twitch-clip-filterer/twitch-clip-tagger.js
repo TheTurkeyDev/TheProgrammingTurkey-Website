@@ -8,7 +8,7 @@ import { AuthPageWrapper } from '../base/auth-page-wrapper';
 
 import { TextToast } from '../../toasts/text-toast';
 
-export function TwitchClipFilterer(props) {
+export function TwitchClipTagger(props) {
 
     const auth = useContext(AuthContext);
     const toast = useContext(ToastContext);
@@ -114,7 +114,7 @@ export function TwitchClipFilterer(props) {
         console.log(clips[clipIndex].id);
 
     return (
-        <AuthPageWrapper history={props.history} perm="twitchclipfilter">
+        <AuthPageWrapper history={props.history} perm="twitchclipfilter" parent="/twitchclipfilterer/clips">
             <div className="fluid-container pl-3">
                 <div className="row">
                     <div className="col">
