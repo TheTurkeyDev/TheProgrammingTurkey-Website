@@ -43,7 +43,6 @@ import { AuthWrapper } from './contexts/auth-context';
 import { Overlay } from './contexts/overlay-context';
 import { Toast } from './contexts/toast-context';
 
-import { TwitchLogin } from './pages/auth/twitch-login';
 import { Login } from './pages/auth/login';
 import { UserProfile } from './pages/user/profile';
 import { StreamTimerSetup } from './pages/small-apps/stream-timer-setup';
@@ -118,7 +117,6 @@ const routing = (
 
                         <Route exact path='/login' component={Login} />
                         <Route exact path='/logout' component={Logout} />
-                        <Route exact path='/twitchlogin' component={TwitchLogin} />
                         <Route exact path='/youtubelogin' component={YouTubeLogin} />
 
                         <Route exact path='/user/profile' component={UserProfile} />
