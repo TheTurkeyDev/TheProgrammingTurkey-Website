@@ -21,10 +21,10 @@ export function getSiteURLBase()
 export function getYTSiteURLBase()
 {
     if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
-        return "https://localhost:8082";
+        return "http://localhost:8081";
     }
     else {
-        return "https://site.theturkey.dev";
+        return "https://api.theturkey.dev";
     }
 }
 
