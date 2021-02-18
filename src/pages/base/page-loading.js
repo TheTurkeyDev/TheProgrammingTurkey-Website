@@ -5,7 +5,7 @@ export function PageLoading() {
     return (
         <PageWrapper>
             <div className="spinner"></div>
-            <div style={{ height: "50px" }} />
-        </PageWrapper >
+            <div style={{ height: '50px' }} />
+        </PageWrapper>
     );
 }

@@ -3,13 +3,12 @@ import { AuthContext } from '../../contexts/auth-context';
 import { PageWrapper } from '../base/page-wrapper';
 
 export function Logout(props) {
-
     const auth = useContext(AuthContext);
 
     useEffect(() => {
         //TODO: logout on backend
         auth.logout();
-        props.history.push("/");
+        props.history.push('/');
     }, []);
 
     return (

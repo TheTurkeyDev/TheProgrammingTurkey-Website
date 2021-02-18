@@ -8,9 +8,14 @@ export function Toast(props) {
     const pushToast = (component) => {
         // After 3 seconds, remove the show class from DIV
         const id = newID();
-        setToasts(toasts => [...toasts, { id: id, component, visibility: true }]);
+        setToasts((toasts) => [
+            ...toasts,
+            { id: id, component, visibility: true },
+        ]);
         setTimeout(() => {
-            setToasts(toasts => [...toasts.filter(toast => toast.id !== id)]);
+            setToasts((toasts) => [
+                ...toasts.filter((toast) => toast.id !== id),
+            ]);
         }, 5000);
     };
 
@@ -20,12 +25,12 @@ export function Toast(props) {
 
     return (
         <ToastContext.Provider value={{ pushToast }}>
-            {toasts.map(toast =>
-                <div key={toast.id} className={`toast bg-secondary show`}>
+            {toasts.map((toast) => (
+                <div key={toast.id} className={'toast bg-secondary show'}>
                     {toast.component}
                 </div>
-            )}
+            ))}
             {props.children}
-        </ToastContext.Provider >
+        </ToastContext.Provider>
     );
 }

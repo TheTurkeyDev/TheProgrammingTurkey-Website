@@ -1,4 +1,4 @@
-import * as authAPI from "./auth-network";
+import * as authAPI from './auth-network';
 import { getDevAPIBase } from './network-helper';
 
 export async function getTimers() {
@@ -26,13 +26,13 @@ export async function startTimer(timerId) {
 }
 
 export async function saveTimer(timerJson) {
-    return await fetch(getDevAPIBase() + `/streamtimer/save`, authAPI.getPostAuthParams(timerJson)).then(resp => {
+    return await fetch(`${getDevAPIBase()}/streamtimer/save`, authAPI.getPostAuthParams(timerJson)).then(resp => {
         return resp.json();
     });
 }
 
 export async function newTimer() {
-    return await fetch(getDevAPIBase() + `/streamtimer/newtimer`, authAPI.getPostAuthParams()).then(resp => {
+    return await fetch(`${getDevAPIBase()}/streamtimer/newtimer`, authAPI.getPostAuthParams()).then(resp => {
         return resp.json();
     });
 }

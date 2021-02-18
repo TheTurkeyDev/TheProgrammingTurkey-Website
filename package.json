@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
     "build": "webpack -p --progress --config webpack.config.js",
-    "test": "echo \"Tests pass! ;) \""
+    "lint": "eslint ./src/**/*.js --quiet"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
+    "eslint-plugin-react": "^7.22.0",
     "react-hot-loader": "^4.12.12",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "chart.js": "^2.8.0",
+    "eslint": "^7.20.0",
     "multiselect-react-dropdown": "^1.6.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

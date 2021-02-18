@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { OverlayContext } from '../../contexts/overlay-context';
 import { ConfirmationOverlay } from '../../overlays/confirmation-overlay';
 import { AuthPageWrapper } from '../base/auth-page-wrapper';
@@ -6,7 +6,7 @@ import { ChanceCubesReward } from './reward-builder/chance-cubes-reward';
 
 export function ChanceCubesRewardBuilder(props) {
 
-    const colors = ["#61a11f", "#445f8b", "#a6142a", "#c1fda1", "#fd3bf1", "#3d9bf3", "#62b770", "#af2ea2"];
+    const colors = ['#61a11f', '#445f8b', '#a6142a', '#c1fda1', '#fd3bf1', '#3d9bf3', '#62b770', '#af2ea2'];
 
     const overlay = useContext(OverlayContext);
 
@@ -51,30 +51,30 @@ export function ChanceCubesRewardBuilder(props) {
     }
 
     const deleteRewardConfirmOverlay = (reward) => {
-        overlay.pushCurrentOverlay(<ConfirmationOverlay text={`Are you sure you want to delete this reward?`} options={
+        overlay.pushCurrentOverlay(<ConfirmationOverlay text={'Are you sure you want to delete this reward?'} options={
             [
-                { text: "Yes", callback: () => { overlay.popCurrentOverlay(); removeReward(reward); } },
-                { text: "No", callback: () => overlay.popCurrentOverlay() }
+                { text: 'Yes', callback: () => { overlay.popCurrentOverlay(); removeReward(reward); } },
+                { text: 'No', callback: () => overlay.popCurrentOverlay() }
             ]
         } />);
     }
 
     return (
-        <AuthPageWrapper history={props.history} perm="chancecubes.rewardbuilder">
-            <div className="w-25" style={{ position: "absolute", right: "5px", top: "65px", height: "450px" }} >
+        <AuthPageWrapper history={props.history} perm='chancecubes.rewardbuilder'>
+            <div className='w-25' style={{ position: 'absolute', right: '5px', top: '65px', height: '450px' }} >
                 <h4>Reward Json</h4>
-                <textarea className="code w-100 h-100" value={setRewardJsonPretty(rewards)} readOnly>
+                <textarea className='code w-100 h-100' value={setRewardJsonPretty(rewards)} readOnly>
 
                 </textarea>
             </div>
             <div>
-                <h1 className="ml-4 mt-2">Chance Cubes Reward Builder</h1>
+                <h1 className='ml-4 mt-2'>Chance Cubes Reward Builder</h1>
                 {
                     Object.keys(rewards).map((reward, i) => {
                         return (<ChanceCubesReward key={i} setRewardID={setRewardID} setRewardState={setRewardState} rewardId={reward} json={rewards[reward]} color={colors[i % colors.length]} deleteReward={() => deleteRewardConfirmOverlay(reward)} />);
                     })
                 }
-                <button className="ml-2 mt-2" onClick={() => addReward()}>Add Reward</button>
+                <button className='ml-2 mt-2' onClick={() => addReward()}>Add Reward</button>
             </div>
         </AuthPageWrapper >
     )

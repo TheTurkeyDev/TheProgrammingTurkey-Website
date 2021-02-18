@@ -6,8 +6,8 @@ export const AuthContext = createContext(null);
 export function AuthWrapper(props) {
     const [authChecked, setAuthChecked] = useState(false);
     const [authState, setAuthState] = useState(false);
-    const [userName, setUserName] = useState("");
-    const [userID, setUserID] = useState("");
+    const [userName, setUserName] = useState('');
+    const [userID, setUserID] = useState('');
     const [permissions, setPermissions] = useState([]);
 
     useEffect(() => {
@@ -50,8 +50,8 @@ export function AuthWrapper(props) {
     const logout = () => {
         authAPI.logout().then(json => {
             if (json.success) {
-                setUserName("");
-                setUserID(-1);
+                setUserName('');
+                setUserID('-1');
                 setAuthState(false);
             }
         });

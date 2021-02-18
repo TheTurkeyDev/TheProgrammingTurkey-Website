@@ -19,18 +19,14 @@ export function AuthPageWrapper(props) {
     }
 
     if (!auth.authState) {
-        props.history.push("/login");
-        return <> </>
+        props.history.push('/login');
+        return <> </>;
     }
 
     if (props.perm && !auth.permissions.includes(props.perm)) {
-        props.history.push("/user/profile");
-        return <> </>
+        props.history.push('/user/profile');
+        return <> </>;
     }
 
-    return (
-        <PageWrapper parent={props.parent}>
-            {props.children}
-        </PageWrapper>
-    );
+    return <PageWrapper parent={props.parent}>{props.children}</PageWrapper>;
 }

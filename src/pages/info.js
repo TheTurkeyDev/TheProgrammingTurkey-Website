@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PageWrapper } from "./base/page-wrapper";
+import { PageWrapper } from './base/page-wrapper';
 
 export function Info() {
     return (
@@ -17,15 +17,25 @@ export function Info() {
                 </div>
                 <h2 className="mt-3">Programming languages</h2>
                 <div>
-                    <span style={{ fontSize: "1.25rem", textDecoration: "underline" }}>
+                    <span
+                        style={{
+                            fontSize: '1.25rem',
+                            textDecoration: 'underline',
+                        }}
+                    >
                         Familiar with
-                        </span>
+                    </span>
                     <div>Java</div>
                 </div>
                 <div className="mt-2">
-                    <span style={{ fontSize: "1.25rem", textDecoration: "underline" }}>
+                    <span
+                        style={{
+                            fontSize: '1.25rem',
+                            textDecoration: 'underline',
+                        }}
+                    >
                         Worked with a decent amount
-                        </span>
+                    </span>
 
                     <div>Python</div>
                     <div>JavaScript (React)</div>
@@ -33,13 +43,16 @@ export function Info() {
                     <div>HTML / css</div>
                     <div>C / Arduino</div>
                     <div>SQL</div>
-
-
                 </div>
                 <div className="mt-2">
-                    <span style={{ fontSize: "1.25rem", textDecoration: "underline" }}>
+                    <span
+                        style={{
+                            fontSize: '1.25rem',
+                            textDecoration: 'underline',
+                        }}
+                    >
                         Worked with a few times, but would need refreshers
-                        </span>
+                    </span>
 
                     <div>PHP</div>
                     <div>MatLab</div>

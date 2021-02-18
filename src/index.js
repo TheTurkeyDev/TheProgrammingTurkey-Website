@@ -39,11 +39,8 @@ import { SlimeRancherIntegration } from './pages/mods/slime-rancher-integration'
 import { Support } from './pages/support';
 import { StreamLEDControl } from './pages/projects/stream-led-control';
 
-import { AuthWrapper } from './contexts/auth-context';
-import { Overlay } from './contexts/overlay-context';
-import { Toast } from './contexts/toast-context';
-
 import { Login } from './pages/auth/login';
+import { LoginResponse } from './pages/auth/login-response';
 import { UserProfile } from './pages/user/profile';
 import { StreamTimerSetup } from './pages/small-apps/stream-timer-setup';
 import { Logout } from './pages/auth/logout';
@@ -52,8 +49,7 @@ import { ProjectStatusEdit } from './pages/admin/project-status-edit';
 import { UserManagement } from './pages/admin/user-management';
 import { PermissionManagement } from './pages/admin/permission-management';
 import { ChanceCubesRewardBuilder } from './pages/chance-cubes/chance-cubes-reward-builder';
-import { UserConnectedAccount } from './pages/user/user-account-connections';
-import { YouTubeLogin } from './pages/auth/youtube-login';
+import { UserPlatformAccountConnections } from './pages/user/user-platform-account-connections';
 import { ProcessManagement } from './pages/admin/process-management';
 import { YouTubeSubGetSetup } from './pages/small-apps/youtube-sub-get-setup';
 import { TwitchClipTagger } from './pages/twitch-clip-filterer/twitch-clip-tagger';
@@ -62,6 +58,9 @@ import { TwitchGames } from './pages/twitch-games/twitch-games';
 import { TwitchBattleshipSetup } from './pages/twitch-games/twitch-battleship';
 import { TwitchRPSSetup } from './pages/twitch-games/twitch-rps';
 import { TwitchClipsList } from './pages/twitch-clip-filterer/twitch-clips-list';
+import { AuthWrapper } from './contexts/auth-context';
+import { Toast } from './contexts/toast-context';
+import { Overlay } from './contexts/overlay-context';
 
 const routing = (
     <AuthWrapper>
@@ -107,7 +106,6 @@ const routing = (
                         <Route exact path='/twitchclipfilterer/clips' component={TwitchClipsList} />
                         <Route exact path='/twitchclipfilterer/tagger' component={TwitchClipTagger} />
 
-
                         <Route exact path='/twitchgames' component={TwitchGames} />
                         <Route exact path='/twitchgames/battleship' component={TwitchBattleshipSetup} />
                         <Route exact path='/twitchgames/rps' component={TwitchRPSSetup} />
@@ -117,10 +115,10 @@ const routing = (
 
                         <Route exact path='/login' component={Login} />
                         <Route exact path='/logout' component={Logout} />
-                        <Route exact path='/youtubelogin' component={YouTubeLogin} />
+                        <Route exact path='/loginresp' component={LoginResponse} />
 
                         <Route exact path='/user/profile' component={UserProfile} />
-                        <Route exact path='/user/connectedaccounts' component={UserConnectedAccount} />
+                        <Route exact path='/user/connectedaccounts' component={UserPlatformAccountConnections} />
                         <Route exact path='/user/youtubesubget' component={YouTubeSubGetSetup} />
 
                         <Route exact path='/admin/usermanage' component={UserManagement} />

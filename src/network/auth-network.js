@@ -15,34 +15,18 @@ export function getPostAuthParams(body) {
         method: 'POST',
         credentials: 'include',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
     };
 }
 
-export async function loginTwitch(code) {
-    return await fetch(getDevAPIBase() + "/auth/twitch/token", {
+export async function loginWithPlatform(platform, code, action) {
+    return await fetch(`${getDevAPIBase()}/auth/${platform}/token?code=${code}&action=${action}`, {
         method: 'POST',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json',
-            'code': code
-        }
-    }).then(resp => {
-        if (resp.status == 200)
-            return resp.json();
-        return {};
-    });
-}
-
-export async function loginYoutube(code) {
-    return await fetch(getDevAPIBase() + "/auth/youtube/token", {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json',
-            'code': code
+            'Content-Type': 'application/json'
         }
     }).then(resp => {
         if (resp.status == 200)
@@ -52,19 +36,19 @@ export async function loginYoutube(code) {
 }
 
 export async function logout() {
-    return await fetch(getDevAPIBase() + "/auth/logout", getPostAuthParams()).then(resp => {
+    return await fetch(getDevAPIBase() + '/auth/logout', getPostAuthParams()).then(resp => {
         return resp.json();
     });
 }
 
 export async function isLoggedIn() {
-    return await fetch(getDevAPIBase() + "/auth/loggedin", getGetAuthParams()).then(resp => {
+    return await fetch(getDevAPIBase() + '/auth/loggedin', getGetAuthParams()).then(resp => {
         return resp.json();
     });
 }
 
 export async function getUserPerms() {
-    return await fetch(getDevAPIBase() + "/user/perms", getGetAuthParams()).then(resp => {
+    return await fetch(getDevAPIBase() + '/user/perms', getGetAuthParams()).then(resp => {
         if (resp.status == 200)
             return resp.json();
         return [];
@@ -72,13 +56,13 @@ export async function getUserPerms() {
 }
 
 export async function getUserInfo() {
-    return await fetch(getDevAPIBase() + "/user/info", getGetAuthParams()).then(resp => {
+    return await fetch(getDevAPIBase() + '/user/info', getGetAuthParams()).then(resp => {
         return resp.json();
     });
 }
 
 export async function getUserConnectedAccounts() {
-    return await fetch(getDevAPIBase() + "/user/connectedaccounts", getGetAuthParams()).then(resp => {
+    return await fetch(getDevAPIBase() + '/user/connectedaccounts', getGetAuthParams()).then(resp => {
         return resp.json();
     });
 }
@@ -164,7 +148,7 @@ export async function getAllProcessHealth() {
 }
 
 export async function startStopProcess(stop) {
-    return await fetch(`${getDevAPIBase()}/admin/${stop ? "stop" : "start"}process`, getPostAuthParams({
+    return await fetch(`${getDevAPIBase()}/admin/${stop ? 'stop' : 'start'}process`, getPostAuthParams({
         process_id: process.process_id
     })).then(resp => {
         return resp.json();

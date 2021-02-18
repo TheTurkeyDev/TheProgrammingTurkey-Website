@@ -3,10 +3,9 @@ import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useInterval } from '../../util/use-interval';
 import { AuthContext } from '../../contexts/auth-context';
 import { ToastContext } from '../../contexts/toast-context';
-import * as timerAPI from "../../network/timer-network";
-import { AuthPageWrapper } from '../base/auth-page-wrapper';
-
+import * as timerAPI from '../../network/timer-network';
 import { TextToast } from '../../toasts/text-toast';
+import { AuthPageWrapper } from '../../pages/base/auth-page-wrapper';
 
 export function StreamTimerSetup(props) {
     const canvasRef = useRef(null);
@@ -22,7 +21,7 @@ export function StreamTimerSetup(props) {
     const [timerType, setTimerType] = useState('');
     const [timerDisplay, setTimerDisplay] = useState('');
 
-    const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+    const [backgroundColor, setBackgroundColor] = useState('#ffffff');
 
     const [length, setLength] = useState(0);
     const [date, setDate] = useState(new Date());
@@ -35,13 +34,13 @@ export function StreamTimerSetup(props) {
     const [includeZeroDays, setIncludeZeroDays] = useState(true);
     const [includeZeroHours, setIncludeZeroHours] = useState(true);
     const [includeZeroMinutes, setIncludeZeroMinutes] = useState(true);
-    const [displayMessage, setDisplayMessage] = useState("");
+    const [displayMessage, setDisplayMessage] = useState('');
     const [hasEndMessage, setHasEndMessage] = useState(false);
-    const [endMessage, setEndMessage] = useState("");
+    const [endMessage, setEndMessage] = useState('');
 
-    const [font, setFont] = useState("");
+    const [font, setFont] = useState('');
     const [fontSize, setFontSize] = useState(12);
-    const [fontColor, setFontColor] = useState("");
+    const [fontColor, setFontColor] = useState('');
 
     useEffect(() => {
         async function loadTimers() {
@@ -96,9 +95,9 @@ export function StreamTimerSetup(props) {
 
         // Find the distance between now and the count down date
         let distance = 0;
-        if (timerType === "countdown_date")
+        if (timerType === 'countdown_date')
             distance = date.getTime() - now;
-        else if (timerType === "countdown_timer")
+        else if (timerType === 'countdown_timer')
             distance = (length * 1000) - (now - date.getTime());
 
 
@@ -118,15 +117,15 @@ export function StreamTimerSetup(props) {
 
     useEffect(() => {
         let showDay = days > 0 || includeZeroDays;
-        let displayMessageEdited = displayMessage.replace("{d}", showDay ? `${days}` : ``);
+        let displayMessageEdited = displayMessage.replace('{d}', showDay ? `${days}` : '');
         let showHour = showDay || hours > 0 || includeZeroHours;
-        displayMessageEdited = displayMessageEdited.replace("{h}", showHour || showDay ? ((hours < 10 && prependZeros && showHour) ? '0' : '') + hours : '');
+        displayMessageEdited = displayMessageEdited.replace('{h}', showHour || showDay ? ((hours < 10 && prependZeros && showHour) ? '0' : '') + hours : '');
         let showMinute = showHour || minutes > 0 || includeZeroMinutes;
-        displayMessageEdited = displayMessageEdited.replace("{m}", showMinute || showHour ? ((minutes < 10 && prependZeros && showMinute) ? '0' : '') + minutes : '');
-        displayMessageEdited = displayMessageEdited.replace("{s}", (seconds < 10 && (showMinute || prependZeros) ? '0' : '') + seconds);
+        displayMessageEdited = displayMessageEdited.replace('{m}', showMinute || showHour ? ((minutes < 10 && prependZeros && showMinute) ? '0' : '') + minutes : '');
+        displayMessageEdited = displayMessageEdited.replace('{s}', (seconds < 10 && (showMinute || prependZeros) ? '0' : '') + seconds);
 
         const timeOver = seconds <= 0 && minutes <= 0 && hours <= 0 && days <= 0;
-        const lines = (timeOver && hasEndMessage ? endMessage : displayMessageEdited).split("\n");
+        const lines = (timeOver && hasEndMessage ? endMessage : displayMessageEdited).split('\n');
 
         if (canvasRef.current && loaded == 2) {
             const canvas = canvasRef.current;
@@ -134,8 +133,8 @@ export function StreamTimerSetup(props) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.font = `${fontSize}px ${font}`;
             ctx.fillStyle = fontColor;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
             lines.forEach((line, i) => {
                 ctx.fillText(line, canvas.width / 2, (canvas.height / 2) + (i - (lines.length / 2) + 0.5) * fontSize);
             });
@@ -145,7 +144,7 @@ export function StreamTimerSetup(props) {
     const calcDate = (newDate) => {
         if (newDate == null)
             return;
-        const parts = newDate.split("-");
+        const parts = newDate.split('-');
         const currentDate = date;
         currentDate.setFullYear(parts[0]);
         currentDate.setMonth(parts[1] - 1);
@@ -156,7 +155,7 @@ export function StreamTimerSetup(props) {
     const calcTime = (time) => {
         if (time == null)
             return;
-        const parts = time.split(":");
+        const parts = time.split(':');
         const currentDate = date;
         currentDate.setHours(parts[0]);
         currentDate.setMinutes(parts[1]);
@@ -221,7 +220,7 @@ export function StreamTimerSetup(props) {
                 const timer = validTimerIDs.filter(t => t.id == json.timer_id);
                 timer.display = json.timer_display;
                 setValidTimerIDs(ids => [...ids.filter(t => t.id != json.timer_id), timer]);
-                toast.pushToast(<TextToast text="Timer Saved!" />);
+                toast.pushToast(<TextToast text='Timer Saved!' />);
             }
         });
     }
@@ -252,17 +251,17 @@ export function StreamTimerSetup(props) {
     }
 
     return (
-        <AuthPageWrapper history={props.history} perm="streamtimer.dashboard">
-            <div className="fluid-container pl-3">
-                <div className="row m-0 mt-3 mb-2">
-                    <label className="col m-0 ml-3 align-center" style={{ fontSize: "22px", maxWidth: "100px" }}>
+        <AuthPageWrapper history={props.history} perm='streamtimer.dashboard'>
+            <div className='fluid-container pl-3'>
+                <div className='row m-0 mt-3 mb-2'>
+                    <label className='col m-0 ml-3 align-center' style={{ fontSize: '22px', maxWidth: '100px' }}>
                         URL:
                     </label>
-                    <input className="col ml-2 mr-4" type="text" readOnly value={`http://apps.theturkey.dev/streamtimer/${auth.userID}/${timerID}`} style={{ width: "800px" }} />
+                    <input className='col ml-2 mr-4' type='text' readOnly value={`http://apps.theturkey.dev/streamtimer/${auth.userID}/${timerID}`} style={{ width: '800px' }} />
                 </div>
-                <div className="row m-0">
-                    <label className="col m-0 ml-3 align-center" style={{ fontSize: "22px", maxWidth: "100px" }}>Timer:</label>
-                    <select className="col-auto ml-2" value={timerID} onChange={(e) => { setTimerID(e.target.value) }}>
+                <div className='row m-0'>
+                    <label className='col m-0 ml-3 align-center' style={{ fontSize: '22px', maxWidth: '100px' }}>Timer:</label>
+                    <select className='col-auto ml-2' value={timerID} onChange={(e) => { setTimerID(parseInt(e.target.value)) }}>
                         {
                             validTimerIDs.map(timer => {
                                 return (
@@ -271,113 +270,113 @@ export function StreamTimerSetup(props) {
                             })
                         }
                     </select>
-                    <button className="col-auto ml-2" onClick={() => newTimer()}>+</button>
+                    <button className='col-auto ml-2' onClick={() => newTimer()}>+</button>
                 </div>
-                <div className="row m-0 mt-2">
-                    <div className="col m-0 ml-3 align-center" style={{ maxWidth: "100px" }}></div>
-                    <button className="col-auto ml-2" onClick={startTimer}>Start Timer</button>
+                <div className='row m-0 mt-2'>
+                    <div className='col m-0 ml-3 align-center' style={{ maxWidth: '100px' }}></div>
+                    <button className='col-auto ml-2' onClick={startTimer}>Start Timer</button>
                 </div>
                 <hr />
-                <div className="row m-0">
+                <div className='row m-0'>
                     <h2>Settings</h2>
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label" >Timer Name:</label>
-                    <input type="text" value={timerDisplay} onChange={(e) => { setTimerDisplay(e.target.value) }} />
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label' >Timer Name:</label>
+                    <input type='text' value={timerDisplay} onChange={(e) => { setTimerDisplay(e.target.value) }} />
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label" >TimerType:</label>
-                    <select className="col-auto" value={timerType} onChange={(e) => { setTimerType(e.target.value) }}>
-                        <option value={"countdown_date"}>Countdown To Date</option>
-                        <option value={"countup_date"}>Countup To Date</option>
-                        <option value={"countdown_timer"}>Timer Down</option>
-                        <option value={"countup_timer"}>Timer Up</option>
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label' >TimerType:</label>
+                    <select className='col-auto' value={timerType} onChange={(e) => { setTimerType(e.target.value) }}>
+                        <option value={'countdown_date'}>Countdown To Date</option>
+                        <option value={'countup_date'}>Countup To Date</option>
+                        <option value={'countdown_timer'}>Timer Down</option>
+                        <option value={'countup_timer'}>Timer Up</option>
                     </select>
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label">Display:</label>
-                    <textarea className="col timer-textarea" value={displayMessage} onChange={(e) => { setDisplayMessage(e.target.value) }} />
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>Display:</label>
+                    <textarea className='col timer-textarea' value={displayMessage} onChange={(e) => { setDisplayMessage(e.target.value) }} />
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label">End Message:</label>
-                    <div className="toggle-switch">
-                        <input type="checkbox" checked={hasEndMessage} onChange={() => { }} />
-                        <span className="toggle-slider round" onClick={() => setHasEndMessage(old => !old)}></span>
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>End Message:</label>
+                    <div className='toggle-switch'>
+                        <input type='checkbox' checked={hasEndMessage} onChange={() => { }} />
+                        <span className='toggle-slider round' onClick={() => setHasEndMessage(old => !old)}></span>
                     </div>
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label"></label>
-                    <textarea className="col timer-textarea" value={endMessage} onChange={(e) => { setEndMessage(e.target.value) }} />
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'></label>
+                    <textarea className='col timer-textarea' value={endMessage} onChange={(e) => { setEndMessage(e.target.value) }} />
                 </div>
                 {
-                    timerType == "countdown_date" &&
-                    <div className="row m-0 ml-4 mt-1">
-                        <label className="col mr-1 timer-label">End Time:</label>
-                        <input type="date" value={formatDate(date)} min={formatDate(new Date())} onChange={(e) => { calcDate(e.target.value) }} />
-                        <input type="time" value={formatTime(date)} min={(isSameDay(date) ? formatTime(new Date()) : "")} onChange={(e) => { calcTime(e.target.value) }} min />
+                    timerType == 'countdown_date' &&
+                    <div className='row m-0 ml-4 mt-1'>
+                        <label className='col mr-1 timer-label'>End Time:</label>
+                        <input type='date' value={formatDate(date)} min={formatDate(new Date())} onChange={(e) => { calcDate(e.target.value) }} />
+                        <input type='time' value={formatTime(date)} min={(isSameDay(date) ? formatTime(new Date()) : '')} onChange={(e) => { calcTime(e.target.value) }} />
                     </div>
                 }
                 {
-                    timerType == "countdown_timer" &&
-                    <div className="row m-0 ml-4 mt-1">
-                        <label className="col mr-1 timer-label">Length:</label>
-                        <input className="col-auto" type="number" value={length} onChange={(e) => { setLength(e.target.value) }} />
+                    timerType == 'countdown_timer' &&
+                    <div className='row m-0 ml-4 mt-1'>
+                        <label className='col mr-1 timer-label'>Length:</label>
+                        <input className='col-auto' type='number' value={length} onChange={(e) => { setLength(parseInt(e.target.value)) }} />
                     </div>
                 }
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label">Prepend Zeros:</label>
-                    <div className="toggle-switch">
-                        <input type="checkbox" checked={prependZeros} onChange={() => { }} />
-                        <span className="toggle-slider round" onClick={() => setPrependZeros(old => !old)}></span>
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>Prepend Zeros:</label>
+                    <div className='toggle-switch'>
+                        <input type='checkbox' checked={prependZeros} onChange={() => { }} />
+                        <span className='toggle-slider round' onClick={() => setPrependZeros(old => !old)}></span>
                     </div>
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label">Include Zero Days:</label>
-                    <div className="toggle-switch">
-                        <input type="checkbox" checked={includeZeroDays} onChange={() => { }} />
-                        <span className="toggle-slider round" onClick={() => setIncludeZeroDays(old => !old)}></span>
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>Include Zero Days:</label>
+                    <div className='toggle-switch'>
+                        <input type='checkbox' checked={includeZeroDays} onChange={() => { }} />
+                        <span className='toggle-slider round' onClick={() => setIncludeZeroDays(old => !old)}></span>
                     </div>
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label">Include Zero Hours:</label>
-                    <div className="toggle-switch">
-                        <input type="checkbox" checked={includeZeroHours} onChange={() => { }} />
-                        <span className="toggle-slider round" onClick={() => setIncludeZeroHours(old => !old)}></span>
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>Include Zero Hours:</label>
+                    <div className='toggle-switch'>
+                        <input type='checkbox' checked={includeZeroHours} onChange={() => { }} />
+                        <span className='toggle-slider round' onClick={() => setIncludeZeroHours(old => !old)}></span>
                     </div>
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label">Include Zero Minutes:</label>
-                    <div className="toggle-switch">
-                        <input type="checkbox" checked={includeZeroMinutes} onChange={() => { }} />
-                        <span className="toggle-slider round" onClick={() => setIncludeZeroMinutes(old => !old)}></span>
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>Include Zero Minutes:</label>
+                    <div className='toggle-switch'>
+                        <input type='checkbox' checked={includeZeroMinutes} onChange={() => { }} />
+                        <span className='toggle-slider round' onClick={() => setIncludeZeroMinutes(old => !old)}></span>
                     </div>
                 </div>
-                <div className="row m-0 ml-2 mt-2">
+                <div className='row m-0 ml-2 mt-2'>
                     <h4>Font</h4>
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label">Color:</label>
-                    <input type="color" value={fontColor} onChange={(e) => { setFontColor(e.target.value) }} />
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>Color:</label>
+                    <input type='color' value={fontColor} onChange={(e) => { setFontColor(e.target.value) }} />
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label">Size:</label>
-                    <input className="col-auto" type="number" value={fontSize} onChange={(e) => { setFontSize(e.target.value) }} />
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>Size:</label>
+                    <input className='col-auto' type='number' value={fontSize} onChange={(e) => { setFontSize(parseInt(e.target.value)) }} />
                 </div>
-                <div className="row m-0 ml-4 mt-1">
+                <div className='row m-0 ml-4 mt-1'>
                     <button onClick={saveSettings}>
                         Save
                     </button>
                 </div>
                 <hr />
-                <div className="row m-0 mt-1">
+                <div className='row m-0 mt-1'>
                     <h2>Preview</h2>
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <label className="col mr-1 timer-label">Background:</label>
-                    <input className="" type="color" value={backgroundColor} onChange={(e) => { setBackgroundColor(e.target.value) }} />
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>Background:</label>
+                    <input className='' type='color' value={backgroundColor} onChange={(e) => { setBackgroundColor(e.target.value) }} />
                 </div>
-                <div className="row m-0 ml-4 mt-1">
-                    <canvas ref={canvasRef} className="m-3 p-1" style={{ backgroundColor }} width={200} height={200}>
+                <div className='row m-0 ml-4 mt-1'>
+                    <canvas ref={canvasRef} className='m-3 p-1' style={{ backgroundColor }} width={200} height={200}>
 
                     </canvas>
                 </div>

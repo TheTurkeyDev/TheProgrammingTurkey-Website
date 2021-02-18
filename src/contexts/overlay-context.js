@@ -10,9 +10,8 @@ export function Overlay(props) {
     useEffect(() => {
         if (overlayStack.length > 0)
             setOverlayWrapper(overlayStack[overlayStack.length - 1], true);
-        else
-            setOverlayWrapper(<React.Fragment />, false)
-    }, [overlayStack])
+        else setOverlayWrapper(<React.Fragment />, false);
+    }, [overlayStack]);
 
     const setOverlayWrapper = (component, show = true) => {
         setOverlay(component);
@@ -20,31 +19,39 @@ export function Overlay(props) {
     };
 
     const pushCurrentOverlay = (newOverlay) => {
-        setOverlayStack(oldStack => [...oldStack, newOverlay]);
-    }
+        setOverlayStack((oldStack) => [...oldStack, newOverlay]);
+    };
 
     const popCurrentOverlay = () => {
         //TODO something a bit prettier than filter?
-        setOverlayStack(oldStack => oldStack.filter((elem, index) => index != oldStack.length - 1));
-    }
+        setOverlayStack((oldStack) =>
+            oldStack.filter((elem, index) => index != oldStack.length - 1)
+        );
+    };
 
     const overlaydata = {
         overlay: overlay,
         pushCurrentOverlay,
         popCurrentOverlay,
-        closeOverlay: () => setOverlayStack([])
-    }
+        closeOverlay: () => setOverlayStack([]),
+    };
 
     return (
         <OverlayContext.Provider value={overlaydata}>
-            <div id="overlay" style={{ display: `${showOverlay ? "block" : "none"}` }}>
+            <div
+                id="overlay"
+                style={{ display: `${showOverlay ? 'block' : 'none'}` }}
+            >
                 <div className="container overlay_contents bg-secondary pt-1">
                     <div className="row">
-                        <p className="ml-auto mb-0 button closeBtn" onClick={() => overlaydata.closeOverlay()}>X</p>
+                        <p
+                            className="ml-auto mb-0 button closeBtn"
+                            onClick={() => overlaydata.closeOverlay()}
+                        >
+                            X
+                        </p>
                     </div>
-                    <div>
-                        {overlay}
-                    </div>
+                    <div>{overlay}</div>
                 </div>
             </div>
             {props.children}
