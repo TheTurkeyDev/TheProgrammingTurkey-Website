@@ -115,7 +115,7 @@ const routing = (
 
                         <Route exact path='/login' component={Login} />
                         <Route exact path='/logout' component={Logout} />
-                        <Route exact path='/loginresp' component={LoginResponse} />
+                        <Route exact path='/loginresp/:platform' component={LoginResponse} />
 
                         <Route exact path='/user/profile' component={UserProfile} />
                         <Route exact path='/user/connectedaccounts' component={UserPlatformAccountConnections} />
