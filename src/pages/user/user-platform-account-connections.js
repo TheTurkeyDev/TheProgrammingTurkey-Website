@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { OverlayContext } from '../../contexts/overlay-context';
 import * as api from '../../network/auth-network';
-import { getDiscordURL, getGithubURL, getTwitchURL, getYouTubeURL } from '../auth/login';
+import { getDiscordURL, getGithubURL, getTwitchURL } from '../auth/login';
 import { ConnectMinecraftAccountOverlay } from '../../overlays/auth/connect-minecraft-account-overlay';
 import { AuthPageWrapper } from '../../pages/base/auth-page-wrapper';
 import { UserPlatformAccount } from './user-platform-account';
@@ -46,7 +46,8 @@ export function UserPlatformAccountConnections(props) {
                     platform_name="Youtube"
                     icon="fab fa-youtube"
                     color="#c00"
-                    onClick={() => login(getYouTubeURL)}
+                    onClick={() => { }}
+                    disabled={true}
                 />
                 <UserPlatformAccount
                     accounts={accounts}
