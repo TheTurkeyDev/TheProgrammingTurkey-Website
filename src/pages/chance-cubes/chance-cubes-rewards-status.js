@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getChanceCubesRewardStatus } from '../../network/chance-cubes-network';
 
 import { PageWrapper } from '../base/page-wrapper';
 
@@ -39,17 +40,15 @@ export function ChanceCubesRewardsStatus(props) {
     }
 
     useEffect(() => {
-        fetch(
-            'https://api.theprogrammingturkey.com/chance_cubes/RewardStatusAPI.php'
-        )
-            .then((resp) => resp.json())
+        getChanceCubesRewardStatus()
             .then((json) => {
                 let rewards = {};
                 json.rewards.forEach((element) => {
-                    if (!Object.prototype.hasOwnProperty.call(rewards, element.reward_name))
-                        rewards[element.reward_name] = {};
-                    rewards[element.reward_name][element.game_version] =
-                        element.status;
+                    if (!Object.prototype.hasOwnProperty.call(rewards, element.name))
+                        rewards[element.name] = {};
+                    rewards[element.name][element.version] = element.status;
+                    rewards[element.name].chance = element.chance;
+                    rewards[element.name].isgcr = element.is_giant_cube_reward;
                 });
 
                 setNotes(json.notes);
@@ -138,6 +137,9 @@ export function ChanceCubesRewardsStatus(props) {
                     })
                 }
             </div>
+            <div className='text-center m-0 ml-2 fluid-container row'>
+                *GCC = Giant Chance Cube Reward
+            </div>
             <div>
                 <div className='m-2'>
                     <table className='table sticky-table'>
@@ -145,6 +147,7 @@ export function ChanceCubesRewardsStatus(props) {
                             <tr className='text-center text-light'>
                                 <th scope='col'></th>
                                 <th scope='col'>Reward/ Version</th>
+                                <th scope='col'>Chance</th>
                                 {
                                     gameVersions.map(v => <th key={v} scope='col'>{v}</th>)
                                 }
@@ -152,15 +155,17 @@ export function ChanceCubesRewardsStatus(props) {
                         </thead>
                         <tbody>
                             {
-                                Object.keys(rewards).filter(entry => !entry.startsWith('chancecubes:cr_')).sort((a, b) => a.localeCompare(b)).map((reward) => {
+                                Object.keys(rewards).filter(entry => !entry.startsWith('chancecubes:cr_')).sort((a, b) => a.localeCompare(b)).map(reward => {
+                                    console.log(rewards[reward]);
                                     return (
                                         <tr key={reward} id={reward} className={params.reward === reward ? 'highlight-fade' : ''}>
                                             <td scope='row' className='p-1 text-center text-light'> <i className='fas fa-link' onClick={() => copyToClipBoard(reward)}></i></td>
                                             <td className='p-1 text-light'> {reward} </td>
+                                            <td className='p-1 text-center text-light'> {rewards[reward].isgcr ? 'GCC*' : rewards[reward].chance} </td>
                                             {
                                                 gameVersions.map((version, index) => {
                                                     const status = Object.prototype.hasOwnProperty.call(rewards[reward], version) ? rewards[reward][version] : 0;
-                                                    const rewardNotes = notes.filter(note => note.game_version === version && note.reward_name === reward);
+                                                    const rewardNotes = notes.filter(note => note.version === version && note.reward_name === reward);
                                                     return (
                                                         <td key={`${version}-${index}`} className='p-1' style={{ backgroundColor: statusInfo[status]['bg'], borderRight: '1px solid #ababab', height: '40px' }}>
                                                             {

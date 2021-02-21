@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js';
 
 import { PageWrapper } from '../base/page-wrapper';
+import { getChanceCubesStats } from '../../network/chance-cubes-network';
 
 const colors = [
     '#1e90ff',
@@ -76,32 +77,18 @@ export function ChanceCubesStats() {
 
     const updateMoreStats = (json) => {
         setPageData({
-            totalRuns: json['Total Runs'],
-            totalDays: json['Total Days'],
-            averageRunsMonth: parseInt(json['Total Runs Last Month'] / 30),
-            mostRuns: json['Most'],
-            mostRunsDay: json['Most Date'],
-            mondayAverage: parseInt(
-                json['DailyTotals'][3] / json['DailyTotals'][10]
-            ),
-            tuesdayAverage: parseInt(
-                json['DailyTotals'][4] / json['DailyTotals'][11]
-            ),
-            wednesdayAverage: parseInt(
-                json['DailyTotals'][5] / json['DailyTotals'][12]
-            ),
-            thursdayAverage: parseInt(
-                json['DailyTotals'][6] / json['DailyTotals'][13]
-            ),
-            fridayAverage: parseInt(
-                json['DailyTotals'][0] / json['DailyTotals'][7]
-            ),
-            saturdayAverage: parseInt(
-                json['DailyTotals'][1] / json['DailyTotals'][8]
-            ),
-            sundayAverage: parseInt(
-                json['DailyTotals'][2] / json['DailyTotals'][9]
-            ),
+            totalRuns: json['total_runs'],
+            totalDays: json['total_days'],
+            averageRunsMonth: parseInt(json['total_runs_last_month'] / 30),
+            mostRuns: json['most'],
+            mostRunsDay: json['most_date'],
+            mondayAverage: parseInt(json['daily_totals'][1].total / json['daily_totals'][1].days),
+            tuesdayAverage: parseInt(json['daily_totals'][2].total / json['daily_totals'][2].days),
+            wednesdayAverage: parseInt(json['daily_totals'][3].total / json['daily_totals'][3].days),
+            thursdayAverage: parseInt(json['daily_totals'][4].total / json['daily_totals'][4].days),
+            fridayAverage: parseInt(json['daily_totals'][5].total / json['daily_totals'][5].days),
+            saturdayAverage: parseInt(json['daily_totals'][6].total / json['daily_totals'][6].days),
+            sundayAverage: parseInt(json['daily_totals'][0].total / json['daily_totals'][0].days),
         });
     };
 
@@ -123,24 +110,23 @@ export function ChanceCubesStats() {
 
         var index = 0;
         var index2 = 0;
-        for (var key in json['Versions']) {
+        Object.keys(json['versions']).sort(versionCompare).forEach(key => {
             datasets[index] = {
                 label: key,
                 fill: false,
                 backgroundColor: getColorForKey(key),
                 borderColor: getColorForKey(key),
-                data: json['Versions'][key],
+                data: json['versions'][key],
             };
 
-            if (json['Versions'][key][json['Versions'][key].length - 1] != 0) {
+            if (json['versions'][key][json['versions'][key].length - 1] != 0) {
                 labels[index2] = key;
                 labelColors[index2] = getColorForKey(key);
-                pieData[index2] =
-                    json['Versions'][key][json['Versions'][key].length - 1];
+                pieData[index2] = json['versions'][key][json['versions'][key].length - 1];
                 index2++;
             }
             index++;
-        }
+        });
 
         var ctx = versionLineGraphRef.current.getContext('2d');
         if (charts[0] != null) {
@@ -149,7 +135,7 @@ export function ChanceCubesStats() {
         charts[0] = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: json['Dates'],
+                labels: json['dates'],
                 datasets: datasets,
             },
             options: {
@@ -198,27 +184,15 @@ export function ChanceCubesStats() {
                 tooltips: {
                     callbacks: {
                         label: function (tooltipItem, data) {
-                            var allData =
-                                data.datasets[tooltipItem.datasetIndex].data;
+                            var allData = data.datasets[tooltipItem.datasetIndex].data;
                             var tooltipLabel = data.labels[tooltipItem.index];
-                            var tooltipData = parseInt(
-                                allData[tooltipItem.index]
-                            );
+                            var tooltipData = parseInt(allData[tooltipItem.index]);
                             var total = 0;
                             for (var i in allData) {
                                 total += parseInt(allData[i]);
                             }
-                            var tooltipPercentage = Math.round(
-                                (tooltipData / total) * 100
-                            );
-                            return (
-                                tooltipLabel +
-                                ': ' +
-                                tooltipData +
-                                ' (' +
-                                tooltipPercentage +
-                                '%)'
-                            );
+                            var tooltipPercentage = Math.round((tooltipData / total) * 100);
+                            return `${tooltipLabel}: ${tooltipData} (${tooltipPercentage}%)`;
                         },
                     },
                 },
@@ -233,26 +207,24 @@ export function ChanceCubesStats() {
         labelColors = [];
         index = 0;
 
-        for (let key in json['MC Versions']) {
+        Object.keys(json['mc_versions']).sort(versionCompare).forEach(key => {
             datasets[index] = {
                 label: key,
                 fill: false,
                 backgroundColor: getColorForKey(key),
                 borderColor: getColorForKey(key),
-                data: json['MC Versions'][key],
+                data: json['mc_versions'][key],
             };
 
-            if (!(key === 'All')) {
+            if (key !== 'All') {
                 labels[index] = key;
                 labelColors[index] = getColorForKey(key);
-                pieData[index] = json['MC Versions'][key][json['MC Versions'][key].length - 1];
+                pieData[index] = json['mc_versions'][key][json['mc_versions'][key].length - 1];
 
                 let keyData = [];
                 index2 = 0;
-                for (var key2 in json['MC Versions'][key]) {
-                    keyData[index2] =
-                        parseInt(json['MC Versions'][key][key2]) /
-                        parseInt(json['MC Versions']['All'][index2]);
+                for (var key2 in json['mc_versions'][key]) {
+                    keyData[index2] = parseInt(json['mc_versions'][key][key2]) / parseInt(json['mc_versions']['All'][index2]);
                     index2++;
                 }
 
@@ -263,10 +235,9 @@ export function ChanceCubesStats() {
                     borderColor: getColorForKey(key),
                     data: keyData,
                 };
-
                 index++;
             }
-        }
+        });
 
         ctx = mcVersionUsageGraphRef.current.getContext('2d');
         if (charts[2] != null) {
@@ -275,7 +246,7 @@ export function ChanceCubesStats() {
         charts[2] = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: json['Dates'],
+                labels: json['dates'],
                 datasets: datasets,
             },
             options: {
@@ -305,7 +276,7 @@ export function ChanceCubesStats() {
         charts[5] = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: json['Dates'],
+                labels: json['dates'],
                 datasets: percentDataset,
             },
             options: {
@@ -361,17 +332,8 @@ export function ChanceCubesStats() {
                             for (var i in allData) {
                                 total += parseInt(allData[i]);
                             }
-                            var tooltipPercentage = Math.round(
-                                (tooltipData / total) * 100
-                            );
-                            return (
-                                tooltipLabel +
-                                ': ' +
-                                tooltipData +
-                                ' (' +
-                                tooltipPercentage +
-                                '%)'
-                            );
+                            var tooltipPercentage = Math.round((tooltipData / total) * 100);
+                            return (`${tooltipLabel}: ${tooltipData} (${tooltipPercentage}%)`);
                         },
                     },
                 },
@@ -389,7 +351,7 @@ export function ChanceCubesStats() {
             fill: false,
             backgroundColor: '#FF0000',
             borderColor: '#FF0000',
-            data: json['WeeklyTotals'],
+            data: json['weekly_totals'],
         };
 
         datasets[1] = {
@@ -397,7 +359,7 @@ export function ChanceCubesStats() {
             fill: false,
             backgroundColor: '#00FF00',
             borderColor: '#00FF00',
-            data: json['MonthlyTotals'],
+            data: json['monthly_totals'],
         };
 
         ctx = runTotalsGraphRef.current.getContext('2d');
@@ -407,7 +369,7 @@ export function ChanceCubesStats() {
         charts[4] = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: json['Dates'],
+                labels: json['dates'],
                 datasets: datasets,
             },
             options: {
@@ -458,40 +420,37 @@ export function ChanceCubesStats() {
     const [endDate, setEndDate] = useState(today);
 
     useEffect(() => {
-        fetch(
-            `https://api.theprogrammingturkey.com/chance_cubes/ChanceCubesStats.php?Start=${startDate}&End=${endDate}`
-        )
-            .then((response) => response.json())
-            .then((json) => {
-                let versionsToShow = {};
-                Object.keys(json.Versions).forEach((key) => {
-                    let usage = json.Versions[key];
-                    let parts = key.split('-');
-                    let verParts = parts[0].split('.');
-                    let ver = verParts[0] + '.' + verParts[1];
-                    if (!versionsToShow[ver]) versionsToShow[ver] = {};
+        getChanceCubesStats(startDate, endDate).then((json) => {
+            let versionsToShow = {};
+            Object.keys(json.versions).forEach((key) => {
+                let usage = json.versions[key];
+                let parts = key.split('-');
+                let verParts = parts[0].split('.');
+                let ver = verParts[0] + '.' + verParts[1];
+                if (!versionsToShow[ver]) versionsToShow[ver] = {};
 
-                    let runs = parseInt(usage[usage.length - 1]);
-                    if (runs > 0) {
-                        versionsToShow[ver][key] = runs;
+                let runs = parseInt(usage[usage.length - 1]);
+                if (runs > 0) {
+                    versionsToShow[ver][key] = runs;
 
-                        if (Object.keys(versionsToShow[ver]).length > 3) {
-                            removeLowest(versionsToShow[ver], key);
-                        }
+                    if (Object.keys(versionsToShow[ver]).length > 3) {
+                        removeLowest(versionsToShow[ver], key);
                     }
-                });
-                let versionsMapped = [];
-                Object.keys(versionsToShow).forEach((v) => {
-                    Object.keys(versionsToShow[v]).forEach((k) => {
-                        versionsMapped.push(k);
-                    });
-                });
-                Object.keys(json.Versions).forEach((v) => {
-                    if (!versionsMapped.includes(v)) delete json.Versions[v];
-                });
-                updateGraphs(json);
-                updateMoreStats(json);
+                }
             });
+            let versionsMapped = [];
+            Object.keys(versionsToShow).forEach((v) => {
+                Object.keys(versionsToShow[v]).forEach((k) => {
+                    versionsMapped.push(k);
+                });
+            });
+            Object.keys(json.versions).forEach((v) => {
+                if (!versionsMapped.includes(v))
+                    delete json.versions[v];
+            });
+            updateGraphs(json);
+            updateMoreStats(json);
+        });
     }, [startDate, endDate]);
 
     return (
@@ -522,94 +481,55 @@ export function ChanceCubesStats() {
                 </header>
                 <div id="LD_Stats" className="text-center">
                     <h2 className="mt-5"> Version usage </h2>
-                    <canvas
-                        ref={versionLineGraphRef}
-                        width="995"
-                        height="400"
-                    ></canvas>
+                    <canvas ref={versionLineGraphRef} width="995" height="400"></canvas>
                     <h2 className="mt-5"> Version usage % </h2>
-                    <canvas
-                        ref={versionPieGraphRef}
-                        width="995"
-                        height="400"
-                    ></canvas>
+                    <canvas ref={versionPieGraphRef} width="995" height="400"></canvas>
                     <h2 className="mt-5"> MC Version usage</h2>
-                    <canvas
-                        ref={mcVersionUsageGraphRef}
-                        width="995"
-                        height="400"
-                    ></canvas>
+                    <canvas ref={mcVersionUsageGraphRef} width="995" height="400"></canvas>
                     <h2 className="mt-5"> MC Version usage % </h2>
-                    <canvas
-                        ref={mcVersionPieGraphRef}
-                        width="995"
-                        height="400"
-                    ></canvas>
+                    <canvas ref={mcVersionPieGraphRef} width="995" height="400"></canvas>
                     <h2 className="mt-5"> MC Version usage % over Time</h2>
-                    <canvas
-                        ref={mcVersionLineGraphRef}
-                        width="995"
-                        height="400"
-                    ></canvas>
+                    <canvas ref={mcVersionLineGraphRef} width="995" height="400"></canvas>
                     <h2 className="mt-5"> Run Totals </h2>
-                    <canvas
-                        ref={runTotalsGraphRef}
-                        width="995"
-                        height="400"
-                    ></canvas>
+                    <canvas ref={runTotalsGraphRef} width="995" height="400"></canvas>
                     <div className="mt-3">
                         <div>
                             <p>
-                                {`Total Mod Runs: ${numberWithCommas(
-                                    pageData.totalRuns
-                                )} (${numberWithCommas(
-                                    pageData.totalDays
-                                )} days)`}
+                                {`Total Mod Runs: ${numberWithCommas(pageData.totalRuns)} (${numberWithCommas(pageData.totalDays)} days)`}
                             </p>
                         </div>
                         <div>
                             <p>
-                                {`Average Daily Mod Runs: ${numberWithCommas(
-                                    pageData.averageRunsMonth
-                                )} (Last 30 days)`}
+                                {`Average Daily Mod Runs: ${numberWithCommas(pageData.averageRunsMonth)} (Last 30 days)`}
                             </p>
                         </div>
                         <div>
                             <p>
-                                {`Most Single Day Runs: ${numberWithCommas(
-                                    pageData.mostRuns
-                                )} (${pageData.mostRunsDay})`}
+                                {`Most Single Day Runs: ${numberWithCommas(pageData.mostRuns)} (${pageData.mostRunsDay})`}
                             </p>
                         </div>
                         <p>--- Average runs per day ---</p>
                         <div>
                             <p>
-                                Monday:{' '}
-                                {numberWithCommas(pageData.mondayAverage)}
+                                {`Monday: ${numberWithCommas(pageData.mondayAverage)}`}
                             </p>
                             <p>
-                                Tuesday:{' '}
-                                {numberWithCommas(pageData.tuesdayAverage)}
+                                {`Tuesday: ${numberWithCommas(pageData.tuesdayAverage)}`}
                             </p>
                             <p>
-                                Wednesday:{' '}
-                                {numberWithCommas(pageData.wednesdayAverage)}
+                                {`Wednesday: ${numberWithCommas(pageData.wednesdayAverage)}`}
                             </p>
                             <p>
-                                Thursaday:{' '}
-                                {numberWithCommas(pageData.thursdayAverage)}
+                                {`Thursaday: ${numberWithCommas(pageData.thursdayAverage)}`}
                             </p>
                             <p>
-                                Friday:{' '}
-                                {numberWithCommas(pageData.fridayAverage)}
+                                {`Friday: ${numberWithCommas(pageData.fridayAverage)}`}
                             </p>
                             <p>
-                                Saturday:{' '}
-                                {numberWithCommas(pageData.saturdayAverage)}
+                                {`Saturday: ${numberWithCommas(pageData.saturdayAverage)}`}
                             </p>
                             <p>
-                                Sunday:{' '}
-                                {numberWithCommas(pageData.saturdayAverage)}
+                                {`Sunday: ${numberWithCommas(pageData.saturdayAverage)}`}
                             </p>
                         </div>
                     </div>
@@ -640,4 +560,47 @@ function removeLowest(versionUsage, key) {
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function versionCompare(v1, v2) {
+    if (v1 === 'All') {
+        return 1;
+    }
+    else if (v2 === 'All') {
+        return -1;
+    }
+    else if (v1.includes("-")) {
+        let v1parts = v1.split('-');
+        let v2parts = v2.split('-');
+        const comp = versionCompare(v1parts[0], v2parts[0]);
+        return comp === 0 ? versionCompare(v1parts[1], v2parts[1]) : comp;
+    }
+
+    let v1parts = v1.split('.');
+    let v2parts = v2.split('.');
+
+    const isValidPart = (x) => {
+        return (/^\d+$/).test(x);
+    }
+
+    if (!v1parts.every(isValidPart) || !v2parts.every(isValidPart)) {
+        return NaN;
+    }
+
+    v1parts = v1parts.map(Number);
+    v2parts = v2parts.map(Number);
+
+    for (let i = 0; i < v1parts.length; ++i) {
+        if (v2parts.length == i)
+            return 1;
+
+        if (v1parts[i] == v2parts[i])
+            continue;
+        else if (v1parts[i] > v2parts[i])
+            return 1;
+        else
+            return -1;
+    }
+
+    return v1parts.length != v2parts.length ? -1 : 0;
 }
