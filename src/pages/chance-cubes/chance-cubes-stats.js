@@ -455,44 +455,44 @@ export function ChanceCubesStats() {
 
     return (
         <PageWrapper>
-            <div id="charts">
+            <div id='charts'>
                 <header>
-                    <hgroup className="text-center">
+                    <hgroup className='text-center'>
                         <h1>Chance Cubes Version Stats</h1>
                         Start:
                         <input
-                            type="date"
-                            id="date_start"
-                            min="2017-05-05"
+                            type='date'
+                            id='date_start'
+                            min='2017-05-05'
                             max={today}
                             value={startDate}
                             onChange={(e) => setStartDate(e.target.value)}
                         />
                         End:
                         <input
-                            type="date"
-                            id="date_end"
-                            min="2017-05-05"
+                            type='date'
+                            id='date_end'
+                            min='2017-05-05'
                             max={today}
                             value={endDate}
                             onChange={(e) => setEndDate(e.target.value)}
                         />
                     </hgroup>
                 </header>
-                <div id="LD_Stats" className="text-center">
-                    <h2 className="mt-5"> Version usage </h2>
-                    <canvas ref={versionLineGraphRef} width="995" height="400"></canvas>
-                    <h2 className="mt-5"> Version usage % </h2>
-                    <canvas ref={versionPieGraphRef} width="995" height="400"></canvas>
-                    <h2 className="mt-5"> MC Version usage</h2>
-                    <canvas ref={mcVersionUsageGraphRef} width="995" height="400"></canvas>
-                    <h2 className="mt-5"> MC Version usage % </h2>
-                    <canvas ref={mcVersionPieGraphRef} width="995" height="400"></canvas>
-                    <h2 className="mt-5"> MC Version usage % over Time</h2>
-                    <canvas ref={mcVersionLineGraphRef} width="995" height="400"></canvas>
-                    <h2 className="mt-5"> Run Totals </h2>
-                    <canvas ref={runTotalsGraphRef} width="995" height="400"></canvas>
-                    <div className="mt-3">
+                <div id='LD_Stats' className='text-center'>
+                    <h2 className='mt-5'> Version usage </h2>
+                    <canvas ref={versionLineGraphRef} width='995' height='400'></canvas>
+                    <h2 className='mt-5'> Version usage % </h2>
+                    <canvas ref={versionPieGraphRef} width='995' height='400'></canvas>
+                    <h2 className='mt-5'> MC Version usage</h2>
+                    <canvas ref={mcVersionUsageGraphRef} width='995' height='400'></canvas>
+                    <h2 className='mt-5'> MC Version usage % </h2>
+                    <canvas ref={mcVersionPieGraphRef} width='995' height='400'></canvas>
+                    <h2 className='mt-5'> MC Version usage % over Time</h2>
+                    <canvas ref={mcVersionLineGraphRef} width='995' height='400'></canvas>
+                    <h2 className='mt-5'> Run Totals </h2>
+                    <canvas ref={runTotalsGraphRef} width='995' height='400'></canvas>
+                    <div className='mt-3'>
                         <div>
                             <p>
                                 {`Total Mod Runs: ${numberWithCommas(pageData.totalRuns)} (${numberWithCommas(pageData.totalDays)} days)`}
@@ -569,7 +569,7 @@ function versionCompare(v1, v2) {
     else if (v2 === 'All') {
         return -1;
     }
-    else if (v1.includes("-")) {
+    else if (v1.includes('-')) {
         let v1parts = v1.split('-');
         let v2parts = v2.split('-');
         const comp = versionCompare(v1parts[0], v2parts[0]);

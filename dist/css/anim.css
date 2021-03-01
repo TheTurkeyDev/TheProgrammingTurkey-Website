@@ -62,6 +62,19 @@
     animation-delay: 2s;
 }
 
+.project-link-title {
+    opacity: 0;
+    transition: .5s ease;
+    transform: translate(0, 100%);
+    -ms-transform: translate(0, 100%);
+}
+
+.project-link:hover .project-link-title {
+    opacity: 1;
+    transform: translate(0, 0%);
+    -ms-transform: translate(0, 0%);
+}
+
 @keyframes yellowfade {
     from {
         background: yellow;

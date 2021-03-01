@@ -47,6 +47,12 @@ export async function isLoggedIn() {
     });
 }
 
+export async function getMergeRequests() {
+    return await fetch(getDevAPIBase() + '/auth/mergerequests', getGetAuthParams()).then(resp => {
+        return resp.json();
+    });
+}
+
 export async function getUserPerms() {
     return await fetch(getDevAPIBase() + '/user/perms', getGetAuthParams()).then(resp => {
         if (resp.status == 200)
