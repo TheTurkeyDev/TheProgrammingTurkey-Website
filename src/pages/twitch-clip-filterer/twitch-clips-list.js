@@ -17,7 +17,8 @@ export function TwitchClipsList(props) {
     const [clips, setClips] = useState([]);
     const [page, setPage] = useState(0);
     const [tags, setTags] = useState([]);
-    const [filterTags, setFilterTags] = useState([]);
+    const [allowedTags, setAllowedTags] = useState([]);
+    const [disallowedTags, setDisallowedTags] = useState([]);
     const [update, setUpdate] = useState(false);
 
     useEffect(() => {
@@ -31,18 +32,18 @@ export function TwitchClipsList(props) {
         setClips([]);
         setPage(0);
         setUpdate(true);
-    }, [filterTags]);
+    }, [allowedTags, disallowedTags]);
 
     useEffect(() => {
         if (!update) {
             return;
         }
-        clipAPI.getClips(channel, page, 25, filterTags.map(ft => ft.id)).then((json) => {
+        clipAPI.getClips(channel, page, 25, allowedTags.map(ft => ft.id), disallowedTags.map(ft => ft.id)).then((json) => {
             if (json.success)
                 setClips(clips => [...clips, ...json.data]);
         });
         setUpdate(false);
-    }, [page, filterTags, update]);
+    }, [page, allowedTags, disallowedTags, update]);
 
     const pullClips = () => {
         clipAPI.pullTwitchClips(channel).then((json) => {
@@ -73,12 +74,18 @@ export function TwitchClipsList(props) {
         });
     }
 
-    const onSelect = (list, item) => {
-        setFilterTags(ftags => [...ftags, item]);
+    const onAllowedSelect = (list, item) => {
+        setAllowedTags(ftags => [...ftags, item]);
+    }
+    const onDisallowedSelect = (list, item) => {
+        setDisallowedTags(ftags => [...ftags, item]);
     }
 
-    const onRemove = (list, item) => {
-        setFilterTags(ftags => [...ftags.filter(t => t.id !== item.id)]);
+    const onAllowedRemove = (list, item) => {
+        setAllowedTags(ftags => [...ftags.filter(t => t.id !== item.id)]);
+    }
+    const onDisallowedRemove = (list, item) => {
+        setDisallowedTags(ftags => [...ftags.filter(t => t.id !== item.id)]);
     }
 
     const tagOptions = tags.map(tag => {
@@ -111,15 +118,30 @@ export function TwitchClipsList(props) {
                     </div>
                     <div className="col-auto p-0">
                         <label>
-                            Tag:
+                            With Tag:
                         </label>
                     </div>
                     <div className="col-auto" style={{ maxWidth: "750px" }}>
                         <Multiselect className="bg-secondary"
                             options={tagOptions} // Options to display in the dropdown
-                            selectedValues={filterTags} // Preselected value to persist in dropdown
-                            onSelect={onSelect} // Function will trigger on select event
-                            onRemove={onRemove} // Function will trigger on remove event
+                            selectedValues={allowedTags} // Preselected value to persist in dropdown
+                            onSelect={onAllowedSelect} // Function will trigger on select event
+                            onRemove={onAllowedRemove} // Function will trigger on remove event
+                            displayValue="name" // Property name to display in the dropdown options
+                            style={{ option: { backgroundColor: "#111111" } }}
+                        />
+                    </div>
+                    <div className="col-auto p-0">
+                        <label>
+                            Without Tag:
+                        </label>
+                    </div>
+                    <div className="col-auto" style={{ maxWidth: "750px" }}>
+                        <Multiselect className="bg-secondary"
+                            options={tagOptions} // Options to display in the dropdown
+                            selectedValues={disallowedTags} // Preselected value to persist in dropdown
+                            onSelect={onDisallowedSelect} // Function will trigger on select event
+                            onRemove={onDisallowedRemove} // Function will trigger on remove event
                             displayValue="name" // Property name to display in the dropdown options
                             style={{ option: { backgroundColor: "#111111" } }}
                         />

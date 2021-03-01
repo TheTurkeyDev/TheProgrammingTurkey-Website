@@ -7,8 +7,8 @@ export async function pullTwitchClips(channel) {
     });
 }
 
-export async function getClips(channel, page, amount, filterTags) {
-    return await fetch(`${getDevAPIBase()}/twitchclipfilter/getclips?channel=${channel}&page=${page}&amount=${amount}&filtertags=${filterTags.join(',')}`, authAPI.getGetAuthParams()).then(resp => {
+export async function getClips(channel, page, amount, allowedTags, disallowedTags) {
+    return await fetch(`${getDevAPIBase()}/twitchclipfilter/getclips?channel=${channel}&page=${page}&amount=${amount}&allowedTags=${allowedTags.join(',')}&disallowedTags=${disallowedTags.join(',')}`, authAPI.getGetAuthParams()).then(resp => {
         return resp.json();
     });
 }
