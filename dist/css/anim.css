@@ -63,16 +63,17 @@
 }
 
 .project-link-title {
-    opacity: 0;
+    opacity: 1;
     transition: .5s ease;
-    transform: translate(0, 100%);
-    -ms-transform: translate(0, 100%);
+    transform: translate(0, 0%);
+    -ms-transform: translate(0, 0%);
 }
 
 .project-link:hover .project-link-title {
-    opacity: 1;
-    transform: translate(0, 0%);
-    -ms-transform: translate(0, 0%);
+    opacity: 0.8;
+    transform: translate(0, -20%);
+    -ms-transform: translate(0, -20%);
+    height: 200%;
 }
 
 @keyframes yellowfade {

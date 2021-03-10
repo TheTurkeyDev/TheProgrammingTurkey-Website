@@ -86,3 +86,12 @@ export const getGithubURL = (action, redirUrl = getSiteURLBase()) => {
         redirUrl
     )}`;
 };
+
+export const getPatreonURL = (action, redirUrl = getSiteURLBase()) => {
+    const clientId = 'QCJRAHce8S6z7pbLmQd4I0PJKzUl07kRBhqQigWG2_mSQmuCMVU5VzJGXamH4mRy';
+    const redirurl = `${loginRedirBase}/patreon`;
+    return `https://patreon.com/oauth2/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirurl}&scope=identity&state=${getState(
+        action,
+        redirUrl
+    )}`;
+}

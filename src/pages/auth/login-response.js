@@ -38,12 +38,10 @@ export function LoginResponse(props) {
                 if (json.success) {
                     setMessage('Logged In!');
                     auth.login();
-                    if (json.merge_request) {
-                        overlayContext.pushCurrentOverlay(<AccountMergeOverlay />);
-                    }
-                    else {
-                        location.href = state.redir_url;
-                    }
+                    location.href = state.redir_url;
+                }
+                else if (json.already_linked) {
+                    overlayContext.pushCurrentOverlay(<AccountMergeOverlay platform={json.platform} username={json.platform_username} redir={state.redir_url} />);
                 }
                 else {
                     setMessage(json.message);

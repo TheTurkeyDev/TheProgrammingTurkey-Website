@@ -47,8 +47,8 @@ export async function isLoggedIn() {
     });
 }
 
-export async function getMergeRequests() {
-    return await fetch(getDevAPIBase() + '/auth/mergerequests', getGetAuthParams()).then(resp => {
+export async function confirmMerge(platform) {
+    return await fetch(getDevAPIBase() + '/auth/confirmmerge', getPostAuthParams({ platform: platform })).then(resp => {
         return resp.json();
     });
 }
@@ -70,6 +70,14 @@ export async function getUserInfo() {
 export async function getUserConnectedAccounts() {
     return await fetch(getDevAPIBase() + '/user/connectedaccounts', getGetAuthParams()).then(resp => {
         return resp.json();
+    });
+}
+
+export async function getUserProfileApps(adminApps) {
+    return await fetch(`${getDevAPIBase()}/user/profileapps?adminApps=${adminApps}`, getGetAuthParams()).then(resp => {
+        if (resp.status == 200)
+            return resp.json();
+        return [];
     });
 }
 

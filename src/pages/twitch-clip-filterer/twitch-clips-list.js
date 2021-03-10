@@ -87,8 +87,9 @@ export function TwitchClipsList(props) {
     }
 
     const tagOptions = tags.map(tag => {
-        return { 'name': tag, 'id': tag }
-    });
+        return { name: tag, id: tag }
+    }).sort((a, b) => a.name.localeCompare(b.name));
+
     return (
         <AuthPageWrapper history={props.history} perm='twitchclipfilter' parent='/user/profile'>
             <div className='fluid-container pl-3 pr-3'>
@@ -119,17 +120,17 @@ export function TwitchClipsList(props) {
                             With Tag:
                         </label>
                     </div>
-                    <div className="col-auto" style={{ maxWidth: "750px" }}>
-                        <Multiselect className="bg-secondary"
+                    <div className='col-auto' style={{ maxWidth: '750px' }}>
+                        <Multiselect className='bg-secondary'
                             options={tagOptions} // Options to display in the dropdown
                             selectedValues={allowedTags} // Preselected value to persist in dropdown
                             onSelect={onAllowedSelect} // Function will trigger on select event
                             onRemove={onAllowedRemove} // Function will trigger on remove event
-                            displayValue="name" // Property name to display in the dropdown options
-                            style={{ option: { backgroundColor: "#111111" } }}
+                            displayValue='name' // Property name to display in the dropdown options
+                            style={{ option: { backgroundColor: '#111111' } }}
                         />
                     </div>
-                    <div className="col-auto p-0">
+                    <div className='col-auto p-0'>
                         <label>
                             Without Tag:
                         </label>
@@ -140,8 +141,8 @@ export function TwitchClipsList(props) {
                             selectedValues={disallowedTags} // Preselected value to persist in dropdown
                             onSelect={onDisallowedSelect} // Function will trigger on select event
                             onRemove={onDisallowedRemove} // Function will trigger on remove event
-                            displayValue="name" // Property name to display in the dropdown options
-                            style={{ option: { backgroundColor: "#111111" } }}
+                            displayValue='name' // Property name to display in the dropdown options
+                            style={{ option: { backgroundColor: '#111111' } }}
                         />
                     </div>
                 </div>

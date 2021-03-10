@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { OverlayContext } from '../../contexts/overlay-context';
 import * as api from '../../network/auth-network';
-import { getDiscordURL, getGithubURL, getTwitchURL } from '../auth/login';
+import { getDiscordURL, getGithubURL, getPatreonURL, getTwitchURL } from '../auth/login';
 import { ConnectMinecraftAccountOverlay } from '../../overlays/auth/connect-minecraft-account-overlay';
 import { AuthPageWrapper } from '../../pages/base/auth-page-wrapper';
 import { UserPlatformAccount } from './user-platform-account';
@@ -69,8 +69,7 @@ export function UserPlatformAccountConnections(props) {
                     platform_name="Patreon"
                     icon="fab fa-patreon"
                     color="#f96854"
-                    onClick={() => { }}
-                    disabled={true}
+                    onClick={() => login(getPatreonURL)}
                 />
                 <UserPlatformAccount
                     accounts={accounts}

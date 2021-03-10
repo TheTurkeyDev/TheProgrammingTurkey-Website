@@ -75,7 +75,7 @@ export function PermissionManagement(props) {
                             <button onClick={() => { }}>
                                 Update
                             </button>
-                        </div>z
+                        </div>
                         <div className="col">
                             <label>Filter</label>
                             <input

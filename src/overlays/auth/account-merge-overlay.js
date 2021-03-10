@@ -1,35 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { OverlayContext } from '../../contexts/overlay-context';
 
 import * as authAPI from '../../network/auth-network';
 
-export function AccountMergeOverlay() {
+export function AccountMergeOverlay(props) {
     const overlay = useContext(OverlayContext);
-    const [forPlatform, setForPlatform] = useState("");
-    const [fromAccount, setFromAccount] = useState("");
 
-    useEffect(() => {
-        authAPI.getMergeRequests().then(resp => {
-
+    const mergeAccount = () => {
+        authAPI.confirmMerge(props.platform).then(resp => {
+            if (resp.success)
+                location.href = props.redir;
         });
-    }, []);
+    }
 
     return (
-        <div className="mr-5 ml-5 mt-2">
-            <div className="mt-3 fluid-container">
-                <div className="row">
-                    <div className="col">
-                        <p>
-                            A Merge request has been made by {fromAccount} for the {forPlatform} platform currently linked to this account.
+        <div className='mr-5 ml-5 mt-2'>
+            <div className='mt-3 fluid-container'>
+                <div className='row mb-3    '>
+                    <h2 className='col' style={{ textDecoration: 'underline' }}>
+                        Account Merge
+                    </h2>
+                </div>
+                <div className='row'>
+                    <div className='col'>
+                        <p className='m-0'>
+                            {props.platform} user {props.username} is currently linked to another account!
                         </p>
-                        <p>
-                            Would you like to confirm this merge? Stored data related to this account and/or platform may be lost!
+                        <p className='m-0'>
+                            Would you like to merge the accounts? Stored data related to this account and/or platform on the existing account may be lost!
                         </p>
                     </div>
                 </div>
-                <div className="row">
-                    <button className="col m-auto">Confirm</button>
-                    <button className="col m-auto" onClick={() => overlay.popCurrentOverlay()}>Cancel</button>
+                <div className='row mt-3'>
+                    <button className='col-auto ml-auto mr-2' onClick={mergeAccount}>
+                        <span style={{ 'fontSize': '24px' }}>
+                            Confirm
+                        </span>
+                    </button>
+                    <button className='col-auto mr-auto ml-2' onClick={() => { overlay.popCurrentOverlay(); location.href = props.redir; }}>
+                        <span style={{ 'fontSize': '24px' }}>
+                            Cancel
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>
