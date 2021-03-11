@@ -79,7 +79,7 @@ export const getDiscordURL = (action, redirUrl = getSiteURLBase()) => {
 };
 
 export const getGithubURL = (action, redirUrl = getSiteURLBase()) => {
-    const clientId = '039c896eaf8ebdbcf39d';
+    const clientId = '50d6064957369442a86d';
     const redirurl = `${loginRedirBase}/github`;
     return `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirurl}&scope=read:user&state=${getState(
         action,

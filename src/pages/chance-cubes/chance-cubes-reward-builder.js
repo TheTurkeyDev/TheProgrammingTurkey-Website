@@ -60,7 +60,7 @@ export function ChanceCubesRewardBuilder(props) {
     }
 
     return (
-        <AuthPageWrapper history={props.history} perm='chancecubes.rewardbuilder'>
+        <AuthPageWrapper history={props.history}>
             <div className='w-25' style={{ position: 'absolute', right: '5px', top: '65px', height: '450px' }} >
                 <h4>Reward Json</h4>
                 <textarea className='code w-100 h-100' value={setRewardJsonPretty(rewards)} readOnly>
