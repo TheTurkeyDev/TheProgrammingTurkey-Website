@@ -3,30 +3,32 @@ import { AuthContext } from '../../contexts/auth-context';
 import { PageLoading } from './page-loading';
 import { PageWrapper } from './page-wrapper';
 
-export function AuthPageWrapper(props) {
+export const AuthPageWrapper = (props) => {
     const auth = useContext(AuthContext);
 
     const [firstRun, setFirstRun] = useState(true);
 
+    const loading = firstRun || !auth.authChecked || props.loading;
+
     if (firstRun) {
         auth.checkAuth();
         setFirstRun(false);
-        return <PageLoading />;
     }
 
-    if (!auth.authChecked) {
-        return <PageLoading />;
-    }
-
-    if (!auth.authState) {
+    if (!loading && !auth.authState) {
         props.history.push('/login');
         return <> </>;
     }
 
-    if (props.perm && !auth.permissions.includes(props.perm)) {
+    if (!loading && props.perm && !auth.permissions.includes(props.perm)) {
         props.history.push('/user/profile');
         return <> </>;
     }
 
-    return <PageWrapper parent={props.parent}>{props.children}</PageWrapper>;
+    return (
+        <PageWrapper parent={props.parent}>
+            {loading && <PageLoading />}
+            {!loading && props.children}
+        </PageWrapper>
+    );
 }

@@ -1,26 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { TopNav } from './top-nav';
 
-export function PageWrapper(props) {
+const MainContent = styled.div`
+     overflow-y: auto;
+`;
+
+const BackIconDiv = styled.div`
+    font-size: 24px;
+`;
+
+export const PageWrapper = (props) => {
     return (
         <div className="h-100 w-100 d-flex flex-column">
             <TopNav />
-            <div id="main-content">
+            <MainContent>
                 {props.parent && (
-                    <div
-                        className="ml-2 mt-2 button"
-                        style={{ fontSize: '24px' }}
-                    >
+                    <BackIconDiv className="ml-2 mt-2 button">
                         <Link to={props.parent}>
                             <i className="fas fa-arrow-left mr-1" />
                             Back
                         </Link>
-                    </div>
+                    </BackIconDiv>
                 )}
                 {props.children}
-            </div>
+            </MainContent>
         </div>
     );
 }

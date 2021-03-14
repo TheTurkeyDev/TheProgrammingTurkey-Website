@@ -1,12 +1,30 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { AuthContext } from '../../contexts/auth-context';
 
-export function TopNav() {
+const NavWrapper = styled.nav`
+    background: ${props => props.theme.color.bg_secondary};
+`;
+
+const DropdownMenu = styled.div`
+    background: ${props => props.theme.color.bg_secondary};
+    margin-top: -5px;
+`;
+
+const links = [
+    { title: 'Twitch', link: 'https://theturkey.dev/twitch' },
+    { title: 'YouTube', link: 'https://theturkey.dev/youtube' },
+    { title: 'Discord', link: 'https://discord.gg/DkexpJj' },
+    { title: 'Github', link: 'https://theturkey.dev/github' },
+    { title: 'LudumDare', link: 'https://ldjam.com' },
+];
+
+export const TopNav = () => {
     const auth = useContext(AuthContext);
 
     return (
-        <nav className="navbar navbar-expand-sm navbar-dark bg-secondary">
+        <NavWrapper className="navbar navbar-expand-sm navbar-dark">
             <Link className="navbar-brand" to="/">
                 TurkeyDev
             </Link>
@@ -40,42 +58,23 @@ export function TopNav() {
                         >
                             Projects
                         </Link>
-                        <div
-                            className="dropdown-menu bg-secondary"
-                            aria-labelledby="navbarDropdown"
-                            style={{ marginTop: '-5px' }}
-                        >
-                            <Link
-                                className="dropdown-item"
-                                to="/projects?type=all"
-                            >
+                        <DropdownMenu className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <Link className="dropdown-item" to="/projects?type=all">
                                 All
                             </Link>
-                            <Link
-                                className="dropdown-item"
-                                to="/projects?type=ld"
-                            >
+                            <Link className="dropdown-item" to="/projects?type=ld">
                                 Ludum Dare
                             </Link>
-                            <Link
-                                className="dropdown-item"
-                                to="/projects?type=mods"
-                            >
+                            <Link className="dropdown-item" to="/projects?type=mods">
                                 Mods
                             </Link>
-                            <Link
-                                className="dropdown-item"
-                                to="/projects?type=webapps"
-                            >
+                            <Link className="dropdown-item" to="/projects?type=webapps">
                                 Web Apps
                             </Link>
-                            <Link
-                                className="dropdown-item"
-                                to="/projects?type=other"
-                            >
+                            <Link className="dropdown-item" to="/projects?type=other">
                                 Others
                             </Link>
-                        </div>
+                        </DropdownMenu>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/support">
@@ -106,55 +105,17 @@ export function TopNav() {
                         >
                             Other Links
                         </span>
-                        <div
-                            className="dropdown-menu bg-secondary"
-                            aria-labelledby="navbarDropdown"
-                            style={{ marginTop: '-5px' }}
-                        >
-                            <a
-                                className="dropdown-item"
-                                href=""
-                                onClick={() =>
-                                    window.open('https://theturkey.dev/twitch')
-                                }
-                            >
-                                Twitch
-                            </a>
-                            <a
-                                className="dropdown-item"
-                                href=""
-                                onClick={() =>
-                                    window.open('https://theturkey.dev/youtube')
-                                }
-                            >
-                                YouTube
-                            </a>
-                            <a
-                                className="dropdown-item"
-                                href=""
-                                onClick={() =>
-                                    window.open('https://discord.gg/DkexpJj')
-                                }
-                            >
-                                Discord
-                            </a>
-                            <a
-                                className="dropdown-item"
-                                href=""
-                                onClick={() =>
-                                    window.open('https://theturkey.dev/github')
-                                }
-                            >
-                                Github
-                            </a>
-                            <a
-                                className="dropdown-item"
-                                href=""
-                                onClick={() => window.open('https://ldjam.com')}
-                            >
-                                Ludum Dare
-                            </a>
-                        </div>
+                        <DropdownMenu className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {
+                                links.map(link => {
+                                    return (
+                                        <a key={link.title} className="nav-link" href="" onClick={() => window.open(link.link)}>
+                                            {link.title}
+                                        </a>
+                                    );
+                                })
+                            }
+                        </DropdownMenu>
                     </li>
                 </ul>
                 <div className="navbar-text">
@@ -173,6 +134,6 @@ export function TopNav() {
                     )}
                 </div>
             </div>
-        </nav>
+        </NavWrapper>
     );
 }

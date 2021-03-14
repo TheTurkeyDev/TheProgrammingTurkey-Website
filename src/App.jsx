@@ -1,13 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { PageWrapper } from './pages/base/page-wrapper';
 
-export function App() {
+const CardWrapper = styled.div`
+    background: ${props => props.theme.color.bg_secondary};
+`;
+
+const ListItemWrapper = styled.div`
+    background: ${props => props.theme.color.bg_secondary};
+`;
+
+export const App = () => {
     return (
         <PageWrapper>
             <div className="text-center">
-                <div className="card m-5 shadow bg-secondary">
+                <CardWrapper className="card m-5 shadow">
                     <div className="card-body">
                         <h5 className="card-title">Whats Going on Here?</h5>
                         <p className="card-text">
@@ -33,24 +42,24 @@ export function App() {
                             Please be patient with me!
                         </p>
                     </div>
-                </div>
-                <div className="card m-5 shadow bg-secondary">
+                </CardWrapper>
+                <CardWrapper className="card m-5 shadow">
                     <div className="card-body">
                         <h5 className="card-title">Website To-Do List</h5>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item bg-secondary">
+                            <ListItemWrapper className="list-group-item">
                                 Game/ Project Pages
-                            </li>
-                            <li className="list-group-item bg-secondary">
+                            </ListItemWrapper>
+                            <ListItemWrapper className="list-group-item">
                                 Twitch View
-                            </li>
-                            <li className="list-group-item bg-secondary">
+                            </ListItemWrapper>
+                            <ListItemWrapper className="list-group-item">
                                 Test Section
-                            </li>
+                            </ListItemWrapper>
                         </ul>
                     </div>
-                </div>
-                <div className="card m-5 shadow bg-secondary">
+                </CardWrapper>
+                <CardWrapper className="card m-5 shadow">
                     <div className="card-body">
                         <h5 className="card-title">Ludum Dare 47!</h5>
                         <h6 className="card-subtitle">That's a wrap!</h6>
@@ -75,7 +84,7 @@ export function App() {
                             Stats
                         </Link>
                     </div>
-                </div>
+                </CardWrapper>
             </div>
         </PageWrapper>
     );

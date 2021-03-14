@@ -6,10 +6,6 @@ html, body, #root {
     overflow-x: hidden;
 }
 
-#main-content {
-    overflow-y: auto;
-}
-
 .dropdown:hover>.dropdown-menu {
     display: block;
 }

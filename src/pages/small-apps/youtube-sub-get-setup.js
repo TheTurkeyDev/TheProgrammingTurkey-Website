@@ -11,7 +11,7 @@ export function YouTubeSubGetSetup(props) {
     const auth = useContext(AuthContext);
     const toast = useContext(ToastContext);
 
-    const [loaded, setLoaded] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const [token, setToken] = useState('');
     const [subCount, setSubcount] = useState(0);
@@ -29,7 +29,7 @@ export function YouTubeSubGetSetup(props) {
                 setToken(token);
                 authAPI.getYTSubs(token).then(subs => {
                     setSubcount(parseInt(subs));
-                    setLoaded(true);
+                    setLoading(false);
                 });
             });
         }
@@ -62,7 +62,7 @@ export function YouTubeSubGetSetup(props) {
             ctx.fillStyle = fontColor;
             // ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            if (loaded) {
+            if (loading) {
                 ctx.fillText(subCount, 0, 0);
             }
             else {
@@ -93,7 +93,7 @@ export function YouTubeSubGetSetup(props) {
     }
 
     return (
-        <AuthPageWrapper history={props.history} perm='proc.ytsubget'>
+        <AuthPageWrapper history={props.history} perm='proc.ytsubget' loading={loading}>
             <div className='fluid-container pl-3'>
                 <div className='row m-0 mt-3 mb-2'>
                     <label className='col m-0 ml-3 align-center' style={{ fontSize: '22px', maxWidth: '100px' }}>

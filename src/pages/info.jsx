@@ -1,8 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { PageWrapper } from './base/page-wrapper';
 
-export function Info() {
+const SectionWrapper = styled.span`
+    font-size: 1.25rem;
+    text-decoration: underline;
+`;
+
+export const Info = () => {
     return (
         <PageWrapper>
             <div className="text-center">
@@ -17,26 +23,15 @@ export function Info() {
                 </div>
                 <h2 className="mt-3">Programming languages</h2>
                 <div>
-                    <span
-                        style={{
-                            fontSize: '1.25rem',
-                            textDecoration: 'underline',
-                        }}
-                    >
+                    <SectionWrapper>
                         Familiar with
-                    </span>
+                    </SectionWrapper>
                     <div>Java</div>
                 </div>
                 <div className="mt-2">
-                    <span
-                        style={{
-                            fontSize: '1.25rem',
-                            textDecoration: 'underline',
-                        }}
-                    >
+                    <SectionWrapper>
                         Worked with a decent amount
-                    </span>
-
+                    </SectionWrapper>
                     <div>Python</div>
                     <div>JavaScript (React)</div>
                     <div>C#</div>
@@ -45,15 +40,9 @@ export function Info() {
                     <div>SQL</div>
                 </div>
                 <div className="mt-2">
-                    <span
-                        style={{
-                            fontSize: '1.25rem',
-                            textDecoration: 'underline',
-                        }}
-                    >
+                    <SectionWrapper>
                         Worked with a few times, but would need refreshers
-                    </span>
-
+                    </SectionWrapper>
                     <div>PHP</div>
                     <div>MatLab</div>
                 </div>
