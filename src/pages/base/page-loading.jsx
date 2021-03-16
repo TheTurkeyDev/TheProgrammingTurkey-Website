@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const SpinnerSpin = keyframes`
@@ -22,6 +21,7 @@ const SpinnerFade = keyframes`
 const LoadingAnimation = styled.div`
     position: relative;
     margin: auto;
+    margin-bottom: 50px;
     box-sizing: border-box;
     background-clip: padding-box;
     width: 200px;

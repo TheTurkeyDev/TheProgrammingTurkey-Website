@@ -1,4 +1,3 @@
-import React from 'react';
 import { PageWrapper } from './pages/base/page-wrapper';
 
 export const Notfound = () => {

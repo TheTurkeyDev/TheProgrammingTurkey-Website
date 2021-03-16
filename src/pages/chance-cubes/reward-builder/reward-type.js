@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { OverlayContext } from '../../../contexts/overlay-context';
 import { ConfirmationOverlay } from '../../../overlays/confirmation-overlay';
 

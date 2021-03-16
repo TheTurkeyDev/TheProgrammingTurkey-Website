@@ -1,6 +1,6 @@
 import { getDevAPIBase } from './network-helper';
 
-function getGetParams() {
+export function getGetParams() {
     return {
         method: 'GET',
         mode: 'cors',

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -14,13 +13,13 @@ const BackIconDiv = styled.div`
 
 export const PageWrapper = (props) => {
     return (
-        <div className="h-100 w-100 d-flex flex-column">
+        <div className='h-100 w-100 d-flex flex-column'>
             <TopNav />
             <MainContent>
                 {props.parent && (
-                    <BackIconDiv className="ml-2 mt-2 button">
+                    <BackIconDiv className='ml-2 mt-2 button'>
                         <Link to={props.parent}>
-                            <i className="fas fa-arrow-left mr-1" />
+                            <i className='fas fa-arrow-left mr-1' />
                             Back
                         </Link>
                     </BackIconDiv>

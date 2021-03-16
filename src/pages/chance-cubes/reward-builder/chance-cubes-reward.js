@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { OverlayContext } from '../../../contexts/overlay-context';
 import { ChanceCubesAddRewardTypeOverlay } from '../../../overlays/chance-cubes/chance-cubes-add-reward-type-overlay';
 import { ConfirmationOverlay } from '../../../overlays/confirmation-overlay';

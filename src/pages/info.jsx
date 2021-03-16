@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 import { PageWrapper } from './base/page-wrapper';
@@ -11,7 +10,7 @@ const SectionWrapper = styled.span`
 export const Info = () => {
     return (
         <PageWrapper>
-            <div className="text-center">
+            <div className='text-center'>
                 <h2>Contact Me!</h2>
                 <div>
                     <div>
@@ -21,14 +20,14 @@ export const Info = () => {
                         <span>turkey@theturkey.dev</span>
                     </div>
                 </div>
-                <h2 className="mt-3">Programming languages</h2>
+                <h2 className='mt-3'>Programming languages</h2>
                 <div>
                     <SectionWrapper>
                         Familiar with
                     </SectionWrapper>
                     <div>Java</div>
                 </div>
-                <div className="mt-2">
+                <div className='mt-2'>
                     <SectionWrapper>
                         Worked with a decent amount
                     </SectionWrapper>
@@ -39,7 +38,7 @@ export const Info = () => {
                     <div>C / Arduino</div>
                     <div>SQL</div>
                 </div>
-                <div className="mt-2">
+                <div className='mt-2'>
                     <SectionWrapper>
                         Worked with a few times, but would need refreshers
                     </SectionWrapper>

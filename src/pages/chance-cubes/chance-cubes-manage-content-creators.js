@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/auth-context';
 import * as api from '../../network/network';
 import { AuthPageWrapper } from '../base/auth-page-wrapper';

@@ -1,4 +1,5 @@
-import { getDevAPIBase } from './network-helper';
+import { getDevAPIBase, getSiteURLBase } from './network-helper';
+import { getGetParams } from './network';
 
 export function getGetAuthParams() {
     return {
@@ -19,6 +20,22 @@ export function getPostAuthParams(body) {
         },
         body: JSON.stringify(body)
     };
+}
+
+export async function getLogins() {
+    return await fetch(`${getDevAPIBase()}/auth/platformlogins?returnurl=${getSiteURLBase()}`, getGetParams()).then(resp => {
+        if (resp.status == 200)
+            return resp.json();
+        return [];
+    });
+}
+
+export async function getPlatformLinks() {
+    return await fetch(`${getDevAPIBase()}/auth/platformlinks?returnurl=${getSiteURLBase()}`, getGetParams()).then(resp => {
+        if (resp.status == 200)
+            return resp.json();
+        return [];
+    });
 }
 
 export async function loginWithPlatform(platform, code, action) {

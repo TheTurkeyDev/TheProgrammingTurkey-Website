@@ -18,7 +18,14 @@
     "rules": {
         "indent": [
             "error",
-            4
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "jsx-quotes": [
+            2,
+            "prefer-single"
         ],
         "quotes": [
             2,
@@ -29,7 +36,9 @@
         ],
         "react/prop-types": "off",
         "react/no-unescaped-entities": "off",
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
     },
     "settings": {
         "react": {
