@@ -6,7 +6,8 @@ export function getGetAuthParams() {
         method: 'GET',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
         }
     };
 }
@@ -16,7 +17,8 @@ export function getPostAuthParams(body) {
         method: 'POST',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
         },
         body: JSON.stringify(body)
     };

@@ -5,7 +5,8 @@ export function getGetParams() {
         method: 'GET',
         mode: 'cors',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
         }
     };
 }

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/auth-context';
 import { PageLoading } from './page-loading';
 import { PageWrapper } from './page-wrapper';
@@ -10,10 +10,10 @@ export const AuthPageWrapper = (props) => {
 
     const loading = firstRun || !auth.authChecked || props.loading;
 
-    if (firstRun) {
+    useEffect(() => {
         auth.checkAuth();
         setFirstRun(false);
-    }
+    }, []);
 
     if (!loading && !auth.authState) {
         props.history.push('/login');
