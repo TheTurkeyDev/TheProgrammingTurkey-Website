@@ -60,7 +60,7 @@ export const App = () => {
                 </CardWrapper>
                 <CardWrapper className='card m-5 shadow'>
                     <div className='card-body'>
-                        <h5 className='card-title'>Ludum Dare 47!</h5>
+                        <h5 className='card-title'>Ludum Dare 48!</h5>
                         <h6 className='card-subtitle'>That's a wrap!</h6>
                         <p className='card-text'>
                             Well another Ludum Dare has come and passed. Check
@@ -71,7 +71,7 @@ export const App = () => {
                     </div>
 
                     <div className='card-footer'>
-                        <Link className='mr-2' to='/projects/LD47'>
+                        <Link className='mr-2' to='/projects/LD48'>
                             Game
                         </Link>
                         <span>|</span>

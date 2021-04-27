@@ -4,6 +4,12 @@ import { PageWrapper } from '../base/page-wrapper';
 
 const LDGames = [
     {
+        title: 'Scriptless Pipes',
+        subtitle: 'LudumDare 48',
+        link: '/projects/ld48',
+        image: '/images/ld48.png',
+    },
+    {
         title: 'A Timed Loop',
         subtitle: 'LudumDare 47',
         link: '/projects/ld47',

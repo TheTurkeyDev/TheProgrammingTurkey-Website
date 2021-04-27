@@ -27,11 +27,13 @@ import { RaftIntegration } from '../mods/raft-integration';
 import { SlimeRancherIntegration } from '../mods/slime-rancher-integration';
 
 import { ProjectStatusEdit } from '../admin/project-status-edit';
+import { LD48 } from '../ludum-dare/ld-48';
 
 export const ProjectsRouter = () => {
     return (
         <Switch>
             <Route exact path='/projects/' component={Projects} />
+            <Route exact path='/projects/ld48' component={LD48} />
             <Route exact path='/projects/ld47' component={LD47} />
             <Route exact path='/projects/ld46' component={LD46} />
             <Route exact path='/projects/ld39' component={LD39} />
