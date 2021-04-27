@@ -20,15 +20,15 @@ export const LD35 = () => {
                     game. Hope you guys enjoy the game!
                 </p>
                 <div>
-                    <a className='mr-1' href='http://files.theprogrammingturkey.com/index.html?path=ludm_dare/GeoShifter_48hr_Patch_2.jar'>
+                    <a className='mr-1' href='http://files.theprogrammingturkey.com/index.html?path=ludm_dare/GeoShifter_48hr_Patch_2.jar' target='_blank' rel='noopener noreferrer'>
                         Download
                     </a>
                     |
-                    <a className='ml-1 mr-1' href='' onClick={() => window.open('http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=24562')}>
+                    <a className='ml-1 mr-1' href='http://ludumdare.com/compo/ludum-dare-35/?action=preview&uid=24562' target='_blank' rel='noopener noreferrer'>
                         Ludum Dare Page
                     </a>
                     |
-                    <a className='ml-1' href='' onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare35')}>
+                    <a className='ml-1' href='https://github.com/TheTurkeyDev/LudumDare35' target='_blank' rel='noopener noreferrer'>
                         Source Code
                     </a>
                 </div>

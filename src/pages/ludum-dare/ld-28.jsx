@@ -20,11 +20,11 @@ export const LD28 = () => {
                         Download Coming Soon!
                     </a>
                     |
-                    <a className='ml-1 mr-1' href='' onClick={() => window.open('http://ludumdare.com/compo/ludum-dare-28/?action=preview&uid=24562')}>
+                    <a className='ml-1 mr-1' href='http://ludumdare.com/compo/ludum-dare-28/?action=preview&uid=24562' target='_blank' rel='noopener noreferrer'>
                         Ludum Dare Page
                     </a>
                     |
-                    <a className='ml-1' href='' onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare28')}>
+                    <a className='ml-1' href='https://github.com/TheTurkeyDev/LudumDare28' target='_blank' rel='noopener noreferrer'>
                         Source Code
                     </a>
                 </div>

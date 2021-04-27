@@ -27,11 +27,11 @@ export const LD47 = () => {
                         Download
                     </a>
                     |
-                    <a className='ml-1 mr-1' href='' onClick={() => window.open('https://ldjam.com/events/ludum-dare/47/a-timed-loop')}>
+                    <a className='ml-1 mr-1' href='https://ldjam.com/events/ludum-dare/47/a-timed-loop' target='_blank' rel='noopener noreferrer'>
                         Ludum Dare Page
                     </a>
                     |
-                    <a className='ml-1' href='' onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare47')}>
+                    <a className='ml-1' href='https://github.com/TheTurkeyDev/LudumDare47' target='_blank' rel='noopener noreferrer'>
                         Source Code
                     </a>
                 </div>

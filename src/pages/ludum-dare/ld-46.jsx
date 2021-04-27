@@ -18,15 +18,15 @@ export const LD46 = () => {
                     SpaceMyName who made the art assets and sounds!
                 </p>
                 <div>
-                    <a className='mr-1' href='http://files.theprogrammingturkey.com/index.html?path=ludm_dare/turkeys_plant_emporium_72_hr.jar'>
+                    <a className='mr-1' href='http://files.theprogrammingturkey.com/index.html?path=ludm_dare/turkeys_plant_emporium_72_hr.jar' target='_blank' rel='noopener noreferrer'>
                         Download
                     </a>
                     |
-                    <a className='ml-1 mr-1' href='' onClick={() => window.open('https://ldjam.com/events/ludum-dare/46/turkeys-plant-emporium')}>
+                    <a className='ml-1 mr-1' href='https://ldjam.com/events/ludum-dare/46/turkeys-plant-emporium' target='_blank' rel='noopener noreferrer'>
                         Ludum Dare Page
                     </a>
                     |
-                    <a className='ml-1' href='' onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare46')}>
+                    <a className='ml-1' href='https://github.com/TheTurkeyDev/LudumDare46' target='_blank' rel='noopener noreferrer'>
                         Source Code
                     </a>
                 </div>

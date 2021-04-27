@@ -17,15 +17,15 @@ export function LD39() {
                     included in the ingame help screen.
                 </p>
                 <div>
-                    <a className='mr-1' href='http://files.theprogrammingturkey.com/index.html?path=ludm_dare/Power_Synergy_48hr_Patch_2.jar'>
+                    <a className='mr-1' href='http://files.theprogrammingturkey.com/index.html?path=ludm_dare/Power_Synergy_48hr_Patch_2.jar' target='_blank' rel='noopener noreferrer'>
                         Download
                     </a>
                     |
-                    <a className='ml-1 mr-1' href='' onClick={() => window.open('https://ldjam.com/events/ludum-dare/39/power-synergy')}>
+                    <a className='ml-1 mr-1' href='https://ldjam.com/events/ludum-dare/39/power-synergy' target='_blank' rel='noopener noreferrer'>
                         Ludum Dare Page
                     </a>
                     |
-                    <a className='ml-1' href='' onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare39')}>
+                    <a className='ml-1' href='https://github.com/TheTurkeyDev/LudumDare39' target='_blank' rel='noopener noreferrer'>
                         Source Code
                     </a>
                 </div>

@@ -17,15 +17,15 @@ export const LD29 = () => {
                     it. To run the game simply execute the exe file in the zip.
                 </p>
                 <div>
-                    <a className='mr-1' href='https://www.dropbox.com/s/uw2inytg54vjke2/Turkey2349%20LD29.zip'>
+                    <a className='mr-1' href='https://www.dropbox.com/s/uw2inytg54vjke2/Turkey2349%20LD29.zip' target='_blank' rel='noopener noreferrer'>
                         Download
                     </a>
                     |
-                    <a className='ml-1 mr-1' href='' onClick={() => window.open('http://ludumdare.com/compo/ludum-dare-29/?action=preview&uid=24562')}>
+                    <a className='ml-1 mr-1' href='http://ludumdare.com/compo/ludum-dare-29/?action=preview&uid=24562' target='_blank' rel='noopener noreferrer'>
                         Ludum Dare Page
                     </a>
                     |
-                    <a className='ml-1' href='' onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare29')}>
+                    <a className='ml-1' href='https://github.com/TheTurkeyDev/LudumDare29' target='_blank' rel='noopener noreferrer'>
                         Source Code
                     </a>
                 </div>

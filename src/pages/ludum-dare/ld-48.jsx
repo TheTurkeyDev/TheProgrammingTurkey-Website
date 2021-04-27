@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { PageWrapper } from '../base/page-wrapper';
 
 export const LD48 = () => {

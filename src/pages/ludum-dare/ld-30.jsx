@@ -28,15 +28,15 @@ export const LD30 = () => {
                     </ul>
                 </div>
                 <div>
-                    <a className='mr-1' href='http://www.mediafire.com/download/prpdq6htmbaamv9/LudumDare30.jar'>
+                    <a className='mr-1' href='http://www.mediafire.com/download/prpdq6htmbaamv9/LudumDare30.jar' target='_blank' rel='noopener noreferrer'>
                         Download
                     </a>
                     |
-                    <a className='ml-1 mr-1' href='' onClick={() => window.open('http://ludumdare.com/compo/ludum-dare-30/?action=preview&uid=24562')}>
+                    <a className='ml-1 mr-1' href='http://ludumdare.com/compo/ludum-dare-30/?action=preview&uid=24562' target='_blank' rel='noopener noreferrer'>
                         Ludum Dare Page
                     </a>
                     |
-                    <a className='ml-1' href='' onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare30')}>
+                    <a className='ml-1' href='https://github.com/TheTurkeyDev/LudumDare30' target='_blank' rel='noopener noreferrer'>
                         Source Code
                     </a>
                 </div>

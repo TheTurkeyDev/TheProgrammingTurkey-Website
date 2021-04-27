@@ -22,7 +22,7 @@ export const LD27 = () => {
                 <div>
                     <a className='mr-1'>Download Comming Soon!</a>
                     |
-                    <a className='ml-1 mr-1' href='' onClick={() => window.open('http://ludumdare.com/compo/ludum-dare-27/?action=preview&uid=24562')}>
+                    <a className='ml-1 mr-1' href='http://ludumdare.com/compo/ludum-dare-27/?action=preview&uid=24562' target='_blank' rel='noopener noreferrer'>
                         Ludum Dare Page
                     </a>
                 </div>

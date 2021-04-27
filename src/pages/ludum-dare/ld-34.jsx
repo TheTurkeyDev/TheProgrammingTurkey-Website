@@ -18,15 +18,15 @@ export const LD34 = () => {
                     game help screen. Hope you guys enjoy this game!
                 </p>
                 <div>
-                    <a className='mr-1' href='https://www.dropbox.com/s/0dvnlsvj4rzwt85/Turkeyconn%20Sim%20LD34.jar?dl=0&preview=Turkeyconn+Sim+LD34.jar'>
+                    <a className='mr-1' href='https://www.dropbox.com/s/0dvnlsvj4rzwt85/Turkeyconn%20Sim%20LD34.jar?dl=0&preview=Turkeyconn+Sim+LD34.jar' target='_blank' rel='noopener noreferrer'>
                         Download
                     </a>
                     |
-                    <a className='ml-1 mr-1' href='' onClick={() => window.open('http://ludumdare.com/compo/ludum-dare-34/?action=preview&uid=24562')}>
+                    <a className='ml-1 mr-1' href='http://ludumdare.com/compo/ludum-dare-34/?action=preview&uid=24562' target='_blank' rel='noopener noreferrer'>
                         Ludum Dare Page
                     </a>
                     |
-                    <a className='ml-1' href='' onClick={() => window.open('https://github.com/TheTurkeyDev/LudumDare34')}>
+                    <a className='ml-1' href='https://github.com/TheTurkeyDev/LudumDare34' target='_blank' rel='noopener noreferrer'>
                         Source Code
                     </a>
                 </div>
