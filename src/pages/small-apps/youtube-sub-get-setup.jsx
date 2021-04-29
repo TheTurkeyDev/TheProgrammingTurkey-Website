@@ -3,7 +3,6 @@ import { TextToast } from '../../toasts/text-toast';
 import { AuthContext } from '../../contexts/auth-context';
 import { ToastContext } from '../../contexts/toast-context';
 import * as authAPI from '../../network/auth-network';
-import { AuthPageWrapper } from '../base/auth-page-wrapper';
 import styled from 'styled-components';
 
 const URLLabel = styled.label`
@@ -16,7 +15,7 @@ const URLInput = styled.input`
 `;
 
 
-export const YouTubeSubGetSetup = (props) => {
+export const YouTubeSubGetSetup = () => {
     const canvasRef = useRef(null);
 
     const auth = useContext(AuthContext);
@@ -104,56 +103,54 @@ export const YouTubeSubGetSetup = (props) => {
     }
 
     return (
-        <AuthPageWrapper history={props.history} perm='proc.ytsubget' loading={loading}>
-            <div className='fluid-container pl-3'>
-                <div className='row m-0 mt-3 mb-2'>
-                    <URLLabel className='col m-0 ml-3 align-center'>
-                        URL:
-                    </URLLabel>
-                    <URLInput className={`col ml-2 mr-4 ${showURL ? '' : 'hidden'}`} type='text' readOnly value={`https://apps.theturkey.dev/ytsubget?token=${token}`} />
-                </div>
-                <div className='row m-0 mt-2'>
-                    <URLLabel className='col m-0 ml-3 align-center' />
-                    <button className='col-auto ml-2' onClick={() => setShowURL(old => !old)}>{showURL ? 'Hide URL' : 'Show Url'}</button>
-                </div>
-                <div className='row m-0 mt-2'>
-                    <URLLabel className='col m-0 ml-3 align-center' />
-                    <button className='col-auto ml-2' onClick={regenToken}>Regen Token</button>
-                </div>
-                <hr />
-                <div className='row m-0'>
-                    <h2>Settings</h2>
-                </div>
-                <div className='row m-0 ml-2 mt-2'>
-                    <h4>Font</h4>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Color:</label>
-                    <input type='color' value={fontColor} onChange={(e) => { setFontColor(e.target.value) }} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Size:</label>
-                    <input className='col-auto' type='number' value={fontSize} onChange={(e) => { setFontSize(parseInt(e.target.value)) }} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <button onClick={saveDisplaySettings}>
-                        Save
-                    </button>
-                </div>
-                <hr />
-                <div className='row m-0 mt-1'>
-                    <h2>Preview</h2>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Background:</label>
-                    <input className='' type='color' value={backgroundColor} onChange={(e) => { setBackgroundColor(e.target.value) }} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <canvas ref={canvasRef} className='m-3 p-1' style={{ backgroundColor }} width={200} height={200}>
-
-                    </canvas>
-                </div>
+        <div className='fluid-container pl-3'>
+            <div className='row m-0 mt-3 mb-2'>
+                <URLLabel className='col m-0 ml-3 align-center'>
+                    URL:
+                </URLLabel>
+                <URLInput className={`col ml-2 mr-4 ${showURL ? '' : 'hidden'}`} type='text' readOnly value={`https://apps.theturkey.dev/ytsubget?token=${token}`} />
             </div>
-        </AuthPageWrapper >
+            <div className='row m-0 mt-2'>
+                <URLLabel className='col m-0 ml-3 align-center' />
+                <button className='col-auto ml-2' onClick={() => setShowURL(old => !old)}>{showURL ? 'Hide URL' : 'Show Url'}</button>
+            </div>
+            <div className='row m-0 mt-2'>
+                <URLLabel className='col m-0 ml-3 align-center' />
+                <button className='col-auto ml-2' onClick={regenToken}>Regen Token</button>
+            </div>
+            <hr />
+            <div className='row m-0'>
+                <h2>Settings</h2>
+            </div>
+            <div className='row m-0 ml-2 mt-2'>
+                <h4>Font</h4>
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Color:</label>
+                <input type='color' value={fontColor} onChange={(e) => { setFontColor(e.target.value) }} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Size:</label>
+                <input className='col-auto' type='number' value={fontSize} onChange={(e) => { setFontSize(parseInt(e.target.value)) }} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <button onClick={saveDisplaySettings}>
+                    Save
+                </button>
+            </div>
+            <hr />
+            <div className='row m-0 mt-1'>
+                <h2>Preview</h2>
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Background:</label>
+                <input className='' type='color' value={backgroundColor} onChange={(e) => { setBackgroundColor(e.target.value) }} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <canvas ref={canvasRef} className='m-3 p-1' style={{ backgroundColor }} width={200} height={200}>
+
+                </canvas>
+            </div>
+        </div>
     );
 }

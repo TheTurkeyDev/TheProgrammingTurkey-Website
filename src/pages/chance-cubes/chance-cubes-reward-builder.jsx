@@ -1,10 +1,9 @@
 import { useContext, useState } from 'react';
 import { OverlayContext } from '../../contexts/overlay-context';
 import { ConfirmationOverlay } from '../../overlays/confirmation-overlay';
-import { AuthPageWrapper } from '../base/auth-page-wrapper';
 import { ChanceCubesReward } from './reward-builder/chance-cubes-reward';
 
-export function ChanceCubesRewardBuilder(props) {
+export const ChanceCubesRewardBuilder = () => {
 
     const colors = ['#61a11f', '#445f8b', '#a6142a', '#c1fda1', '#fd3bf1', '#3d9bf3', '#62b770', '#af2ea2'];
 
@@ -60,7 +59,7 @@ export function ChanceCubesRewardBuilder(props) {
     }
 
     return (
-        <AuthPageWrapper history={props.history}>
+        <>
             <div className='w-25' style={{ position: 'absolute', right: '5px', top: '65px', height: '450px' }} >
                 <h4>Reward Json</h4>
                 <textarea className='code w-100 h-100' value={setRewardJsonPretty(rewards)} readOnly>
@@ -76,6 +75,6 @@ export function ChanceCubesRewardBuilder(props) {
                 }
                 <button className='ml-2 mt-2' onClick={() => addReward()}>Add Reward</button>
             </div>
-        </AuthPageWrapper >
+        </>
     )
 }

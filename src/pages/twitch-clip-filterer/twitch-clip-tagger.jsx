@@ -4,11 +4,10 @@ import { AuthContext } from '../../contexts/auth-context';
 import { ToastContext } from '../../contexts/toast-context';
 import * as clipAPI from '../../network/twitch-clips-network';
 import * as networkHelper from '../../network/network-helper';
-import { AuthPageWrapper } from '../base/auth-page-wrapper';
 
 import { TextToast } from '../../toasts/text-toast';
 
-export const TwitchClipTagger = (props) => {
+export const TwitchClipTagger = () => {
 
     const auth = useContext(AuthContext);
     const toast = useContext(ToastContext);
@@ -108,87 +107,85 @@ export const TwitchClipTagger = (props) => {
         console.log(clips[clipIndex].id);
 
     return (
-        <AuthPageWrapper history={props.history} perm='twitchclipfilter' parent='/twitchclipfilterer/clips'>
-            <div className='fluid-container pl-3'>
-                <div className='row'>
-                    <div className='col'>
-                        <label>
-                            Channel
-                        </label>
-                        <input type='text' value={channel} onChange={(e) => setChannel(e.target.value)} />
-                    </div>
-                </div>
-                <div className='row'>
-                    {clips.length > clipIndex &&
-                        <div className='col-auto mx-auto'>
-                            <iframe
-                                src={`https://clips.twitch.tv/embed?clip=${clips[clipIndex].id}&parent=${networkHelper.getSiteURLBase().replace('https://', '')}`}
-                                height='720'
-                                width='1280'
-                                frameBorder='0'
-                                scrolling='no'
-                                allowFullScreen={true}>
-                            </iframe>
-                        </div>
-                    }
-                    {(clips.length === 0 || clips.length === clipIndex) && loading &&
-                        <div className='col-auto mx-auto'>
-                            <div className='spinner' />
-                        </div>
-                    }
-                    {(clips.length === 0 || clips.length === clipIndex) && !loading &&
-                        <div className='col-auto mx-auto'>
-                            <span>No more videos!</span>
-                        </div>
-                    }
-                </div>
-                <div className='row mt-1'>
-                    <div className='col-auto ml-auto' />
-                    <div className='col-auto'>
-                        <button disabled={clipIndex === 0} onClick={prevClip}>Prev</button>
-                    </div>
-                    <div className='col-auto mr-2'>
-                        <button onClick={() => updateClipTag('good')} style={getStyle('good')}>Good</button>
-                    </div>
-                    <div className='col-auto mr-2'>
-                        <button onClick={() => updateClipTag('meh')} style={getStyle('meh')}>Meh</button>
-                    </div>
-                    <div className='col-auto mr-2'>
-                        <button onClick={() => updateClipTag('bad')} style={getStyle('bad')}>Bad</button>
-                    </div>
-                    <div className='col-auto mr-2'>
-                        <button onClick={() => updateClipTag('deleted')} style={getStyle('deleted')}>Delete</button>
-                    </div>
-                    <div className='col-auto'>
-                        <button onClick={nextClip}>Next</button>
-                    </div>
-                    <div className='col-auto mr-auto' />
-                </div>
-                <div className='row mt-2 mx-0 px-2'>
-                    {
-                        tags.filter(tag => tag !== 'good' && tag !== 'bad' && tag !== 'meh').map(tag => {
-                            return (
-                                <div key={tag} className='col-auto mr-1 mb-2'>
-                                    <button onClick={() => updateClipTag(tag)} style={getStyle(tag)}>{tag}</button>
-                                </div>
-                            );
-                        })
-                    }
-                </div>
-                <div className='row mt-2'>
-                    <div className='col-auto ml-auto' />
-                    <div className='col-auto'>
-                        <label>New Tag</label>
-                    </div>
-                    <div className='col-auto'>
-                        <input value={newTag} onChange={(e) => setNewTag(e.target.value)} />
-                    </div>
-                    <div className='col-auto'>
-                        <button onClick={addNewTag}> Add</button>
-                    </div>
-                    <div className='col-auto mr-auto' />
+        <div className='fluid-container pl-3'>
+            <div className='row'>
+                <div className='col'>
+                    <label>
+                        Channel
+                    </label>
+                    <input type='text' value={channel} onChange={(e) => setChannel(e.target.value)} />
                 </div>
             </div>
-        </AuthPageWrapper >
+            <div className='row'>
+                {clips.length > clipIndex &&
+                    <div className='col-auto mx-auto'>
+                        <iframe
+                            src={`https://clips.twitch.tv/embed?clip=${clips[clipIndex].id}&parent=${networkHelper.getSiteURLBase().replace('https://', '')}`}
+                            height='720'
+                            width='1280'
+                            frameBorder='0'
+                            scrolling='no'
+                            allowFullScreen={true}>
+                        </iframe>
+                    </div>
+                }
+                {(clips.length === 0 || clips.length === clipIndex) && loading &&
+                    <div className='col-auto mx-auto'>
+                        <div className='spinner' />
+                    </div>
+                }
+                {(clips.length === 0 || clips.length === clipIndex) && !loading &&
+                    <div className='col-auto mx-auto'>
+                        <span>No more videos!</span>
+                    </div>
+                }
+            </div>
+            <div className='row mt-1'>
+                <div className='col-auto ml-auto' />
+                <div className='col-auto'>
+                    <button disabled={clipIndex === 0} onClick={prevClip}>Prev</button>
+                </div>
+                <div className='col-auto mr-2'>
+                    <button onClick={() => updateClipTag('good')} style={getStyle('good')}>Good</button>
+                </div>
+                <div className='col-auto mr-2'>
+                    <button onClick={() => updateClipTag('meh')} style={getStyle('meh')}>Meh</button>
+                </div>
+                <div className='col-auto mr-2'>
+                    <button onClick={() => updateClipTag('bad')} style={getStyle('bad')}>Bad</button>
+                </div>
+                <div className='col-auto mr-2'>
+                    <button onClick={() => updateClipTag('deleted')} style={getStyle('deleted')}>Delete</button>
+                </div>
+                <div className='col-auto'>
+                    <button onClick={nextClip}>Next</button>
+                </div>
+                <div className='col-auto mr-auto' />
+            </div>
+            <div className='row mt-2 mx-0 px-2'>
+                {
+                    tags.filter(tag => tag !== 'good' && tag !== 'bad' && tag !== 'meh').map(tag => {
+                        return (
+                            <div key={tag} className='col-auto mr-1 mb-2'>
+                                <button onClick={() => updateClipTag(tag)} style={getStyle(tag)}>{tag}</button>
+                            </div>
+                        );
+                    })
+                }
+            </div>
+            <div className='row mt-2'>
+                <div className='col-auto ml-auto' />
+                <div className='col-auto'>
+                    <label>New Tag</label>
+                </div>
+                <div className='col-auto'>
+                    <input value={newTag} onChange={(e) => setNewTag(e.target.value)} />
+                </div>
+                <div className='col-auto'>
+                    <button onClick={addNewTag}> Add</button>
+                </div>
+                <div className='col-auto mr-auto' />
+            </div>
+        </div>
     );
 }

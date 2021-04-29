@@ -28,6 +28,7 @@ import { SlimeRancherIntegration } from '../mods/slime-rancher-integration';
 
 import { ProjectStatusEdit } from '../admin/project-status-edit';
 import { LD48 } from '../ludum-dare/ld-48';
+import { AuthRoute } from '../../util/AuthRoute';
 
 export const ProjectsRouter = () => {
     return (
@@ -55,7 +56,7 @@ export const ProjectsRouter = () => {
             <Route exact path='/projects/wither-crumbs' component={WitherCrumbs} />
             <Route exact path='/projects/raft-integration' component={RaftIntegration} />
             <Route exact path='/projects/slime-rancher-integration' component={SlimeRancherIntegration} />
-            <Route exact path='/projects/statusedit' component={ProjectStatusEdit} />
+            <AuthRoute exact path='/projects/statusedit' component={ProjectStatusEdit} perm='projects.editstatus' />
         </Switch>
     )
 }

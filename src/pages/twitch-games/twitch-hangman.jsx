@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/auth-context';
 import { ToastContext } from '../../contexts/toast-context';
 import * as api from '../../network/twitch-games-network';
-import { AuthPageWrapper } from '../base/auth-page-wrapper';
 import { getAppsSiteBase } from '../../network/network-helper';
 
 import { TextToast } from '../../toasts/text-toast';
@@ -17,7 +16,7 @@ const URLInput = styled.input`
     width: 800px;
 `;
 
-export const TwitchHangmanSetup = (props) => {
+export const TwitchHangmanSetup = () => {
     const gameName = 'hangman';
     const auth = useContext(AuthContext);
     const toast = useContext(ToastContext);
@@ -76,52 +75,50 @@ export const TwitchHangmanSetup = (props) => {
     };
 
     return (
-        <AuthPageWrapper history={props.history} parent='/twitchgames'>
-            <div className='fluid-container pl-3'>
-                <div className='row m-0 text-center'>
-                    <div className='col m-0'>
-                        <h2>Hangman</h2>
-                    </div>
-                </div>
-                <div className='row m-0 mt-3 mb-2'>
-                    <URLLabel className='col m-0 ml-3 align-center'>
-                        URL:
-                    </URLLabel>
-                    <URLInput className='col ml-2 mr-4' type='text' readOnly value={showURL ? `${getAppsSiteBase()}/twitch/hangman?token=${token}` : ''} />
-                </div>
-                <div className='row m-0 mt-2'>
-                    <URLLabel className='col m-0 ml-3 align-center' />
-                    <button className='col-auto ml-2' onClick={() => setShowURL((old) => !old)}>
-                        {showURL ? 'Hide URL' : 'Show Url'}
-                    </button>
-                    <button className='col-auto ml-2' onClick={regenToken}>
-                        Regen Token
-                    </button>
-                </div>
-                <hr />
-                <div className='row m-0'>
-                    <h3>Settings</h3>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Background Color:</label>
-                    <input type='color' value={bgColor} onChange={(e) => setBGColor(e.target.value)} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Word Color:</label>
-                    <input type='color' value={wordColor} onChange={(e) => setWordColor(e.target.value)} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Correct Letter Color:</label>
-                    <input type='color' value={correctLetterColor} onChange={(e) => setCorrectLetterColor(e.target.value)} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Wrong Letter Color:</label>
-                    <input type='color' value={wrongLetterColor} onChange={(e) => setWrongLetterColor(e.target.value)} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <button onClick={saveDisplaySettings}>Save</button>
+        <div className='fluid-container pl-3'>
+            <div className='row m-0 text-center'>
+                <div className='col m-0'>
+                    <h2>Hangman</h2>
                 </div>
             </div>
-        </AuthPageWrapper>
+            <div className='row m-0 mt-3 mb-2'>
+                <URLLabel className='col m-0 ml-3 align-center'>
+                    URL:
+                </URLLabel>
+                <URLInput className='col ml-2 mr-4' type='text' readOnly value={showURL ? `${getAppsSiteBase()}/twitch/hangman?token=${token}` : ''} />
+            </div>
+            <div className='row m-0 mt-2'>
+                <URLLabel className='col m-0 ml-3 align-center' />
+                <button className='col-auto ml-2' onClick={() => setShowURL((old) => !old)}>
+                    {showURL ? 'Hide URL' : 'Show Url'}
+                </button>
+                <button className='col-auto ml-2' onClick={regenToken}>
+                    Regen Token
+                </button>
+            </div>
+            <hr />
+            <div className='row m-0'>
+                <h3>Settings</h3>
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Background Color:</label>
+                <input type='color' value={bgColor} onChange={(e) => setBGColor(e.target.value)} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Word Color:</label>
+                <input type='color' value={wordColor} onChange={(e) => setWordColor(e.target.value)} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Correct Letter Color:</label>
+                <input type='color' value={correctLetterColor} onChange={(e) => setCorrectLetterColor(e.target.value)} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Wrong Letter Color:</label>
+                <input type='color' value={wrongLetterColor} onChange={(e) => setWrongLetterColor(e.target.value)} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <button onClick={saveDisplaySettings}>Save</button>
+            </div>
+        </div>
     );
 }

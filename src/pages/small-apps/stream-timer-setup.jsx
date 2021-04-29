@@ -1,11 +1,10 @@
 import { useEffect, useState, useRef, useContext } from 'react';
 
-import { useInterval } from '../../util/use-interval';
+import { useInterval } from '../../hooks/use-interval';
 import { AuthContext } from '../../contexts/auth-context';
 import { ToastContext } from '../../contexts/toast-context';
 import * as timerAPI from '../../network/timer-network';
 import { TextToast } from '../../toasts/text-toast';
-import { AuthPageWrapper } from '../base/auth-page-wrapper';
 import styled from 'styled-components';
 
 const URLLabel = styled.label`
@@ -17,7 +16,7 @@ const URLInput = styled.input`
     width: 800px;
 `;
 
-export const StreamTimerSetup = (props) => {
+export const StreamTimerSetup = () => {
     const canvasRef = useRef(null);
 
     const auth = useContext(AuthContext);
@@ -261,138 +260,136 @@ export const StreamTimerSetup = (props) => {
     }
 
     return (
-        <AuthPageWrapper history={props.history} perm='streamtimer.dashboard'>
-            <div className='fluid-container pl-3'>
-                <div className='row m-0 mt-3 mb-2'>
-                    <URLLabel className='col m-0 ml-3 align-center'>
-                        URL:
-                    </URLLabel>
-                    <URLInput className='col ml-2 mr-4' type='text' readOnly value={`http://apps.theturkey.dev/streamtimer/${auth.userID}/${timerID}`} />
-                </div>
-                <div className='row m-0'>
-                    <URLLabel className='col m-0 ml-3 align-center'>
-                        Timer:
-                    </URLLabel>
-                    <select className='col-auto ml-2' value={timerID} onChange={(e) => { setTimerID(parseInt(e.target.value)) }}>
-                        {
-                            validTimerIDs.map(timer => {
-                                return (
-                                    <option key={timer.id} value={timer.id}>{timer.display}</option>
-                                );
-                            })
-                        }
-                    </select>
-                    <button className='col-auto ml-2' onClick={() => newTimer()}>+</button>
-                </div>
-                <div className='row m-0 mt-2'>
-                    <URLLabel className='col m-0 ml-3 align-center' />
-                    <button className='col-auto ml-2' onClick={startTimer}>Start Timer</button>
-                </div>
-                <hr />
-                <div className='row m-0'>
-                    <h2>Settings</h2>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label' >Timer Name:</label>
-                    <input type='text' value={timerDisplay} onChange={(e) => { setTimerDisplay(e.target.value) }} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label' >TimerType:</label>
-                    <select className='col-auto' value={timerType} onChange={(e) => { setTimerType(e.target.value) }}>
-                        <option value={'countdown_date'}>Countdown To Date</option>
-                        <option value={'countup_date'}>Countup To Date</option>
-                        <option value={'countdown_timer'}>Timer Down</option>
-                        <option value={'countup_timer'}>Timer Up</option>
-                    </select>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Display:</label>
-                    <textarea className='col timer-textarea' value={displayMessage} onChange={(e) => { setDisplayMessage(e.target.value) }} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>End Message:</label>
-                    <div className='toggle-switch'>
-                        <input type='checkbox' checked={hasEndMessage} onChange={() => { }} />
-                        <span className='toggle-slider round' onClick={() => setHasEndMessage(old => !old)}></span>
-                    </div>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'></label>
-                    <textarea className='col timer-textarea' value={endMessage} onChange={(e) => { setEndMessage(e.target.value) }} />
-                </div>
-                {
-                    timerType == 'countdown_date' &&
-                    <div className='row m-0 ml-4 mt-1'>
-                        <label className='col mr-1 timer-label'>End Time:</label>
-                        <input type='date' value={formatDate(date)} min={formatDate(new Date())} onChange={(e) => { calcDate(e.target.value) }} />
-                        <input type='time' value={formatTime(date)} min={(isSameDay(date) ? formatTime(new Date()) : '')} onChange={(e) => { calcTime(e.target.value) }} />
-                    </div>
-                }
-                {
-                    timerType == 'countdown_timer' &&
-                    <div className='row m-0 ml-4 mt-1'>
-                        <label className='col mr-1 timer-label'>Length:</label>
-                        <input className='col-auto' type='number' value={length} onChange={(e) => { setLength(parseInt(e.target.value)) }} />
-                    </div>
-                }
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Prepend Zeros:</label>
-                    <div className='toggle-switch'>
-                        <input type='checkbox' checked={prependZeros} onChange={() => { }} />
-                        <span className='toggle-slider round' onClick={() => setPrependZeros(old => !old)}></span>
-                    </div>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Include Zero Days:</label>
-                    <div className='toggle-switch'>
-                        <input type='checkbox' checked={includeZeroDays} onChange={() => { }} />
-                        <span className='toggle-slider round' onClick={() => setIncludeZeroDays(old => !old)}></span>
-                    </div>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Include Zero Hours:</label>
-                    <div className='toggle-switch'>
-                        <input type='checkbox' checked={includeZeroHours} onChange={() => { }} />
-                        <span className='toggle-slider round' onClick={() => setIncludeZeroHours(old => !old)}></span>
-                    </div>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Include Zero Minutes:</label>
-                    <div className='toggle-switch'>
-                        <input type='checkbox' checked={includeZeroMinutes} onChange={() => { }} />
-                        <span className='toggle-slider round' onClick={() => setIncludeZeroMinutes(old => !old)}></span>
-                    </div>
-                </div>
-                <div className='row m-0 ml-2 mt-2'>
-                    <h4>Font</h4>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Color:</label>
-                    <input type='color' value={fontColor} onChange={(e) => { setFontColor(e.target.value) }} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Size:</label>
-                    <input className='col-auto' type='number' value={fontSize} onChange={(e) => { setFontSize(parseInt(e.target.value)) }} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <button onClick={saveSettings}>
-                        Save
-                    </button>
-                </div>
-                <hr />
-                <div className='row m-0 mt-1'>
-                    <h2>Preview</h2>
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <label className='col mr-1 timer-label'>Background:</label>
-                    <input className='' type='color' value={backgroundColor} onChange={(e) => { setBackgroundColor(e.target.value) }} />
-                </div>
-                <div className='row m-0 ml-4 mt-1'>
-                    <canvas ref={canvasRef} className='m-3 p-1' style={{ backgroundColor }} width={200} height={200}>
-
-                    </canvas>
+        <div className='fluid-container pl-3'>
+            <div className='row m-0 mt-3 mb-2'>
+                <URLLabel className='col m-0 ml-3 align-center'>
+                    URL:
+                </URLLabel>
+                <URLInput className='col ml-2 mr-4' type='text' readOnly value={`http://apps.theturkey.dev/streamtimer/${auth.userID}/${timerID}`} />
+            </div>
+            <div className='row m-0'>
+                <URLLabel className='col m-0 ml-3 align-center'>
+                    Timer:
+                </URLLabel>
+                <select className='col-auto ml-2' value={timerID} onChange={(e) => { setTimerID(parseInt(e.target.value)) }}>
+                    {
+                        validTimerIDs.map(timer => {
+                            return (
+                                <option key={timer.id} value={timer.id}>{timer.display}</option>
+                            );
+                        })
+                    }
+                </select>
+                <button className='col-auto ml-2' onClick={() => newTimer()}>+</button>
+            </div>
+            <div className='row m-0 mt-2'>
+                <URLLabel className='col m-0 ml-3 align-center' />
+                <button className='col-auto ml-2' onClick={startTimer}>Start Timer</button>
+            </div>
+            <hr />
+            <div className='row m-0'>
+                <h2>Settings</h2>
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label' >Timer Name:</label>
+                <input type='text' value={timerDisplay} onChange={(e) => { setTimerDisplay(e.target.value) }} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label' >TimerType:</label>
+                <select className='col-auto' value={timerType} onChange={(e) => { setTimerType(e.target.value) }}>
+                    <option value={'countdown_date'}>Countdown To Date</option>
+                    <option value={'countup_date'}>Countup To Date</option>
+                    <option value={'countdown_timer'}>Timer Down</option>
+                    <option value={'countup_timer'}>Timer Up</option>
+                </select>
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Display:</label>
+                <textarea className='col timer-textarea' value={displayMessage} onChange={(e) => { setDisplayMessage(e.target.value) }} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>End Message:</label>
+                <div className='toggle-switch'>
+                    <input type='checkbox' checked={hasEndMessage} onChange={() => { }} />
+                    <span className='toggle-slider round' onClick={() => setHasEndMessage(old => !old)}></span>
                 </div>
             </div>
-        </AuthPageWrapper >
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'></label>
+                <textarea className='col timer-textarea' value={endMessage} onChange={(e) => { setEndMessage(e.target.value) }} />
+            </div>
+            {
+                timerType == 'countdown_date' &&
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>End Time:</label>
+                    <input type='date' value={formatDate(date)} min={formatDate(new Date())} onChange={(e) => { calcDate(e.target.value) }} />
+                    <input type='time' value={formatTime(date)} min={(isSameDay(date) ? formatTime(new Date()) : '')} onChange={(e) => { calcTime(e.target.value) }} />
+                </div>
+            }
+            {
+                timerType == 'countdown_timer' &&
+                <div className='row m-0 ml-4 mt-1'>
+                    <label className='col mr-1 timer-label'>Length:</label>
+                    <input className='col-auto' type='number' value={length} onChange={(e) => { setLength(parseInt(e.target.value)) }} />
+                </div>
+            }
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Prepend Zeros:</label>
+                <div className='toggle-switch'>
+                    <input type='checkbox' checked={prependZeros} onChange={() => { }} />
+                    <span className='toggle-slider round' onClick={() => setPrependZeros(old => !old)}></span>
+                </div>
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Include Zero Days:</label>
+                <div className='toggle-switch'>
+                    <input type='checkbox' checked={includeZeroDays} onChange={() => { }} />
+                    <span className='toggle-slider round' onClick={() => setIncludeZeroDays(old => !old)}></span>
+                </div>
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Include Zero Hours:</label>
+                <div className='toggle-switch'>
+                    <input type='checkbox' checked={includeZeroHours} onChange={() => { }} />
+                    <span className='toggle-slider round' onClick={() => setIncludeZeroHours(old => !old)}></span>
+                </div>
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Include Zero Minutes:</label>
+                <div className='toggle-switch'>
+                    <input type='checkbox' checked={includeZeroMinutes} onChange={() => { }} />
+                    <span className='toggle-slider round' onClick={() => setIncludeZeroMinutes(old => !old)}></span>
+                </div>
+            </div>
+            <div className='row m-0 ml-2 mt-2'>
+                <h4>Font</h4>
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Color:</label>
+                <input type='color' value={fontColor} onChange={(e) => { setFontColor(e.target.value) }} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Size:</label>
+                <input className='col-auto' type='number' value={fontSize} onChange={(e) => { setFontSize(parseInt(e.target.value)) }} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <button onClick={saveSettings}>
+                    Save
+                </button>
+            </div>
+            <hr />
+            <div className='row m-0 mt-1'>
+                <h2>Preview</h2>
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <label className='col mr-1 timer-label'>Background:</label>
+                <input className='' type='color' value={backgroundColor} onChange={(e) => { setBackgroundColor(e.target.value) }} />
+            </div>
+            <div className='row m-0 ml-4 mt-1'>
+                <canvas ref={canvasRef} className='m-3 p-1' style={{ backgroundColor }} width={200} height={200}>
+
+                </canvas>
+            </div>
+        </div>
     );
 }

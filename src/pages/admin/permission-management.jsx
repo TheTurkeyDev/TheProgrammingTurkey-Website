@@ -1,14 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { OverlayContext } from '../../contexts/overlay-context';
 import * as authAPI from '../../network/auth-network';
-import { AuthPageWrapper } from '../base/auth-page-wrapper';
 
 import { NewPermissionOverlay } from '../../overlays/admin/new-permission-overlay';
 import { ConfirmationOverlay } from '../../overlays/confirmation-overlay';
 import { ToastContext } from '../../contexts/toast-context';
 import { TextToast } from '../../toasts/text-toast';
 
-export const PermissionManagement = (props) => {
+export const PermissionManagement = () => {
     const toast = useContext(ToastContext);
     const overlay = useContext(OverlayContext);
 
@@ -58,50 +57,48 @@ export const PermissionManagement = (props) => {
     };
 
     return (
-        <AuthPageWrapper history={props.history} perm='admin.managepermissions' parent='/user/profile'>
-            <div className='mr-5 ml-5 mt-2'>
-                <div className='mt-3 fluid-container'>
-                    <div className='row'>
-                        <div className='col mr-2'>
-                            <button onClick={() => addNewPerm()}>
-                                New Permission
-                            </button>
-                        </div>
-                        <div className='col mr-2'>
-                            <button onClick={() => { }}>
-                                Update
-                            </button>
-                        </div>
-                        <div className='col'>
-                            <label>Filter</label>
-                            <input className='ml-2' type='text' value={filter} onChange={(e) => setFilter(e.target.value)} />
-                        </div>
+        <div className='mr-5 ml-5 mt-2'>
+            <div className='mt-3 fluid-container'>
+                <div className='row'>
+                    <div className='col mr-2'>
+                        <button onClick={() => addNewPerm()}>
+                            New Permission
+                        </button>
+                    </div>
+                    <div className='col mr-2'>
+                        <button onClick={() => { }}>
+                            Update
+                        </button>
+                    </div>
+                    <div className='col'>
+                        <label>Filter</label>
+                        <input className='ml-2' type='text' value={filter} onChange={(e) => setFilter(e.target.value)} />
                     </div>
                 </div>
-                <table className='table text-light text-center '>
-                    <thead>
-                        <tr>
-                            <th scope='col-auto'>Actions</th>
-                            <th scope='col-auto'>Permission</th>
-                            <th scope='col'>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            permissionList.map((perm) => (
-                                <tr key={perm.permission}>
-                                    <th scope='row'>
-                                        <i className='fas fa-edit clickable mr-2' />
-                                        <i className='fas fa-trash clickable' onClick={() => deletePerm(perm)} />
-                                    </th>
-                                    <td>{perm.permission}</td>
-                                    <td>{perm.description}</td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
             </div>
-        </AuthPageWrapper>
+            <table className='table text-light text-center '>
+                <thead>
+                    <tr>
+                        <th scope='col-auto'>Actions</th>
+                        <th scope='col-auto'>Permission</th>
+                        <th scope='col'>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        permissionList.map((perm) => (
+                            <tr key={perm.permission}>
+                                <th scope='row'>
+                                    <i className='fas fa-edit clickable mr-2' />
+                                    <i className='fas fa-trash clickable' onClick={() => deletePerm(perm)} />
+                                </th>
+                                <td>{perm.permission}</td>
+                                <td>{perm.description}</td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        </div>
     );
 }

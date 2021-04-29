@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import * as api from '../../network/network';
 import { PageLoading } from '../base/page-loading';
 
-import { PageWrapper } from '../base/page-wrapper';
-
 const support = [
     { bg: '#7CFC00', text: 'S-A', desc: 'Supported with active development' },
     {
@@ -72,59 +70,57 @@ export const MCModSupport = () => {
     }
 
     return (
-        <PageWrapper>
-            <div>
-                <div className='m-2'>
-                    <table className='table'>
-                        <thead>
-                            <tr className='text-center text-light'>
-                                <th scope='col'>Mod/ Version</th>
-                                {
-                                    versions.sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).map((v) => (
-                                        <th key={v} scope='col'>
-                                            {v}
-                                        </th>
-                                    ))}
-                            </tr>
-                        </thead>
-                        <tbody>
+        <div>
+            <div className='m-2'>
+                <table className='table'>
+                    <thead>
+                        <tr className='text-center text-light'>
+                            <th scope='col'>Mod/ Version</th>
                             {
-                                Object.keys(projects).map((mod) => {
-                                    return (
-                                        <tr key={mod}>
-                                            <th scope='row' className='p-1 text-light'>
-                                                {' '}{mod}{' '}
-                                            </th>
-                                            {
-                                                versions.map((v, index) => {
-                                                    let supportID = projects[mod][v];
-                                                    return (
-                                                        <ProjectVersionCell key={`${mod}-${index}`} className='p-1 text-center' color={support[supportID].bg}>
-                                                            {
-                                                                support[parseInt(supportID)].text
-                                                            }
-                                                        </ProjectVersionCell>
-                                                    );
-                                                })
-                                            }
-                                        </tr>
-                                    );
-                                })
-                            }
-                        </tbody>
-                    </table>
-                    {
-                        support.map((status) => (
-                            <div key={status.text}>
-                                <SupportKey className='mt-2 text-center' color={support.bg}>
-                                    <span> {status.text}</span>
-                                </SupportKey>
-                                <span>= {status.desc}</span>
-                            </div>
-                        ))
-                    }
-                </div>
+                                versions.sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).map((v) => (
+                                    <th key={v} scope='col'>
+                                        {v}
+                                    </th>
+                                ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            Object.keys(projects).map((mod) => {
+                                return (
+                                    <tr key={mod}>
+                                        <th scope='row' className='p-1 text-light'>
+                                            {' '}{mod}{' '}
+                                        </th>
+                                        {
+                                            versions.map((v, index) => {
+                                                let supportID = projects[mod][v];
+                                                return (
+                                                    <ProjectVersionCell key={`${mod}-${index}`} className='p-1 text-center' color={support[supportID].bg}>
+                                                        {
+                                                            support[parseInt(supportID)].text
+                                                        }
+                                                    </ProjectVersionCell>
+                                                );
+                                            })
+                                        }
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
+                </table>
+                {
+                    support.map((status) => (
+                        <div key={status.text}>
+                            <SupportKey className='mt-2 text-center' color={support.bg}>
+                                <span> {status.text}</span>
+                            </SupportKey>
+                            <span>= {status.desc}</span>
+                        </div>
+                    ))
+                }
             </div>
-        </PageWrapper>
+        </div>
     );
 }

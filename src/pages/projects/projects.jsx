@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 
-import { PageWrapper } from '../base/page-wrapper';
-
 const LDGames = [
     {
         title: 'Scriptless Pipes',
@@ -222,7 +220,7 @@ export const Projects = (props) => {
     }
 
     return (
-        <PageWrapper>
+        <>
             {type === 'mods' && (
                 <div className='text-center mt-3'>
                     <h4 style={{ textDecoration: 'underline' }}>
@@ -407,6 +405,6 @@ export const Projects = (props) => {
                     </div>
                 </div>
             )}
-        </PageWrapper>
+        </>
     );
 }

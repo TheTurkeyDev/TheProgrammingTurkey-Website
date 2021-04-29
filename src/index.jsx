@@ -35,6 +35,8 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 import { TwitchGamesRouter } from './pages/twitch-games/twitch-games-router';
 import { ProjectsRouter } from './pages/projects/projects-router';
+import { PageWrapper } from './pages/base/page-wrapper';
+import { AuthRoute } from './util/AuthRoute';
 
 const routing = (
     <ThemeProvider theme={theme}>
@@ -42,43 +44,45 @@ const routing = (
             <Toast>
                 <Overlay>
                     <Router>
-                        <Switch>
-                            <Route exact path='/' component={App} />
-                            <Route path='/projects' component={ProjectsRouter} />
+                        <PageWrapper>
+                            <Switch>
+                                <Route exact path='/' component={App} />
+                                <Route path='/projects' component={ProjectsRouter} />
 
-                            <Route exact path='/mod-support' component={MCModSupport} />
-                            <Route exact path='/ld-stats' component={LDStats} />
+                                <Route exact path='/mod-support' component={MCModSupport} />
+                                <Route exact path='/ld-stats' component={LDStats} />
 
-                            <Route exact path='/chancecubes/stats' component={ChanceCubesStats} />
-                            <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
-                            <Route exact path='/chancecubes/managecontentcreators' component={ChanceCubesManageContentCreators} />
-                            <Route exact path='/chancecubes/rewardbuilder' component={ChanceCubesRewardBuilder} />
+                                <Route exact path='/chancecubes/stats' component={ChanceCubesStats} />
+                                <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
+                                <AuthRoute exact path='/chancecubes/managecontentcreators' component={ChanceCubesManageContentCreators} perm='chancecubes.managecontentcreators' />
+                                <AuthRoute exact path='/chancecubes/rewardbuilder' component={ChanceCubesRewardBuilder} />
 
-                            <Route exact path='/stream-led-control' component={StreamLEDControl} />
-                            <Route exact path='/streamtimer' component={StreamTimerSetup} />
+                                <Route exact path='/stream-led-control' component={StreamLEDControl} />
+                                <AuthRoute exact path='/streamtimer' component={StreamTimerSetup} perm='streamtimer.dashboard' />
 
-                            <Route exact path='/twitchclipfilterer/clips' component={TwitchClipsList} />
-                            <Route exact path='/twitchclipfilterer/tagger' component={TwitchClipTagger} />
+                                <AuthRoute exact path='/twitchclipfilterer/clips' component={TwitchClipsList} perm='twitchclipfilter' />
+                                <AuthRoute exact path='/twitchclipfilterer/tagger' component={TwitchClipTagger} perm='twitchclipfilter' />
 
-                            <Route path='/twitchgames' component={TwitchGamesRouter} />
+                                <Route path='/twitchgames' component={TwitchGamesRouter} />
 
-                            <Route exact path='/info' component={Info} />
-                            <Route exact path='/support' component={Support} />
+                                <Route exact path='/info' component={Info} />
+                                <Route exact path='/support' component={Support} />
 
-                            <Route exact path='/login' component={Login} />
-                            <Route exact path='/logout' component={Logout} />
-                            <Route exact path='/loginresp/:platform' component={LoginResponse} />
+                                <Route exact path='/login' component={Login} />
+                                <Route exact path='/logout' component={Logout} />
+                                <Route exact path='/loginresp/:platform' component={LoginResponse} />
 
-                            <Route exact path='/user/profile' component={UserProfile} />
-                            <Route exact path='/user/connectedaccounts' component={UserPlatformAccountConnections} />
-                            <Route exact path='/user/youtubesubget' component={YouTubeSubGetSetup} />
+                                <AuthRoute exact path='/user/profile' component={UserProfile} />
+                                <AuthRoute exact path='/user/connectedaccounts' component={UserPlatformAccountConnections} />
+                                <AuthRoute exact path='/user/youtubesubget' component={YouTubeSubGetSetup} perm='proc.ytsubget' />
 
-                            <Route exact path='/admin/usermanage' component={UserManagement} />
-                            <Route exact path='/admin/permissionmanage' component={PermissionManagement} />
-                            <Route exact path='/admin/processmanage' component={ProcessManagement} />
+                                <AuthRoute exact path='/admin/usermanage' component={UserManagement} perm='admin.usermanage' />
+                                <AuthRoute exact path='/admin/permissionmanage' component={PermissionManagement} perm='admin.managepermissions' />
+                                <AuthRoute exact path='/admin/processmanage' component={ProcessManagement} perm='admin.manageprocesses' />
 
-                            <Route component={Notfound} />
-                        </Switch>
+                                <Route component={Notfound} />
+                            </Switch>
+                        </PageWrapper>
                     </Router>
                 </Overlay>
             </Toast>

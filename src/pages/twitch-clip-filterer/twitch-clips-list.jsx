@@ -3,7 +3,6 @@ import { Multiselect } from 'multiselect-react-dropdown';
 
 import { ToastContext } from '../../contexts/toast-context';
 import * as clipAPI from '../../network/twitch-clips-network';
-import { AuthPageWrapper } from '../base/auth-page-wrapper';
 
 import { TextToast } from '../../toasts/text-toast';
 import { Link } from 'react-router-dom';
@@ -41,7 +40,7 @@ const TagWrapper = styled.div`
     border-radius: 7px;
 `;
 
-export const TwitchClipsList = (props) => {
+export const TwitchClipsList = () => {
     const toast = useContext(ToastContext);
 
     const [channel, setChannel] = useState(63937599);
@@ -124,144 +123,142 @@ export const TwitchClipsList = (props) => {
     }).sort((a, b) => a.name.localeCompare(b.name));
 
     return (
-        <AuthPageWrapper history={props.history} perm='twitchclipfilter' parent='/user/profile'>
-            <div className='fluid-container pl-3 pr-3'>
-                <div className='row m-0 mt-2'>
-                    <div className='col'>
-                        <Link to='/twitchclipfilterer/tagger'>
-                            Tag Clips
-                        </Link>
-                    </div>
-                    <div className='col'>
-                        <button onClick={pullClips}>
-                            Pull Clips
-                        </button>
-                    </div>
-                    <div className='col'>
-                        <label className='mr-1'>
-                            Channel
-                        </label>
-                        <input type='text' value={channel} onChange={(e) => setChannel(e.target.value)} />
-                    </div>
+        <div className='fluid-container pl-3 pr-3'>
+            <div className='row m-0 mt-2'>
+                <div className='col'>
+                    <Link to='/twitchclipfilterer/tagger'>
+                        Tag Clips
+                    </Link>
                 </div>
-                <BasicBorderWrapper className='row mx-0 my-2 pt-3 pb-2'>
-                    <div className='col-auto'>
-                        <span>Filters</span>
-                    </div>
-                    <div className='col-auto p-0'>
-                        <label>
-                            With Tag:
-                        </label>
-                    </div>
-                    <MultiSelectWrapper className='col-auto'>
-                        <Multiselect className='bg-secondary'
-                            options={tagOptions} // Options to display in the dropdown
-                            selectedValues={allowedTags} // Preselected value to persist in dropdown
-                            onSelect={onAllowedSelect} // Function will trigger on select event
-                            onRemove={onAllowedRemove} // Function will trigger on remove event
-                            displayValue='name' // Property name to display in the dropdown options
-                            style={{ option: { backgroundColor: '#111111' } }}
-                        />
-                    </MultiSelectWrapper>
-                    <div className='col-auto p-0'>
-                        <label>
-                            Without Tag:
-                        </label>
-                    </div>
-                    <MultiSelectWrapper className='col-auto'>
-                        <Multiselect className='bg-secondary'
-                            options={tagOptions} // Options to display in the dropdown
-                            selectedValues={disallowedTags} // Preselected value to persist in dropdown
-                            onSelect={onDisallowedSelect} // Function will trigger on select event
-                            onRemove={onDisallowedRemove} // Function will trigger on remove event
-                            displayValue='name' // Property name to display in the dropdown options
-                            style={{ option: { backgroundColor: '#111111' } }}
-                        />
-                    </MultiSelectWrapper>
-                </BasicBorderWrapper>
-                <div className='row m-0'>
-                    <BasicBorderWrapper className='fluid-container w-100'>
-                        <div className='row m-0 py-1'>
-                            <div className='col-1 m-0'>
-                                <h5>
-                                    Date
-                                </h5>
-                            </div>
-                            <div className='col-1 m-0'>
-                                <h5>
-                                    Channel
-                                </h5>
-                            </div>
-                            <div className='col-3 m-0'>
-                                <h5>
-                                    Title
-                                </h5>
-                            </div>
-                            <div className='col-2 m-0'>
-                                <h5>
-                                    Clipper
-                                </h5>
-                            </div>
-                            <div className='col m-0'>
-                                <h5>
-                                    Tags
-                                </h5>
-                            </div>
-                        </div>
-                        {
-                            clips.map(clip => {
-                                return (
-                                    <BasicBorderWrapper key={clip.id} className='row m-0 py-1'>
-                                        <div className='col-1 m-0'>
-                                            {clip.date}
-                                        </div>
-                                        <div className='col-1 m-0'>
-                                            <a href={`https://twitch.tv/${clip.channel_name}`}>
-                                                {clip.channel_name}
-                                            </a>
-                                        </div>
-                                        <ClipTitle className='col-3 m-0'>
-                                            <a href={clip.url}>
-                                                {clip.title}
-                                            </a>
-                                        </ClipTitle>
-                                        <div className='col-2 m-0'>
-                                            {clip.clipper_name}
-                                        </div>
-                                        <div className='col m-0'>
-                                            <div className='fluid-container w-100'>
-                                                <div className='row m-0 py-1'>
-                                                    {
-                                                        clip.tags.map(tag => {
-                                                            return (
-                                                                <TagWrapper key={tag} className='mr-2 mt-1 pl-2'>
-                                                                    <span>
-                                                                        {tag}
-                                                                    </span>
-                                                                    <DeleteTagButton className='text-center bg-secondary clickable' onClick={() => removeTag(clip.id, tag)}>
-                                                                        x
-                                                                    </DeleteTagButton>
-                                                                </TagWrapper>
-                                                            )
-                                                        })
-                                                    }
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </BasicBorderWrapper>
-                                )
-                            })
-                        }
-                    </BasicBorderWrapper>
+                <div className='col'>
+                    <button onClick={pullClips}>
+                        Pull Clips
+                    </button>
                 </div>
-                <div className='row m-0 my-2'>
-                    <div className='col'>
-                        <button onClick={loadMoreClips}>
-                            Load More
-                        </button>
-                    </div>
+                <div className='col'>
+                    <label className='mr-1'>
+                        Channel
+                    </label>
+                    <input type='text' value={channel} onChange={(e) => setChannel(e.target.value)} />
                 </div>
             </div>
-        </AuthPageWrapper >
+            <BasicBorderWrapper className='row mx-0 my-2 pt-3 pb-2'>
+                <div className='col-auto'>
+                    <span>Filters</span>
+                </div>
+                <div className='col-auto p-0'>
+                    <label>
+                        With Tag:
+                    </label>
+                </div>
+                <MultiSelectWrapper className='col-auto'>
+                    <Multiselect className='bg-secondary'
+                        options={tagOptions} // Options to display in the dropdown
+                        selectedValues={allowedTags} // Preselected value to persist in dropdown
+                        onSelect={onAllowedSelect} // Function will trigger on select event
+                        onRemove={onAllowedRemove} // Function will trigger on remove event
+                        displayValue='name' // Property name to display in the dropdown options
+                        style={{ option: { backgroundColor: '#111111' } }}
+                    />
+                </MultiSelectWrapper>
+                <div className='col-auto p-0'>
+                    <label>
+                        Without Tag:
+                    </label>
+                </div>
+                <MultiSelectWrapper className='col-auto'>
+                    <Multiselect className='bg-secondary'
+                        options={tagOptions} // Options to display in the dropdown
+                        selectedValues={disallowedTags} // Preselected value to persist in dropdown
+                        onSelect={onDisallowedSelect} // Function will trigger on select event
+                        onRemove={onDisallowedRemove} // Function will trigger on remove event
+                        displayValue='name' // Property name to display in the dropdown options
+                        style={{ option: { backgroundColor: '#111111' } }}
+                    />
+                </MultiSelectWrapper>
+            </BasicBorderWrapper>
+            <div className='row m-0'>
+                <BasicBorderWrapper className='fluid-container w-100'>
+                    <div className='row m-0 py-1'>
+                        <div className='col-1 m-0'>
+                            <h5>
+                                Date
+                            </h5>
+                        </div>
+                        <div className='col-1 m-0'>
+                            <h5>
+                                Channel
+                            </h5>
+                        </div>
+                        <div className='col-3 m-0'>
+                            <h5>
+                                Title
+                            </h5>
+                        </div>
+                        <div className='col-2 m-0'>
+                            <h5>
+                                Clipper
+                            </h5>
+                        </div>
+                        <div className='col m-0'>
+                            <h5>
+                                Tags
+                            </h5>
+                        </div>
+                    </div>
+                    {
+                        clips.map(clip => {
+                            return (
+                                <BasicBorderWrapper key={clip.id} className='row m-0 py-1'>
+                                    <div className='col-1 m-0'>
+                                        {clip.date}
+                                    </div>
+                                    <div className='col-1 m-0'>
+                                        <a href={`https://twitch.tv/${clip.channel_name}`}>
+                                            {clip.channel_name}
+                                        </a>
+                                    </div>
+                                    <ClipTitle className='col-3 m-0'>
+                                        <a href={clip.url}>
+                                            {clip.title}
+                                        </a>
+                                    </ClipTitle>
+                                    <div className='col-2 m-0'>
+                                        {clip.clipper_name}
+                                    </div>
+                                    <div className='col m-0'>
+                                        <div className='fluid-container w-100'>
+                                            <div className='row m-0 py-1'>
+                                                {
+                                                    clip.tags.map(tag => {
+                                                        return (
+                                                            <TagWrapper key={tag} className='mr-2 mt-1 pl-2'>
+                                                                <span>
+                                                                    {tag}
+                                                                </span>
+                                                                <DeleteTagButton className='text-center bg-secondary clickable' onClick={() => removeTag(clip.id, tag)}>
+                                                                    x
+                                                                </DeleteTagButton>
+                                                            </TagWrapper>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </BasicBorderWrapper>
+                            )
+                        })
+                    }
+                </BasicBorderWrapper>
+            </div>
+            <div className='row m-0 my-2'>
+                <div className='col'>
+                    <button onClick={loadMoreClips}>
+                        Load More
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 }

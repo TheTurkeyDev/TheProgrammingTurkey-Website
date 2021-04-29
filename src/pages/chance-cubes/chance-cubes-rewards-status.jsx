@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getChanceCubesRewardStatus } from '../../network/chance-cubes-network';
 
-import { PageWrapper } from '../base/page-wrapper';
-
 const statusInfo = [
     { bg: '#8f8f8f', text: 'Untested' },
     { bg: '#046e22', text: 'Working' },
@@ -81,7 +79,7 @@ export const ChanceCubesRewardsStatus = (props) => {
     };
 
     return (
-        <PageWrapper>
+        <>
             <div className='m-2'>
                 <div className='container'>
                     <div className='row'>
@@ -250,7 +248,7 @@ export const ChanceCubesRewardsStatus = (props) => {
                     </table>
                 </div>
             </div>
-        </PageWrapper >
+        </ >
     );
 }
 

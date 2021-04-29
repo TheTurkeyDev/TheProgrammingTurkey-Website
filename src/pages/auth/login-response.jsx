@@ -5,8 +5,6 @@ import { AuthContext } from '../../contexts/auth-context';
 import { OverlayContext } from '../../contexts/overlay-context';
 import * as authAPI from '../../network/auth-network';
 import { AccountMergeOverlay } from '../../overlays/auth/account-merge-overlay';
-import { PageWrapper } from '../base/page-wrapper';
-
 
 export const LoginResponse = (props) => {
 
@@ -52,9 +50,9 @@ export const LoginResponse = (props) => {
     }, []);
 
     return (
-        <PageWrapper>
+        <>
             <h1>{message}</h1>
             <Link to='/'> Click here if you do not get redirected!</Link>
-        </PageWrapper>
+        </>
     );
 }

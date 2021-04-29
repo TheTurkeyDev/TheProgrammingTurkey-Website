@@ -1,4 +1,5 @@
-import { Router, Switch, Route, useRouteMatch } from 'react-router'
+import { Router, Switch, useRouteMatch } from 'react-router'
+import { AuthWrapper } from '../../contexts/auth-context';
 import { TwitchBattleshipSetup } from './twitch-battleship';
 import { TwitchGames } from './twitch-games';
 import { TwitchHangmanSetup } from './twitch-hangman';
@@ -10,10 +11,10 @@ export const TwitchGamesRouter = (props) => {
     return (
         <Router history={props.history}>
             <Switch>
-                <Route exact path={`${path}/`} component={TwitchGames} />
-                <Route exact path={`${path}/battleship`} component={TwitchBattleshipSetup} />
-                <Route exact path={`${path}/rps`} component={TwitchRPSSetup} />
-                <Route exact path={`${path}/hangman`} component={TwitchHangmanSetup} />
+                <AuthWrapper exact path={`${path}/`} component={TwitchGames} />
+                <AuthWrapper exact path={`${path}/battleship`} component={TwitchBattleshipSetup} perm='twitchgame.battleship' />
+                <AuthWrapper exact path={`${path}/rps`} component={TwitchRPSSetup} perm='twitchgame.rps' />
+                <AuthWrapper exact path={`${path}/hangman`} component={TwitchHangmanSetup} />
             </Switch>
         </Router>
     );

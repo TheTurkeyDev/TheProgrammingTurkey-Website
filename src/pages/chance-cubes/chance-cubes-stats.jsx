@@ -1,7 +1,6 @@
 import { useEffect, useState, createRef } from 'react';
 import Chart from 'chart.js';
 
-import { PageWrapper } from '../base/page-wrapper';
 import { getChanceCubesStats } from '../../network/chance-cubes-network';
 
 const colors = [
@@ -454,88 +453,86 @@ export const ChanceCubesStats = () => {
     }, [startDate, endDate]);
 
     return (
-        <PageWrapper>
-            <div id='charts'>
-                <header>
-                    <hgroup className='text-center'>
-                        <h1>Chance Cubes Version Stats</h1>
+        <div id='charts'>
+            <header>
+                <hgroup className='text-center'>
+                    <h1>Chance Cubes Version Stats</h1>
                         Start:
-                        <input
-                            type='date'
-                            id='date_start'
-                            min='2017-05-05'
-                            max={today}
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
-                        />
+                    <input
+                        type='date'
+                        id='date_start'
+                        min='2017-05-05'
+                        max={today}
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
                         End:
-                        <input
-                            type='date'
-                            id='date_end'
-                            min='2017-05-05'
-                            max={today}
-                            value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
-                        />
-                    </hgroup>
-                </header>
-                <div id='LD_Stats' className='text-center'>
-                    <h2 className='mt-5'> Version usage </h2>
-                    <canvas ref={versionLineGraphRef} width='995' height='400'></canvas>
-                    <h2 className='mt-5'> Version usage % </h2>
-                    <canvas ref={versionPieGraphRef} width='995' height='400'></canvas>
-                    <h2 className='mt-5'> MC Version usage</h2>
-                    <canvas ref={mcVersionUsageGraphRef} width='995' height='400'></canvas>
-                    <h2 className='mt-5'> MC Version usage % </h2>
-                    <canvas ref={mcVersionPieGraphRef} width='995' height='400'></canvas>
-                    <h2 className='mt-5'> MC Version usage % over Time</h2>
-                    <canvas ref={mcVersionLineGraphRef} width='995' height='400'></canvas>
-                    <h2 className='mt-5'> Run Totals </h2>
-                    <canvas ref={runTotalsGraphRef} width='995' height='400'></canvas>
-                    <div className='mt-3'>
-                        <div>
-                            <p>
-                                {`Total Mod Runs: ${numberWithCommas(pageData.totalRuns)} (${numberWithCommas(pageData.totalDays)} days)`}
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                {`Average Daily Mod Runs: ${numberWithCommas(pageData.averageRunsMonth)} (Last 30 days)`}
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                {`Most Single Day Runs: ${numberWithCommas(pageData.mostRuns)} (${pageData.mostRunsDay})`}
-                            </p>
-                        </div>
-                        <p>--- Average runs per day ---</p>
-                        <div>
-                            <p>
-                                {`Monday: ${numberWithCommas(pageData.mondayAverage)}`}
-                            </p>
-                            <p>
-                                {`Tuesday: ${numberWithCommas(pageData.tuesdayAverage)}`}
-                            </p>
-                            <p>
-                                {`Wednesday: ${numberWithCommas(pageData.wednesdayAverage)}`}
-                            </p>
-                            <p>
-                                {`Thursaday: ${numberWithCommas(pageData.thursdayAverage)}`}
-                            </p>
-                            <p>
-                                {`Friday: ${numberWithCommas(pageData.fridayAverage)}`}
-                            </p>
-                            <p>
-                                {`Saturday: ${numberWithCommas(pageData.saturdayAverage)}`}
-                            </p>
-                            <p>
-                                {`Sunday: ${numberWithCommas(pageData.saturdayAverage)}`}
-                            </p>
-                        </div>
+                    <input
+                        type='date'
+                        id='date_end'
+                        min='2017-05-05'
+                        max={today}
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
+                </hgroup>
+            </header>
+            <div id='LD_Stats' className='text-center'>
+                <h2 className='mt-5'> Version usage </h2>
+                <canvas ref={versionLineGraphRef} width='995' height='400'></canvas>
+                <h2 className='mt-5'> Version usage % </h2>
+                <canvas ref={versionPieGraphRef} width='995' height='400'></canvas>
+                <h2 className='mt-5'> MC Version usage</h2>
+                <canvas ref={mcVersionUsageGraphRef} width='995' height='400'></canvas>
+                <h2 className='mt-5'> MC Version usage % </h2>
+                <canvas ref={mcVersionPieGraphRef} width='995' height='400'></canvas>
+                <h2 className='mt-5'> MC Version usage % over Time</h2>
+                <canvas ref={mcVersionLineGraphRef} width='995' height='400'></canvas>
+                <h2 className='mt-5'> Run Totals </h2>
+                <canvas ref={runTotalsGraphRef} width='995' height='400'></canvas>
+                <div className='mt-3'>
+                    <div>
+                        <p>
+                            {`Total Mod Runs: ${numberWithCommas(pageData.totalRuns)} (${numberWithCommas(pageData.totalDays)} days)`}
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            {`Average Daily Mod Runs: ${numberWithCommas(pageData.averageRunsMonth)} (Last 30 days)`}
+                        </p>
+                    </div>
+                    <div>
+                        <p>
+                            {`Most Single Day Runs: ${numberWithCommas(pageData.mostRuns)} (${pageData.mostRunsDay})`}
+                        </p>
+                    </div>
+                    <p>--- Average runs per day ---</p>
+                    <div>
+                        <p>
+                            {`Monday: ${numberWithCommas(pageData.mondayAverage)}`}
+                        </p>
+                        <p>
+                            {`Tuesday: ${numberWithCommas(pageData.tuesdayAverage)}`}
+                        </p>
+                        <p>
+                            {`Wednesday: ${numberWithCommas(pageData.wednesdayAverage)}`}
+                        </p>
+                        <p>
+                            {`Thursaday: ${numberWithCommas(pageData.thursdayAverage)}`}
+                        </p>
+                        <p>
+                            {`Friday: ${numberWithCommas(pageData.fridayAverage)}`}
+                        </p>
+                        <p>
+                            {`Saturday: ${numberWithCommas(pageData.saturdayAverage)}`}
+                        </p>
+                        <p>
+                            {`Sunday: ${numberWithCommas(pageData.saturdayAverage)}`}
+                        </p>
                     </div>
                 </div>
             </div>
-        </PageWrapper>
+        </div>
     );
 }
 
