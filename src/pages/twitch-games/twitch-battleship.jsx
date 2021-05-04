@@ -83,6 +83,8 @@ export const TwitchBattleshipSetup = () => {
         });
     };
 
+    const battleshipURL = `${getAppsSiteBase()}/twitch/battleship?token=${token}`;
+
     return (
         <div className='fluid-container pl-3'>
             <div className='row m-0 text-center'>
@@ -94,7 +96,7 @@ export const TwitchBattleshipSetup = () => {
                 <URLLabel className='col m-0 ml-3 align-center'>
                     URL:
                 </URLLabel>
-                <URLInput className='col ml-2 mr-4' type='text' readOnly value={showURL ? `${getAppsSiteBase()}/twitch/battleship?token=${token}` : ''} />
+                <URLInput className='col ml-2 mr-4' type='text' readOnly value={showURL ? battleshipURL : ''} onClick={() => { navigator.clipboard.writeText(battleshipURL); toast.pushToast(<TextToast text='Copied to Clipboard!' />) }} />
             </div>
             <div className='row m-0 mt-2'>
                 <URLLabel className='col m-0 ml-3 align-center' />

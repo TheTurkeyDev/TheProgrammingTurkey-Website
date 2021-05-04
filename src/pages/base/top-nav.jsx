@@ -47,34 +47,9 @@ export const TopNav = () => {
                         </Link>
                     </li>
                     <li className='nav-item dropdown'>
-                        <Link
-                            className='nav-link dropdown-toggle'
-                            to='/projects?type=all'
-                            id='navbarDropdown'
-                            role='button'
-                            data-toggle='dropdown'
-                            aria-haspopup='true'
-                            aria-expanded='false'
-                        >
+                        <Link className='nav-link' to='/projects'>
                             Projects
                         </Link>
-                        <DropdownMenu className='dropdown-menu' aria-labelledby='navbarDropdown'>
-                            <Link className='dropdown-item' to='/projects?type=all'>
-                                All
-                            </Link>
-                            <Link className='dropdown-item' to='/projects?type=ld'>
-                                Ludum Dare
-                            </Link>
-                            <Link className='dropdown-item' to='/projects?type=mods'>
-                                Mods
-                            </Link>
-                            <Link className='dropdown-item' to='/projects?type=webapps'>
-                                Web Apps
-                            </Link>
-                            <Link className='dropdown-item' to='/projects?type=other'>
-                                Others
-                            </Link>
-                        </DropdownMenu>
                     </li>
                     <li className='nav-item'>
                         <Link className='nav-link' to='/support'>

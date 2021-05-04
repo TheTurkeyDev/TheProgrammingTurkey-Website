@@ -6,6 +6,21 @@ import { NewPermissionOverlay } from '../../overlays/admin/new-permission-overla
 import { ConfirmationOverlay } from '../../overlays/confirmation-overlay';
 import { ToastContext } from '../../contexts/toast-context';
 import { TextToast } from '../../toasts/text-toast';
+import styled from 'styled-components';
+
+const PageWrapper = styled.div`
+    margin: 16px;
+`;
+
+const HeaderInputsWrapper = styled.div`
+    display: grid;
+    grid-template-columns: auto auto auto 1fr;
+    gap: 16px;
+`
+
+const TableWrapper = styled.table`
+    margin-top: 8px;
+`;
 
 export const PermissionManagement = () => {
     const toast = useContext(ToastContext);
@@ -57,38 +72,32 @@ export const PermissionManagement = () => {
     };
 
     return (
-        <div className='mr-5 ml-5 mt-2'>
-            <div className='mt-3 fluid-container'>
-                <div className='row'>
-                    <div className='col mr-2'>
-                        <button onClick={() => addNewPerm()}>
-                            New Permission
-                        </button>
-                    </div>
-                    <div className='col mr-2'>
-                        <button onClick={() => { }}>
-                            Update
-                        </button>
-                    </div>
-                    <div className='col'>
-                        <label>Filter</label>
-                        <input className='ml-2' type='text' value={filter} onChange={(e) => setFilter(e.target.value)} />
-                    </div>
+        <PageWrapper>
+            <HeaderInputsWrapper>
+                <button onClick={() => addNewPerm()}>
+                    New Permission
+                </button>
+                <button onClick={() => { }}>
+                    Update
+                </button>
+                <div>
+                    <label>Filter</label>
+                    <input type='text' value={filter} onChange={(e) => setFilter(e.target.value)} />
                 </div>
-            </div>
-            <table className='table text-light text-center '>
+            </HeaderInputsWrapper>
+            <TableWrapper className='table text-light'>
                 <thead>
                     <tr>
-                        <th scope='col-auto'>Actions</th>
-                        <th scope='col-auto'>Permission</th>
-                        <th scope='col'>Description</th>
+                        <th>Actions</th>
+                        <th>Permission</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         permissionList.map((perm) => (
                             <tr key={perm.permission}>
-                                <th scope='row'>
+                                <th>
                                     <i className='fas fa-edit clickable mr-2' />
                                     <i className='fas fa-trash clickable' onClick={() => deletePerm(perm)} />
                                 </th>
@@ -98,7 +107,7 @@ export const PermissionManagement = () => {
                         ))
                     }
                 </tbody>
-            </table>
-        </div>
+            </TableWrapper>
+        </PageWrapper>
     );
 }

@@ -24,3 +24,12 @@ export async function getChanceCubeUserList() {
         return [];
     })
 }
+
+export async function getProjects(group) {
+    console.log(group);
+    return await fetch(`${getDevAPIBase()}/projects${!group ? '' : `?group=${group}`}`, getGetParams()).then(resp => {
+        if (resp.status == 200)
+            return resp.json();
+        return {};
+    })
+}

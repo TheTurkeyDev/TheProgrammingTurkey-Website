@@ -74,6 +74,8 @@ export const TwitchHangmanSetup = () => {
         });
     };
 
+    const hangmanURL = `${getAppsSiteBase()}/twitch/hangman?token=${token}`;
+
     return (
         <div className='fluid-container pl-3'>
             <div className='row m-0 text-center'>
@@ -85,7 +87,7 @@ export const TwitchHangmanSetup = () => {
                 <URLLabel className='col m-0 ml-3 align-center'>
                     URL:
                 </URLLabel>
-                <URLInput className='col ml-2 mr-4' type='text' readOnly value={showURL ? `${getAppsSiteBase()}/twitch/hangman?token=${token}` : ''} />
+                <URLInput className='col ml-2 mr-4' type='text' readOnly value={showURL ? hangmanURL : ''} onClick={() => { navigator.clipboard.writeText(hangmanURL); toast.pushToast(<TextToast text='Copied to Clipboard!' />) }} />
             </div>
             <div className='row m-0 mt-2'>
                 <URLLabel className='col m-0 ml-3 align-center' />

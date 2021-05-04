@@ -1,22 +1,40 @@
-export function LoginPlatform(props) {
+import styled from 'styled-components';
+
+const BadgeWrapper = styled.a`
+    width: 250px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+
+    padding: 2px 0 2px 16px;
+    color: #ffffff;
+    background-color: ${props => props.color};
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    box-shadow: 3px 5px #111314;
+
+    &:hover{
+        text-decoration: none;
+    }
+`;
+
+const PlatformIcon = styled.i`
+    color: white;
+    align-self: center;
+    font-size: 22px;
+`;
+
+const PlatformText = styled.span`
+    color: white;
+    align-self: center;
+    font-size: 26px;
+`;
+
+export function LoginPlatform({ platform, color, icon, url }) {
     return (
-        <div className='row w-100 m-0 mb-3'>
-            <a className='btn p-1 mx-auto' href={props.url}
-                style={{
-                    width: '250px',
-                    fontSize: '24px',
-                    color: '#ffffff',
-                    backgroundColor: props.color,
-                    border: '1px solid #d1d1d1',
-                    borderRadius: '5px',
-                    boxShadow: '3px 5px #111314',
-                }}
-            >
-                <i className={`col p-0 ${props.icon}`} style={{ width: '25%' }} />
-                <p className='col p-0 m-0' style={{ width: '75%', display: 'inline-block' }}>
-                    {props.platform} Login
-                </p>
-            </a>
-        </div>
+        <BadgeWrapper color={color} href={url}>
+            <PlatformIcon className={icon} />
+            <PlatformText>{platform}</PlatformText>
+        </BadgeWrapper>
     );
 }

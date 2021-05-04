@@ -16,12 +16,12 @@ export const Info = () => {
             <div>
                 <span>turkey@theturkey.dev</span>
             </div>
-            <h2 className='mt-3'>Programming languages</h2>
+            <h2>Programming languages</h2>
             <SectionWrapper>
                 Familiar with
             </SectionWrapper>
             <div>Java</div>
-            <div className='mt-2'>
+            <div>
                 <SectionWrapper>
                     Worked with a decent amount
                 </SectionWrapper>
@@ -32,7 +32,7 @@ export const Info = () => {
                 <div>C / Arduino</div>
                 <div>SQL</div>
             </div>
-            <div className='mt-2'>
+            <div>
                 <SectionWrapper>
                     Worked with a few times, but would need refreshers
                 </SectionWrapper>

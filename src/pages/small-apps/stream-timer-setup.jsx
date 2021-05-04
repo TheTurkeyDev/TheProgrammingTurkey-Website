@@ -259,13 +259,15 @@ export const StreamTimerSetup = () => {
         return date.getFullYear() === now.getFullYear() && date.getMonth() == now.getMonth() && date.getDate() === now.getDate();
     }
 
+    const timerUrl = `http://apps.theturkey.dev/streamtimer/${auth.userID}/${timerID}`;
+
     return (
         <div className='fluid-container pl-3'>
             <div className='row m-0 mt-3 mb-2'>
                 <URLLabel className='col m-0 ml-3 align-center'>
                     URL:
                 </URLLabel>
-                <URLInput className='col ml-2 mr-4' type='text' readOnly value={`http://apps.theturkey.dev/streamtimer/${auth.userID}/${timerID}`} />
+                <URLInput className='col ml-2 mr-4' type='text' readOnly value={timerUrl} onClick={() => { navigator.clipboard.writeText(timerUrl); toast.pushToast(<TextToast text='Copied to Clipboard!' />) }} />
             </div>
             <div className='row m-0'>
                 <URLLabel className='col m-0 ml-3 align-center'>

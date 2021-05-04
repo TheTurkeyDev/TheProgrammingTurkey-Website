@@ -102,13 +102,15 @@ export const YouTubeSubGetSetup = () => {
         })
     }
 
+    const ytSubsURL = `https://apps.theturkey.dev/ytsubget?token=${token}`;
+
     return (
         <div className='fluid-container pl-3'>
             <div className='row m-0 mt-3 mb-2'>
                 <URLLabel className='col m-0 ml-3 align-center'>
                     URL:
                 </URLLabel>
-                <URLInput className={`col ml-2 mr-4 ${showURL ? '' : 'hidden'}`} type='text' readOnly value={`https://apps.theturkey.dev/ytsubget?token=${token}`} />
+                <URLInput className={`col ml-2 mr-4 ${showURL ? '' : 'hidden'}`} type='text' readOnly value={ytSubsURL} onClick={() => { navigator.clipboard.writeText(ytSubsURL); toast.pushToast(<TextToast text='Copied to Clipboard!' />) }} />
             </div>
             <div className='row m-0 mt-2'>
                 <URLLabel className='col m-0 ml-3 align-center' />

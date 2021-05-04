@@ -24,7 +24,7 @@ import { UserManagement } from './pages/admin/user-management';
 import { PermissionManagement } from './pages/admin/permission-management';
 import { ChanceCubesRewardBuilder } from './pages/chance-cubes/chance-cubes-reward-builder';
 import { UserPlatformAccountConnections } from './pages/user/user-platform-account-connections';
-import { ProcessManagement } from './pages/admin/process-management';
+import { ProcessManagement } from './pages/admin/processes/process-management';
 import { YouTubeSubGetSetup } from './pages/small-apps/youtube-sub-get-setup';
 import { TwitchClipTagger } from './pages/twitch-clip-filterer/twitch-clip-tagger';
 import { TwitchClipsList } from './pages/twitch-clip-filterer/twitch-clips-list';

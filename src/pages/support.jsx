@@ -1,31 +1,62 @@
 import styled from 'styled-components';
 
-const RowWrapper = styled.div`
+const SupportWrapper = styled.div`
     max-width: 700px;
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 16px;
+    gap: 16px;
+`;
+
+const HeaderWrapper = styled.h1`
+    text-align: center;
+`;
+
+const PlatfromBadgeWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 300px 300px;
+    grid-template-rows: 50px 50px;
+    gap: 16px;
+`;
+
+const PlatformsWrapper = styled.div`
+    display: grid;
+    gap: 32px;
+    grid-template-columns: auto auto auto auto auto;
+    justify-items: center;
+    justify-self: center;
 `;
 
 const PlatformBadge = styled.a`
-    min-width: 300px;
-    max-width: 300px;
-    min-height: 50px;
-    height: 50px;
+    padding-left: 8px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
     background-color:${props => props.color};
+    border-radius: 3px;
+    &:hover {
+        text-decoration: none;
+    }
 `;
 
 const SupportPlatformIcon = styled.i`
     font-size: 28px;
     color: white;
+    align-self: center;
 `;
 
 const SupportPlatformText = styled.span`
     font-weight: bold;
     font-size: ${props => props.size || 28}px;
     color: white;
+    align-self: center;
 `;
 
 const PlatformLink = styled.a`
-    color: white;
-    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
 `;
 
 const PlatformIcon = styled.i`
@@ -35,89 +66,57 @@ const PlatformIcon = styled.i`
 
 export const Support = () => {
     return (
-        <div className='m-3'>
-            <div className='text-center'>
-                <h1>Support Me</h1>
-            </div>
-            <div className='m-3 fluid-container'>
-                <RowWrapper className='row mx-auto'>
-                    <p>
-                        I appreciate you thinking about supporting me and my efforts! I love making things for all of you to use
-                        and I do my best to offer as much as I can for free!
-                    </p>
-                    <p>
-                        Right now, this server and service costs me about $5 a month to run. If you guys are able to cover that, than
-                        I can garuntee that this service will stay online for essentailly forever!
-                    </p>
-                    <p>
-                        Below is a list of ways you can support me, both monitarily and non-monitarily!
-                    </p>
-                </RowWrapper>
-                <RowWrapper className='row mx-auto'>
-                    <PlatformBadge className='col mr-1 mt-2 mx-auto anti-a-white' color={'#6441a5'} href='https://www.twitch.tv/turkeydev/subscribe'>
-                        <div className='fluid-container row h-100'>
-                            <div className='col-auto my-auto ml-3'>
-                                <SupportPlatformIcon className='fab fa-twitch' />
-                            </div>
-                            <div className='col p-0 my-auto mx-auto'>
-                                <SupportPlatformText>Subscribe</SupportPlatformText>
-                            </div>
-                        </div>
-                    </PlatformBadge>
-                    <PlatformBadge className='col mr-1 mt-2 mx-auto anti-a-white' color={'#f96854'} href='https://www.patreon.com/TurkeyDev'>
-                        <div className='fluid-container row h-100'>
-                            <div className='col-auto my-auto ml-3'>
-                                <SupportPlatformIcon className='fab fa-patreon' />
-                            </div>
-                            <div className='col p-0 my-auto mx-auto'>
-                                <SupportPlatformText size={22}>BECOME A PATREON</SupportPlatformText>
-                            </div>
-                        </div>
-                    </PlatformBadge>
-                    <PlatformBadge className='col mr-1 mt-2 mx-auto anti-a-white' color={'#333'} href='https://github.com/sponsors/TheTurkeyDev'>
-                        <div className='fluid-container row h-100'>
-                            <div className='col-auto my-auto ml-3'>
-                                <SupportPlatformIcon className='fab fa-github' />
-                            </div>
-                            <div className='col p-0 my-auto mx-auto'>
-                                <SupportPlatformText>Sponsor Me</SupportPlatformText>
-                            </div>
-                        </div>
-                    </PlatformBadge>
-                    <PlatformBadge className='col mr-1 mt-2 mx-auto anti-a-white' color={'#00457C'} href='https://paypal.me/turkey2349'>
-                        <div className='fluid-container row h-100'>
-                            <div className='col-auto my-auto ml-3'>
-                                <SupportPlatformIcon className='fab fa-paypal' />
-                            </div>
-                            <div className='col p-0 my-auto mx-auto'>
-                                <SupportPlatformText>Donate</SupportPlatformText>
-                            </div>
-                        </div>
-                    </PlatformBadge>
-                </RowWrapper>
-                <RowWrapper className='row mt-3 mx-auto'>
-                    <p>
-                        Don't have any change to spare? No worries! Support me non-monitarily by following me and checking out my content below!
-                    </p>
-                </RowWrapper>
-                <RowWrapper className='row mt-3 mx-auto'>
-                    <PlatformLink className='col' href='https://theturkey.dev/youtube'>
-                        <PlatformIcon className='fab fa-youtube' />
-                    </PlatformLink>
-                    <PlatformLink className='col' href='https://theturkey.dev/twitch'>
-                        <PlatformIcon className='fab fa-twitch' />
-                    </PlatformLink>
-                    <PlatformLink className='col' href='https://theturkey.dev/github'>
-                        <PlatformIcon className='fab fa-github' />
-                    </PlatformLink>
-                    <PlatformLink className='col' href='https://theturkey.dev/twitter'>
-                        <PlatformIcon className='fab fa-twitter' />
-                    </PlatformLink>
-                    <PlatformLink className='col' href='https://theturkey.dev/instagram'>
-                        <PlatformIcon className='fab fa-instagram' />
-                    </PlatformLink>
-                </RowWrapper>
-            </div>
-        </div>
+        <SupportWrapper>
+            <HeaderWrapper>Support Me</HeaderWrapper>
+            <span>
+                I appreciate you thinking about supporting me and my efforts! I love making things for all of you to use
+                and I do my best to offer as much as I can for free!
+            </span>
+            <span>
+                Right now, this server and website costs me about $15 a month to run. If you guys are able to cover that,
+                it would make me very happy!
+            </span>
+            <span>
+                Below is a list of ways you can support me, both monitarily and non-monitarily!
+            </span>
+            <PlatfromBadgeWrapper>
+                <PlatformBadge className='anti-a-white' color={'#6441a5'} href='https://www.twitch.tv/turkeydev/subscribe'>
+                    <SupportPlatformIcon className='fab fa-twitch' />
+                    <SupportPlatformText>Subscribe</SupportPlatformText>
+                </PlatformBadge>
+                <PlatformBadge className='anti-a-white' color={'#f96854'} href='https://www.patreon.com/TurkeyDev'>
+                    <SupportPlatformIcon className='fab fa-patreon' />
+                    <SupportPlatformText size={22}>BECOME A PATREON</SupportPlatformText>
+                </PlatformBadge>
+                <PlatformBadge className='anti-a-white' color={'#333'} href='https://github.com/sponsors/TheTurkeyDev'>
+                    <SupportPlatformIcon className='fab fa-github' />
+                    <SupportPlatformText>Sponsor Me</SupportPlatformText>
+                </PlatformBadge>
+                <PlatformBadge className='anti-a-white' color={'#00457C'} href='https://paypal.me/turkeydev'>
+                    <SupportPlatformIcon className='fab fa-paypal' />
+                    <SupportPlatformText>Tip</SupportPlatformText>
+                </PlatformBadge>
+            </PlatfromBadgeWrapper>
+            <span>
+                Don't have any change to spare? No worries! Support me non-monitarily by following me and checking out my content below!
+            </span>
+            <PlatformsWrapper>
+                <PlatformLink href='https://theturkey.dev/youtube'>
+                    <PlatformIcon className='fab fa-youtube' />
+                </PlatformLink>
+                <PlatformLink href='https://theturkey.dev/twitch'>
+                    <PlatformIcon className='fab fa-twitch' />
+                </PlatformLink>
+                <PlatformLink href='https://theturkey.dev/github'>
+                    <PlatformIcon className='fab fa-github' />
+                </PlatformLink>
+                <PlatformLink href='https://theturkey.dev/twitter'>
+                    <PlatformIcon className='fab fa-twitter' />
+                </PlatformLink>
+                <PlatformLink href='https://theturkey.dev/instagram'>
+                    <PlatformIcon className='fab fa-instagram' />
+                </PlatformLink>
+            </PlatformsWrapper>
+        </SupportWrapper>
     );
 }
