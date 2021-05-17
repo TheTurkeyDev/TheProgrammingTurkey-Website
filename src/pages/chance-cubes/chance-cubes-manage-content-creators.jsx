@@ -1,9 +1,26 @@
 import { useContext, useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { AuthContext } from '../../contexts/auth-context';
+import { OverlayContext } from '../../contexts/overlay-context';
 import * as api from '../../network/network';
+import { ChanceCubesContentCreatorOverlay } from '../../overlays/chance-cubes/chance-cubes-content-creator-overlay';
+import { userListDeleteUser } from '../../network/chance-cubes-network';
+import { ConfirmationOverlay } from '../../overlays/confirmation-overlay';
+
+const PageWrapper = styled.div`
+    padding: 8px 8px 0 8px;
+`
+
+const InputBard = styled.div`
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+`
 
 export const ChanceCubesManageContentCreators = () => {
     const auth = useContext(AuthContext);
+    const overlay = useContext(OverlayContext);
 
     const [userList, setUserList] = useState([]);
     const [searchText, setSerachText] = useState('');
@@ -17,61 +34,80 @@ export const ChanceCubesManageContentCreators = () => {
         if (auth.authState) loadUserList();
     }, [auth.authChecked]);
 
-    const editUser = (user) => {
-        console.log(user);
+    const newUser = () => {
+        overlay.pushCurrentOverlay(<ChanceCubesContentCreatorOverlay />)
     };
 
+    const editUser = (user) => {
+        overlay.pushCurrentOverlay(<ChanceCubesContentCreatorOverlay user={user} />)
+    };
+
+    const deleteUser = (user) => {
+        overlay.pushCurrentOverlay(<ConfirmationOverlay text={'Are you sure you want to delete this user?'} options={
+            [
+                { text: 'Yes', callback: () => { overlay.popCurrentOverlay(); userListDeleteUser(user); } },
+                { text: 'No', callback: () => overlay.popCurrentOverlay() }
+            ]
+        } />);
+    }
+
     return (
-        <div className='mr-5 ml-5 mt-2'>
-            <div className='mt-3'>
-                <label>Search</label>
-                <input
-                    className='ml-2'
-                    type='text'
-                    value={searchText}
-                    onChange={(e) => setSerachText(e.target.value)}
-                />
-            </div>
+        <PageWrapper>
+            <InputBard>
+                <button onClick={() => newUser()}>New Content Creator</button>
+                <div>
+                    <label>Search</label>
+                    <input
+                        type='text'
+                        value={searchText}
+                        onChange={(e) => setSerachText(e.target.value)}
+                    />
+                </div>
+            </InputBard>
             <table className='table text-light text-center '>
                 <thead>
                     <tr>
-                        <th scope='col-2'>Actions</th>
-                        <th scope='col-4'>MC UUID</th>
-                        <th scope='col-2'>Name</th>
-                        <th scope='col-2'>Type</th>
-                        <th scope='col-2'>Twitch</th>
+                        <th>Actions</th>
+                        <th>MC UUID</th>
+                        <th>Name</th>
+                        <th >Type</th>
+                        <th>Twitch</th>
                     </tr>
                 </thead>
                 <tbody>
                     {userList
                         .filter(
                             (user) =>
-                                user.mc_uuid.includes(searchText) ||
-                                user.name.includes(searchText) ||
-                                user.type.includes(searchText) ||
-                                (user.twitch &&
-                                    user.twitch.includes(searchText))
+                                user.UUID.includes(searchText) ||
+                                user.Name.includes(searchText) ||
+                                user.Type.includes(searchText) ||
+                                (user.Twitch &&
+                                    user.Twitch.includes(searchText))
                         )
                         .map((user) => {
                             return (
-                                <tr key={user.mc_uuid}>
-                                    <th scope='row'>
+                                <tr key={user.UUID}>
+                                    <td>
                                         <i
                                             className='fas fa-edit clickable'
                                             onClick={() => editUser(user)}
                                         />
-                                    </th>
-                                    <td>{user.mc_uuid}</td>
-                                    <td>{user.name}</td>
-                                    <td>{user.type}</td>
+                                        <i
+                                            className='fas fa-trash clickable'
+                                            onClick={() => deleteUser(user)}
+                                        />
+                                    </td>
+                                    <td>{user.UUID}</td>
+                                    <td>{user.Name}</td>
+                                    <td>{user.Type}</td>
                                     <td>
-                                        {user.twitch ? `#${user.twitch}` : ''}
+                                        {user.Twitch ? `#${user.Twitch}` : ''}
                                     </td>
                                 </tr>
                             );
                         })}
                 </tbody>
             </table>
-        </div>
+        </PageWrapper>
     );
 }

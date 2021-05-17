@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const BadgeWrapper = styled.a`
-    width: 250px;
+    width: 200px;
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 16px;

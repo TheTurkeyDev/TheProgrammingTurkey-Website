@@ -24,7 +24,7 @@ export const UserProfile = () => {
 
     return (
         <>
-            <h2 className='ml-2 mt-1'>Hello {auth.userName}!</h2>
+            <h2>Hello {auth.userName}!</h2>
             <ItemLinkGroup groupTitle='Beta Access' items={betaApps} />
             {adminShow && <ItemLinkGroup groupTitle='Admin Access' items={adminApps} />}
         </ >

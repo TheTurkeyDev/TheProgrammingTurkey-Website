@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 const ItemWrapper = styled.div`
     background: ${props => props.theme.color.bg_secondary};
-    min-width: 200px;
-    max-width: 200px;
     width: 200px;
     height: 200px;
     border-radius: 10px;
@@ -21,6 +19,7 @@ const ProjectLinkTitle = styled.div`
     transition: .5s ease;
     transform: translate(0, 0%);
     -ms-transform: translate(0, 0%);
+    margin-top: 8px;
 
     ${ItemWrapper}:hover & {
         opacity: 0.8;
@@ -30,17 +29,24 @@ const ProjectLinkTitle = styled.div`
     }
 `;
 
+const IconWrapper = styled.i`
+    margin-top: 8px;
+    font-size: 128px;
+`
+
+const ProjectTitle = styled.span`
+    font-size: 20px;
+`
+
 export const ItemLink = ({ item }) => {
     return (
-        <ItemWrapper className='col mx-2 mb-3 p-0 pt-2'>
-            <Link to={item.link} style={{ textDecoration: 'none' }}>
-                <div className='text-light my-auto'>
-                    <i className={item.icon} style={{ fontSize: '128px' }} />
-                </div>
-                <ProjectLinkTitle className='mb-2'>
-                    <span style={{ fontSize: '20px' }}>
+        <ItemWrapper>
+            <Link to={item.link}>
+                <IconWrapper className={`text-light ${item.icon}`} />
+                <ProjectLinkTitle>
+                    <ProjectTitle>
                         {item.title}
-                    </span>
+                    </ProjectTitle>
                 </ProjectLinkTitle>
             </Link>
         </ItemWrapper>

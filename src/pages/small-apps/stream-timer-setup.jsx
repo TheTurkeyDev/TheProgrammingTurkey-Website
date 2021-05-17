@@ -6,6 +6,7 @@ import { ToastContext } from '../../contexts/toast-context';
 import * as timerAPI from '../../network/timer-network';
 import { TextToast } from '../../toasts/text-toast';
 import styled from 'styled-components';
+import { getAppsSiteBase } from '../../network/network-helper';
 
 const URLLabel = styled.label`
     font-size: 22px;
@@ -259,7 +260,7 @@ export const StreamTimerSetup = () => {
         return date.getFullYear() === now.getFullYear() && date.getMonth() == now.getMonth() && date.getDate() === now.getDate();
     }
 
-    const timerUrl = `http://apps.theturkey.dev/streamtimer/${auth.userID}/${timerID}`;
+    const timerUrl = `${getAppsSiteBase()}/streamtimer/${auth.userID}/${timerID}`;
 
     return (
         <div className='fluid-container pl-3'>

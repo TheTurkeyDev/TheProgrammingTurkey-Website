@@ -35,7 +35,7 @@ const settings = {
         { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the experience is spawned' }
     ],
     'Item': [
-        { key: 'item', display: 'Item NBT', type: 'string', default: '', description: 'NBT of the item to be spawned in' },
+        { key: 'item', display: 'Item NBT', type: 'text', default: '', description: 'NBT of the item to be spawned in' },
         { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the item is spawned' }
     ],
     'Command': [
@@ -112,52 +112,52 @@ const settings = {
 
 const colors = ['#06f0fa', '#e0ab02', '#05568f', '#9708d8', '#318209', '#be3921'];
 
-export function ChanceCubesReward(props) {
+export const ChanceCubesReward = ({ json, color, rewardId, setRewardID, setRewardState, deleteReward }) => {
 
     const overlay = useContext(OverlayContext);
 
     const [collapsed, setCollapsed] = useState(false);
 
     const changeRewardID = (id) => {
-        props.setRewardID(props.rewardId, id);
+        setRewardID(rewardId, id);
     }
 
     const changeChanceValue = (chance) => {
-        const json = { ...props.json };
+        const jsonCopy = { ...json };
         if (chance)
-            json.chance = Math.min(100, Math.max(-100, chance));
+            jsonCopy.chance = Math.min(100, Math.max(-100, chance));
         else
-            json.chance = chance;
-        props.setRewardState(props.rewardId, json);
+            jsonCopy.chance = chance;
+        setRewardState(rewardId, jsonCopy);
     }
 
     const setIsGiantCC = () => {
-        const json = { ...props.json };
-        json.isGiantCubeReward = !json.isGiantCubeReward;
-        props.setRewardState(props.rewardId, json);
+        const jsonCopy = { ...json };
+        jsonCopy.isGiantCubeReward = !jsonCopy.isGiantCubeReward;
+        setRewardState(rewardId, jsonCopy);
     }
 
 
     const changeRewardTypeValue = (rewardType, index, rewardjson) => {
-        const json = { ...props.json };
-        json[rewardType][index] = rewardjson;
-        props.setRewardState(props.rewardId, json);
+        const jsonCopy = { ...json };
+        jsonCopy[rewardType][index] = rewardjson;
+        setRewardState(rewardId, jsonCopy);
     }
 
     const addRewardTypetoJson = (event) => {
-        const json = { ...props.json };
+        const jsonCopy = { ...json };
         const typeJson = [];
         insetRewardType(event.code, typeJson);
-        json[event.code] = typeJson;
-        props.setRewardState(props.rewardId, json);
+        jsonCopy[event.code] = typeJson;
+        setRewardState(rewardId, jsonCopy);
     }
 
     const insetRewardTypetoJson = (type) => {
-        const json = { ...props.json };
-        const typeJson = json[type];
+        const jsonCopy = { ...json };
+        const typeJson = jsonCopy[type];
         insetRewardType(type, typeJson);
-        json[type] = typeJson;
-        props.setRewardState(props.rewardId, json);
+        jsonCopy[type] = typeJson;
+        setRewardState(rewardId, jsonCopy);
     }
 
     const insetRewardType = (type, typeJson) => {
@@ -169,9 +169,9 @@ export function ChanceCubesReward(props) {
     }
 
     const deleteRewardTypeIndex = (type, index) => {
-        const json = { ...props.json };
-        json[type] = json[type].filter((element, i) => i !== index);
-        props.setRewardState(props.rewardId, json);
+        const jsonCopy = { ...json };
+        jsonCopy[type] = jsonCopy[type].filter((element, i) => i !== index);
+        setRewardState(rewardId, jsonCopy);
     }
 
     const deleteRewardType = (type) => {
@@ -184,64 +184,64 @@ export function ChanceCubesReward(props) {
     }
 
     const deleteRewardTypeConfirm = (type) => {
-        const json = { ...props.json };
-        delete json[type];
-        props.setRewardState(props.rewardId, json);
+        const jsonCopy = { ...json };
+        delete jsonCopy[type];
+        setRewardState(rewardId, jsonCopy);
     }
 
     const addRewardType = () => {
-        overlay.pushCurrentOverlay(<ChanceCubesAddRewardTypeOverlay json={props.json} add={addRewardTypetoJson} />);
+        overlay.pushCurrentOverlay(<ChanceCubesAddRewardTypeOverlay json={json} add={addRewardTypetoJson} />);
     }
 
     const changeDepValue = (dep, value) => {
-        const json = { ...props.json };
-        json.dependencies[dep] = value
-        props.setRewardState(props.rewardId, json);
+        const jsonCopy = { ...json };
+        jsonCopy.dependencies[dep] = value
+        setRewardState(rewardId, jsonCopy);
     }
 
     const deleteDepValue = (dep) => {
-        const json = { ...props.json };
-        delete json.dependencies[dep];
-        props.setRewardState(props.rewardId, json);
+        const jsonCopy = { ...json };
+        delete jsonCopy.dependencies[dep];
+        setRewardState(rewardId, jsonCopy);
     }
 
 
     return (
-        <div className='m-2 container' style={{ border: `1px solid ${props.color}` }}>
+        <div className='m-2 container' style={{ border: `1px solid ${color}` }}>
             <div className='row m-2'>
                 <h4>Reward</h4>
                 <div className='ml-auto' onClick={() => setCollapsed(old => !old)}>
                     {collapsed && <i className='clickable fas fa-chevron-left' />}
                     {!collapsed && <i className='clickable fas fa-chevron-down' />}
                 </div>
-                <div className='ml-3' onClick={() => props.deleteReward()}>
+                <div className='ml-3' onClick={() => deleteReward()}>
                     <i className='clickable fas fa-trash' />
                 </div>
             </div>
             <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
                 <label className='col timer-label'>Reward ID:</label>
-                <input className='col-9' style={{ maxWidth: '250px' }} type='text' value={props.rewardId} onChange={(e) => changeRewardID(e.target.value)} />
+                <input className='col-9' style={{ maxWidth: '250px' }} type='text' value={rewardId} onChange={e => changeRewardID(e.target.value)} />
             </div>
             <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
                 <label className='col-3 timer-label'>Chance Value:</label>
-                <input className='col-9' style={{ maxWidth: '250px' }} type='number' min={-100} max={100} value={props.json.chance} onChange={(e) => changeChanceValue(e.target.value)} />
+                <input className='col-9' style={{ maxWidth: '250px' }} type='number' min={-100} max={100} value={json.chance} onChange={e => changeChanceValue(e.target.value)} />
             </div>
             <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
                 <label className='col-3 timer-label'>Giant Chance Cube Reward:</label>
                 <div className='toggle-switch'>
-                    <input type='checkbox' checked={props.json.isGiantCubeReward} onChange={() => { }} />
+                    <input type='checkbox' checked={json.isGiantCubeReward} onChange={() => { }} />
                     <span className='toggle-slider round' onClick={() => setIsGiantCC()}></span>
                 </div>
             </div>
             <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
-                <DependencyList json={props.json.dependencies} insertDependency={changeDepValue} changeValue={changeDepValue} delete={deleteDepValue} />
+                <DependencyList json={json.dependencies} insertDependency={changeDepValue} changeValue={changeDepValue} delete={deleteDepValue} />
             </div>
             {
                 Object.keys(settings).map((type, i) => {
-                    if (props.json[type]) {
+                    if (json[type]) {
                         return (
                             <div className={`row m-2 ${collapsed ? 'hidden' : ''}`} key={type}>
-                                <RewardTypesList type={type} color={colors[i % colors.length]} settings={settings[type]} json={props.json[type]} insetRewardTypetoJson={() => insetRewardTypetoJson(type)} changeRewardTypeValue={(id, blockJson) => changeRewardTypeValue(type, id, blockJson)} deleteRewardTypeIndex={(index) => deleteRewardTypeIndex(type, index)} deleteRewardType={() => deleteRewardType(type)} />
+                                <RewardTypesList type={type} color={colors[i % colors.length]} settings={settings[type]} json={json[type]} insetRewardTypetoJson={() => insetRewardTypetoJson(type)} changeRewardTypeValue={(id, blockJson) => changeRewardTypeValue(type, id, blockJson)} deleteRewardTypeIndex={(index) => deleteRewardTypeIndex(type, index)} deleteRewardType={() => deleteRewardType(type)} />
                             </div>
                         );
                     }

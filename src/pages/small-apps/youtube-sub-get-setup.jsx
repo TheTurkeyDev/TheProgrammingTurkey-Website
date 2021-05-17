@@ -4,6 +4,7 @@ import { AuthContext } from '../../contexts/auth-context';
 import { ToastContext } from '../../contexts/toast-context';
 import * as authAPI from '../../network/auth-network';
 import styled from 'styled-components';
+import { getAppsSiteBase } from '../../network/network-helper';
 
 const URLLabel = styled.label`
     font-size: 22px;
@@ -73,10 +74,10 @@ export const YouTubeSubGetSetup = () => {
             // ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
             if (loading) {
-                ctx.fillText(subCount, 0, 0);
+                ctx.fillText('Loading...', 10, 10);
             }
             else {
-                ctx.fillText('Loading...', 10, 10);
+                ctx.fillText(subCount, 0, 0);
             }
         }
     });
@@ -102,7 +103,7 @@ export const YouTubeSubGetSetup = () => {
         })
     }
 
-    const ytSubsURL = `https://apps.theturkey.dev/ytsubget?token=${token}`;
+    const ytSubsURL = `${getAppsSiteBase()}/ytsubget?token=${token}`;
 
     return (
         <div className='fluid-container pl-3'>

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { OverlayContext } from '../../../contexts/overlay-context';
 import { ConfirmationOverlay } from '../../../overlays/confirmation-overlay';
 
-export function Dependency(props) {
+export const Dependency = ({ type, value, color, changeValue, deleteDependency }) => {
     const overlay = useContext(OverlayContext);
 
     const deleteInstance = () => {
@@ -14,7 +14,7 @@ export function Dependency(props) {
                         text: 'Yes',
                         callback: () => {
                             overlay.popCurrentOverlay();
-                            props.delete();
+                            deleteDependency();
                         },
                     },
                     { text: 'No', callback: () => overlay.popCurrentOverlay() },
@@ -26,18 +26,16 @@ export function Dependency(props) {
     return (
         <div
             className='m-2 container pb-3'
-            style={{ border: `1px solid ${props.color}` }}
+            style={{ border: `1px solid ${color}` }}
         >
             <div className='row ml-2 mt-2'>
-                <label className='col-3 timer-label'>{props.type}:</label>
+                <label className='col-3 timer-label'>{type}:</label>
                 <input
                     className='col'
                     style={{ maxWidth: '250px' }}
                     type='text'
-                    value={props.value}
-                    onChange={(e) => {
-                        props.changeValue(e.target.value);
-                    }}
+                    value={value}
+                    onChange={e => changeValue(e.target.value)}
                 />
                 <div
                     className='ml-auto col-auto'

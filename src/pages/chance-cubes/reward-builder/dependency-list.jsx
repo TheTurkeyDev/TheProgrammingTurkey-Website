@@ -3,7 +3,7 @@ import { OverlayContext } from '../../../contexts/overlay-context';
 import { ChanceCubesAddDependencyOverlay } from '../../../overlays/chance-cubes/chance-cubes-add-reward-dependency-overlay';
 import { Dependency } from './dependency';
 
-export function DependencyList(props) {
+export const DependencyList = ({ json, changeValue, insertDependency, deleteDependency }) => {
     const overlay = useContext(OverlayContext);
 
     const [collapsed, setCollapsed] = useState(false);
@@ -24,28 +24,22 @@ export function DependencyList(props) {
                     )}
                 </div>
             </div>
-            <div className={`row m-2 ${(collapsed || !Object.keys(props.json).includes('mod')) ? 'hidden' : ''}`}>
+            <div className={`row m-2 ${(collapsed || !Object.keys(json).includes('mod')) ? 'hidden' : ''}`}>
                 <Dependency
                     type='Mod'
-                    value={props.json.mod}
+                    value={json.mod}
                     color={'#c1fda1'}
-                    changeValue={(value) => props.changeValue('mod', value)}
-                    delete={() => {
-                        props.delete('mod');
-                    }}
+                    changeValue={value => changeValue('mod', value)}
+                    deleteDependency={() => deleteDependency('mod')}
                 />
             </div>
-            <div className={`row m-2 ${collapsed || !Object.keys(props.json).includes('mcVersion') ? 'hidden' : ''}`}>
+            <div className={`row m-2 ${collapsed || !Object.keys(json).includes('mcVersion') ? 'hidden' : ''}`}>
                 <Dependency
                     type='Minecraft Version'
-                    value={props.json.mcVersion}
+                    value={json.mcVersion}
                     color={'#af2ea2'}
-                    changeValue={(value) =>
-                        props.changeValue('mcVersion', value)
-                    }
-                    delete={() => {
-                        props.delete('mcVersion');
-                    }}
+                    changeValue={value => changeValue('mcVersion', value)}
+                    deleteDependency={() => deleteDependency('mcVersion')}
                 />
             </div>
             <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
@@ -54,8 +48,8 @@ export function DependencyList(props) {
                     onClick={() => {
                         overlay.pushCurrentOverlay(
                             <ChanceCubesAddDependencyOverlay
-                                json={props.json}
-                                add={(type) => props.insertDependency(type, '')}
+                                json={json}
+                                add={type => insertDependency(type, '')}
                             />
                         );
                     }}

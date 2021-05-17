@@ -27,7 +27,7 @@ export const UserManageOverlay = (props) => {
         authAPI.removeUserPermission(props.userId, perm).then((json) => {
             if (json.message)
                 toast.pushToast(<TextToast text={json.message} />);
-            setUpdate((old) => !old);
+            setUpdate(old => !old);
         });
     };
 

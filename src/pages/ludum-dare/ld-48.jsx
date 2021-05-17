@@ -11,7 +11,7 @@ export const LD48 = () => {
                 { href: 'https://github.com/TheTurkeyDev/LudumDare48', text: 'Source Code' }
             ]}
             videos={[
-                { title: 'Devlog' },
+                { title: 'Devlog', url: 'GAtzLFWUQjw' },
                 { title: 'TimeLapse', url: 'OtgwO-7BzoE' },
             ]}
         >

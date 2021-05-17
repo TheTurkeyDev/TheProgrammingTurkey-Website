@@ -20,7 +20,7 @@ import { UserProfile } from './pages/user/profile';
 import { StreamTimerSetup } from './pages/small-apps/stream-timer-setup';
 import { Logout } from './pages/auth/logout';
 import { ChanceCubesManageContentCreators } from './pages/chance-cubes/chance-cubes-manage-content-creators';
-import { UserManagement } from './pages/admin/user-management';
+import { UserManagement } from './pages/admin/user-mangement/user-management';
 import { PermissionManagement } from './pages/admin/permission-management';
 import { ChanceCubesRewardBuilder } from './pages/chance-cubes/chance-cubes-reward-builder';
 import { UserPlatformAccountConnections } from './pages/user/user-platform-account-connections';
@@ -55,7 +55,7 @@ const routing = (
                                 <Route exact path='/chancecubes/stats' component={ChanceCubesStats} />
                                 <Route exact path='/chancecubes/rewardstatus' component={ChanceCubesRewardsStatus} />
                                 <AuthRoute exact path='/chancecubes/managecontentcreators' component={ChanceCubesManageContentCreators} perm='chancecubes.managecontentcreators' />
-                                <AuthRoute exact path='/chancecubes/rewardbuilder' component={ChanceCubesRewardBuilder} />
+                                <Route exact path='/chancecubes/rewardbuilder' component={ChanceCubesRewardBuilder} />
 
                                 <Route exact path='/stream-led-control' component={StreamLEDControl} />
                                 <AuthRoute exact path='/streamtimer' component={StreamTimerSetup} perm='streamtimer.dashboard' />

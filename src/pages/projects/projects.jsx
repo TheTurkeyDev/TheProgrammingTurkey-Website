@@ -3,6 +3,12 @@ import styled from 'styled-components';
 import * as API from '../../network/network';
 import { ProjectTile } from './project-tile';
 
+const ProjectsWrapper = styled.div`
+    display: grid;
+    grid-auto-flow: row;
+    gap: 64px;
+`
+
 const ProjectGroupWrapper = styled.div`
     text-align: center;
 `;
@@ -12,6 +18,7 @@ const ProjectGroupProjectsWrapper = styled.div`
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 8px;
 `;
 
 export const Projects = ({ location }) => {
@@ -47,7 +54,7 @@ export const Projects = ({ location }) => {
     }, [group]);
 
     return (
-        <>
+        <ProjectsWrapper>
             {/* TODO: Add project group filter */}
             {
                 Object.keys(projects).map(group =>
@@ -56,12 +63,12 @@ export const Projects = ({ location }) => {
                             <u>{group}</u>
                         </h1>
                         <ProjectGroupProjectsWrapper>
-                            {projects[group].map(proj => (
+                            {projects[group].sort((a, b) => a.order - b.order).map(proj => (
                                 <ProjectTile key={proj.id} title={proj.title} subtitle={proj.subtitle} link={proj.link} image={proj.image} />
                             ))}
                         </ProjectGroupProjectsWrapper>
                     </ProjectGroupWrapper>
                 )}
-        </>
+        </ProjectsWrapper>
     );
 }

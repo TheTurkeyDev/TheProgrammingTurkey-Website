@@ -9,7 +9,6 @@ const ProjectWrapper = styled.div`
     min-height: 200px;
     max-height: 200px;
     position: relative;
-    padding: 5px;
 `;
 
 const ProjectName = styled.div`
@@ -45,7 +44,7 @@ export const ProjectTile = ({ title, subtitle, link, image }) => {
             <AdaptiveLink link={link} style={{ overflow: 'hidden' }}>
                 <ProjectImage loading='lazy' src={image} width='190' height='190' />
                 <ProjectName>
-                    <span>{title}</span>
+                    <h5>{title}</h5>
                     <span>{subtitle}</span>
                 </ProjectName>
             </AdaptiveLink>
