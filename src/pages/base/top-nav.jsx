@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { AuthContext } from '../../contexts/auth-context';
 
 const NavWrapper = styled.nav`
-    background: ${props => props.theme.color.bg_secondary};
+    background: ${props => props.theme.color.bgSecondary};
 `;
 
 const DropdownMenu = styled.div`
-    background: ${props => props.theme.color.bg_secondary};
+    background: ${props => props.theme.color.bgSecondary};
     margin-top: -5px;
 `;
 

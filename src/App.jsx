@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { LinkGroup } from './components/link-group';
 
 const CardWrapper = styled.div`
-    background: ${props => props.theme.color.bg_secondary};
+    background: ${props => props.theme.color.bgSecondary};
 `;
 
 const ListItemWrapper = styled.div`
-    background: ${props => props.theme.color.bg_secondary};
+    background: ${props => props.theme.color.bgSecondary};
 `;
 
 export const App = () => {

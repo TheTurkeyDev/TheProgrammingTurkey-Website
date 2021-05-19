@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
 const PlatformIcon = styled.i`
-    color: white
-    font-size: 2rem;
+    color: white;
 `
 
 const PopOverText = styled.div`
@@ -16,6 +15,7 @@ const PopOverText = styled.div`
     z-index: 1;
     opacity: 0;
     transition: opacity 0.3s;
+    width: 300px;
 
     top: -50%;
     right: ${props => props.direction === 'left' ? '100%' : ''};

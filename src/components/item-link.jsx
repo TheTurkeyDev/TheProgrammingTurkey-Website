@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ItemWrapper = styled.div`
-    background: ${props => props.theme.color.bg_secondary};
+    background: ${props => props.theme.color.bgSecondary};
     width: 200px;
     height: 200px;
     border-radius: 10px;

@@ -9,7 +9,7 @@ import { MCModSupport } from './pages/mods/mc-mod-support';
 import { LDStats } from './pages/ludum-dare/ld-stats';
 
 import { ChanceCubesStats } from './pages/chance-cubes/chance-cubes-stats';
-import { ChanceCubesRewardsStatus } from './pages/chance-cubes/chance-cubes-rewards-status'
+import { ChanceCubesRewardsStatus } from './pages/chance-cubes/reward-status/chance-cubes-rewards-status'
 
 import { Support } from './pages/support';
 import { StreamLEDControl } from './pages/projects/stream-led-control';

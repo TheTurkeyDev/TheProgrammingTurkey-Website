@@ -62,3 +62,8 @@ export const PageLoading = () => {
         <LoadingAnimation />
     );
 }
+
+
+export const LoadingWrapper = ({ loading, children }) => {
+    return loading ? <LoadingAnimation /> : children;
+}
