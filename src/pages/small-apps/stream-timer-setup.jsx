@@ -260,7 +260,7 @@ export const StreamTimerSetup = () => {
         return date.getFullYear() === now.getFullYear() && date.getMonth() == now.getMonth() && date.getDate() === now.getDate();
     }
 
-    const timerUrl = `${getAppsSiteBase()}/streamtimer/${auth.userID}/${timerID}`;
+    const timerUrl = `${getAppsSiteBase()}/streamtimer?userId=${auth.userID}&timerId=${timerID}`;
 
     return (
         <div className='fluid-container pl-3'>

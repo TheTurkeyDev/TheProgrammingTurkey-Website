@@ -1,6 +1,47 @@
 import { useState, useEffect, Fragment, createContext } from 'react';
+import styled from 'styled-components';
 
 export const OverlayContext = createContext(null);
+
+const OverlayWrapper = styled.div`
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 3;
+    text-align: center;
+    display: ${props => props.show ? 'block' : 'none'};
+`;
+
+const OverlayContents = styled.div`
+    display: grid;
+    grid-template-rows: auto 1fr;
+    width: 60%;
+    padding: 25px;
+    margin: auto;
+    margin-top: 100px;
+    max-height: calc(100vh - 200px);
+    overflow-y: hidden;
+    border-radius: 3px;
+`;
+
+const CloseBtn = styled.p`
+    margin: 10px;
+    cursor: pointer;
+    margin-left: auto;
+    
+    &:hover {
+        color: red;
+    }
+`;
+
+const SubOverlayWrapper = styled.div`
+    overflow-y: auto;
+`
 
 export const Overlay = (props) => {
     const [overlay, setOverlay] = useState(<Fragment />);
@@ -38,22 +79,14 @@ export const Overlay = (props) => {
 
     return (
         <OverlayContext.Provider value={overlaydata}>
-            <div
-                id='overlay'
-                style={{ display: `${showOverlay ? 'block' : 'none'}` }}
-            >
-                <div className='container overlay_contents bg-secondary pt-1'>
-                    <div className='row'>
-                        <p
-                            className='ml-auto mb-0 button closeBtn'
-                            onClick={() => overlaydata.closeOverlay()}
-                        >
-                            X
-                        </p>
-                    </div>
-                    <div>{overlay}</div>
-                </div>
-            </div>
+            <OverlayWrapper show={showOverlay}>
+                <OverlayContents className='bg-secondary pt-1'>
+                    <CloseBtn onClick={() => overlaydata.closeOverlay()}>
+                        X
+                    </CloseBtn>
+                    <SubOverlayWrapper>{overlay}</SubOverlayWrapper>
+                </OverlayContents>
+            </OverlayWrapper>
             {props.children}
         </OverlayContext.Provider>
     );

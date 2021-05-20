@@ -1,4 +1,5 @@
 import { getPostAuthParams } from './auth-network';
+import { getGetParams } from './network';
 import { getDevAPIBase } from './network-helper';
 
 export async function getChanceCubesStats(start, end) {
@@ -31,6 +32,12 @@ export async function userListAddUser(uuid, name, type, twitch) {
 
 export async function userListDeleteUser(uuid) {
     return await fetch(`${getDevAPIBase()}/chancecubes/userlistdelete`, getPostAuthParams({ uuid })).then(resp => {
+        return resp.json();
+    });
+}
+
+export async function getRewardSettings(rewardId) {
+    return await fetch(`${getDevAPIBase()}/chancecubes/rewardsettings?rewardId=${rewardId}`, getGetParams()).then(resp => {
         return resp.json();
     });
 }
