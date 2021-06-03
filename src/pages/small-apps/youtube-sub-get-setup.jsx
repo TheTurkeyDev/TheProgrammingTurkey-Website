@@ -77,7 +77,17 @@ export const YouTubeSubGetSetup = () => {
                 ctx.fillText('Loading...', 10, 10);
             }
             else {
-                ctx.fillText(subCount, 0, 0);
+                let dispCount;
+                if (subCount < 1000) {
+                    dispCount = subCount;
+                }
+                else {
+                    const parts = subCount.toPrecision(3).split('e');
+                    const exp = parseInt(parts[1]);
+                    dispCount = (parseFloat(parts[0]) * Math.pow(10, exp % 3)).toPrecision(3);
+                    dispCount += exp > 5 ? 'M' : 'K';
+                }
+                ctx.fillText(dispCount, 0, 0);
             }
         }
     });

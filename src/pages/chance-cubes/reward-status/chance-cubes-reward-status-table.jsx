@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { OverlayContext } from '../../../contexts/overlay-context';
 import { ToastContext } from '../../../contexts/toast-context';
 import { ChanceCubesRewardInfoOverlay } from '../../../overlays/chance-cubes/chance-cubes-reward-info-overlay';
+import { ChanceCubesRewardEditOverlay } from '../../../overlays/chance-cubes/chance-cubes-reward-edit-overlay';
 import { TextToast } from '../../../toasts/text-toast';
 import { ChanceCubesRewardStatusCell } from './chance-cubes-reward-status-row';
 import { gameVersions } from './chance-cubes-rewards-status';
@@ -14,7 +15,7 @@ const TableWrapper = styled.table`
 
 const IconsWrapper = styled.td`
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
     color: ${props => props.theme.color.textPrimary};
 `;
@@ -28,7 +29,7 @@ const ChanceValueWrapper = styled.td`
     text-align: center;
 `
 
-export const ChanceCubesRewardStatusTable = ({ allRewards, shownRewards, notes, highlightedReward }) => {
+export const ChanceCubesRewardStatusTable = ({ allRewards, shownRewards, notes, highlightedReward, canEdit }) => {
 
     const overlay = useContext(OverlayContext);
     const toast = useContext(ToastContext);
@@ -37,10 +38,12 @@ export const ChanceCubesRewardStatusTable = ({ allRewards, shownRewards, notes, 
         overlay.pushCurrentOverlay(<ChanceCubesRewardInfoOverlay name={name} data={data} />);
     };
 
+    const showRewardEditOverlay = (name, data) => {
+        overlay.pushCurrentOverlay(<ChanceCubesRewardEditOverlay name={name} data={data} />);
+    };
+
     const copyToClipBoard = (reward) => {
-        navigator.clipboard.writeText(
-            `https://theturkey.dev/chancecubes/rewardstatus?reward=${reward}`
-        );
+        navigator.clipboard.writeText(`https://site.theturkey.dev/chancecubes/rewardstatus?reward=${reward}`);
         toast.pushToast(<TextToast text='URL copied to clipboard' />);
     };
 
@@ -65,12 +68,13 @@ export const ChanceCubesRewardStatusTable = ({ allRewards, shownRewards, notes, 
                                 <IconsWrapper>
                                     <i className='clickable fas fa-link' onClick={() => copyToClipBoard(reward)} />
                                     <i className='clickable fas fa-info-circle' onClick={() => showRewardOverlay(reward, allRewards[reward])} />
+                                    {canEdit && <i className='clickable fas fa-edit' onClick={() => showRewardEditOverlay(reward, allRewards[reward])} />}
                                 </IconsWrapper>
                                 <RewardNameWrapper isGCCR={isGCCReward}> {reward} </RewardNameWrapper>
                                 <ChanceValueWrapper isGCCR={isGCCReward}> {isGCCReward ? 'GCC*' : allRewards[reward].chance} </ChanceValueWrapper>
                                 {
                                     gameVersions.map(version => {
-                                        const status = Object.prototype.hasOwnProperty.call(allRewards[reward], version) ? allRewards[reward][version] : 0;
+                                        const status = Object.prototype.hasOwnProperty.call(allRewards[reward].versions, version) ? allRewards[reward].versions[version] : 0;
                                         const rewardNotes = notes.filter(note => note.version === version && note.reward_name === reward);
                                         return (
                                             <ChanceCubesRewardStatusCell key={`${reward}-${version}`} notes={rewardNotes} status={status} />

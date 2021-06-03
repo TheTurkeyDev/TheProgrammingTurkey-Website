@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { AuthContext } from '../../../contexts/auth-context';
 import { getChanceCubesRewardStatus } from '../../../network/chance-cubes-network';
 import { LoadingWrapper } from '../../base/page-loading';
 import { ChanceCubesRewardStatusTable } from './chance-cubes-reward-status-table';
@@ -35,9 +36,14 @@ const GCCRewardText = styled.div`
 `
 
 export const ChanceCubesRewardsStatus = ({ location }) => {
+
+    const auth = useContext(AuthContext);
+
     const [rewards, setRewards] = useState({});
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const canEdit = auth.permissions.includes('chancecubes.managerewards')
 
     const params = {};
     if (location.search !== '') {
@@ -52,12 +58,12 @@ export const ChanceCubesRewardsStatus = ({ location }) => {
 
     useEffect(() => {
         getChanceCubesRewardStatus()
-            .then((json) => {
+            .then(json => {
                 let rewards = {};
-                json.rewards.forEach((element) => {
+                json.rewards.forEach(element => {
                     if (!Object.prototype.hasOwnProperty.call(rewards, element.name))
-                        rewards[element.name] = {};
-                    rewards[element.name][element.version] = element.status;
+                        rewards[element.name] = { versions: [] };
+                    rewards[element.name].versions[element.version] = element.status;
                     rewards[element.name].chance = element.chance;
                     rewards[element.name].isgcr = element.is_giant_cube_reward;
                 });
@@ -149,6 +155,7 @@ export const ChanceCubesRewardsStatus = ({ location }) => {
                 shownRewards={Object.keys(rewards).filter(entry => !entry.startsWith('chancecubes:cr_')).sort((a, b) => a.localeCompare(b))}
                 notes={notes}
                 highlightedReward={params.reward}
+                canEdit={canEdit}
             />
             <div className='mt-4'>
                 <h3 className='m-0'>Custom User Rewards</h3>
@@ -158,6 +165,7 @@ export const ChanceCubesRewardsStatus = ({ location }) => {
                 shownRewards={Object.keys(rewards).filter(entry => entry.startsWith('chancecubes:cr_')).sort((a, b) => a.localeCompare(b))}
                 notes={notes}
                 highlightedReward={params.reward}
+                canEdit={canEdit}
             />
         </LoadingWrapper>
     );

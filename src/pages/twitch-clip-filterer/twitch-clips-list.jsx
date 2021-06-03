@@ -8,6 +8,47 @@ import { TextToast } from '../../toasts/text-toast';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+const PageWrapper = styled.div`
+`;
+
+const ListOverlay = styled.div`
+   position: absolute;
+   z-index: 1;
+   top: 55px;
+   right: 16px;
+   background: #111111;
+   border-radius: 5px;
+   width: 400px;
+   height: 200px;
+   overflow-y: auto;
+   overflow-x: hidden;
+   padding-left: 8px;
+`;
+
+const TopInputsWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 150px 150px 1fr;
+    gap: 16px;
+    margin: 8px 0 0 16px;
+`
+
+const ListWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 20px 100px 150px 400px 300px 1fr;
+    gap: 16px;
+    margin-left: 16px;
+`;
+
+const SplitLine = styled.div`
+    grid-column: 1 / span 6;
+    border-top: 1px solid #d1d1d1;
+`
+
+const CheckBoxWrapper = styled.input`
+    justify-self: center;
+    align-self: center;
+`
+
 const BasicBorderWrapper = styled.div`
     border: 1px solid #d1d1d1;
     border-radius: 5px;
@@ -30,14 +71,23 @@ const DeleteTagButton = styled.div`
     width: 20px;
     border: 1px solid #ffffff;
     border-radius: 10px;
+    text-align: center;
+`;
+
+const ClipTags = styled.div`
+    display: flex;
+    gap: 8px;
 `;
 
 const TagWrapper = styled.div`
     position: relative;
     width: min-content;
+    height: min-content;
     padding-right: 1.78rem;
+    padding-left: 4px;
     border: 1px solid #00ff00;
     border-radius: 7px;
+    word-wrap: unset;
 `;
 
 export const TwitchClipsList = () => {
@@ -45,6 +95,7 @@ export const TwitchClipsList = () => {
 
     const [channel, setChannel] = useState(63937599);
     const [clips, setClips] = useState([]);
+    const [selectedClips, setSelectedClips] = useState([]);
     const [page, setPage] = useState(0);
     const [tags, setTags] = useState([]);
     const [allowedTags, setAllowedTags] = useState([]);
@@ -123,25 +174,24 @@ export const TwitchClipsList = () => {
     }).sort((a, b) => a.name.localeCompare(b.name));
 
     return (
-        <div className='fluid-container pl-3 pr-3'>
-            <div className='row m-0 mt-2'>
-                <div className='col'>
-                    <Link to='/twitchclipfilterer/tagger'>
-                        Tag Clips
-                    </Link>
-                </div>
-                <div className='col'>
-                    <button onClick={pullClips}>
-                        Pull Clips
-                    </button>
-                </div>
-                <div className='col'>
-                    <label className='mr-1'>
-                        Channel
-                    </label>
+        <PageWrapper>
+            <ListOverlay>
+                {
+                    selectedClips.map(url => <div key={url}>{url}</div>)
+                }
+            </ListOverlay>
+            <TopInputsWrapper >
+                <Link to='/twitchclipfilterer/tagger'>
+                    Tag Clips
+                </Link>
+                <button onClick={pullClips}>
+                    Pull Clips
+                </button>
+                <div>
+                    <label>Channel:</label>
                     <input type='text' value={channel} onChange={(e) => setChannel(e.target.value)} />
                 </div>
-            </div>
+            </TopInputsWrapper>
             <BasicBorderWrapper className='row mx-0 my-2 pt-3 pb-2'>
                 <div className='col-auto'>
                     <span>Filters</span>
@@ -177,88 +227,58 @@ export const TwitchClipsList = () => {
                     />
                 </MultiSelectWrapper>
             </BasicBorderWrapper>
-            <div className='row m-0'>
-                <BasicBorderWrapper className='fluid-container w-100'>
-                    <div className='row m-0 py-1'>
-                        <div className='col-1 m-0'>
-                            <h5>
-                                Date
-                            </h5>
-                        </div>
-                        <div className='col-1 m-0'>
-                            <h5>
-                                Channel
-                            </h5>
-                        </div>
-                        <div className='col-3 m-0'>
-                            <h5>
-                                Title
-                            </h5>
-                        </div>
-                        <div className='col-2 m-0'>
-                            <h5>
-                                Clipper
-                            </h5>
-                        </div>
-                        <div className='col m-0'>
-                            <h5>
-                                Tags
-                            </h5>
-                        </div>
-                    </div>
-                    {
-                        clips.map(clip => {
-                            return (
-                                <BasicBorderWrapper key={clip.id} className='row m-0 py-1'>
-                                    <div className='col-1 m-0'>
-                                        {clip.date}
-                                    </div>
-                                    <div className='col-1 m-0'>
-                                        <a href={`https://twitch.tv/${clip.channel_name}`}>
-                                            {clip.channel_name}
-                                        </a>
-                                    </div>
-                                    <ClipTitle className='col-3 m-0'>
-                                        <a href={clip.url}>
-                                            {clip.title}
-                                        </a>
-                                    </ClipTitle>
-                                    <div className='col-2 m-0'>
-                                        {clip.clipper_name}
-                                    </div>
-                                    <div className='col m-0'>
-                                        <div className='fluid-container w-100'>
-                                            <div className='row m-0 py-1'>
-                                                {
-                                                    clip.tags.map(tag => {
-                                                        return (
-                                                            <TagWrapper key={tag} className='mr-2 mt-1 pl-2'>
-                                                                <span>
-                                                                    {tag}
-                                                                </span>
-                                                                <DeleteTagButton className='text-center bg-secondary clickable' onClick={() => removeTag(clip.id, tag)}>
-                                                                    x
-                                                                </DeleteTagButton>
-                                                            </TagWrapper>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </BasicBorderWrapper>
-                            )
-                        })
-                    }
-                </BasicBorderWrapper>
-            </div>
-            <div className='row m-0 my-2'>
-                <div className='col'>
-                    <button onClick={loadMoreClips}>
-                        Load More
-                    </button>
-                </div>
-            </div>
-        </div>
+            <ListWrapper>
+                <div />
+                <h5>Date</h5>
+                <h5>Channel</h5>
+                <h5>Title</h5>
+                <h5>Clipper</h5>
+                <h5>Tags</h5>
+                <SplitLine />
+                {
+                    clips.map(clip => {
+                        return (
+                            <>
+                                <CheckBoxWrapper type='checkbox' onChange={e => e.target.checked ? setSelectedClips(clips => [...clips, clip.url]) : setSelectedClips(clips => clips.filter(u => u !== clip.url))} />
+                                <span>
+                                    {clip.date}
+                                </span>
+                                <a href={`https://twitch.tv/${clip.channel_name}`}>
+                                    {clip.channel_name}
+                                </a>
+                                <ClipTitle>
+                                    <a href={clip.url}>
+                                        {clip.title}
+                                    </a>
+                                </ClipTitle>
+                                <span>
+                                    {clip.clipper_name}
+                                </span>
+                                <ClipTags>
+                                    {
+                                        clip.tags.map(tag => {
+                                            return (
+                                                <TagWrapper key={tag}>
+                                                    <span>
+                                                        {tag}
+                                                    </span>
+                                                    <DeleteTagButton className='bg-secondary clickable' onClick={() => removeTag(clip.id, tag)}>
+                                                        x
+                                                    </DeleteTagButton>
+                                                </TagWrapper>
+                                            )
+                                        })
+                                    }
+                                </ClipTags>
+                                <SplitLine />
+                            </>
+                        )
+                    })
+                }
+            </ListWrapper>
+            <button onClick={loadMoreClips}>
+                Load More
+            </button>
+        </PageWrapper >
     );
 }

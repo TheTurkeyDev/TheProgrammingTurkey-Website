@@ -41,7 +41,8 @@ const settings = {
     'Command': [
         { key: 'command', display: 'Command', type: 'text', default: '/help', description: 'Command to be run. Placeholder values: TDB' },
         { key: 'copies', display: 'Copies', type: 'number', default: 0, min: 0, description: 'Number of additional times the command should be run' },
-        { key: 'copies_soft', display: 'Copies Soft', type: 'boolean', default: false, description: 'If enabled, the aditional runs of the command will regenerate their dynamic values' },
+        { key: 'copiesSoft', display: 'Copies Soft', type: 'boolean', default: false, description: 'If enabled, the aditional runs of the command will regenerate their dynamic values' },
+        { key: 'relativeToPlayer', display: 'Relative To Player', type: 'boolean', default: false, description: 'If enabled, the command will be run in reference to the palyer\'s location and not the cube\'s' },
         { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the command is run' }
     ],
     'Potion': [
