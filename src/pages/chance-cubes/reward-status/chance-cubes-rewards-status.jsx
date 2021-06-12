@@ -1,7 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { AuthContext } from '../../../contexts/auth-context';
+import { OverlayContext } from '../../../contexts/overlay-context';
 import { getChanceCubesRewardStatus } from '../../../network/chance-cubes-network';
+import { ChanceCubesRewardCreateOverlay } from '../../../overlays/chance-cubes/chance-cubes-reward-create-overlay';
 import { LoadingWrapper } from '../../base/page-loading';
 import { ChanceCubesRewardStatusTable } from './chance-cubes-reward-status-table';
 
@@ -38,6 +40,7 @@ const GCCRewardText = styled.div`
 export const ChanceCubesRewardsStatus = ({ location }) => {
 
     const auth = useContext(AuthContext);
+    const overlay = useContext(OverlayContext);
 
     const [rewards, setRewards] = useState({});
     const [notes, setNotes] = useState([]);
@@ -146,6 +149,9 @@ export const ChanceCubesRewardsStatus = ({ location }) => {
                         </div>
                     ))
                 }
+                {
+                    canEdit && <button className='m-2' onClick={() => overlay.pushCurrentOverlay(<ChanceCubesRewardCreateOverlay />)}>Add Reward</button>
+                }
             </div>
             <GCCRewardText>
                 *GCC = Giant Chance Cube Reward
@@ -173,17 +179,17 @@ export const ChanceCubesRewardsStatus = ({ location }) => {
 
 function computeVersionCompletion(rewards) {
     const versions = {};
-    Object.keys(rewards).forEach((reward) => {
+    Object.keys(rewards).forEach(reward => {
         if (!reward.startsWith('chancecubes:cr')) {
-            gameVersions.forEach((version) => {
+            gameVersions.forEach(version => {
                 if (!Object.prototype.hasOwnProperty.call(versions, version))
                     versions[version] = { completed: 0, total: 0, working: 0 };
 
-                const status = rewards[reward][version];
+                const status = rewards[reward].versions[version] ?? 0;
                 if (status != 4) {
                     versions[version].total += 1;
 
-                    if (status && status != 0) {
+                    if (status != 0) {
                         versions[version].completed += 1;
                         if (status == 1) {
                             versions[version].working += 1;

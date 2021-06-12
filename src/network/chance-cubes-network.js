@@ -42,3 +42,25 @@ export async function getRewardSettings(rewardId) {
     });
 }
 
+
+export async function saveReward(rewardName, chance, isGiantCC, status) {
+    return await fetch(`${getDevAPIBase()}/chancecubes/updatereward`, getPostAuthParams({
+        name: rewardName,
+        chance,
+        is_giant_cube_reward: isGiantCC,
+        status: status
+    })).then(resp => {
+        return resp.json();
+    });
+}
+
+export async function createReward(rewardName, chance, isGiantCC) {
+    return await fetch(`${getDevAPIBase()}/chancecubes/addreward`, getPostAuthParams({
+        name: rewardName,
+        chance,
+        is_giant_cube_reward: isGiantCC
+    })).then(resp => {
+        return resp.json();
+    });
+}
+

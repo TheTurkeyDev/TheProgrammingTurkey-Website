@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getRewardSettings } from '../../network/chance-cubes-network';
+import { OverlayContext } from '../../contexts/overlay-context';
+import { getRewardSettings, saveReward } from '../../network/chance-cubes-network';
 import { gameVersions, statusInfo } from '../../pages/chance-cubes/reward-status/chance-cubes-rewards-status';
 
 const InputsWrapper = styled.div`
@@ -19,9 +20,11 @@ const RewardSettingsWrapper = styled.table`
 `
 
 export const ChanceCubesRewardEditOverlay = ({ name, data }) => {
+    const overlay = useContext(OverlayContext);
+
     const [settings, setSettings] = useState([]);
 
-    const [mcVersion, setMcVersion] = useState('1.17.10');
+    const [mcVersion, setMcVersion] = useState('1.7.10');
     const [versionStatus, setVersionStatus] = useState(data.versions['1.7.10']);
 
     const [isGCCReward, setIsGCCReward] = useState(data.isgcr);
@@ -43,13 +46,24 @@ export const ChanceCubesRewardEditOverlay = ({ name, data }) => {
     const updateVersionStatus = (ver) => {
         setVersionStatus(ver);
         setAllVersionsStatus(vs => {
-            const vsCopy = [...vs];
-            vsCopy[mcVersion] = ver
-            return vsCopy;
+            vs[mcVersion] = ver
+            return vs;
         })
     }
 
-    console.log(data);
+    const save = () => {
+        saveReward(name, chanceValue, isGCCReward, gameVersions.map(v => ({
+            game_version: v,
+            status: allVersionsStatus[v] ?? 0
+        }))).then(json => {
+            if (json.success) {
+                overlay.popCurrentOverlay();
+            }
+            else {
+                console.log(json.message);
+            }
+        })
+    }
 
     return (
         <>
@@ -67,7 +81,7 @@ export const ChanceCubesRewardEditOverlay = ({ name, data }) => {
                 <select value={mcVersion} onChange={e => setMcVersion(e.target.value)}>
                     {gameVersions.map(v => <option key={v} value={v}>{v}</option>)}
                 </select>
-                <select value={versionStatus} onChange={e => updateVersionStatus(e.target.value)}>
+                <select value={versionStatus} onChange={e => updateVersionStatus(parseInt(e.target.value))}>
                     {statusInfo.map((s, i) => <option key={s.text} value={i}>{s.text}</option>)}
                 </select>
             </InputsWrapper>
@@ -99,7 +113,7 @@ export const ChanceCubesRewardEditOverlay = ({ name, data }) => {
                     }
                 </tbody>
             </RewardSettingsWrapper>
-            <button>
+            <button onClick={() => save()}>
                 Save
             </button>
         </>
