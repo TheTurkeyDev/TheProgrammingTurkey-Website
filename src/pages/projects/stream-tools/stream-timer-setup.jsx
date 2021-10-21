@@ -1,12 +1,12 @@
 import { useEffect, useState, useRef, useContext } from 'react';
-
-import { useInterval } from '../../hooks/use-interval';
-import { AuthContext } from '../../contexts/auth-context';
-import { ToastContext } from '../../contexts/toast-context';
-import * as timerAPI from '../../network/timer-network';
-import { TextToast } from '../../toasts/text-toast';
 import styled from 'styled-components';
-import { getAppsSiteBase } from '../../network/network-helper';
+
+import { useInterval } from '../../../hooks/use-interval';
+import { AuthContext } from '../../../contexts/auth-context';
+import { ToastContext } from '../../../contexts/toast-context';
+import * as timerAPI from '../../../network/timer-network';
+import { TextToast } from '../../../toasts/text-toast';
+import { getAppsSiteBase } from '../../../network/network-helper';
 
 const URLLabel = styled.label`
     font-size: 22px;

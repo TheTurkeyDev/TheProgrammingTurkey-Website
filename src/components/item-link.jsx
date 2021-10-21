@@ -34,6 +34,13 @@ const IconWrapper = styled.i`
     font-size: 128px;
 `
 
+const ImageWrapper = styled.img`
+    margin-top: 8px;
+    width: 128px;
+    height: 128px;
+    object-fit: contain;
+`
+
 const ProjectTitle = styled.span`
     font-size: 20px;
 `
@@ -42,7 +49,8 @@ export const ItemLink = ({ item }) => {
     return (
         <ItemWrapper>
             <Link to={item.link}>
-                <IconWrapper className={`text-light ${item.icon}`} />
+                {item.fa_icon && <IconWrapper className={`text-light ${item.icon}`} />}
+                {!item.fa_icon && <ImageWrapper src={item.icon} />}
                 <ProjectLinkTitle>
                     <ProjectTitle>
                         {item.title}

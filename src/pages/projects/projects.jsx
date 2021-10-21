@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as API from '../../network/network';
 import { ProjectTile } from './project-tile';
@@ -33,7 +33,7 @@ export const Projects = ({ location }) => {
             params.forEach(element => {
                 let keyVal = element.split('=');
                 if (keyVal[0] === 'type') {
-                    setGroup(keyVal[1]);
+                    setGroup(decodeURI(keyVal[1]));
                     found = true;
                 }
             });
@@ -41,33 +41,30 @@ export const Projects = ({ location }) => {
 
         if (!found)
             setGroup('');
-    }, []);
 
-    useEffect(() => {
-        if (group === undefined)
-            return;
-
-        API.getProjects(group).then(json => {
+        API.getProjects('').then(json => {
             if (json.success)
                 setProjects(json.data);
         })
-    }, [group]);
+    }, []);
 
     return (
         <ProjectsWrapper>
             {/* TODO: Add project group filter */}
             {
-                Object.keys(projects).map(group =>
-                    <ProjectGroupWrapper key={group}>
-                        <h1>
-                            <u>{group}</u>
-                        </h1>
-                        <ProjectGroupProjectsWrapper>
-                            {projects[group].sort((a, b) => a.order - b.order).map(proj => (
-                                <ProjectTile key={proj.id} title={proj.title} subtitle={proj.subtitle} link={proj.link} image={proj.image} />
-                            ))}
-                        </ProjectGroupProjectsWrapper>
-                    </ProjectGroupWrapper>
+                Object.keys(projects).map(g =>
+                    (group === '' || group === g) ?
+                        <ProjectGroupWrapper key={g}>
+                            <h1>
+                                <u>{g}</u>
+                            </h1>
+                            <ProjectGroupProjectsWrapper>
+                                {projects[g].sort((a, b) => a.order - b.order).map(proj => (
+                                    <ProjectTile key={proj.id} title={proj.title} subtitle={proj.subtitle} link={proj.link} image={proj.image} />
+                                ))}
+                            </ProjectGroupProjectsWrapper>
+                        </ProjectGroupWrapper>
+                        : <Fragment key={g} />
                 )}
         </ProjectsWrapper>
     );

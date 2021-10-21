@@ -1,10 +1,18 @@
+import styled from 'styled-components';
 import { CenterContent } from '../styles/common-styles';
 import { ProjectSectionWrapper } from '../styles/project-styles';
 import { LinkGroup } from './link-group';
 
+const ContentWrapper = styled(CenterContent)`
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+`
+
 export const ProjectWrapper = ({ title, subTittle, links, videos, children }) => {
     return (
-        <CenterContent>
+        <ContentWrapper>
             <h1>{title}</h1>
             <h3>{subTittle}</h3>
             {children}
@@ -29,6 +37,6 @@ export const ProjectWrapper = ({ title, subTittle, links, videos, children }) =>
                     </ProjectSectionWrapper>
                 ))
             }
-        </CenterContent>
+        </ContentWrapper>
     );
 }

@@ -30,11 +30,15 @@ import { ProjectStatusEdit } from '../admin/project-status-edit';
 import { LD48 } from '../ludum-dare/ld-48';
 import { AuthRoute } from '../../util/AuthRoute';
 import { FPDStats } from './fpdstats';
+import { StreamTimer } from './stream-tools/stream-timer';
+import { LD49 } from '../ludum-dare/ld-49';
+import { StreamAnimationsOverlay } from './stream-tools/stream-animations-overlay';
 
 export const ProjectsRouter = () => {
     return (
         <Switch>
             <Route exact path='/projects/' component={Projects} />
+            <Route exact path='/projects/ld49' component={LD49} />
             <Route exact path='/projects/ld48' component={LD48} />
             <Route exact path='/projects/ld47' component={LD47} />
             <Route exact path='/projects/ld46' component={LD46} />
@@ -59,6 +63,8 @@ export const ProjectsRouter = () => {
             <Route exact path='/projects/slime-rancher-integration' component={SlimeRancherIntegration} />
             <AuthRoute exact path='/projects/statusedit' component={ProjectStatusEdit} perm='projects.editstatus' />
             <Route exact path='/projects/fpdstats' component={FPDStats} />
+            <Route exact path='/projects/streamtimer' component={StreamTimer} />
+            <Route exact path='/projects/streamanimationsoverlay' component={StreamAnimationsOverlay} />
         </Switch>
     )
 }

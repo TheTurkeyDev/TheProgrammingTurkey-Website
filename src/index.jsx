@@ -17,7 +17,7 @@ import { StreamLEDControl } from './pages/projects/stream-led-control';
 import { Login } from './pages/auth/login';
 import { LoginResponse } from './pages/auth/login-response';
 import { UserProfile } from './pages/user/profile';
-import { StreamTimerSetup } from './pages/small-apps/stream-timer-setup';
+import { StreamTimerSetup } from './pages/projects/stream-tools/stream-timer-setup';
 import { Logout } from './pages/auth/logout';
 import { ChanceCubesManageContentCreators } from './pages/chance-cubes/chance-cubes-manage-content-creators';
 import { UserManagement } from './pages/admin/user-mangement/user-management';
@@ -58,7 +58,6 @@ const routing = (
                                 <Route exact path='/chancecubes/rewardbuilder' component={ChanceCubesRewardBuilder} />
 
                                 <Route exact path='/stream-led-control' component={StreamLEDControl} />
-                                <AuthRoute exact path='/streamtimer' component={StreamTimerSetup} perm='streamtimer.dashboard' />
 
                                 <AuthRoute exact path='/twitchclipfilterer/clips' component={TwitchClipsList} perm='twitchclipfilter' />
                                 <AuthRoute exact path='/twitchclipfilterer/tagger' component={TwitchClipTagger} perm='twitchclipfilter' />
@@ -75,6 +74,7 @@ const routing = (
                                 <AuthRoute exact path='/user/profile' component={UserProfile} />
                                 <AuthRoute exact path='/user/connectedaccounts' component={UserPlatformAccountConnections} />
                                 <AuthRoute exact path='/user/youtubesubget' component={YouTubeSubGetSetup} perm='proc.ytsubget' />
+                                <AuthRoute exact path='/user/streamtimer' component={StreamTimerSetup} perm='streamtimer.dashboard' />
 
                                 <AuthRoute exact path='/admin/usermanage' component={UserManagement} perm='admin.usermanage' />
                                 <AuthRoute exact path='/admin/permissionmanage' component={PermissionManagement} perm='admin.managepermissions' />
