@@ -1,4 +1,4 @@
-import { getDevAPIBase, getSiteURLBase } from './network-helper';
+import { getDevAPIBase } from './network-helper';
 import { getGetParams } from './network';
 
 export function getGetAuthParams() {
@@ -24,16 +24,16 @@ export function getPostAuthParams(body) {
     };
 }
 
-export async function getLogins() {
-    return await fetch(`${getDevAPIBase()}/auth/platformlogins?returnurl=${getSiteURLBase()}`, getGetParams()).then(resp => {
+export async function getLogins(returnurl) {
+    return await fetch(`${getDevAPIBase()}/auth/platformlogins?returnurl=${returnurl}`, getGetParams()).then(resp => {
         if (resp.status == 200)
             return resp.json();
         return [];
     });
 }
 
-export async function getPlatformLinks() {
-    return await fetch(`${getDevAPIBase()}/auth/platformlinks?returnurl=${getSiteURLBase()}`, getGetParams()).then(resp => {
+export async function getPlatformLinks(returnurl) {
+    return await fetch(`${getDevAPIBase()}/auth/platformlinks?returnurl=${returnurl}`, getGetParams()).then(resp => {
         if (resp.status == 200)
             return resp.json();
         return [];

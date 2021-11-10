@@ -32,7 +32,7 @@ import { AuthRoute } from '../../util/AuthRoute';
 import { FPDStats } from './fpdstats';
 import { StreamTimer } from './stream-tools/stream-timer';
 import { LD49 } from '../ludum-dare/ld-49';
-import { StreamAnimationsOverlay } from './stream-tools/stream-animations-overlay';
+import { StreamAnimationsOverlay } from './stream-tools/animation-overlay/stream-animations-overlay';
 
 export const ProjectsRouter = () => {
     return (

@@ -1,5 +1,5 @@
 import { useEffect, useState, createRef } from 'react';
-import Chart from 'chart.js';
+import { Chart } from 'chart.js';
 
 import { getChanceCubesStats } from '../../network/chance-cubes-network';
 
@@ -457,7 +457,7 @@ export const ChanceCubesStats = () => {
             <header>
                 <hgroup className='text-center'>
                     <h1>Chance Cubes Version Stats</h1>
-                        Start:
+                    Start:
                     <input
                         type='date'
                         id='date_start'
@@ -466,7 +466,7 @@ export const ChanceCubesStats = () => {
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
                     />
-                        End:
+                    End:
                     <input
                         type='date'
                         id='date_end'

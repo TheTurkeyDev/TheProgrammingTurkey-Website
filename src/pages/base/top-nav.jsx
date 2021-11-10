@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AuthContext } from '../../contexts/auth-context';
+import { LoginButton } from './login-button';
 
 const NavWrapper = styled.nav`
     background: ${props => props.theme.color.bgSecondary};
@@ -104,7 +105,7 @@ export const TopNav = () => {
                         </div>
                     ) : (
                         <div style={{ marginLeft: '150px' }}>
-                            <Link to='/login'> Login </Link>
+                            <LoginButton />
                         </div>
                     )}
                 </div>

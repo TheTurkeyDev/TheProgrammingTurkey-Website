@@ -46,6 +46,14 @@ const SupportPlatformIcon = styled.i`
     align-self: center;
 `;
 
+const SupportPlatformImage = styled.img`
+    max-width: 28px;
+    max-height: 28px;
+    object-fit: contain;
+    align-self: center;
+`;
+
+
 const SupportPlatformText = styled.span`
     font-weight: bold;
     font-size: ${props => props.size || 28}px;
@@ -84,9 +92,9 @@ export const Support = () => {
                     <SupportPlatformIcon className='fab fa-twitch' />
                     <SupportPlatformText>Subscribe</SupportPlatformText>
                 </PlatformBadge>
-                <PlatformBadge className='anti-a-white' color={'#f96854'} href='https://www.patreon.com/TurkeyDev'>
-                    <SupportPlatformIcon className='fab fa-patreon' />
-                    <SupportPlatformText size={22}>BECOME A PATREON</SupportPlatformText>
+                <PlatformBadge className='anti-a-white' color={'#00b9fe'} href='https://ko-fi.com/H2H26OY2S'>
+                    <SupportPlatformImage src='https://storage.ko-fi.com/cdn/cup-border.png' />
+                    <SupportPlatformText>Support Me</SupportPlatformText>
                 </PlatformBadge>
                 <PlatformBadge className='anti-a-white' color={'#333'} href='https://github.com/sponsors/TheTurkeyDev'>
                     <SupportPlatformIcon className='fab fa-github' />

@@ -37,6 +37,7 @@ import { TwitchGamesRouter } from './pages/twitch-games/twitch-games-router';
 import { ProjectsRouter } from './pages/projects/projects-router';
 import { PageWrapper } from './pages/base/page-wrapper';
 import { AuthRoute } from './util/AuthRoute';
+import { AnimatedStreamOverlaySetup } from './pages/projects/stream-tools/animation-overlay/stream-animation-overlay-setup';
 
 const routing = (
     <ThemeProvider theme={theme}>
@@ -75,6 +76,7 @@ const routing = (
                                 <AuthRoute exact path='/user/connectedaccounts' component={UserPlatformAccountConnections} />
                                 <AuthRoute exact path='/user/youtubesubget' component={YouTubeSubGetSetup} perm='proc.ytsubget' />
                                 <AuthRoute exact path='/user/streamtimer' component={StreamTimerSetup} perm='streamtimer.dashboard' />
+                                <AuthRoute exact path='/user/streamanimationoverlay' component={AnimatedStreamOverlaySetup} perm='streamanimationoverlay' />
 
                                 <AuthRoute exact path='/admin/usermanage' component={UserManagement} perm='admin.usermanage' />
                                 <AuthRoute exact path='/admin/permissionmanage' component={PermissionManagement} perm='admin.managepermissions' />

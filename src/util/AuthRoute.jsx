@@ -3,7 +3,7 @@ import { Route, useHistory } from 'react-router'
 import { AuthContext } from '../contexts/auth-context';
 import { PageLoading } from '../pages/base/page-loading';
 
-export const AuthRoute = ({ path, exact = false, component, perm }) => {
+export const AuthRoute = ({ path, exact = false, component, perm, location }) => {
     const auth = useContext(AuthContext);
 
     const history = useHistory();
@@ -11,7 +11,7 @@ export const AuthRoute = ({ path, exact = false, component, perm }) => {
     const loading = !auth.authChecked;
 
     if (!loading && !auth.authState) {
-        history.push('/login');
+        history.push(`/login?from=${location.href}`);
         return <> </>;
     }
 

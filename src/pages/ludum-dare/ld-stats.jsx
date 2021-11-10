@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import Chart from 'chart.js';
+import { Chart } from 'chart.js';
 
 import styled from 'styled-components';
 import { LoadingWrapper } from '../base/page-loading';

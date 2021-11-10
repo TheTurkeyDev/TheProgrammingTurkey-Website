@@ -25,9 +25,9 @@ module.exports = {
     ],
     devServer: {
         historyApiFallback: true,
-        contentBase: './dist',
+        static: './dist',
         hot: true,
         port: 8082,
-        disableHostCheck: true
+        allowedHosts: 'all'
     }
 };
