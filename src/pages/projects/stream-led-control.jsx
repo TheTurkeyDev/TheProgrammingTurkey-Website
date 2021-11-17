@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { ProjectWrapper } from '../../components/project-wrapper';
-
-const Rule = styled.hr`
-    border-color:#757c85;
-`;
+import { Rule } from '../../styles/common-styles';
 
 const SectionsWrapper = styled.div`
     max-width: 500px;

@@ -1,31 +1,23 @@
 export function getDevAPIBase() {
-    if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
-        return 'https://api.test.local';
-    } else {
-        return 'https://api.theturkey.dev';
-    }
+    return isDevEnv() ? 'https://api.test.local' : 'https://api.theturkey.dev';
 }
 
 export function getSiteURLBase() {
-    if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
-        return 'https://test.local';
-    } else {
-        return 'https://site.theturkey.dev';
-    }
+    return isDevEnv() ? 'https://test.local' : 'https://site.theturkey.dev';
 }
 
 export function getYTSiteURLBase() {
-    if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
-        return 'http://localhost:8082';
-    } else {
-        return 'https://site.theturkey.dev';
-    }
+    return isDevEnv() ? 'http://localhost:8082' : 'https://site.theturkey.dev';
 }
 
 export function getAppsSiteBase() {
-    if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
-        return 'https://app.test.local';
-    } else {
-        return 'https://apps.theturkey.dev';
-    }
+    return isDevEnv() ? 'https://app.test.local' : 'https://apps.theturkey.dev';
+}
+
+export function getStreamAnimationsOverlaySiteBase() {
+    return isDevEnv() ? 'http://localhost:8085/' : 'https://apps.theturkey.dev/streamanimations';
+}
+
+function isDevEnv() {
+    return process.env.NODE_ENV && process.env.NODE_ENV === 'development';
 }

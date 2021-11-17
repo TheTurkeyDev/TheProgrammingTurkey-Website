@@ -38,6 +38,7 @@ import { ProjectsRouter } from './pages/projects/projects-router';
 import { PageWrapper } from './pages/base/page-wrapper';
 import { AuthRoute } from './util/AuthRoute';
 import { AnimatedStreamOverlaySetup } from './pages/projects/stream-tools/animation-overlay/stream-animation-overlay-setup';
+import { MJRBotFAQ } from './pages/mjr-bot-faq';
 
 const routing = (
     <ThemeProvider theme={theme}>
@@ -67,6 +68,7 @@ const routing = (
 
                                 <Route exact path='/info' component={Info} />
                                 <Route exact path='/support' component={Support} />
+                                <Route exact path='/mjrbotfaq' component={MJRBotFAQ} />
 
                                 <Route exact path='/login' component={Login} />
                                 <Route exact path='/logout' component={Logout} />

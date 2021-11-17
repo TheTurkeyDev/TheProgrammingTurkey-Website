@@ -57,19 +57,6 @@ export const TopNav = () => {
                             Support Me
                         </Link>
                     </li>
-                    <li className='nav-item'>
-                        <a
-                            className='nav-link'
-                            href=''
-                            onClick={() =>
-                                window.open(
-                                    'http://maven.theprogrammingturkey.com/'
-                                )
-                            }
-                        >
-                            Maven
-                        </a>
-                    </li>
                     <li className='nav-item dropdown'>
                         <span
                             className='nav-link dropdown-toggle txt-color-primary'
