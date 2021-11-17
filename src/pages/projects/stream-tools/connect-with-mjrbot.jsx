@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components'
 import { LoadingModal } from '../../../modals/loading-modal';
+import { getSiteURLBase } from '../../../network/network-helper';
 import { ButtonSecondary } from '../../../styles/common-styles';
 
 const ContentWrapper = styled.div`
@@ -33,6 +34,10 @@ const PlusSign = styled.span`
 
 const ButtonSecondaryWrapper = styled(ButtonSecondary)`
     justify-self: center;
+`;
+
+const Inline = styled.div`
+    display: inline;
 `;
 
 export const ConnectWithMJRBot = ({ refresh }) => {
@@ -68,6 +73,10 @@ export const ConnectWithMJRBot = ({ refresh }) => {
                     <LogoImage src='https://mjrbot.mjrlegends.com/images/mjrbot_site_logo.png' alt='MJRBot ' />
                 </TopImages>
                 <span>You must first connnect with MJRNot to use this tool!</span>
+                <Inline>
+                    <span>Learn more about MJR Bot and why I use it here: </span>
+                    <a href='' onClick={() => window.open(`${getSiteURLBase()}/mjrbotfaq`)}>MJR Bot FAQ</a>
+                </Inline>
                 <ButtonSecondaryWrapper onClick={openConsentScreen}>Connect With MJRBot</ButtonSecondaryWrapper>
             </ContentWrapper>
         </>
