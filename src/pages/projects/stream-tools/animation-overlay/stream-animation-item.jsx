@@ -3,7 +3,7 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, rewardData
         <>
             <div><i className='fas fa-trash clickable' onClick={() => remove()} /></div>
             <span>{animation.display}</span>
-            <select value={rewardData.channel_point_reward} onChange={e => save(rewardData, e.target.value, rewardData.duration)}>
+            <select value={rewardData.channel_point} onChange={e => { rewardData.channel_point = e.target.value; save(animation.id, rewardData); }}>
                 <option value=''>N/A</option>
                 {
                     channelPointRewards.map(reward => (
@@ -13,7 +13,7 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, rewardData
                     ))
                 }
             </select>
-            <input type='number' disabled={rewardData.id === ''} value={rewardData.duration} onChange={e => save(rewardData, rewardData.id, parseInt(e.target.value))} />
+            <div />
         </>
     )
 }

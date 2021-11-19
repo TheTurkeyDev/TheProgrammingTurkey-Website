@@ -30,9 +30,10 @@ import { ProjectStatusEdit } from '../admin/project-status-edit';
 import { LD48 } from '../ludum-dare/ld-48';
 import { AuthRoute } from '../../util/AuthRoute';
 import { FPDStats } from './fpdstats';
-import { StreamTimer } from './stream-tools/stream-timer';
+import { StreamTimer } from './stream-tools/stream-timer/stream-timer';
 import { LD49 } from '../ludum-dare/ld-49';
 import { StreamAnimationsOverlay } from './stream-tools/animation-overlay/stream-animations-overlay';
+import { YouTubeSubCount } from './stream-tools/yt-sub-count/youtube-sub-count';
 
 export const ProjectsRouter = () => {
     return (
@@ -65,6 +66,7 @@ export const ProjectsRouter = () => {
             <Route exact path='/projects/fpdstats' component={FPDStats} />
             <Route exact path='/projects/streamtimer' component={StreamTimer} />
             <Route exact path='/projects/streamanimationsoverlay' component={StreamAnimationsOverlay} />
+            <Route exact path='/projects/yt-sub-count' component={YouTubeSubCount} />
         </Switch>
     )
 }

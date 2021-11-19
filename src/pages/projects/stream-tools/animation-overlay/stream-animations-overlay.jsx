@@ -17,6 +17,7 @@ export const StreamAnimationsOverlay = () => {
                 <AnimationDemo name='Halloween' id='halloween_1' />
                 <AnimationDemo name='Snowflakes' id='snowflake_1' />
                 <AnimationDemo name='Christams Lights' id='christmas_lights_1' />
+                <AnimationDemo name='Balloons' id='balloons_1' />
             </ContainedList>
         </ProjectWrapper>
     );

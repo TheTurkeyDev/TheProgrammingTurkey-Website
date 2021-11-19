@@ -18,9 +18,9 @@ export async function getUserData() {
 }
 
 export async function saveUserData(userData) {
-    return await fetch(`${getDevAPIBase()}/streamanimations/userdata`, authAPI.getPostAuthParams([
+    return await fetch(`${getDevAPIBase()}/streamanimations/userdata`, authAPI.getPostAuthParams({
         ...userData
-    ])).then(resp => {
+    })).then(resp => {
         if (resp.status == 200)
             return true;
         return false;

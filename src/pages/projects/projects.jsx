@@ -24,7 +24,7 @@ const ProjectGroupProjectsWrapper = styled.div`
 export const Projects = ({ location }) => {
 
     const [group, setGroup] = useState(undefined);
-    const [projects, setProjects] = useState({});
+    const [groupedProjects, setGroupedProjects] = useState({});
 
     useEffect(() => {
         let found = false;
@@ -44,7 +44,7 @@ export const Projects = ({ location }) => {
 
         API.getProjects('').then(json => {
             if (json.success)
-                setProjects(json.data);
+                setGroupedProjects(json.data);
         })
     }, []);
 
@@ -52,14 +52,14 @@ export const Projects = ({ location }) => {
         <ProjectsWrapper>
             {/* TODO: Add project group filter */}
             {
-                Object.keys(projects).map(g =>
+                Object.keys(groupedProjects).sort((a, b) => groupedProjects[a].order - groupedProjects[b].order).map(g =>
                     (group === '' || group === g) ?
                         <ProjectGroupWrapper key={g}>
                             <h1>
-                                <u>{g}</u>
+                                <u>{groupedProjects[g].display}</u>
                             </h1>
                             <ProjectGroupProjectsWrapper>
-                                {projects[g].sort((a, b) => a.order - b.order).map(proj => (
+                                {groupedProjects[g].projects.sort((a, b) => a.order - b.order).map(proj => (
                                     <ProjectTile key={proj.id} title={proj.title} subtitle={proj.subtitle} link={proj.link} image={proj.image} />
                                 ))}
                             </ProjectGroupProjectsWrapper>

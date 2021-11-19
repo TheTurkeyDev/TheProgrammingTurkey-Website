@@ -1,5 +1,5 @@
-import { ContainedList, ContainedListItem } from '../../../components/contained-list';
-import { ProjectWrapper } from '../../../components/project-wrapper';
+import { ContainedList, ContainedListItem } from '../../../../components/contained-list';
+import { ProjectWrapper } from '../../../../components/project-wrapper';
 
 export const StreamTimer = () => {
     return (

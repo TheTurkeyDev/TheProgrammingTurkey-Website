@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef, useContext } from 'react';
-import { TextToast } from '../../toasts/text-toast';
-import { AuthContext } from '../../contexts/auth-context';
-import { ToastContext } from '../../contexts/toast-context';
-import * as authAPI from '../../network/auth-network';
+import { TextToast } from '../../../../toasts/text-toast';
+import { AuthContext } from '../../../../contexts/auth-context';
+import { ToastContext } from '../../../../contexts/toast-context';
+import * as authAPI from '../../../../network/auth-network';
 import styled from 'styled-components';
-import { getAppsSiteBase } from '../../network/network-helper';
+import { getAppsSiteBase } from '../../../../network/network-helper';
 
 const URLLabel = styled.label`
     font-size: 22px;

@@ -56,7 +56,7 @@ export const AnimatedStreamOverlaySetup = () => {
     const [token, setToken] = useState('');
     const [animations, setAnimations] = useState([]);
     const [channelRewards, setchannelRewards] = useState([]);
-    const [animationUserData, setAnimationUserData] = useState([]);
+    const [animationUserData, setAnimationUserData] = useState({});
 
     useEffect(() => {
         async function loadData() {
@@ -85,21 +85,22 @@ export const AnimatedStreamOverlaySetup = () => {
             loadData();
     }, [auth.authChecked, refreshMJRData]);
 
-    const updateUserAnimationData = (rewardData, rewardId, duration) => {
-        setAnimationUserData(old => [
-            ...old.filter(data => data.animation_id !== rewardData.animation_id),
-            {
-                animation_id: rewardData.animation_id,
-                duration,
-                channel_point_reward: rewardId,
-            }
-        ])
+    const updateUserAnimationData = (animId, rewardData) => {
+        setAnimationUserData(old => {
+            const copy = { ...old }
+            copy[animId] = rewardData;
+            return copy;
+        })
     }
 
     const removeAnimation = (animationId) => {
         StreamAnimAPI.removeUserAnimation(animationId).then(resp => {
             if (resp)
-                setAnimationUserData(old => [...old.filter(data => data.animation_id !== animationId)])
+                setAnimationUserData(old => {
+                    const copy = { ...old }
+                    delete copy[animationId];
+                    return copy;
+                })
             else
                 toast.pushToast(<TextToast text='An error has occured!' />);
         });
@@ -152,7 +153,7 @@ export const AnimatedStreamOverlaySetup = () => {
                         <hr />
 
                         <Button onClick={() => {
-                            overlay.pushCurrentOverlay(<AddNewStreamAnimationOverlay animations={animations.filter(anim => !animationUserData.find(data => data.animation_id === anim.id))} addAnimation={addAnimation} />)
+                            overlay.pushCurrentOverlay(<AddNewStreamAnimationOverlay animations={animations.filter(anim => !animationUserData[anim.id])} addAnimation={addAnimation} />)
                         }}>
                             Add Animation
                         </Button>
@@ -161,11 +162,11 @@ export const AnimatedStreamOverlaySetup = () => {
                             <h5>Actions</h5>
                             <h5>Animation Name</h5>
                             <h5>Channel Point Trigger</h5>
-                            <h5>Duration</h5>
+                            <div />
                             {
-                                animationUserData.map(data => {
-                                    const anim = animations.find(a => data.animation_id === a.id);
-                                    return (<StreamAnimationItem key={data.animation_id} animation={anim} channelPointRewards={channelRewards} rewardData={data} save={updateUserAnimationData} remove={() => removeAnimation(anim.id)} />);
+                                Object.keys(animationUserData).map(animId => {
+                                    const anim = animations.find(a => animId === a.id);
+                                    return (<StreamAnimationItem key={animId} animation={anim} channelPointRewards={channelRewards} rewardData={animationUserData[animId]} save={updateUserAnimationData} remove={() => removeAnimation(anim.id)} />);
                                 })
                             }
                         </StreamAnimationsList>
