@@ -34,6 +34,7 @@ import { StreamTimer } from './stream-tools/stream-timer/stream-timer';
 import { LD49 } from '../ludum-dare/ld-49';
 import { StreamAnimationsOverlay } from './stream-tools/animation-overlay/stream-animations-overlay';
 import { YouTubeSubCount } from './stream-tools/yt-sub-count/youtube-sub-count';
+import { TwitchGamesProject } from '../twitch-games/twitch-games-info';
 
 export const ProjectsRouter = () => {
     return (
@@ -67,6 +68,7 @@ export const ProjectsRouter = () => {
             <Route exact path='/projects/streamtimer' component={StreamTimer} />
             <Route exact path='/projects/streamanimationsoverlay' component={StreamAnimationsOverlay} />
             <Route exact path='/projects/yt-sub-count' component={YouTubeSubCount} />
+            <Route exact path='/projects/twitch-games' component={TwitchGamesProject} />
         </Switch>
     )
 }
