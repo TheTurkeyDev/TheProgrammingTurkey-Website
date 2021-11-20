@@ -116,13 +116,13 @@ export const AnimatedStreamOverlaySetup = () => {
     }
 
     const addAnimation = (animId) => {
-        setAnimationUserData(old => [
-            ...old,
-            {
-                animation_id: animId,
-                duration: 10
-            }
-        ])
+        setAnimationUserData(old => {
+            const copy = { ...old }
+            copy[animId] = {
+                channel_point: ''
+            };
+            return copy;
+        });
     }
 
     const regenToken = () => {
