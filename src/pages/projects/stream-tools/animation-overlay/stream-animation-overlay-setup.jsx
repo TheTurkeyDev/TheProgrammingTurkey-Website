@@ -70,10 +70,12 @@ export const AnimatedStreamOverlaySetup = () => {
             const promise2 = StreamAnimAPI.getUserData().then(json => {
                 if (json.success) {
                     const data = json.data;
+                    setConnectedToMJRBot(data.connected);
+                    if (!data.connected)
+                        return;
                     setToken(data.token);
                     setchannelRewards(data.channel_points);
-                    setConnectedToMJRBot(data.connected);
-                    setAnimationUserData(data.animation_user_data);
+                    setAnimationUserData(data.animation_user_data ?? {});
                 }
             });
 
