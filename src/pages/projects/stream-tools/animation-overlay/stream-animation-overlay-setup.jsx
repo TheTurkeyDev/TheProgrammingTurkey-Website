@@ -86,11 +86,14 @@ export const AnimatedStreamOverlaySetup = () => {
     }, [auth.authChecked, refreshMJRData]);
 
     const updateUserAnimationData = (animId, rewardData) => {
-        setAnimationUserData(old => {
-            const copy = { ...old }
-            copy[animId] = rewardData;
-            return copy;
-        })
+        const updated = { ...animationUserData }
+        updated[animId] = rewardData;
+        StreamAnimAPI.saveUserData(updated).then(resp => {
+            if (resp)
+                setAnimationUserData(updated);
+            else
+                toast.pushToast(<TextToast text='An error has occured!' />);
+        });
     }
 
     const removeAnimation = (animationId) => {
@@ -106,29 +109,27 @@ export const AnimatedStreamOverlaySetup = () => {
         });
     }
 
-    const saveSettings = () => {
-        StreamAnimAPI.saveUserData(animationUserData).then(resp => {
+    const addAnimation = (animId) => {
+        const updated = { ...animationUserData }
+        updated[animId] = {
+            channel_point: {
+                animation_id: animId,
+                display: 'Channel Point',
+                setting_id: 'channel_point',
+                type: 'string',
+                value: ''
+            }
+        };
+        StreamAnimAPI.saveUserData(updated).then(resp => {
             if (resp)
-                toast.pushToast(<TextToast text='Saved!' />);
+                setAnimationUserData(updated);
             else
                 toast.pushToast(<TextToast text='An error has occured!' />);
         });
     }
 
-    const addAnimation = (animId) => {
-        setAnimationUserData(old => {
-            const copy = { ...old }
-            copy[animId] = {
-                channel_point: ''
-            };
-            return copy;
-        });
-    }
-
     const regenToken = () => {
-        StreamAnimAPI.regenToken('stream_animations').then(token => {
-            setToken(token);
-        });
+        StreamAnimAPI.regenToken('stream_animations').then(token => setToken(token));
     }
 
 
@@ -170,10 +171,6 @@ export const AnimatedStreamOverlaySetup = () => {
                                 })
                             }
                         </StreamAnimationsList>
-
-                        <Button onClick={saveSettings}>
-                            Save
-                        </Button>
                     </>
                 }
             </PageWrapper>

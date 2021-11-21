@@ -37,6 +37,14 @@ export async function removeUserAnimation(animationId) {
     }).catch(() => false);
 }
 
+export async function getSettingDef(anim) {
+    return await fetch(`${getDevAPIBase()}/streamanimations/settingdef?animation=${anim}`, authAPI.getGetAuthParams()).then(resp => {
+        if (resp.status == 200)
+            return resp.json();
+        return [];
+    });
+}
+
 export async function regenToken(forId) {
     return await fetch(`${getDevAPIBase()}/streamanimations/regentoken?for_id=${forId}`, authAPI.getPostAuthParams()).then(resp => {
         return resp.text();
