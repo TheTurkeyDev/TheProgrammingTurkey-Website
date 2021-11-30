@@ -45,6 +45,14 @@ export async function getSettingDef(anim) {
     });
 }
 
+export async function testAnimation(anim) {
+    return await fetch(`${getDevAPIBase()}/streamanimations/testanim?animation=${anim}`, authAPI.getPostAuthParams()).then(resp => {
+        if (resp.status == 200)
+            return resp.json();
+        return {};
+    });
+}
+
 export async function regenToken(forId) {
     return await fetch(`${getDevAPIBase()}/streamanimations/regentoken?for_id=${forId}`, authAPI.getPostAuthParams()).then(resp => {
         return resp.text();
