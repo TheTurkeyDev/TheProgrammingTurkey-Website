@@ -3,17 +3,8 @@ import { TextToast } from '../../../../toasts/text-toast';
 import { AuthContext } from '../../../../contexts/auth-context';
 import { ToastContext } from '../../../../contexts/toast-context';
 import * as authAPI from '../../../../network/auth-network';
-import styled from 'styled-components';
 import { getAppsSiteBase } from '../../../../network/network-helper';
-
-const URLLabel = styled.label`
-    font-size: 22px;
-    max-width: 100px;
-`;
-
-const URLInput = styled.input`
-    width: 800px;
-`;
+import { SecretURL } from '../../../../components/secret-url';
 
 
 export const YouTubeSubGetSetup = () => {
@@ -26,7 +17,6 @@ export const YouTubeSubGetSetup = () => {
 
     const [token, setToken] = useState('');
     const [subCount, setSubcount] = useState(0);
-    const [showURL, setShowURL] = useState(false);
 
     const [fontFamily, setFontFamily] = useState('');
     const [fontSize, setFontSize] = useState(12);
@@ -117,19 +107,8 @@ export const YouTubeSubGetSetup = () => {
 
     return (
         <div className='fluid-container pl-3'>
-            <div className='row m-0 mt-3 mb-2'>
-                <URLLabel className='col m-0 ml-3 align-center'>
-                    URL:
-                </URLLabel>
-                <URLInput className={`col ml-2 mr-4 ${showURL ? '' : 'hidden'}`} type='text' readOnly value={ytSubsURL} onClick={() => { navigator.clipboard.writeText(ytSubsURL); toast.pushToast(<TextToast text='Copied to Clipboard!' />) }} />
-            </div>
-            <div className='row m-0 mt-2'>
-                <URLLabel className='col m-0 ml-3 align-center' />
-                <button className='col-auto ml-2' onClick={() => setShowURL(old => !old)}>{showURL ? 'Hide URL' : 'Show Url'}</button>
-            </div>
-            <div className='row m-0 mt-2'>
-                <URLLabel className='col m-0 ml-3 align-center' />
-                <button className='col-auto ml-2' onClick={regenToken}>Regen Token</button>
+            <div className='mt-2'>
+                <SecretURL url={ytSubsURL} regen={regenToken} />
             </div>
             <hr />
             <div className='row m-0'>

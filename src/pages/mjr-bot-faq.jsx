@@ -32,9 +32,9 @@ export const MJRBotFAQ = () => {
             <Question>What is MJR Bot?</Question>
             <Response>
                 MJR Bot is a Twitch bot written and developed by MJRLegends. MJRBot offers a lot of various twitch features
-                and if you are looking for a bot to use should definitely look into it. As you will read below ME and MJR have
+                and if you are looking for a bot to use should definitely look into it! As you will read below Me and MJR have
                 teamed up to bring some cool integrations for Streamers and thus I utilize his Twitch infrastructure to allow me to
-                develop more things while not having to deal with the nuisances  of Twitch
+                develop more things while not having to deal with the nuisances  of Twitch.
             </Response>
             <Rule />
             <Question>Why use MJR Bot and not make your own Twitch Interface?</Question>

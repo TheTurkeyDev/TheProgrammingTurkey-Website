@@ -5,16 +5,7 @@ import * as api from '../../network/twitch-games-network';
 import { getAppsSiteBase } from '../../network/network-helper';
 
 import { TextToast } from '../../toasts/text-toast';
-import styled from 'styled-components';
-
-const URLLabel = styled.label`
-    font-size: 22px;
-    max-width: 100px;
-`;
-
-const URLInput = styled.input`
-    width: 800px;
-`;
+import { SecretURL } from '../../components/secret-url';
 
 export const TwitchHangmanSetup = () => {
     const gameName = 'hangman';
@@ -22,7 +13,6 @@ export const TwitchHangmanSetup = () => {
     const toast = useContext(ToastContext);
 
     const [token, setToken] = useState('');
-    const [showURL, setShowURL] = useState(false);
 
 
     const [bgColor, setBGColor] = useState('#000000');
@@ -83,20 +73,8 @@ export const TwitchHangmanSetup = () => {
                     <h2>Hangman</h2>
                 </div>
             </div>
-            <div className='row m-0 mt-3 mb-2'>
-                <URLLabel className='col m-0 ml-3 align-center'>
-                    URL:
-                </URLLabel>
-                <URLInput className='col ml-2 mr-4' type='text' readOnly value={showURL ? hangmanURL : ''} onClick={() => { navigator.clipboard.writeText(hangmanURL); toast.pushToast(<TextToast text='Copied to Clipboard!' />) }} />
-            </div>
-            <div className='row m-0 mt-2'>
-                <URLLabel className='col m-0 ml-3 align-center' />
-                <button className='col-auto ml-2' onClick={() => setShowURL((old) => !old)}>
-                    {showURL ? 'Hide URL' : 'Show Url'}
-                </button>
-                <button className='col-auto ml-2' onClick={regenToken}>
-                    Regen Token
-                </button>
+            <div className='mt-2'>
+                <SecretURL url={hangmanURL} regen={regenToken} />
             </div>
             <hr />
             <div className='row m-0'>

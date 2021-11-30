@@ -6,6 +6,7 @@ import { StreamAnimationSettingsOverlay } from './stream-animations-settings-ove
 import * as API from '../../../../network/stream-animations-network';
 import { ToastContext } from '../../../../contexts/toast-context';
 import { TextToast } from '../../../../toasts/text-toast';
+import { ConfirmationOverlay } from '../../../../overlays/confirmation-overlay';
 
 const ActionsWrapper = styled.div`
     display: grid;
@@ -32,12 +33,30 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, rewardData
         });
     }
 
+    const deleteAnimation = () => {
+        overlay.pushCurrentOverlay(
+            <ConfirmationOverlay
+                text={'Are you sure you want to delete this animation? You will lose all configured settings!'}
+                options={[
+                    {
+                        text: 'Yes',
+                        callback: () => {
+                            overlay.popCurrentOverlay();
+                            remove();
+                        },
+                    },
+                    { text: 'No', callback: () => overlay.popCurrentOverlay() },
+                ]}
+            />
+        );
+    };
+
     return (
         <>
             <ActionsWrapper>
-                <i className='fas fa-trash clickable' onClick={() => remove()} />
-                <i className='fas fa-edit clickable' onClick={() => edit()} />
-                <i className='fas fa-play clickable' onClick={() => test()} />
+                <i className='fas fa-trash clickable' title='Delete' onClick={() => deleteAnimation()} />
+                <i className='fas fa-edit clickable' title='Edit' onClick={() => edit()} />
+                <i className='fas fa-play clickable' title='Test' onClick={() => test()} />
             </ActionsWrapper>
             <span>{animation.display}</span>
             <select value={rewardData.channel_point?.value ?? ''} onChange={e => { rewardData.channel_point.value = e.target.value; save(animation.id, rewardData); }}>
