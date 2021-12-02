@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ProjectWrapper } from '../../components/project-wrapper';
+import { ExtLink } from '../../styles/common-styles';
 
 const ListItem = styled.li`
     border-color: #131313;
@@ -26,7 +27,7 @@ export const TurkeyBot = () => {
                 works due to Twitch's internal changes of their endpoints.
                 If you are looking for a smaller indie style bot, check out
                 my friend
-                <a href='' onClick={() => window.open('http://mjrbot.mjrlegends.com')}> MJR's chat moderation bot</a>
+                <ExtLink href='' onClick={() => window.open('http://mjrbot.mjrlegends.com')}> MJR's chat moderation bot</ExtLink>
             </p>
             <h2>Some of these tools include:</h2>
             <div>

@@ -8,7 +8,7 @@ import { TextToast } from '../../../../toasts/text-toast';
 import { getAppsSiteBase, getSiteURLBase } from '../../../../network/network-helper';
 import * as StreamAnimAPI from '../../../../network/stream-animations-network';
 import { LoadingWrapper } from '../../../base/page-loading';
-import { Button } from '../../../../styles/common-styles';
+import { Button, ExtLink } from '../../../../styles/common-styles';
 import { ConnectWithMJRBot } from '../connect-with-mjrbot';
 import { StreamAnimationItem } from './stream-animation-item';
 import { OverlayContext } from '../../../../contexts/overlay-context';
@@ -128,8 +128,8 @@ export const AnimatedStreamOverlaySetup = () => {
         <LoadingWrapper loading={loading}>
             <PageWrapper>
                 <Inline>
-                    <span>This tool was developed in Partnership with <a href='https://mjrbot.mjrlegends.com/'>MJRBot</a> and thus requires you to connect your Twitch account with the service as well. </span>
-                    <a href='' onClick={() => window.open(`${getSiteURLBase()}/mjrbotfaq`)}>MJR Bot FAQ</a>
+                    <span>This tool was developed in Partnership with <ExtLink href='https://mjrbot.mjrlegends.com/'>MJRBot</ExtLink> and thus requires you to connect your Twitch account with the service as well. </span>
+                    <ExtLink href='' onClick={() => window.open(`${getSiteURLBase()}/mjrbotfaq`)}>MJR Bot FAQ</ExtLink>
                 </Inline>
                 <h4>OBS Browser Instructions:</h4>
                 <ul>

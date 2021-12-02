@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { LinkGroup } from './components/link-group';
+import { ExtLink } from './styles/common-styles';
 
 const CardWrapper = styled.div`
     background: ${props => props.theme.color.bgSecondary};
@@ -26,9 +27,9 @@ export const App = () => {
                         I'm using it here to aid in my testing and learning.
                         The source code for my website is actually available
                         to everyone
-                        <a href='https://github.com/TheTurkeyDev/TheProgrammingTurkey-Website'>
+                        <ExtLink href='https://github.com/TheTurkeyDev/TheProgrammingTurkey-Website'>
                             on my Github page!
-                        </a>
+                        </ExtLink>
                     </p>
 
                     <p className='card-text'>

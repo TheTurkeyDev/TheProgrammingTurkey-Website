@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
+import { ExtLink, IntLink } from '../styles/common-styles';
 
 export const AdaptiveLink = ({ link, children }) => {
     return link.startsWith('http') ?
-        <a href={link} target='_blank' rel='noopener noreferrer'>{children} </a> :
-        <Link to={link} > {children} </Link>
+        <ExtLink href={link} target='_blank' rel='noopener noreferrer'>{children} </ExtLink> :
+        <IntLink to={link} > {children} </IntLink>
 }

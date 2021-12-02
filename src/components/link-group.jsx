@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { ExtLink, IntLink } from '../styles/common-styles'
 
 const ProjectLinksWrapper = styled.div`
     display: grid;
@@ -17,13 +17,13 @@ export const LinkGroup = ({ links }) => {
             {
                 links.map(link => (
                     link.href ? (
-                        <a key={link.href} href={link.href} target='_blank' rel='noopener noreferrer'>
+                        <ExtLink key={link.href} href={link.href} target='_blank' rel='noopener noreferrer'>
                             {link.text}
-                        </a>
+                        </ExtLink>
                     ) : (
-                        <Link key={link.href} to={link.to}>
+                        <IntLink key={link.href} to={link.to}>
                             {link.text}
-                        </Link>
+                        </IntLink>
                     )
                 )).reduce((acc, x) => acc === null ? [x] : [acc, '|', x], null)
             }

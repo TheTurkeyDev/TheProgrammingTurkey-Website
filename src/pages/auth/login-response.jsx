@@ -1,10 +1,10 @@
 import { useContext, useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-
+import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth-context';
 import { OverlayContext } from '../../contexts/overlay-context';
 import * as authAPI from '../../network/auth-network';
 import { AccountMergeOverlay } from '../../overlays/auth/account-merge-overlay';
+import { IntLink } from '../../styles/common-styles';
 
 export const LoginResponse = (props) => {
 
@@ -52,7 +52,7 @@ export const LoginResponse = (props) => {
     return (
         <>
             <h1>{message}</h1>
-            <Link to='/'> Click here if you do not get redirected!</Link>
+            <IntLink to='/'> Click here if you do not get redirected!</IntLink>
         </>
     );
 }

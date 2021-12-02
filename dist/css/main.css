@@ -26,32 +26,7 @@ html, body, #root {
 }
 
 .bg-secondary .shadow, .bg-secondary.shadow {
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .30)!important
-}
-
-.bg-primary a, .bg-secondary a {
-    color: #00B4D8;
-}
-
-button {
-    background-color: #343a40;
-    color: #f3f3f3;
-    border: 1px solid #40464d;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #40464d;
-    color: #f3f3f3;
-    border: 1px solid #40464d;
-    border-radius: 5px;
-}
-
-button:disabled {
-    background-color: #212529;
-    color: #d1d1d1;
-    border: 1px solid #40464d;
-    border-radius: 5px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .30) !important
 }
 
 .code {
@@ -78,7 +53,7 @@ button:disabled {
 }
 
 hr {
-    border-color: #40464d!important;
+    border-color: #40464d !important;
 }
 
 .hidden {

@@ -1,4 +1,5 @@
 import { ProjectWrapper } from '../../components/project-wrapper';
+import { ExtLink } from '../../styles/common-styles';
 
 export const ChanceCubesMC = () => {
     return (
@@ -27,29 +28,29 @@ export const ChanceCubesMC = () => {
                 <h3>Rewards, Clips, and Gameplay Videos</h3>
             </div>
             <div className='mt-2'>
-                <a className='ml-1' href='https://www.youtube.com/watch?v=zxzvBvMB0qQ'>
+                <ExtLink className='ml-1' href='https://www.youtube.com/watch?v=zxzvBvMB0qQ'>
                     Village Construction Reward
-                </a>
+                </ExtLink>
             </div>
             <div className='mt-2'>
-                <a className='ml-1' href='https://www.youtube.com/watch?v=CMjavS2m2Tw'>
+                <ExtLink className='ml-1' href='https://www.youtube.com/watch?v=CMjavS2m2Tw'>
                     Math Reward
-                </a>
+                </ExtLink>
             </div>
             <div className='mt-2'>
-                <a className='ml-1' href='https://www.youtube.com/watch?v=VdiEjBlgbTs'>
+                <ExtLink className='ml-1' href='https://www.youtube.com/watch?v=VdiEjBlgbTs'>
                     Giant Chance Cube and Bio Dome
-                </a>
+                </ExtLink>
             </div>
             <div className='mt-2'>
-                <a className='ml-1' href='https://clips.twitch.tv/BenevolentGoldenClipsmomChocolateRain'>
+                <ExtLink className='ml-1' href='https://clips.twitch.tv/BenevolentGoldenClipsmomChocolateRain'>
                     Sketch - Leonidas Reward
-                </a>
+                </ExtLink>
             </div>
             <div className='mt-2'>
-                <a className='ml-1' href='https://clips.twitch.tv/PopularBoredEelFunRun'>
+                <ExtLink className='ml-1' href='https://clips.twitch.tv/PopularBoredEelFunRun'>
                     Tic-Tac-Toe Reward
-                </a>
+                </ExtLink>
             </div>
         </ProjectWrapper>
     );

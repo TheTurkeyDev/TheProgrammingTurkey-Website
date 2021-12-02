@@ -1,4 +1,5 @@
 import { ProjectWrapper } from '../../components/project-wrapper';
+import { ExtLink } from '../../styles/common-styles';
 
 export const GGServer = () => {
     return (
@@ -25,19 +26,19 @@ export const GGServer = () => {
                 notification and details of what was said.
             </p>
             <div>
-                <a href='https://github.com/TheTurkeyDev/GGServer'>
+                <ExtLink href='https://github.com/TheTurkeyDev/GGServer'>
                     GGServer Repository
-                </a>
+                </ExtLink>
             </div>
             <div>
-                <a href='https://github.com/TheTurkeyDev/TurkeyBot-Lurk'>
+                <ExtLink href='https://github.com/TheTurkeyDev/TurkeyBot-Lurk'>
                     Twitch Service Repository
-                </a>
+                </ExtLink>
             </div>
             <div>
-                <a href='https://github.com/TheTurkeyDev/TurkeyBot-Reddit'>
+                <ExtLink href='https://github.com/TheTurkeyDev/TurkeyBot-Reddit'>
                     Reddit Comment Scanner Repository
-                </a>
+                </ExtLink>
             </div>
             <p>If this project gains popularity I'll add more here.</p>
         </ProjectWrapper>

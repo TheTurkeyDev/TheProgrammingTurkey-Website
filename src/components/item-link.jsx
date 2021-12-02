@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { IntLink } from '../styles/common-styles';
 
 const ItemWrapper = styled.div`
     background: ${props => props.theme.color.bgSecondary};
@@ -48,7 +48,7 @@ const ProjectTitle = styled.span`
 export const ItemLink = ({ item }) => {
     return (
         <ItemWrapper>
-            <Link to={item.link}>
+            <IntLink to={item.link}>
                 {item.fa_icon && <IconWrapper className={`text-light ${item.icon}`} />}
                 {!item.fa_icon && <ImageWrapper src={item.icon} />}
                 <ProjectLinkTitle>
@@ -56,7 +56,7 @@ export const ItemLink = ({ item }) => {
                         {item.title}
                     </ProjectTitle>
                 </ProjectLinkTitle>
-            </Link>
+            </IntLink>
         </ItemWrapper>
     );
 }

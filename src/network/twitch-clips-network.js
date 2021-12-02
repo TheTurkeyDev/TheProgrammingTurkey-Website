@@ -19,8 +19,8 @@ export async function getUntaggedClips(channel) {
     });
 }
 
-export async function getTags() {
-    return await fetch(`${getDevAPIBase()}/twitchclipfilter/gettags`, authAPI.getGetAuthParams()).then(resp => {
+export async function getTags(channelId) {
+    return await fetch(`${getDevAPIBase()}/twitchclipfilter/gettags?channelId=${channelId}`, authAPI.getGetAuthParams()).then(resp => {
         return resp.json();
     });
 }
@@ -42,3 +42,10 @@ export async function getClipTags(clipId) {
         return resp.json();
     });
 }
+
+export async function getManagingChannels() {
+    return await fetch(`${getDevAPIBase()}/twitchclipfilter/managingchannels`, authAPI.getGetAuthParams()).then(resp => {
+        return resp.json();
+    });
+}
+

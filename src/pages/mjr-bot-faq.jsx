@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CenterContent, Rule } from '../styles/common-styles';
+import { CenterContent, ExtLink, Rule } from '../styles/common-styles';
 
 const ContentWrapper = styled(CenterContent)`
     max-width: 750px;
@@ -56,7 +56,7 @@ export const MJRBotFAQ = () => {
                 the other features MJR has to offer in his bot and suggest things to him that you want to see! He's constantly
                 looking for feedback and new ideas!
             </Response>
-            <a href='' onClick={() => window.open('')}>Revoke Permission</a>
+            <ExtLink href='' onClick={() => window.open('')}>Revoke Permission</ExtLink>
         </ContentWrapper>
     );
 }

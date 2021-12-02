@@ -6,13 +6,68 @@ import * as clipAPI from '../../network/twitch-clips-network';
 import * as networkHelper from '../../network/network-helper';
 
 import { TextToast } from '../../toasts/text-toast';
+import { Button, ButtonLink } from '../../styles/common-styles';
+import { useURLParams } from '../../hooks/use-url-params';
+import styled from 'styled-components';
+import { PageLoading } from '../base/page-loading';
+
+const ContentWrapper = styled.div`
+    margin: 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+`;
+
+const LeftButton = styled(Button)`
+    justify-self: right;
+`;
+
+const RightButton = styled(Button)`
+    justify-self: left;
+`;
+
+const ClipRow = styled.div`
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: center;
+    justify-items: center;
+`;
+
+const QuickActionsWrapper = styled.div`
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: auto;
+    gap: 16px;
+    width: min-content;
+    justify-self: center;
+`
+
+const TagsWrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+`;
+
+const Tag = styled(Button)`
+    background-color: ${({ color }) => color};
+`;
+
+const BottomInput = styled.div`
+    justify-self: center;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 16px;
+    width: fit-content;
+`
 
 export const TwitchClipTagger = () => {
 
     const auth = useContext(AuthContext);
     const toast = useContext(ToastContext);
 
-    const [channel, setChannel] = useState('63937599');
+    const { channel } = useURLParams();
+
     const [loading, setLoading] = useState(true);
     const [clipIndex, setClipIndex] = useState(0);
     const [clips, setClips] = useState([]);
@@ -26,9 +81,9 @@ export const TwitchClipTagger = () => {
             loadClips();
             loadTags();
         }
-        if (auth.authState)
+        if (auth.authState && channel && channel != -1)
             loadData();
-    }, [auth.authChecked]);
+    }, [auth.authChecked, channel]);
 
     useEffect(() => {
         loadClipTags();
@@ -49,23 +104,23 @@ export const TwitchClipTagger = () => {
     }
 
     const loadTags = () => {
-        clipAPI.getTags().then(json => {
+        clipAPI.getTags(channel).then(json => {
             if (json.success)
                 setTags(json.data);
         });
     }
 
-    const updateClipTag = (tag) => {
-        if (clipTags.includes(tag)) {
-            clipAPI.removeTagFromClip(clips[clipIndex].id, [tag]).then(json => {
+    const updateClipTag = (tagId) => {
+        if (clipTags.includes(tagId)) {
+            clipAPI.removeTagFromClip(clips[clipIndex].id, [tagId]).then(json => {
                 if (json.success)
-                    setClipTags(tags => tags.filter(t => t !== tag));
+                    setClipTags(tags => tags.filter(t => t !== tagId));
             });
         }
         else {
-            clipAPI.addTagsToClip(clips[clipIndex].id, [tag]).then(json => {
+            clipAPI.addTagsToClip(clips[clipIndex].id, [tagId]).then(json => {
                 if (json.success)
-                    setClipTags(tags => [...tags, tag]);
+                    setClipTags(tags => [...tags, tagId]);
             });
         }
     }
@@ -80,9 +135,7 @@ export const TwitchClipTagger = () => {
     }
 
     const addNewTag = () => {
-        clipAPI.addTagsToClip(clips[clipIndex].id, [newTag]).then(() => {
-            loadTags();
-        });
+        clipAPI.addTagsToClip(clips[clipIndex].id, [newTag]).then(() => loadTags());
         setNewTag('');
     }
 
@@ -99,93 +152,53 @@ export const TwitchClipTagger = () => {
         }
     }
 
-    const getStyle = (tag) => {
-        return clipTags.includes(tag) ? ({ backgroundColor: '#0c940c' }) : {}
+    const getStyle = (tagId) => {
+        return clipTags.find(t => t === tagId) ? ({ borderColor: '#0c940c', borderWidth: '3px' }) : {}
     }
 
-    if (clips.length > 0)
-        console.log(clips[clipIndex].id);
-
     return (
-        <div className='fluid-container pl-3'>
-            <div className='row'>
-                <div className='col'>
-                    <label>
-                        Channel
-                    </label>
-                    <input type='text' value={channel} onChange={(e) => setChannel(e.target.value)} />
-                </div>
-            </div>
-            <div className='row'>
-                {clips.length > clipIndex &&
-                    <div className='col-auto mx-auto'>
-                        <iframe
-                            src={`https://clips.twitch.tv/embed?clip=${clips[clipIndex].id}&parent=${networkHelper.getSiteURLBase().replace('https://', '')}`}
-                            height='720'
-                            width='1280'
-                            frameBorder='0'
-                            scrolling='no'
-                            allowFullScreen={true}>
-                        </iframe>
-                    </div>
-                }
-                {(clips.length === 0 || clips.length === clipIndex) && loading &&
-                    <div className='col-auto mx-auto'>
-                        <div className='spinner' />
-                    </div>
-                }
-                {(clips.length === 0 || clips.length === clipIndex) && !loading &&
-                    <div className='col-auto mx-auto'>
-                        <span>No more videos!</span>
-                    </div>
-                }
-            </div>
-            <div className='row mt-1'>
-                <div className='col-auto ml-auto' />
-                <div className='col-auto'>
-                    <button disabled={clipIndex === 0} onClick={prevClip}>Prev</button>
-                </div>
-                <div className='col-auto mr-2'>
-                    <button onClick={() => updateClipTag('good')} style={getStyle('good')}>Good</button>
-                </div>
-                <div className='col-auto mr-2'>
-                    <button onClick={() => updateClipTag('meh')} style={getStyle('meh')}>Meh</button>
-                </div>
-                <div className='col-auto mr-2'>
-                    <button onClick={() => updateClipTag('bad')} style={getStyle('bad')}>Bad</button>
-                </div>
-                <div className='col-auto mr-2'>
-                    <button onClick={() => updateClipTag('deleted')} style={getStyle('deleted')}>Delete</button>
-                </div>
-                <div className='col-auto'>
-                    <button onClick={nextClip}>Next</button>
-                </div>
-                <div className='col-auto mr-auto' />
-            </div>
-            <div className='row mt-2 mx-0 px-2'>
+        <ContentWrapper>
+            <ButtonLink to='/twitchclipfilterer/clips'>Back</ButtonLink>
+            {clips.length > clipIndex &&
+                <ClipRow>
+                    <LeftButton disabled={clipIndex === 0} onClick={prevClip}>Prev</LeftButton>
+                    <iframe
+                        src={`https://clips.twitch.tv/embed?clip=${clips[clipIndex].id}&parent=${networkHelper.getSiteURLBase().replace('https://', '')}`}
+                        height='480'
+                        width='720'
+                        frameBorder='0'
+                        scrolling='no'
+                        allowFullScreen={true}>
+                    </iframe>
+                    <RightButton onClick={nextClip}>Next</RightButton>
+                </ClipRow>
+            }
+            {(clips.length === 0 || clips.length === clipIndex) && loading &&
+                <PageLoading />
+            }
+            {(clips.length === 0 || clips.length === clipIndex) && !loading &&
+                <span>No more videos!</span>
+            }
+            <QuickActionsWrapper>
+                <Button onClick={() => updateClipTag(1)} style={getStyle(1)}>Good</Button>
+                <Button onClick={() => updateClipTag(2)} style={getStyle(2)}>Meh</Button>
+                <Button onClick={() => updateClipTag(3)} style={getStyle(3)}>Bad</Button>
+                <Button onClick={() => updateClipTag(4)} style={getStyle(4)}>Delete</Button>
+            </QuickActionsWrapper>
+            <TagsWrapper>
                 {
-                    tags.filter(tag => tag !== 'good' && tag !== 'bad' && tag !== 'meh').map(tag => {
+                    tags.filter(tag => tag.id !== 1 && tag.id !== 2 && tag.id !== 3 && tag.id !== 4).map(tag => {
                         return (
-                            <div key={tag} className='col-auto mr-1 mb-2'>
-                                <button onClick={() => updateClipTag(tag)} style={getStyle(tag)}>{tag}</button>
-                            </div>
+                            <Tag key={tag.id} color={tag.color} onClick={() => updateClipTag(tag.id)} style={getStyle(tag.id)}>{tag.display}</Tag>
                         );
                     })
                 }
-            </div>
-            <div className='row mt-2'>
-                <div className='col-auto ml-auto' />
-                <div className='col-auto'>
-                    <label>New Tag</label>
-                </div>
-                <div className='col-auto'>
-                    <input value={newTag} onChange={(e) => setNewTag(e.target.value)} />
-                </div>
-                <div className='col-auto'>
-                    <button onClick={addNewTag}> Add</button>
-                </div>
-                <div className='col-auto mr-auto' />
-            </div>
-        </div>
+            </TagsWrapper>
+            <BottomInput>
+                <label>New Tag</label>
+                <input value={newTag} onChange={(e) => setNewTag(e.target.value)} />
+                <Button onClick={addNewTag}> Add</Button>
+            </BottomInput>
+        </ContentWrapper>
     );
 }

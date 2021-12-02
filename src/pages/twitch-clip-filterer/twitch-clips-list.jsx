@@ -1,35 +1,30 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, Fragment } from 'react';
 import { Multiselect } from 'multiselect-react-dropdown';
 
 import { ToastContext } from '../../contexts/toast-context';
 import * as clipAPI from '../../network/twitch-clips-network';
 
 import { TextToast } from '../../toasts/text-toast';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Select } from '../../components/inputs/select';
+import { Button, ButtonLink, ExtLink, Label } from '../../styles/common-styles';
 
 const PageWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 16px;
 `;
 
-const ListOverlay = styled.div`
-   position: absolute;
-   z-index: 1;
-   top: 55px;
-   right: 16px;
-   background: #111111;
-   border-radius: 5px;
-   width: 400px;
-   height: 200px;
-   overflow-y: auto;
-   overflow-x: hidden;
-   padding-left: 8px;
-`;
+const ChannelsWrapper = styled.div`
+    display: grid;
+    grid-template-columns: auto 1fr;
+`
 
 const TopInputsWrapper = styled.div`
     display: grid;
-    grid-template-columns: 150px 150px 1fr;
+    grid-template-columns: auto auto auto 1fr;
     gap: 16px;
-    margin: 8px 0 0 16px;
 `
 
 const ListWrapper = styled.div`
@@ -50,8 +45,13 @@ const CheckBoxWrapper = styled.input`
 `
 
 const BasicBorderWrapper = styled.div`
+    display: grid;
+    grid-template-columns: auto auto auto auto auto 1fr;
+    gap: 16px;
+    align-items: center;
     border: 1px solid #d1d1d1;
     border-radius: 5px;
+    padding: 16px 8px;
 `;
 
 const MultiSelectWrapper = styled.div`
@@ -93,7 +93,8 @@ const TagWrapper = styled.div`
 export const TwitchClipsList = () => {
     const toast = useContext(ToastContext);
 
-    const [channel, setChannel] = useState(63937599);
+    const [selectedChannel, setSlectedChannel] = useState(-1);
+    const [channels, setChannels] = useState([63937599]);
     const [clips, setClips] = useState([]);
     const [selectedClips, setSelectedClips] = useState([]);
     const [page, setPage] = useState(0);
@@ -103,31 +104,43 @@ export const TwitchClipsList = () => {
     const [update, setUpdate] = useState(false);
 
     useEffect(() => {
-        clipAPI.getTags().then((json) => {
+        if (selectedChannel !== -1) {
+            clipAPI.getTags(selectedChannel).then((json) => {
+                if (json.success)
+                    setTags(json.data);
+            });
+        }
+        clipAPI.getManagingChannels().then(json => {
             if (json.success)
-                setTags(json.data);
-        });
+                setChannels(json.data);
+        })
     }, []);
 
     useEffect(() => {
         setClips([]);
         setPage(0);
         setUpdate(true);
-    }, [allowedTags, disallowedTags]);
+        if (selectedChannel !== -1) {
+            clipAPI.getTags(selectedChannel).then((json) => {
+                if (json.success)
+                    setTags(json.data);
+            });
+        }
+    }, [allowedTags, disallowedTags, selectedChannel]);
 
     useEffect(() => {
-        if (!update) {
+        if (!update || selectedChannel == -1)
             return;
-        }
-        clipAPI.getClips(channel, page, 25, allowedTags.map(ft => ft.id), disallowedTags.map(ft => ft.id)).then((json) => {
+
+        clipAPI.getClips(selectedChannel, page, 25, allowedTags.map(ft => ft.id), disallowedTags.map(ft => ft.id)).then((json) => {
             if (json.success)
                 setClips(clips => [...clips, ...json.data]);
         });
         setUpdate(false);
-    }, [page, allowedTags, disallowedTags, update]);
+    }, [page, allowedTags, disallowedTags, update, selectedChannel]);
 
     const pullClips = () => {
-        clipAPI.pullTwitchClips(channel).then((json) => {
+        clipAPI.pullTwitchClips(selectedChannel).then((json) => {
             toast.pushToast(<TextToast text={json.message} />);
         });
     }
@@ -170,38 +183,36 @@ export const TwitchClipsList = () => {
     }
 
     const tagOptions = tags.map(tag => {
-        return { name: tag, id: tag }
+        return { name: tag.display, id: tag.id }
     }).sort((a, b) => a.name.localeCompare(b.name));
 
     return (
         <PageWrapper>
-            <ListOverlay>
-                {
-                    selectedClips.map(url => <div key={url}>{url}</div>)
-                }
-            </ListOverlay>
+            <ChannelsWrapper>
+                <Select label='Channel:' value={selectedChannel} onChange={e => setSlectedChannel(parseInt(e.target.value))}>
+                    <option value={-1}>Choose A Stream</option>
+                    {
+                        channels.map(c => (
+                            <option key={c.id} value={c.id}>{c.name}</option>
+                        ))
+                    }
+                </Select>
+            </ChannelsWrapper>
             <TopInputsWrapper >
-                <Link to='/twitchclipfilterer/tagger'>
+                <ButtonLink disabled={selectedChannel === -1} to={`/twitchclipfilterer/tagger?channel=${selectedChannel}`}>
                     Tag Clips
-                </Link>
-                <button onClick={pullClips}>
+                </ButtonLink>
+                <Button disabled={selectedChannel === -1} onClick={pullClips}>
                     Pull Clips
-                </button>
-                <div>
-                    <label>Channel:</label>
-                    <input type='text' value={channel} onChange={(e) => setChannel(e.target.value)} />
-                </div>
+                </Button>
+                <Button disabled={selectedChannel === -1} onClick={() => { navigator.clipboard.writeText(selectedClips.join('\n')); toast.pushToast(<TextToast text='Copied to Clipboard!' />); }}>
+                    Copy Selected Links
+                </Button>
             </TopInputsWrapper>
-            <BasicBorderWrapper className='row mx-0 my-2 pt-3 pb-2'>
-                <div className='col-auto'>
-                    <span>Filters</span>
-                </div>
-                <div className='col-auto p-0'>
-                    <label>
-                        With Tag:
-                    </label>
-                </div>
-                <MultiSelectWrapper className='col-auto'>
+            <BasicBorderWrapper>
+                <span>Filters</span>
+                <Label>With Tag:</Label>
+                <MultiSelectWrapper>
                     <Multiselect className='bg-secondary'
                         options={tagOptions} // Options to display in the dropdown
                         selectedValues={allowedTags} // Preselected value to persist in dropdown
@@ -211,12 +222,8 @@ export const TwitchClipsList = () => {
                         style={{ option: { backgroundColor: '#111111' } }}
                     />
                 </MultiSelectWrapper>
-                <div className='col-auto p-0'>
-                    <label>
-                        Without Tag:
-                    </label>
-                </div>
-                <MultiSelectWrapper className='col-auto'>
+                <Label>Without Tag:</Label>
+                <MultiSelectWrapper>
                     <Multiselect className='bg-secondary'
                         options={tagOptions} // Options to display in the dropdown
                         selectedValues={disallowedTags} // Preselected value to persist in dropdown
@@ -238,31 +245,34 @@ export const TwitchClipsList = () => {
                 {
                     clips.map(clip => {
                         return (
-                            <>
+                            <Fragment key={clip.id}>
                                 <CheckBoxWrapper type='checkbox' onChange={e => e.target.checked ? setSelectedClips(clips => [...clips, clip.url]) : setSelectedClips(clips => clips.filter(u => u !== clip.url))} />
                                 <span>
                                     {clip.date}
                                 </span>
-                                <a href={`https://twitch.tv/${clip.channel_name}`}>
+                                <ExtLink href={`https://twitch.tv/${clip.channel_name}`}>
                                     {clip.channel_name}
-                                </a>
+                                </ExtLink>
                                 <ClipTitle>
-                                    <a href={clip.url}>
+                                    <ExtLink href={clip.url}>
                                         {clip.title}
-                                    </a>
+                                    </ExtLink>
                                 </ClipTitle>
                                 <span>
                                     {clip.clipper_name}
                                 </span>
                                 <ClipTags>
                                     {
-                                        clip.tags.map(tag => {
+                                        clip.tags.map(tagId => {
+                                            const tag = tags.find(t => t.id === tagId);
+                                            if (!tag)
+                                                return <></>;
                                             return (
-                                                <TagWrapper key={tag}>
+                                                <TagWrapper key={tagId}>
                                                     <span>
-                                                        {tag}
+                                                        {tag.display}
                                                     </span>
-                                                    <DeleteTagButton className='bg-secondary clickable' onClick={() => removeTag(clip.id, tag)}>
+                                                    <DeleteTagButton className='bg-secondary clickable' onClick={() => removeTag(clip.id, tagId)}>
                                                         x
                                                     </DeleteTagButton>
                                                 </TagWrapper>
@@ -271,14 +281,14 @@ export const TwitchClipsList = () => {
                                     }
                                 </ClipTags>
                                 <SplitLine />
-                            </>
+                            </Fragment>
                         )
                     })
                 }
             </ListWrapper>
-            <button onClick={loadMoreClips}>
+            <Button disabled={selectedChannel === -1} onClick={loadMoreClips}>
                 Load More
-            </button>
+            </Button>
         </PageWrapper >
     );
 }

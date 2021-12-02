@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AuthContext } from '../../contexts/auth-context';
+import { ExtLink, IntLink } from '../../styles/common-styles';
 import { LoginButton } from './login-button';
 
 const NavWrapper = styled.nav`
@@ -26,9 +26,9 @@ export const TopNav = () => {
 
     return (
         <NavWrapper className='navbar navbar-expand-sm navbar-dark'>
-            <Link className='navbar-brand' to='/'>
+            <IntLink className='navbar-brand' to='/'>
                 TurkeyDev
-            </Link>
+            </IntLink>
             <button
                 className='navbar-toggler'
                 type='button'
@@ -43,19 +43,19 @@ export const TopNav = () => {
             <div className='collapse navbar-collapse' id='navbarText'>
                 <ul className='navbar-nav mr-auto'>
                     <li className='nav-item'>
-                        <Link className='nav-link' to='/'>
+                        <IntLink className='nav-link' to='/'>
                             Home
-                        </Link>
+                        </IntLink>
                     </li>
                     <li className='nav-item dropdown'>
-                        <Link className='nav-link' to='/projects'>
+                        <IntLink className='nav-link' to='/projects'>
                             Projects
-                        </Link>
+                        </IntLink>
                     </li>
                     <li className='nav-item'>
-                        <Link className='nav-link' to='/support'>
+                        <IntLink className='nav-link' to='/support'>
                             Support Me
-                        </Link>
+                        </IntLink>
                     </li>
                     <li className='nav-item dropdown'>
                         <span
@@ -72,9 +72,9 @@ export const TopNav = () => {
                             {
                                 links.map(link => {
                                     return (
-                                        <a key={link.title} className='nav-link' href='' onClick={() => window.open(link.link)}>
+                                        <ExtLink key={link.title} className='nav-link' href='' onClick={() => window.open(link.link)}>
                                             {link.title}
-                                        </a>
+                                        </ExtLink>
                                     );
                                 })
                             }
@@ -84,11 +84,11 @@ export const TopNav = () => {
                 <div className='navbar-text'>
                     {auth.authState ? (
                         <div>
-                            <Link to='/user/profile'>
+                            <IntLink to='/user/profile'>
                                 {' '}
                                 {`Welcome ${auth.userName}!`}{' '}
-                            </Link>{' '}
-                            | <Link to='/logout'> Logout </Link>
+                            </IntLink>{' '}
+                            | <IntLink to='/logout'> Logout </IntLink>
                         </div>
                     ) : (
                         <div style={{ marginLeft: '150px' }}>
