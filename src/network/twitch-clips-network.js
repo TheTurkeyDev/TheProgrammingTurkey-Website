@@ -13,6 +13,12 @@ export async function getClips(channel, page, amount, allowedTags, disallowedTag
     });
 }
 
+export async function getNextClip(channel, untagged, allowedTags, disallowedTags, prevId) {
+    return await fetch(`${getDevAPIBase()}/twitchclipfilter/nextclip?channel=${channel}&untagged=${untagged}&allowedTags=${allowedTags.join(',')}&disallowedTags=${disallowedTags.join(',')}&prev=${prevId}`, authAPI.getGetAuthParams()).then(resp => {
+        return resp.json();
+    });
+}
+
 export async function getUntaggedClips(channel) {
     return await fetch(`${getDevAPIBase()}/twitchclipfilter/getuntaged?channel=${channel}`, authAPI.getGetAuthParams()).then(resp => {
         return resp.json();
@@ -45,6 +51,18 @@ export async function getClipTags(clipId) {
 
 export async function getManagingChannels() {
     return await fetch(`${getDevAPIBase()}/twitchclipfilter/managingchannels`, authAPI.getGetAuthParams()).then(resp => {
+        return resp.json();
+    });
+}
+
+export async function editTag(tag) {
+    return await fetch(`${getDevAPIBase()}/twitchclipfilter/edittag`, authAPI.getPostAuthParams(tag)).then(resp => {
+        return resp.json();
+    });
+}
+
+export async function addTag(tag) {
+    return await fetch(`${getDevAPIBase()}/twitchclipfilter/addtag`, authAPI.getPostAuthParams(tag)).then(resp => {
         return resp.json();
     });
 }

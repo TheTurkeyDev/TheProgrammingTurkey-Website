@@ -21,7 +21,7 @@ export const LinkGroup = ({ links }) => {
                             {link.text}
                         </ExtLink>
                     ) : (
-                        <IntLink key={link.href} to={link.to}>
+                        <IntLink key={link.to} to={link.to}>
                             {link.text}
                         </IntLink>
                     )

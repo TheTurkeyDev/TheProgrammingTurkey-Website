@@ -100,3 +100,7 @@ export const ExtLink = styled.a`
 export const Label = styled.label`
     margin: 0;
 `
+
+export const StrikeThrough = styled.span`
+    text-decoration: line-through;
+`;

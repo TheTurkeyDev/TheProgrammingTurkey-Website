@@ -3,11 +3,12 @@ import { Multiselect } from 'multiselect-react-dropdown';
 
 import { ToastContext } from '../../contexts/toast-context';
 import * as clipAPI from '../../network/twitch-clips-network';
-
 import { TextToast } from '../../toasts/text-toast';
 import styled from 'styled-components';
 import { Select } from '../../components/inputs/select';
 import { Button, ButtonLink, ExtLink, Label } from '../../styles/common-styles';
+import { OverlayContext } from '../../contexts/overlay-context';
+import { TwitchClipTagEditorOverlay } from './twitch-clip-tag-editor-overlay';
 
 const PageWrapper = styled.div`
     display: grid;
@@ -37,12 +38,12 @@ const ListWrapper = styled.div`
 const SplitLine = styled.div`
     grid-column: 1 / span 6;
     border-top: 1px solid #d1d1d1;
-`
+`;
 
 const CheckBoxWrapper = styled.input`
     justify-self: center;
     align-self: center;
-`
+`;
 
 const BasicBorderWrapper = styled.div`
     display: grid;
@@ -92,6 +93,7 @@ const TagWrapper = styled.div`
 
 export const TwitchClipsList = () => {
     const toast = useContext(ToastContext);
+    const overlay = useContext(OverlayContext);
 
     const [selectedChannel, setSlectedChannel] = useState(-1);
     const [channels, setChannels] = useState([63937599]);
@@ -168,20 +170,6 @@ export const TwitchClipsList = () => {
         });
     }
 
-    const onAllowedSelect = (list, item) => {
-        setAllowedTags(ftags => [...ftags, item]);
-    }
-    const onDisallowedSelect = (list, item) => {
-        setDisallowedTags(ftags => [...ftags, item]);
-    }
-
-    const onAllowedRemove = (list, item) => {
-        setAllowedTags(ftags => [...ftags.filter(t => t.id !== item.id)]);
-    }
-    const onDisallowedRemove = (list, item) => {
-        setDisallowedTags(ftags => [...ftags.filter(t => t.id !== item.id)]);
-    }
-
     const tagOptions = tags.map(tag => {
         return { name: tag.display, id: tag.id }
     }).sort((a, b) => a.name.localeCompare(b.name));
@@ -208,6 +196,9 @@ export const TwitchClipsList = () => {
                 <Button disabled={selectedChannel === -1} onClick={() => { navigator.clipboard.writeText(selectedClips.join('\n')); toast.pushToast(<TextToast text='Copied to Clipboard!' />); }}>
                     Copy Selected Links
                 </Button>
+                <Button disabled={selectedChannel === -1} onClick={() => overlay.pushCurrentOverlay(<TwitchClipTagEditorOverlay tags={tags} setTags={setTags} />)}>
+                    Manage Tags
+                </Button>
             </TopInputsWrapper>
             <BasicBorderWrapper>
                 <span>Filters</span>
@@ -216,8 +207,8 @@ export const TwitchClipsList = () => {
                     <Multiselect className='bg-secondary'
                         options={tagOptions} // Options to display in the dropdown
                         selectedValues={allowedTags} // Preselected value to persist in dropdown
-                        onSelect={onAllowedSelect} // Function will trigger on select event
-                        onRemove={onAllowedRemove} // Function will trigger on remove event
+                        onSelect={(list, item) => setAllowedTags(ftags => [...ftags, item])} // Function will trigger on select event
+                        onRemove={(list, item) => setAllowedTags(ftags => [...ftags.filter(t => t.id !== item.id)])} // Function will trigger on remove event
                         displayValue='name' // Property name to display in the dropdown options
                         style={{ option: { backgroundColor: '#111111' } }}
                     />
@@ -227,8 +218,8 @@ export const TwitchClipsList = () => {
                     <Multiselect className='bg-secondary'
                         options={tagOptions} // Options to display in the dropdown
                         selectedValues={disallowedTags} // Preselected value to persist in dropdown
-                        onSelect={onDisallowedSelect} // Function will trigger on select event
-                        onRemove={onDisallowedRemove} // Function will trigger on remove event
+                        onSelect={(list, item) => setDisallowedTags(ftags => [...ftags, item])} // Function will trigger on select event
+                        onRemove={(list, item) => setDisallowedTags(ftags => [...ftags.filter(t => t.id !== item.id)])} // Function will trigger on remove event
                         displayValue='name' // Property name to display in the dropdown options
                         style={{ option: { backgroundColor: '#111111' } }}
                     />
