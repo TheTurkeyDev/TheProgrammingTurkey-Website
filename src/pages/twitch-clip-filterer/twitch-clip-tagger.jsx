@@ -95,7 +95,7 @@ export const TwitchClipTagger = () => {
 
     const nextClip = (clear = false) => {
         setLoading(true);
-        clipAPI.getNextClip(channel, onlyUntaggedClips, allowedTags.map(ft => ft.id), disallowedTags.map(ft => ft.id), clipIndex == -1 ? '' : clips[clipIndex].id).then(json => {
+        clipAPI.getNextClip(channel, onlyUntaggedClips, allowedTags.map(ft => ft.id), disallowedTags.map(ft => ft.id), clipIndex == -1 || clear ? '' : clips[clipIndex].id).then(json => {
             if (json.success && json.data) {
                 if (clear)
                     setClipIndex(0);
