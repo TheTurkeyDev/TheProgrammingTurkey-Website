@@ -141,7 +141,10 @@ export const TwitchClipTagger = () => {
             channel_id: channel
         }).then(json => {
             if (json.success) {
-                clipAPI.addTagsToClip(clips[clipIndex].id, [newTag]).then(() => loadTags());
+                clipAPI.addTagsToClip(clips[clipIndex].id, [json.data.id]).then(() => {
+                    loadTags();
+                    setClipTags(old => [...old, json.data.id]);
+                });
                 setNewTag('');
             }
         })
