@@ -26,6 +26,7 @@ export const gameVersions = [
     '1.14',
     '1.15',
     '1.16',
+    '1.17',
 ];
 
 const ColDiv = styled.div`
