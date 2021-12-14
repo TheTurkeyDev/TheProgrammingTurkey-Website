@@ -11,6 +11,8 @@ import styled from 'styled-components';
 import { Checkbox } from '../../components/inputs/checkbox';
 import Multiselect from 'multiselect-react-dropdown';
 import { TwitchClipVideoPlayer } from './twitch-clip-tagger-video';
+import { TwitchClipTagEditorOverlay } from './twitch-clip-tag-editor-overlay';
+import { OverlayContext } from '../../contexts/overlay-context';
 
 const ContentWrapper = styled.div`
     margin: 16px;
@@ -60,6 +62,7 @@ const MultiSelectWrapper = styled.div`
 
 export const TwitchClipTagger = () => {
 
+    const overlay = useContext(OverlayContext);
     const auth = useContext(AuthContext);
     const toast = useContext(ToastContext);
 
@@ -160,6 +163,9 @@ export const TwitchClipTagger = () => {
         <ContentWrapper>
             <TopButtonsBar>
                 <ButtonLink to='/twitchclipfilterer/clips'>Back</ButtonLink>
+                <Button onClick={() => overlay.pushCurrentOverlay(<TwitchClipTagEditorOverlay tags={tags} setTags={setTags} />)}>
+                    Manage Tags
+                </Button>
                 <Checkbox label='Only Untagged' checked={onlyUntaggedClips} onChange={e => setOnlyUntaggedClips(e.target.checked)} />
                 {
                     !onlyUntaggedClips &&
