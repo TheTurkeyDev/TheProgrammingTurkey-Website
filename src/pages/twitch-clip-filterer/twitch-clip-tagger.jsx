@@ -13,6 +13,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import { TwitchClipVideoPlayer } from './twitch-clip-tagger-video';
 import { TwitchClipTagEditorOverlay } from './twitch-clip-tag-editor-overlay';
 import { OverlayContext } from '../../contexts/overlay-context';
+import { useWasChanged } from '../../hooks/use-was-changed';
 
 const ContentWrapper = styled.div`
     margin: 16px;
@@ -78,6 +79,8 @@ export const TwitchClipTagger = () => {
     const [disallowedTags, setDisallowedTags] = useState([]);
     const [newTag, setNewTag] = useState('');
 
+    const indexChanged = useWasChanged(clipIndex);
+
     useEffect(() => {
         if (auth.authState && channel && channel != -1)
             loadTags();
@@ -88,7 +91,7 @@ export const TwitchClipTagger = () => {
     }, [onlyUntaggedClips, allowedTags, disallowedTags]);
 
     useEffect(() => {
-        if (clips.length > 0 && clipIndex > -1) {
+        if (indexChanged && clips.length > 0 && clipIndex > -1) {
             clipAPI.getClipTags(clips[clipIndex].id).then(json => {
                 if (json.success)
                     setClipTags(json.data);
