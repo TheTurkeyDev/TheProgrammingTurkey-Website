@@ -43,7 +43,7 @@ export const SecretURL = ({ url, regen }) => {
             <URLLabel />
             <ButtonsWrapper>
                 <Button onClick={regen}>Regen Token</Button>
-                <Button onClick={() => setShowURL(old => !old)}>{showURL ? 'Hide' : 'Show'} Token</Button>
+                <Button onClick={() => setShowURL(old => !old)}>{showURL ? 'Hide' : 'Show'} URL</Button>
             </ButtonsWrapper>
         </URLWrapper>
     )
