@@ -24,7 +24,7 @@ const ChannelsWrapper = styled.div`
 
 const TopInputsWrapper = styled.div`
     display: grid;
-    grid-template-columns: auto auto auto 1fr;
+    grid-template-columns: auto auto auto auto auto 1fr;
     gap: 16px;
 `
 
@@ -187,11 +187,17 @@ export const TwitchClipsList = () => {
                 </Select>
             </ChannelsWrapper>
             <TopInputsWrapper >
-                <ButtonLink disabled={selectedChannel === -1} to={`/twitchclipfilterer/tagger?channel=${selectedChannel}`}>
+                <ButtonLink disabled={selectedChannel === -1} to={selectedChannel === -1 ? '#' : `/twitchclipfilterer/tagger?channel=${selectedChannel}`}>
                     Tag Clips
                 </ButtonLink>
                 <Button disabled={selectedChannel === -1} onClick={pullClips}>
                     Pull Clips
+                </Button>
+                <Button disabled={selectedChannel === -1} onClick={() => setSelectedClips(clips.map(c => c.url))}>
+                    Select All
+                </Button>
+                <Button disabled={selectedChannel === -1} onClick={() => setSelectedClips([])}>
+                    Unselect All
                 </Button>
                 <Button disabled={selectedChannel === -1} onClick={() => { navigator.clipboard.writeText(selectedClips.join('\n')); toast.pushToast(<TextToast text='Copied to Clipboard!' />); }}>
                     Copy Selected Links
@@ -237,7 +243,7 @@ export const TwitchClipsList = () => {
                     clips.map(clip => {
                         return (
                             <Fragment key={clip.id}>
-                                <CheckBoxWrapper type='checkbox' onChange={e => e.target.checked ? setSelectedClips(clips => [...clips, clip.url]) : setSelectedClips(clips => clips.filter(u => u !== clip.url))} />
+                                <CheckBoxWrapper type='checkbox' checked={selectedClips.includes(clip.url)} onChange={e => e.target.checked ? setSelectedClips(clips => [...clips, clip.url]) : setSelectedClips(clips => clips.filter(u => u !== clip.url))} />
                                 <span>
                                     {clip.date}
                                 </span>
