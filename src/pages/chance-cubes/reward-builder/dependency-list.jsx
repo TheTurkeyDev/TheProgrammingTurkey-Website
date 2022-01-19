@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
-import { OverlayContext } from '../../../contexts/overlay-context';
+import { useState } from 'react';
+import { useOverlay } from '../../../contexts/overlay-context';
 import { ChanceCubesAddDependencyOverlay } from '../../../overlays/chance-cubes/chance-cubes-add-reward-dependency-overlay';
 import { Dependency } from './dependency';
 
 export const DependencyList = ({ json, changeValue, insertDependency, deleteDependency }) => {
-    const overlay = useContext(OverlayContext);
+    const { pushCurrentOverlay } = useOverlay();
 
     const [collapsed, setCollapsed] = useState(false);
 
@@ -46,7 +46,7 @@ export const DependencyList = ({ json, changeValue, insertDependency, deleteDepe
                 <button
                     className='ml-2 mt-2'
                     onClick={() => {
-                        overlay.pushCurrentOverlay(
+                        pushCurrentOverlay(
                             <ChanceCubesAddDependencyOverlay
                                 json={json}
                                 add={type => insertDependency(type, '')}

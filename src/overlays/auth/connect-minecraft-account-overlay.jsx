@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
-import { OverlayContext } from '../../contexts/overlay-context';
-import { ToastContext } from '../../contexts/toast-context';
+import { useEffect, useState } from 'react';
+import { useOverlay } from '../../contexts/overlay-context';
+import { useToast } from '../../contexts/toast-context';
 import * as authAPI from '../../network/auth-network';
 import { TextToast } from '../../toasts/text-toast';
 
 export const ConnectMinecraftAccountOverlay = () => {
-    const toast = useContext(ToastContext);
-    const overlay = useContext(OverlayContext);
+    const { popCurrentOverlay } = useOverlay();
+    const { pushToast } = useToast();
 
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState('');
@@ -16,8 +16,8 @@ export const ConnectMinecraftAccountOverlay = () => {
             if (json.success) {
                 setToken(json.data);
             } else {
-                toast.pushToast(<TextToast text={json.message} />);
-                overlay.popCurrentOverlay();
+                pushToast(<TextToast text={json.message} />);
+                popCurrentOverlay();
             }
             setLoading(false);
         });

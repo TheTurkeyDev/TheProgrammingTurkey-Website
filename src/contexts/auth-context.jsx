@@ -1,7 +1,14 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import * as authAPI from '../network/auth-network';
 
 export const AuthContext = createContext(null);
+
+export const useAuth = () => {
+    const auth = useContext(AuthContext);
+    if (!auth)
+        throw new Error('Auth is undefined! Must be used from within a Auth Provider!');
+    return auth;
+}
 
 export const AuthWrapper = (props) => {
     const [authChecked, setAuthChecked] = useState(false);

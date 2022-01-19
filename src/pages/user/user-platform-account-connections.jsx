@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { OverlayContext } from '../../contexts/overlay-context';
+import { useOverlay } from '../../contexts/overlay-context';
 import * as api from '../../network/auth-network';
 import * as authAPI from '../../network/auth-network';
 import { ConnectMinecraftAccountOverlay } from '../../overlays/auth/connect-minecraft-account-overlay';
@@ -12,10 +12,9 @@ const AccountsWrapper = styled.div`
 `;
 
 export const UserPlatformAccountConnections = () => {
+    const { pushCurrentOverlay } = useOverlay();
+
     const [accounts, setAccounts] = useState([]);
-
-    const overlay = useContext(OverlayContext);
-
     const [links, setLinks] = useState([]);
 
     useEffect(() => {
@@ -25,9 +24,6 @@ export const UserPlatformAccountConnections = () => {
         });
     }, []);
 
-    const connectMinecraft = () => {
-        overlay.pushCurrentOverlay(<ConnectMinecraftAccountOverlay />);
-    };
 
     const login = (url) => {
         location.href = url('link', location.href);
@@ -55,7 +51,7 @@ export const UserPlatformAccountConnections = () => {
                 platform_name='Minecraft'
                 icon='fas fa-cube'
                 color='#058205'
-                onClick={connectMinecraft}
+                onClick={() => pushCurrentOverlay(<ConnectMinecraftAccountOverlay />)}
                 disabled={true}
             />
         </AccountsWrapper>

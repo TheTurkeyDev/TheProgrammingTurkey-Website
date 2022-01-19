@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef, useContext } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { TextToast } from '../../../../toasts/text-toast';
-import { AuthContext } from '../../../../contexts/auth-context';
-import { ToastContext } from '../../../../contexts/toast-context';
+import { useAuth } from '../../../../contexts/auth-context';
+import { useToast } from '../../../../contexts/toast-context';
 import * as authAPI from '../../../../network/auth-network';
 import { getAppsSiteBase } from '../../../../network/network-helper';
 import { SecretURL } from '../../../../components/secret-url';
@@ -10,8 +10,8 @@ import { SecretURL } from '../../../../components/secret-url';
 export const YouTubeSubGetSetup = () => {
     const canvasRef = useRef(null);
 
-    const auth = useContext(AuthContext);
-    const toast = useContext(ToastContext);
+    const { authState, authChecked } = useAuth();
+    const { pushToast } = useToast();
 
     const [loading, setLoading] = useState(true);
 
@@ -34,9 +34,9 @@ export const YouTubeSubGetSetup = () => {
                 });
             });
         }
-        if (auth.authState)
+        if (authState)
             getToken();
-    }, [auth.authChecked]);
+    }, [authChecked]);
 
     useEffect(() => {
         async function loadDisplay() {
@@ -50,7 +50,7 @@ export const YouTubeSubGetSetup = () => {
             });
         }
 
-        if (auth.authState)
+        if (authState)
             loadDisplay();
     }, [token]);
 
@@ -90,10 +90,7 @@ export const YouTubeSubGetSetup = () => {
             font_size: fontSize,
             font_color: fontColor
         }).then(json => {
-            if (json.success)
-                toast.pushToast(<TextToast text='Settings Saved!' />);
-            else
-                toast.pushToast(<TextToast text={json.message} />);
+            pushToast(<TextToast text={json.success ? 'Settings Saved!' : json.message} />);
         });
     }
 

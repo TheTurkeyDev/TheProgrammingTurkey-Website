@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { UserManagementPlatforms } from './user-management-platforms';
-import { OverlayContext } from '../../../contexts/overlay-context';
+import { useOverlay } from '../../../contexts/overlay-context';
 import * as authAPI from '../../../network/auth-network';
 import { UserManageOverlay } from '../../../overlays/admin/user-manage-overlay';
 
@@ -19,7 +19,7 @@ const FiltersWrapper = styled.div`
 `;
 
 export const UserManagement = () => {
-    const overlay = useContext(OverlayContext);
+    const { pushCurrentOverlay } = useOverlay();
 
     const [userList, setUserList] = useState([]);
 
@@ -33,7 +33,7 @@ export const UserManagement = () => {
     }, [updateUsers]);
 
     const editUser = (user) => {
-        overlay.pushCurrentOverlay(<UserManageOverlay userId={user.user_id} />);
+        pushCurrentOverlay(<UserManageOverlay userId={user.user_id} />);
     };
 
     return (

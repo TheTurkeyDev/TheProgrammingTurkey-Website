@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { AuthContext } from '../../../contexts/auth-context';
-import { OverlayContext } from '../../../contexts/overlay-context';
+import { useAuth } from '../../../contexts/auth-context';
+import { useOverlay } from '../../../contexts/overlay-context';
 import { getChanceCubesRewardStatus } from '../../../network/chance-cubes-network';
 import { ChanceCubesRewardCreateOverlay } from '../../../overlays/chance-cubes/chance-cubes-reward-create-overlay';
 import { LoadingWrapper } from '../../base/page-loading';
@@ -40,15 +40,14 @@ const GCCRewardText = styled.div`
 `
 
 export const ChanceCubesRewardsStatus = ({ location }) => {
-
-    const auth = useContext(AuthContext);
-    const overlay = useContext(OverlayContext);
+    const { permissions } = useAuth();
+    const { pushCurrentOverlay } = useOverlay();
 
     const [rewards, setRewards] = useState({});
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const canEdit = auth.permissions.includes('chancecubes.managerewards')
+    const canEdit = permissions.includes('chancecubes.managerewards')
 
     const params = {};
     if (location.search !== '') {
@@ -152,7 +151,7 @@ export const ChanceCubesRewardsStatus = ({ location }) => {
                     ))
                 }
                 {
-                    canEdit && <button className='m-2' onClick={() => overlay.pushCurrentOverlay(<ChanceCubesRewardCreateOverlay />)}>Add Reward</button>
+                    canEdit && <button className='m-2' onClick={() => pushCurrentOverlay(<ChanceCubesRewardCreateOverlay />)}>Add Reward</button>
                 }
             </div>
             <GCCRewardText>

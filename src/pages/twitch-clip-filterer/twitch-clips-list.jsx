@@ -1,13 +1,13 @@
-import { useEffect, useState, useContext, Fragment } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { Multiselect } from 'multiselect-react-dropdown';
 
-import { ToastContext } from '../../contexts/toast-context';
+import { useToast } from '../../contexts/toast-context';
+import { useOverlay } from '../../contexts/overlay-context';
 import * as clipAPI from '../../network/twitch-clips-network';
 import { TextToast } from '../../toasts/text-toast';
 import styled from 'styled-components';
 import { Select } from '../../components/inputs/select';
 import { Button, ButtonLink, ExtLink, Label } from '../../styles/common-styles';
-import { OverlayContext } from '../../contexts/overlay-context';
 import { TwitchClipTagEditorOverlay } from './twitch-clip-tag-editor-overlay';
 
 const PageWrapper = styled.div`
@@ -92,8 +92,8 @@ const TagWrapper = styled.div`
 `;
 
 export const TwitchClipsList = () => {
-    const toast = useContext(ToastContext);
-    const overlay = useContext(OverlayContext);
+    const { pushCurrentOverlay } = useOverlay();
+    const { pushToast } = useToast();
 
     const [selectedChannel, setSlectedChannel] = useState(-1);
     const [channels, setChannels] = useState([63937599]);
@@ -143,7 +143,7 @@ export const TwitchClipsList = () => {
 
     const pullClips = () => {
         clipAPI.pullTwitchClips(selectedChannel).then((json) => {
-            toast.pushToast(<TextToast text={json.message} />);
+            pushToast(<TextToast text={json.message} />);
         });
     }
 
@@ -199,10 +199,10 @@ export const TwitchClipsList = () => {
                 <Button disabled={selectedChannel === -1} onClick={() => setSelectedClips([])}>
                     Unselect All
                 </Button>
-                <Button disabled={selectedChannel === -1} onClick={() => { navigator.clipboard.writeText(selectedClips.join('\n')); toast.pushToast(<TextToast text='Copied to Clipboard!' />); }}>
+                <Button disabled={selectedChannel === -1} onClick={() => { navigator.clipboard.writeText(selectedClips.join('\n')); pushToast(<TextToast text='Copied to Clipboard!' />); }}>
                     Copy Selected Links
                 </Button>
-                <Button disabled={selectedChannel === -1} onClick={() => overlay.pushCurrentOverlay(<TwitchClipTagEditorOverlay tags={tags} setTags={setTags} />)}>
+                <Button disabled={selectedChannel === -1} onClick={() => pushCurrentOverlay(<TwitchClipTagEditorOverlay tags={tags} setTags={setTags} />)}>
                     Manage Tags
                 </Button>
             </TopInputsWrapper>

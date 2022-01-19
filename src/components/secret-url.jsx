@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { ToastContext } from '../contexts/toast-context';
+import { useToast } from '../contexts/toast-context';
 import { Button } from '../styles/common-styles';
 import { TextToast } from '../toasts/text-toast';
 
@@ -29,8 +29,7 @@ const ButtonsWrapper = styled.div`
 `
 
 export const SecretURL = ({ url, regen }) => {
-
-    const toast = useContext(ToastContext);
+    const { pushToast } = useToast();
 
     const [showURL, setShowURL] = useState(false);
 
@@ -39,7 +38,7 @@ export const SecretURL = ({ url, regen }) => {
             <URLLabel>
                 URL:
             </URLLabel>
-            <URLInput type={showURL ? 'text' : 'password'} readOnly value={url} onClick={() => { navigator.clipboard.writeText(url); toast.pushToast(<TextToast text='Copied to Clipboard!' />) }} />
+            <URLInput type={showURL ? 'text' : 'password'} readOnly value={url} onClick={() => { navigator.clipboard.writeText(url); pushToast(<TextToast text='Copied to Clipboard!' />) }} />
             <URLLabel />
             <ButtonsWrapper>
                 <Button onClick={regen}>Regen Token</Button>

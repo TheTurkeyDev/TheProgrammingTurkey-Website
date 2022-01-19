@@ -1,7 +1,6 @@
-import { useContext } from 'react';
 import styled from 'styled-components';
-import { OverlayContext } from '../../../contexts/overlay-context';
-import { ToastContext } from '../../../contexts/toast-context';
+import { useOverlay } from '../../../contexts/overlay-context';
+import { useToast } from '../../../contexts/toast-context';
 import { ChanceCubesRewardInfoOverlay } from '../../../overlays/chance-cubes/chance-cubes-reward-info-overlay';
 import { ChanceCubesRewardEditOverlay } from '../../../overlays/chance-cubes/chance-cubes-reward-edit-overlay';
 import { TextToast } from '../../../toasts/text-toast';
@@ -30,21 +29,20 @@ const ChanceValueWrapper = styled.td`
 `
 
 export const ChanceCubesRewardStatusTable = ({ allRewards, shownRewards, notes, highlightedReward, canEdit }) => {
-
-    const overlay = useContext(OverlayContext);
-    const toast = useContext(ToastContext);
+    const { pushCurrentOverlay } = useOverlay();
+    const { pushToast } = useToast();
 
     const showRewardOverlay = (name, data) => {
-        overlay.pushCurrentOverlay(<ChanceCubesRewardInfoOverlay name={name} data={data} />);
+        pushCurrentOverlay(<ChanceCubesRewardInfoOverlay name={name} data={data} />);
     };
 
     const showRewardEditOverlay = (name, data) => {
-        overlay.pushCurrentOverlay(<ChanceCubesRewardEditOverlay name={name} data={data} />);
+        pushCurrentOverlay(<ChanceCubesRewardEditOverlay name={name} data={data} />);
     };
 
     const copyToClipBoard = (reward) => {
         navigator.clipboard.writeText(`https://site.theturkey.dev/chancecubes/rewardstatus?reward=${reward}`);
-        toast.pushToast(<TextToast text='URL copied to clipboard' />);
+        pushToast(<TextToast text='URL copied to clipboard' />);
     };
 
     return (

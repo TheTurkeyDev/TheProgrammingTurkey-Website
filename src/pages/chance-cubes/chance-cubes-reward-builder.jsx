@@ -1,13 +1,12 @@
-import { useContext, useState } from 'react';
-import { OverlayContext } from '../../contexts/overlay-context';
+import { useState } from 'react';
+import { useOverlay } from '../../contexts/overlay-context';
 import { ConfirmationOverlay } from '../../overlays/confirmation-overlay';
 import { ChanceCubesReward } from './reward-builder/chance-cubes-reward';
 
+const colors = ['#61a11f', '#445f8b', '#a6142a', '#c1fda1', '#fd3bf1', '#3d9bf3', '#62b770', '#af2ea2'];
+
 export const ChanceCubesRewardBuilder = () => {
-
-    const colors = ['#61a11f', '#445f8b', '#a6142a', '#c1fda1', '#fd3bf1', '#3d9bf3', '#62b770', '#af2ea2'];
-
-    const overlay = useContext(OverlayContext);
+    const { pushCurrentOverlay, popCurrentOverlay } = useOverlay();
 
     const [rewards, setRewards] = useState({});
 
@@ -50,10 +49,10 @@ export const ChanceCubesRewardBuilder = () => {
     }
 
     const deleteRewardConfirmOverlay = (reward) => {
-        overlay.pushCurrentOverlay(<ConfirmationOverlay text={'Are you sure you want to delete this reward?'} options={
+        pushCurrentOverlay(<ConfirmationOverlay text={'Are you sure you want to delete this reward?'} options={
             [
-                { text: 'Yes', callback: () => { overlay.popCurrentOverlay(); removeReward(reward); } },
-                { text: 'No', callback: () => overlay.popCurrentOverlay() }
+                { text: 'Yes', callback: () => { popCurrentOverlay(); removeReward(reward); } },
+                { text: 'No', callback: () => popCurrentOverlay() }
             ]
         } />);
     }

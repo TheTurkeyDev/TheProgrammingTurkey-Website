@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react';
-import { OverlayContext } from '../../../contexts/overlay-context';
+import { useState } from 'react';
+import { useOverlay } from '../../../contexts/overlay-context';
 import { ConfirmationOverlay } from '../../../overlays/confirmation-overlay';
 
 export const RewardType = ({ json, settings, color, setRewardTypeState, deleteRewardType }) => {
-    const overlay = useContext(OverlayContext);
+    const { pushCurrentOverlay, popCurrentOverlay } = useOverlay();
 
     const [collapsed, setCollapsed] = useState(false);
 
@@ -20,10 +20,10 @@ export const RewardType = ({ json, settings, color, setRewardTypeState, deleteRe
     }
 
     const deleteInstance = () => {
-        overlay.pushCurrentOverlay(<ConfirmationOverlay text={'Are you sure you want to delete this event?'} options={
+        pushCurrentOverlay(<ConfirmationOverlay text={'Are you sure you want to delete this event?'} options={
             [
-                { text: 'Yes', callback: () => { overlay.popCurrentOverlay(); deleteRewardType(); } },
-                { text: 'No', callback: () => overlay.popCurrentOverlay() }
+                { text: 'Yes', callback: () => { popCurrentOverlay(); deleteRewardType(); } },
+                { text: 'No', callback: () => popCurrentOverlay() }
             ]
         } />);
     }

@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment, createContext } from 'react';
+import { useState, useEffect, Fragment, createContext, useContext } from 'react';
 import styled from 'styled-components';
 
 export const OverlayContext = createContext(null);
@@ -42,6 +42,14 @@ const CloseBtn = styled.p`
 const SubOverlayWrapper = styled.div`
     overflow-y: auto;
 `
+
+export const useOverlay = () => {
+    const overlay = useContext(OverlayContext);
+    if (!overlay)
+        throw new Error('Overlay is undefined! Must be used from within a Overlay Provider!');
+    return overlay;
+}
+
 
 export const Overlay = (props) => {
     const [overlay, setOverlay] = useState(<Fragment />);

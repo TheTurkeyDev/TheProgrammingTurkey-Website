@@ -1,23 +1,22 @@
-import { useContext } from 'react';
-import { OverlayContext } from '../../../contexts/overlay-context';
+import { useOverlay } from '../../../contexts/overlay-context';
 import { ConfirmationOverlay } from '../../../overlays/confirmation-overlay';
 
 export const Dependency = ({ type, value, color, changeValue, deleteDependency }) => {
-    const overlay = useContext(OverlayContext);
+    const { pushCurrentOverlay, popCurrentOverlay } = useOverlay();
 
     const deleteInstance = () => {
-        overlay.pushCurrentOverlay(
+        pushCurrentOverlay(
             <ConfirmationOverlay
                 text={'Are you sure you want to delete this dependency?'}
                 options={[
                     {
                         text: 'Yes',
                         callback: () => {
-                            overlay.popCurrentOverlay();
+                            popCurrentOverlay();
                             deleteDependency();
                         },
                     },
-                    { text: 'No', callback: () => overlay.popCurrentOverlay() },
+                    { text: 'No', callback: () => popCurrentOverlay() },
                 ]}
             />
         );

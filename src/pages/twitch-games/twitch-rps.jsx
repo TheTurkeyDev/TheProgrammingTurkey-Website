@@ -1,6 +1,6 @@
-import { useEffect, useState, useContext } from 'react';
-import { AuthContext } from '../../contexts/auth-context';
-import { ToastContext } from '../../contexts/toast-context';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../contexts/auth-context';
+import { useToast } from '../../contexts/toast-context';
 import * as api from '../../network/twitch-games-network';
 import { getAppsSiteBase } from '../../network/network-helper';
 
@@ -9,8 +9,8 @@ import { SecretURL } from '../../components/secret-url';
 
 export const TwitchRPSSetup = () => {
     const gameName = 'rps';
-    const auth = useContext(AuthContext);
-    const toast = useContext(ToastContext);
+    const { authState, authChecked } = useAuth();
+    const { pushToast } = useToast();
 
     const [token, setToken] = useState('');
 
@@ -28,8 +28,8 @@ export const TwitchRPSSetup = () => {
                 setToken(token);
             });
         };
-        if (auth.authState) getToken();
-    }, [auth.authChecked]);
+        if (authState) getToken();
+    }, [authChecked]);
 
     useEffect(() => {
         async function loadDisplay() {
@@ -47,7 +47,7 @@ export const TwitchRPSSetup = () => {
             });
         }
 
-        if (auth.authState) loadDisplay();
+        if (authState) loadDisplay();
     }, [token]);
 
     const saveDisplaySettings = () => {
@@ -60,9 +60,7 @@ export const TwitchRPSSetup = () => {
             text_color: textColor,
             start_delay: startDelay,
         }).then((json) => {
-            if (json.success)
-                toast.pushToast(<TextToast text='Settings Saved!' />);
-            else toast.pushToast(<TextToast text={json.message} />);
+            pushToast(<TextToast text={json.success ? 'Settings Saved!' : json.message} />);
         });
     };
 

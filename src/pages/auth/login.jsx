@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { AuthContext } from '../../contexts/auth-context';
+import { useAuth } from '../../contexts/auth-context';
 import * as authAPI from '../../network/auth-network';
 import { getSiteURLBase } from '../../network/network-helper';
 import { getURLParams } from '../../util/get-url-params';
@@ -16,7 +16,7 @@ const LoginPlatformsWrapper = styled.div`
 
 
 export const Login = ({ history }) => {
-    const auth = useContext(AuthContext);
+    const { authState } = useAuth();
 
     const [logins, setLogins] = useState([]);
     const params = getURLParams(window.location.search);
@@ -25,7 +25,7 @@ export const Login = ({ history }) => {
         authAPI.getLogins(params.from ?? getSiteURLBase()).then(logins => setLogins(logins));
     }, []);
 
-    return auth.authState ?
+    return authState ?
         history.push(params.from ?? '/') :
         (
             <LoginPlatformsWrapper>

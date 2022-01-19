@@ -1,9 +1,10 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Promise from 'promise';
 
-import { AuthContext } from '../../../../contexts/auth-context';
-import { ToastContext } from '../../../../contexts/toast-context';
+import { useAuth } from '../../../../contexts/auth-context';
+import { useToast } from '../../../../contexts/toast-context';
+import { useOverlay } from '../../../../contexts/overlay-context';
 import { TextToast } from '../../../../toasts/text-toast';
 import { getAppsSiteBase, getSiteURLBase } from '../../../../network/network-helper';
 import * as StreamAnimAPI from '../../../../network/stream-animations-network';
@@ -11,7 +12,6 @@ import { LoadingWrapper } from '../../../base/page-loading';
 import { Button, ExtLink } from '../../../../styles/common-styles';
 import { ConnectWithMJRBot } from '../connect-with-mjrbot';
 import { StreamAnimationItem } from './stream-animation-item';
-import { OverlayContext } from '../../../../contexts/overlay-context';
 import { AddNewStreamAnimationOverlay } from '../../../../overlays/auth/add-new-stream-animation-overlay';
 import { SecretURL } from '../../../../components/secret-url';
 
@@ -33,9 +33,9 @@ const Inline = styled.div`
 `;
 
 export const AnimatedStreamOverlaySetup = () => {
-    const auth = useContext(AuthContext);
-    const toast = useContext(ToastContext);
-    const overlay = useContext(OverlayContext);
+    const { authState, authChecked } = useAuth();
+    const { pushCurrentOverlay } = useOverlay();
+    const { pushToast } = useToast();
 
     const [refreshMJRData, setRefreshMJRData] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -70,9 +70,9 @@ export const AnimatedStreamOverlaySetup = () => {
                 setLoading(false);
             })
         }
-        if (auth.authState)
+        if (authState)
             loadData();
-    }, [auth.authChecked, refreshMJRData]);
+    }, [authChecked, refreshMJRData]);
 
     const updateUserAnimationData = (animId, rewardData) => {
         const updated = { ...animationUserData }
@@ -81,7 +81,7 @@ export const AnimatedStreamOverlaySetup = () => {
             if (resp)
                 setAnimationUserData(updated);
             else
-                toast.pushToast(<TextToast text='An error has occured!' />);
+                pushToast(<TextToast text='An error has occured!' />);
         });
     }
 
@@ -94,7 +94,7 @@ export const AnimatedStreamOverlaySetup = () => {
                     return copy;
                 })
             else
-                toast.pushToast(<TextToast text='An error has occured!' />);
+                pushToast(<TextToast text='An error has occured!' />);
         });
     }
 
@@ -113,7 +113,7 @@ export const AnimatedStreamOverlaySetup = () => {
             if (resp)
                 setAnimationUserData(updated);
             else
-                toast.pushToast(<TextToast text='An error has occured!' />);
+                pushToast(<TextToast text='An error has occured!' />);
         });
     }
 
@@ -148,7 +148,7 @@ export const AnimatedStreamOverlaySetup = () => {
                         <SecretURL url={appUrl} regen={regenToken} />
                         <hr />
                         <Button onClick={() => {
-                            overlay.pushCurrentOverlay(<AddNewStreamAnimationOverlay animations={animations.filter(anim => !animationUserData[anim.id])} addAnimation={addAnimation} />)
+                            pushCurrentOverlay(<AddNewStreamAnimationOverlay animations={animations.filter(anim => !animationUserData[anim.id])} addAnimation={addAnimation} />)
                         }}>
                             Add Animation
                         </Button>

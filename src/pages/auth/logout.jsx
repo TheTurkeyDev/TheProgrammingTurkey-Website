@@ -1,12 +1,12 @@
-import { useContext, useEffect } from 'react';
-import { AuthContext } from '../../contexts/auth-context';
+import { useEffect } from 'react';
+import { useAuth } from '../../contexts/auth-context';
 
 export const Logout = (props) => {
-    const auth = useContext(AuthContext);
+    const { logout } = useAuth();
 
     useEffect(() => {
         //TODO: logout on backend
-        auth.logout();
+        logout();
         props.history.push('/');
     }, []);
 

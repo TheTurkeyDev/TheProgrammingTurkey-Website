@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { AuthContext } from '../../contexts/auth-context';
-import { OverlayContext } from '../../contexts/overlay-context';
+import { useAuth } from '../../contexts/auth-context';
+import { useOverlay } from '../../contexts/overlay-context';
 import * as api from '../../network/network';
 import { ChanceCubesContentCreatorOverlay } from '../../overlays/chance-cubes/chance-cubes-content-creator-overlay';
 import { userListDeleteUser } from '../../network/chance-cubes-network';
@@ -19,8 +19,8 @@ const InputBard = styled.div`
 `
 
 export const ChanceCubesManageContentCreators = () => {
-    const auth = useContext(AuthContext);
-    const overlay = useContext(OverlayContext);
+    const { authState, authChecked } = useAuth();
+    const { pushCurrentOverlay, popCurrentOverlay } = useOverlay();
 
     const [userList, setUserList] = useState([]);
     const [searchText, setSerachText] = useState('');
@@ -31,22 +31,22 @@ export const ChanceCubesManageContentCreators = () => {
                 setUserList(json);
             });
         }
-        if (auth.authState) loadUserList();
-    }, [auth.authChecked]);
+        if (authState) loadUserList();
+    }, [authChecked]);
 
     const newUser = () => {
-        overlay.pushCurrentOverlay(<ChanceCubesContentCreatorOverlay />)
+        pushCurrentOverlay(<ChanceCubesContentCreatorOverlay />)
     };
 
     const editUser = (user) => {
-        overlay.pushCurrentOverlay(<ChanceCubesContentCreatorOverlay user={user} />)
+        pushCurrentOverlay(<ChanceCubesContentCreatorOverlay user={user} />)
     };
 
     const deleteUser = (user) => {
-        overlay.pushCurrentOverlay(<ConfirmationOverlay text={'Are you sure you want to delete this user?'} options={
+        pushCurrentOverlay(<ConfirmationOverlay text={'Are you sure you want to delete this user?'} options={
             [
-                { text: 'Yes', callback: () => { overlay.popCurrentOverlay(); userListDeleteUser(user); } },
-                { text: 'No', callback: () => overlay.popCurrentOverlay() }
+                { text: 'Yes', callback: () => { popCurrentOverlay(); userListDeleteUser(user); } },
+                { text: 'No', callback: () => popCurrentOverlay() }
             ]
         } />);
     }

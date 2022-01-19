@@ -1,12 +1,11 @@
-import { useContext } from 'react';
-import { OverlayContext } from '../../contexts/overlay-context';
+import { useOverlay } from '../../contexts/overlay-context';
 
 export const ChanceCubesAddDependencyOverlay = (props) => {
-    const overlay = useContext(OverlayContext);
+    const { popCurrentOverlay } = useOverlay();
 
     const onPick = (id) => {
         props.add(id);
-        overlay.popCurrentOverlay();
+        popCurrentOverlay();
     };
 
     return (

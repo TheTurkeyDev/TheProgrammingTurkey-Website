@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { OverlayContext } from '../../contexts/overlay-context';
+import { useOverlay } from '../../contexts/overlay-context';
 import { getRewardSettings, saveReward } from '../../network/chance-cubes-network';
 import { gameVersions, statusInfo } from '../../pages/chance-cubes/reward-status/chance-cubes-rewards-status';
 
@@ -20,7 +20,7 @@ const RewardSettingsWrapper = styled.table`
 `
 
 export const ChanceCubesRewardEditOverlay = ({ name, data }) => {
-    const overlay = useContext(OverlayContext);
+    const { popCurrentOverlay } = useOverlay();
 
     const [settings, setSettings] = useState([]);
 
@@ -57,7 +57,7 @@ export const ChanceCubesRewardEditOverlay = ({ name, data }) => {
             status: allVersionsStatus[v] ?? 0
         }))).then(json => {
             if (json.success) {
-                overlay.popCurrentOverlay();
+                popCurrentOverlay();
             }
             else {
                 console.log(json.message);

@@ -1,6 +1,6 @@
-import { Fragment, useContext } from 'react';
+import { Fragment } from 'react';
 import styled from 'styled-components';
-import { OverlayContext } from '../../contexts/overlay-context';
+import { useOverlay } from '../../contexts/overlay-context';
 import { ButtonSecondary } from '../../styles/common-styles';
 
 const SelectionWrapper = styled.div`
@@ -11,11 +11,11 @@ const SelectionWrapper = styled.div`
 `
 
 export const AddNewStreamAnimationOverlay = ({ animations, addAnimation }) => {
-    const overlay = useContext(OverlayContext);
+    const { popCurrentOverlay } = useOverlay();
 
     const handleClick = (anim) => {
         addAnimation(anim.id);
-        overlay.popCurrentOverlay();
+        popCurrentOverlay();
     }
     return (
         <div>

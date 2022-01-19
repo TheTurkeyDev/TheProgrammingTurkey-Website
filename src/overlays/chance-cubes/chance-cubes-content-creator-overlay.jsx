@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { OverlayContext } from '../../contexts/overlay-context';
-import { ToastContext } from '../../contexts/toast-context';
+import { useOverlay } from '../../contexts/overlay-context';
+import { useToast } from '../../contexts/toast-context';
 import { userListUpdateUser, userListAddUser } from '../../network/chance-cubes-network';
 import { TextToast } from '../../toasts/text-toast';
 
@@ -18,8 +18,8 @@ const InputWrapper = styled.div`
 `
 
 export const ChanceCubesContentCreatorOverlay = ({ user }) => {
-    const toast = useContext(ToastContext);
-    const overlay = useContext(OverlayContext);
+    const { popCurrentOverlay } = useOverlay();
+    const { pushToast } = useToast();
 
     const isNewUser = !user;
 
@@ -31,13 +31,13 @@ export const ChanceCubesContentCreatorOverlay = ({ user }) => {
     const submitInfo = () => {
         if (isNewUser) {
             const resp = userListAddUser(uuid, userName, type, twitch);
-            toast.pushToast(<TextToast text={resp.message} />);
+            pushToast(<TextToast text={resp.message} />);
         }
         else {
             const resp = userListUpdateUser(uuid, userName, type, twitch);
-            toast.pushToast(<TextToast text={resp.message} />);
+            pushToast(<TextToast text={resp.message} />);
         }
-        overlay.popCurrentOverlay();
+        popCurrentOverlay();
     }
 
     return (

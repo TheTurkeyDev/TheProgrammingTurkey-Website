@@ -1,7 +1,8 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 
-import { AuthContext } from '../../contexts/auth-context';
-import { ToastContext } from '../../contexts/toast-context';
+import { useAuth } from '../../contexts/auth-context';
+import { useToast } from '../../contexts/toast-context';
+import { useOverlay } from '../../contexts/overlay-context';
 import * as clipAPI from '../../network/twitch-clips-network';
 
 import { TextToast } from '../../toasts/text-toast';
@@ -12,7 +13,6 @@ import { Checkbox } from '../../components/inputs/checkbox';
 import Multiselect from 'multiselect-react-dropdown';
 import { TwitchClipVideoPlayer } from './twitch-clip-tagger-video';
 import { TwitchClipTagEditorOverlay } from './twitch-clip-tag-editor-overlay';
-import { OverlayContext } from '../../contexts/overlay-context';
 import { useWasChanged } from '../../hooks/use-was-changed';
 
 const ContentWrapper = styled.div`
@@ -62,10 +62,9 @@ const MultiSelectWrapper = styled.div`
 `;
 
 export const TwitchClipTagger = () => {
-
-    const overlay = useContext(OverlayContext);
-    const auth = useContext(AuthContext);
-    const toast = useContext(ToastContext);
+    const { authState, authChecked } = useAuth();
+    const { pushCurrentOverlay } = useOverlay();
+    const { pushToast } = useToast();
 
     const { channel } = useURLParams();
 
@@ -82,9 +81,9 @@ export const TwitchClipTagger = () => {
     const indexChanged = useWasChanged(clipIndex);
 
     useEffect(() => {
-        if (auth.authState && channel && channel != -1)
+        if (authState && channel && channel != -1)
             loadTags();
-    }, [auth.authChecked, channel]);
+    }, [authChecked, channel]);
 
     useEffect(() => {
         nextClip(true);
@@ -110,7 +109,7 @@ export const TwitchClipTagger = () => {
                     setClipIndex(old => old + 1);
             }
             else {
-                toast.pushToast(<TextToast text='Failed to load clip!' />);
+                pushToast(<TextToast text='Failed to load clip!' />);
             }
             setLoading(false);
         });
@@ -169,7 +168,7 @@ export const TwitchClipTagger = () => {
         <ContentWrapper>
             <TopButtonsBar>
                 <ButtonLink to='/twitchclipfilterer/clips'>Back</ButtonLink>
-                <Button onClick={() => overlay.pushCurrentOverlay(<TwitchClipTagEditorOverlay tags={tags} setTags={setTags} />)}>
+                <Button onClick={() => pushCurrentOverlay(<TwitchClipTagEditorOverlay tags={tags} setTags={setTags} />)}>
                     Manage Tags
                 </Button>
                 <Checkbox label='Only Untagged' checked={onlyUntaggedClips} onChange={e => setOnlyUntaggedClips(e.target.checked)} />

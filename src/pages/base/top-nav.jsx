@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import styled from 'styled-components';
-import { AuthContext } from '../../contexts/auth-context';
+import { useAuth } from '../../contexts/auth-context';
 import { ExtLink, IntLink } from '../../styles/common-styles';
 import { LoginButton } from './login-button';
 
@@ -22,7 +21,7 @@ const links = [
 ];
 
 export const TopNav = () => {
-    const auth = useContext(AuthContext);
+    const { authState, userName } = useAuth();
 
     return (
         <NavWrapper className='navbar navbar-expand-sm navbar-dark'>
@@ -82,11 +81,11 @@ export const TopNav = () => {
                     </li>
                 </ul>
                 <div className='navbar-text'>
-                    {auth.authState ? (
+                    {authState ? (
                         <div>
                             <IntLink to='/user/profile'>
                                 {' '}
-                                {`Welcome ${auth.userName}!`}{' '}
+                                {`Welcome ${userName}!`}{' '}
                             </IntLink>{' '}
                             | <IntLink to='/logout'> Logout </IntLink>
                         </div>

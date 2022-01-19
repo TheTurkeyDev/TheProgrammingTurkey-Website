@@ -1,10 +1,9 @@
-import { useContext } from 'react';
-import { OverlayContext } from '../../contexts/overlay-context';
+import { useOverlay } from '../../contexts/overlay-context';
 
 import * as authAPI from '../../network/auth-network';
 
 export const AccountMergeOverlay = (props) => {
-    const overlay = useContext(OverlayContext);
+    const { popCurrentOverlay } = useOverlay();
 
     const mergeAccount = () => {
         authAPI.confirmMerge(props.platform).then(resp => {
@@ -37,7 +36,7 @@ export const AccountMergeOverlay = (props) => {
                             Confirm
                         </span>
                     </button>
-                    <button className='col-auto mr-auto ml-2' onClick={() => { overlay.popCurrentOverlay(); location.href = props.redir; }}>
+                    <button className='col-auto mr-auto ml-2' onClick={() => { popCurrentOverlay(); location.href = props.redir; }}>
                         <span style={{ 'fontSize': '24px' }}>
                             Cancel
                         </span>

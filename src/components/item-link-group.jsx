@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import styled from 'styled-components';
-import { AuthContext } from '../contexts/auth-context';
+import { useAuth } from '../contexts/auth-context';
 import { ItemLink } from './item-link';
 
 const GroupWrapper = styled.div`
@@ -18,7 +17,7 @@ const ItemsWrapper = styled.div`
 `;
 
 export const ItemLinkGroup = (props) => {
-    const auth = useContext(AuthContext);
+    const { permissions } = useAuth();
 
     return (
         <GroupWrapper>
@@ -27,7 +26,7 @@ export const ItemLinkGroup = (props) => {
             <ItemsWrapper>
                 {
                     props.items.map(item => {
-                        if (item.permission === '' || auth.permissions.includes(item.permission)) {
+                        if (item.permission === '' || permissions.includes(item.permission)) {
                             return <ItemLink key={item.title} item={item} />;
                         }
                     })

@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { OverlayContext } from '../../../contexts/overlay-context';
+import { useState } from 'react';
+import { useOverlay } from '../../../contexts/overlay-context';
 import { ChanceCubesAddRewardTypeOverlay } from '../../../overlays/chance-cubes/chance-cubes-add-reward-type-overlay';
 import { ConfirmationOverlay } from '../../../overlays/confirmation-overlay';
 import { DependencyList } from './dependency-list';
@@ -114,8 +114,7 @@ const settings = {
 const colors = ['#06f0fa', '#e0ab02', '#05568f', '#9708d8', '#318209', '#be3921'];
 
 export const ChanceCubesReward = ({ json, color, rewardId, setRewardID, setRewardState, deleteReward }) => {
-
-    const overlay = useContext(OverlayContext);
+    const { pushCurrentOverlay, popCurrentOverlay } = useOverlay();
 
     const [collapsed, setCollapsed] = useState(false);
 
@@ -176,10 +175,10 @@ export const ChanceCubesReward = ({ json, color, rewardId, setRewardID, setRewar
     }
 
     const deleteRewardType = (type) => {
-        overlay.pushCurrentOverlay(<ConfirmationOverlay text={'Are you sure you want to delete everything in this reward event?'} options={
+        pushCurrentOverlay(<ConfirmationOverlay text={'Are you sure you want to delete everything in this reward event?'} options={
             [
-                { text: 'Yes', callback: () => { overlay.popCurrentOverlay(); deleteRewardTypeConfirm(type); } },
-                { text: 'No', callback: () => overlay.popCurrentOverlay() }
+                { text: 'Yes', callback: () => { popCurrentOverlay(); deleteRewardTypeConfirm(type); } },
+                { text: 'No', callback: () => popCurrentOverlay() }
             ]
         } />);
     }
@@ -191,7 +190,7 @@ export const ChanceCubesReward = ({ json, color, rewardId, setRewardID, setRewar
     }
 
     const addRewardType = () => {
-        overlay.pushCurrentOverlay(<ChanceCubesAddRewardTypeOverlay json={json} add={addRewardTypetoJson} />);
+        pushCurrentOverlay(<ChanceCubesAddRewardTypeOverlay json={json} add={addRewardTypetoJson} />);
     }
 
     const changeDepValue = (dep, value) => {

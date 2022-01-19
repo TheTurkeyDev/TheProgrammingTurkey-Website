@@ -1,31 +1,31 @@
-import { useContext, useState } from 'react';
-import { OverlayContext } from '../../contexts/overlay-context';
-import { ToastContext } from '../../contexts/toast-context';
+import { useState } from 'react';
+import { useOverlay } from '../../contexts/overlay-context';
+import { useToast } from '../../contexts/toast-context';
 import * as authAPI from '../../network/auth-network';
 import { TextToast } from '../../toasts/text-toast';
 
 export const NewPermissionOverlay = (props) => {
-    const toast = useContext(ToastContext);
-    const overlay = useContext(OverlayContext);
+    const { pushToast } = useToast();
+    const { popCurrentOverlay } = useOverlay();
 
     const [permissionID, setPermissionID] = useState('');
     const [description, setDescription] = useState('');
 
     const createPerm = () => {
         if (!permissionID) {
-            toast.pushToast(<TextToast text={'Permission ID not set!'} />);
+            pushToast(<TextToast text={'Permission ID not set!'} />);
             return;
         }
 
         if (!description) {
-            toast.pushToast(<TextToast text={'Description not set!'} />);
+            pushToast(<TextToast text={'Description not set!'} />);
             return;
         }
 
         authAPI.createPermission(permissionID, description).then((json) => {
             if (json.message)
-                toast.pushToast(<TextToast text={json.message} />);
-            overlay.popCurrentOverlay();
+                pushToast(<TextToast text={json.message} />);
+            popCurrentOverlay();
             props.update();
         });
     };

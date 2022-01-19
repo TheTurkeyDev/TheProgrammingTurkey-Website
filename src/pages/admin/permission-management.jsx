@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import { OverlayContext } from '../../contexts/overlay-context';
+import { useEffect, useState } from 'react';
+import { useOverlay } from '../../contexts/overlay-context';
+import { useToast } from '../../contexts/toast-context';
 import * as authAPI from '../../network/auth-network';
-
 import { NewPermissionOverlay } from '../../overlays/admin/new-permission-overlay';
 import { ConfirmationOverlay } from '../../overlays/confirmation-overlay';
-import { ToastContext } from '../../contexts/toast-context';
 import { TextToast } from '../../toasts/text-toast';
 import styled from 'styled-components';
 
@@ -23,8 +22,8 @@ const TableWrapper = styled.table`
 `;
 
 export const PermissionManagement = () => {
-    const toast = useContext(ToastContext);
-    const overlay = useContext(OverlayContext);
+    const { pushCurrentOverlay, popCurrentOverlay } = useOverlay();
+    const { pushToast } = useToast();
 
     const [permissionList, setPermissionList] = useState([]);
 
@@ -38,7 +37,7 @@ export const PermissionManagement = () => {
     }, [updatePermissions]);
 
     const addNewPerm = () => {
-        overlay.pushCurrentOverlay(
+        pushCurrentOverlay(
             <NewPermissionOverlay
                 update={() => setUpdatePersmissions((old) => !old)}
             />
@@ -48,24 +47,24 @@ export const PermissionManagement = () => {
     const deletePermConfirm = (perm) => {
         authAPI.deletePermission(perm.permission).then((json) => {
             if (json.message)
-                toast.pushToast(<TextToast text={json.message} />);
+                pushToast(<TextToast text={json.message} />);
             setUpdatePersmissions((old) => !old);
         });
     };
 
     const deletePerm = (perm) => {
-        overlay.pushCurrentOverlay(
+        pushCurrentOverlay(
             <ConfirmationOverlay
                 text={`Are you sure you want to delete the permission ${perm.permission}?`}
                 options={[
                     {
                         text: 'Yes',
                         callback: () => {
-                            overlay.popCurrentOverlay();
+                            popCurrentOverlay();
                             deletePermConfirm(perm);
                         },
                     },
-                    { text: 'No', callback: () => overlay.popCurrentOverlay() },
+                    { text: 'No', callback: () => popCurrentOverlay() },
                 ]}
             />
         );

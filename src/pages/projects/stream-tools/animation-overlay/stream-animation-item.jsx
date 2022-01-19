@@ -1,10 +1,8 @@
-import { useContext } from 'react';
 import styled from 'styled-components';
-import { OverlayContext } from '../../../../contexts/overlay-context';
+import { useOverlay } from '../../../../contexts/overlay-context';
+import { useToast } from '../../../../contexts/toast-context';
 import { StreamAnimationSettingsOverlay } from './stream-animations-settings-overlay';
-
 import * as API from '../../../../network/stream-animations-network';
-import { ToastContext } from '../../../../contexts/toast-context';
 import { TextToast } from '../../../../toasts/text-toast';
 import { ConfirmationOverlay } from '../../../../overlays/confirmation-overlay';
 
@@ -15,8 +13,9 @@ const ActionsWrapper = styled.div`
 `;
 
 export const StreamAnimationItem = ({ animation, channelPointRewards, rewardData, save, remove }) => {
-    const overlay = useContext(OverlayContext);
-    const toast = useContext(ToastContext);
+    const { pushCurrentOverlay, popCurrentOverlay } = useOverlay();
+    const { pushToast } = useToast();
+
 
     const edit = () => {
         const saveSettings = (values) => {
@@ -24,28 +23,28 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, rewardData
             Object.keys(values).map(k => toSave[k] = ({ value: values[k] }));
             save(animation.id, toSave);
         }
-        overlay.pushCurrentOverlay(<StreamAnimationSettingsOverlay animation={animation} userData={rewardData} channelPointRewards={channelPointRewards} save={saveSettings} />)
+        pushCurrentOverlay(<StreamAnimationSettingsOverlay animation={animation} userData={rewardData} channelPointRewards={channelPointRewards} save={saveSettings} />)
     }
 
     const test = () => {
         API.testAnimation(animation.id).then(() => {
-            toast.pushToast(<TextToast text='Animation test triggered!' />);
+            pushToast(<TextToast text='Animation test triggered!' />);
         });
     }
 
     const deleteAnimation = () => {
-        overlay.pushCurrentOverlay(
+        pushCurrentOverlay(
             <ConfirmationOverlay
                 text={'Are you sure you want to delete this animation? You will lose all configured settings!'}
                 options={[
                     {
                         text: 'Yes',
                         callback: () => {
-                            overlay.popCurrentOverlay();
+                            popCurrentOverlay();
                             remove();
                         },
                     },
-                    { text: 'No', callback: () => overlay.popCurrentOverlay() },
+                    { text: 'No', callback: () => popCurrentOverlay() },
                 ]}
             />
         );

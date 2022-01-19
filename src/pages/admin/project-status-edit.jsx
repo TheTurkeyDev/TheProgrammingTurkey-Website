@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
-import { ToastContext } from '../../contexts/toast-context';
+import { useEffect, useState } from 'react';
+import { useToast } from '../../contexts/toast-context';
 import * as api from '../../network/network';
 import * as authAPI from '../../network/auth-network';
 
@@ -12,7 +12,7 @@ const ContentWrapper = styled.div`
 `;
 
 export const ProjectStatusEdit = () => {
-    const toast = useContext(ToastContext);
+    const { pushToast } = useToast();
 
     const [projects, setProjects] = useState({});
     const [versions, setVersions] = useState([]);
@@ -39,25 +39,25 @@ export const ProjectStatusEdit = () => {
 
     const updateProject = () => {
         if (!selectedProject) {
-            toast.pushToast(<TextToast text='Missing Project!' />);
+            pushToast(<TextToast text='Missing Project!' />);
             return;
         }
         if (!selectedVersion || selectedVersion === '-1') {
-            toast.pushToast(<TextToast text='Missing Version!' />);
+            pushToast(<TextToast text='Missing Version!' />);
             return;
         }
         if (!selectedStatus || selectedStatus === '-1') {
-            toast.pushToast(<TextToast text='Missing Status!' />);
+            pushToast(<TextToast text='Missing Status!' />);
             return;
         }
 
         authAPI
             .setProjectStatus(selectedProject, selectedVersion, selectedStatus)
             .then((json) => {
-                toast.pushToast(<TextToast text={json.response} />);
+                pushToast(<TextToast text={json.response} />);
             })
             .catch((e) => {
-                toast.pushToast(<TextToast text={e.toString()} />);
+                pushToast(<TextToast text={e.toString()} />);
             });
     };
 

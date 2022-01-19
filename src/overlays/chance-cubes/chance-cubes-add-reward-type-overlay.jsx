@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import { OverlayContext } from '../../contexts/overlay-context';
+import { useOverlay } from '../../contexts/overlay-context';
 
 const events = [
     { display: 'Block Event', code: 'Block' },
@@ -19,11 +18,11 @@ const events = [
 ];
 
 export const ChanceCubesAddRewardTypeOverlay = (props) => {
-    const overlay = useContext(OverlayContext);
+    const { popCurrentOverlay } = useOverlay();
 
     const onEventPick = (event) => {
         props.add(event);
-        overlay.popCurrentOverlay();
+        popCurrentOverlay();
     };
 
     return (

@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef, useContext } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import { useInterval } from '../../../../hooks/use-interval';
-import { AuthContext } from '../../../../contexts/auth-context';
-import { ToastContext } from '../../../../contexts/toast-context';
+import { useAuth } from '../../../../contexts/auth-context';
+import { useToast } from '../../../../contexts/toast-context';
 import * as timerAPI from '../../../../network/timer-network';
 import { TextToast } from '../../../../toasts/text-toast';
 import { getAppsSiteBase } from '../../../../network/network-helper';
@@ -20,8 +20,8 @@ const URLInput = styled.input`
 export const StreamTimerSetup = () => {
     const canvasRef = useRef(null);
 
-    const auth = useContext(AuthContext);
-    const toast = useContext(ToastContext);
+    const { authState, authChecked, userID } = useAuth();
+    const { pushToast } = useToast();
 
     const [loaded, setLoaded] = useState(0);
     const [refreshtoggle, setRefreshToggle] = useState(false);
@@ -58,13 +58,13 @@ export const StreamTimerSetup = () => {
                 setValidTimerIDs(json);
             });
         }
-        if (auth.authState)
+        if (authState)
             loadTimers();
-    }, [auth.authChecked]);
+    }, [authChecked]);
 
     useEffect(() => {
         async function loadTimer() {
-            timerAPI.getTimer(auth.userID, timerID).then(json => {
+            timerAPI.getTimer(userID, timerID).then(json => {
                 if (json) {
                     if (json.reference_datetime)
                         setDate(new Date(json.reference_datetime));
@@ -88,9 +88,9 @@ export const StreamTimerSetup = () => {
             });
         }
 
-        if (auth.authState)
+        if (authState)
             loadTimer();
-    }, [timerID, refreshtoggle, auth.authChecked]);
+    }, [timerID, refreshtoggle, authChecked]);
 
     // Update the count down every 1 second
     useInterval(() => {
@@ -230,7 +230,7 @@ export const StreamTimerSetup = () => {
                 const timer = validTimerIDs.filter(t => t.id == json.timer_id);
                 timer.display = json.timer_display;
                 setValidTimerIDs(ids => [...ids.filter(t => t.id != json.timer_id), timer]);
-                toast.pushToast(<TextToast text='Timer Saved!' />);
+                pushToast(<TextToast text='Timer Saved!' />);
             }
         });
     }
@@ -260,7 +260,7 @@ export const StreamTimerSetup = () => {
         return date.getFullYear() === now.getFullYear() && date.getMonth() == now.getMonth() && date.getDate() === now.getDate();
     }
 
-    const timerUrl = `${getAppsSiteBase()}/streamtimer?userId=${auth.userID}&timerId=${timerID}`;
+    const timerUrl = `${getAppsSiteBase()}/streamtimer?userId=${userID}&timerId=${timerID}`;
 
     return (
         <div className='fluid-container pl-3'>
@@ -268,7 +268,7 @@ export const StreamTimerSetup = () => {
                 <URLLabel className='col m-0 ml-3 align-center'>
                     URL:
                 </URLLabel>
-                <URLInput className='col ml-2 mr-4' type='text' readOnly value={timerUrl} onClick={() => { navigator.clipboard.writeText(timerUrl); toast.pushToast(<TextToast text='Copied to Clipboard!' />) }} />
+                <URLInput className='col ml-2 mr-4' type='text' readOnly value={timerUrl} onClick={() => { navigator.clipboard.writeText(timerUrl); pushToast(<TextToast text='Copied to Clipboard!' />) }} />
             </div>
             <div className='row m-0'>
                 <URLLabel className='col m-0 ml-3 align-center'>

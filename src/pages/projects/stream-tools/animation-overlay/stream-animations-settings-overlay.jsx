@@ -1,6 +1,6 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { OverlayContext } from '../../../../contexts/overlay-context';
+import { useOverlay } from '../../../../contexts/overlay-context';
 import * as API from '../../../../network/stream-animations-network';
 import { ButtonSecondary } from '../../../../styles/common-styles';
 
@@ -32,7 +32,7 @@ const getInputForSetting = (def, userData, value, onChange) => {
 }
 
 export const StreamAnimationSettingsOverlay = ({ animation, userData, channelPointRewards, save }) => {
-    const overlayContext = useContext(OverlayContext);
+    const { popCurrentOverlay } = useOverlay();
     const [settingsDefs, setSettingsDefs] = useState([]);
     const [values, setValues] = useState({});
 
@@ -79,7 +79,7 @@ export const StreamAnimationSettingsOverlay = ({ animation, userData, channelPoi
                     })
                 }
             </SettingsWrapper>
-            <ButtonSecondary onClick={() => { save(values); overlayContext.popCurrentOverlay(); }}>Save</ButtonSecondary>
+            <ButtonSecondary onClick={() => { save(values); popCurrentOverlay(); }}>Save</ButtonSecondary>
         </ContentWrapper>
     );
 }

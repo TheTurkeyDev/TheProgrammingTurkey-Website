@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { OverlayContext } from '../../contexts/overlay-context';
+import { useOverlay } from '../../contexts/overlay-context';
 import { createReward } from '../../network/chance-cubes-network';
 
 const InputsWrapper = styled.div`
@@ -15,7 +15,7 @@ const InputsWrapper = styled.div`
 `;
 
 export const ChanceCubesRewardCreateOverlay = () => {
-    const overlay = useContext(OverlayContext);
+    const { popCurrentOverlay } = useOverlay();
 
     const [rewardName, setRewardName] = useState('');
     const [isGCCReward, setIsGCCReward] = useState(false);
@@ -25,7 +25,7 @@ export const ChanceCubesRewardCreateOverlay = () => {
     const create = () => {
         createReward(rewardName, chanceValue, isGCCReward).then(json => {
             if (json.success) {
-                overlay.popCurrentOverlay();
+                popCurrentOverlay();
             }
             else {
                 console.log(json.message);

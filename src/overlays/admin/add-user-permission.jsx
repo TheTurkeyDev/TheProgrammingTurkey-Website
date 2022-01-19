@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
-import { OverlayContext } from '../../contexts/overlay-context';
-import { ToastContext } from '../../contexts/toast-context';
+import { useEffect, useState } from 'react';
+import { useOverlay } from '../../contexts/overlay-context';
+import { useToast } from '../../contexts/toast-context';
 import * as authAPI from '../../network/auth-network';
 import { TextToast } from '../../toasts/text-toast';
 
 export const AddUserPermission = (props) => {
-    const toast = useContext(ToastContext);
-    const overlay = useContext(OverlayContext);
+    const { pushToast } = useToast();
+    const { popCurrentOverlay } = useOverlay();
 
     const [permissionList, setPermissionList] = useState([]);
 
@@ -25,8 +25,8 @@ export const AddUserPermission = (props) => {
     const givePerm = (perm) => {
         authAPI.giveUserPermission(props.userId, perm).then((json) => {
             if (json.message)
-                toast.pushToast(<TextToast text={json.message} />);
-            overlay.popCurrentOverlay();
+                pushToast(<TextToast text={json.message} />);
+            popCurrentOverlay();
             props.update();
         });
     };
