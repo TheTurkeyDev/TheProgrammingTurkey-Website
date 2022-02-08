@@ -35,12 +35,12 @@ const support = [
 ];
 
 const ProjectVersionCell = styled.td`
-    background: ${props => props.color};
+    background: ${({ color }) => color};
 `;
 
 const SupportKey = styled.div`
     display: inline-block;
-    background: ${props => props.color}
+    background: ${({ color }) => color};
     color: #111111;
     width: 60px;
 `;
@@ -51,13 +51,15 @@ export const MCModSupport = () => {
     const [versions, setVersions] = useState([]);
 
     useEffect(() => {
-        api.getModStatus().then((json) => {
+        api.getModStatus().then(json => {
             let proj = {};
             let vs = [];
-            json.forEach((status) => {
-                if (!proj[status.mod_name]) proj[status.mod_name] = {};
+            json.forEach(status => {
+                if (!proj[status.mod_name])
+                    proj[status.mod_name] = {};
                 proj[status.mod_name][status.version] = status.status;
-                if (!vs.includes(status.version)) vs.push(status.version);
+                if (!vs.includes(status.version))
+                    vs.push(status.version);
             });
             setProjects(proj);
             setVersions(vs);
@@ -77,7 +79,7 @@ export const MCModSupport = () => {
                         <tr className='text-center text-light'>
                             <th scope='col'>Mod/ Version</th>
                             {
-                                versions.sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).map((v) => (
+                                versions.sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).map(v => (
                                     <th key={v} scope='col'>
                                         {v}
                                     </th>
@@ -86,7 +88,7 @@ export const MCModSupport = () => {
                     </thead>
                     <tbody>
                         {
-                            Object.keys(projects).map((mod) => {
+                            Object.keys(projects).map(mod => {
                                 return (
                                     <tr key={mod}>
                                         <th scope='row' className='p-1 text-light'>
