@@ -1,9 +1,19 @@
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Input } from '../../components/inputs/input';
 import { useOverlay } from '../../contexts/overlay-context';
 import { useToast } from '../../contexts/toast-context';
 import * as authAPI from '../../network/auth-network';
 import { TextToast } from '../../toasts/text-toast';
 
+const ContentWrapper = styled.div`
+    width: 700px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-left: auto;
+    margin-right: auto;
+`;
 export const ConnectMinecraftAccountOverlay = () => {
     const { popCurrentOverlay } = useOverlay();
     const { pushToast } = useToast();
@@ -12,7 +22,7 @@ export const ConnectMinecraftAccountOverlay = () => {
     const [token, setToken] = useState('');
 
     useEffect(() => {
-        authAPI.connectAccount('minecraft').then((json) => {
+        authAPI.connectAccount('minecraft').then(json => {
             if (json.success) {
                 setToken(json.data);
             } else {
@@ -28,21 +38,10 @@ export const ConnectMinecraftAccountOverlay = () => {
     }
 
     return (
-        <div className='mr-5 ml-5 mt-2'>
-            <div className='mt-3 fluid-container'>
-                <div className='row'>
-                    <div className='col'>
-                        <label>Token</label>
-                        <input className='ml-2' type='text' value={token} readOnly />
-                    </div>
-                </div>
-                <div className='row'>
-                    <h3 className='col'>Instructions</h3>
-                </div>
-                <div className='row'>
-                    <p className='col'>TODO</p>
-                </div>
-            </div>
-        </div>
+        <ContentWrapper>
+            <Input name='token' label='Token' value={token} disabled={true} />
+            <h3>Instructions</h3>
+            <p>TODO</p>
+        </ContentWrapper>
     );
-}
+};

@@ -1,10 +1,22 @@
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Input } from '../../components/inputs/input';
 import { useOverlay } from '../../contexts/overlay-context';
 import { useToast } from '../../contexts/toast-context';
 import * as authAPI from '../../network/auth-network';
 import { TextToast } from '../../toasts/text-toast';
 
-export const AddUserPermission = (props) => {
+const ContentWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+`;
+
+const InputWrapper = styled.div`
+    width: 300px;
+`;
+
+export const AddUserPermission = props => {
     const { pushToast } = useToast();
     const { popCurrentOverlay } = useOverlay();
 
@@ -13,17 +25,17 @@ export const AddUserPermission = (props) => {
     const [filter, setFilter] = useState('');
 
     useEffect(() => {
-        authAPI.getAllPermissions(filter).then((json) => {
+        authAPI.getAllPermissions(filter).then(json => {
             setPermissionList(
                 json.filter(
-                    (perm) => !props.assignedPerms.includes(perm.permission)
+                    perm => !props.assignedPerms.includes(perm.permission)
                 )
             );
         });
     }, []);
 
-    const givePerm = (perm) => {
-        authAPI.giveUserPermission(props.userId, perm).then((json) => {
+    const givePerm = perm => {
+        authAPI.giveUserPermission(props.userId, perm).then(json => {
             if (json.message)
                 pushToast(<TextToast text={json.message} />);
             popCurrentOverlay();
@@ -32,15 +44,10 @@ export const AddUserPermission = (props) => {
     };
 
     return (
-        <div className='mr-5 ml-5 mt-2'>
-            <div className='mt-3 fluid-container'>
-                <div className='row'>
-                    <div className='col'>
-                        <label>Filter</label>
-                        <input className='ml-2' type='text' value={filter} onChange={(e) => setFilter(e.target.value)} />
-                    </div>
-                </div>
-            </div>
+        <ContentWrapper>
+            <InputWrapper>
+                <Input name='filter' label='Filter' value={filter} onChange={e => setFilter(e.target.value)} />
+            </InputWrapper>
             <table className='table text-light text-center '>
                 <thead>
                     <tr>
@@ -51,7 +58,7 @@ export const AddUserPermission = (props) => {
                 </thead>
                 <tbody>
                     {
-                        permissionList.map((perm) => (
+                        permissionList.map(perm => (
                             <tr key={perm.permission}>
                                 <th scope='row'>
                                     <i className='fas fa-plus clickable' onClick={() => givePerm(perm.permission)} />
@@ -63,6 +70,6 @@ export const AddUserPermission = (props) => {
                     }
                 </tbody>
             </table>
-        </div>
+        </ContentWrapper>
     );
-}
+};
