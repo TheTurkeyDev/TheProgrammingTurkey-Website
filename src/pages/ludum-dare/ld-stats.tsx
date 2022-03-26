@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState, createRef } from 'react';
-import { Chart } from 'chart.js';
+import Chart from 'chart.js/auto';
 
 import styled from 'styled-components';
 import { getLudumDareStats } from '../../network/network';
-import { Loading } from '@theturkeydev/gobble-lib-react';
+import { Headline2, Headline4, Loading } from '@theturkeydev/gobble-lib-react';
 import { LDEvent } from '../../types/ld-event';
 import { RefObject } from 'react';
 
@@ -49,20 +49,23 @@ const ChartsWrapper = styled.div`
 
 const getPlace = (cat: string, comps: readonly LDEvent[]) => {
     return comps.map(comp => {
-        const place = comp.categories.find(categ => categ.category === cat)?.place ?? -1;
-        return place === -1 ? comp.games : place;
+        const place = comp.categories.find(categ => categ.category === cat)?.place;
+        return place === -1 ? NaN : place;
     });
 };
 
 const getStars = (cat: string, comps: readonly LDEvent[]) => {
-    return comps.map(comp => comp.categories.find(categ => categ.category === cat)?.stars);
+    return comps.map(comp => {
+        const stars = comp.categories.find(categ => categ.category === cat)?.stars;
+        return stars === -1 ? NaN : stars;
+    });
 };
 
 const getPercentile = (cat: string, comps: readonly LDEvent[]) => {
     return comps.map(comp => {
         const data = comp.categories.find(categ => categ.category === cat);
         const place = data?.place ?? -1;
-        return place === -1 ? -1 : Math.round((1 - (place / comp.games)) * 100);
+        return place === -1 ? NaN : Math.round((1 - (place / comp.games)) * 100);
     });
 };
 
@@ -107,10 +110,12 @@ export const LDStats = () => {
             },
             options: {
                 scales: {
-                    yAxes: {
+                    y: {
                         max: 2250,
                         min: 0,
-                        //stepSize: 100,
+                        ticks: {
+                            stepSize: 100,
+                        },
                         reverse: true,
                     },
                 },
@@ -131,10 +136,12 @@ export const LDStats = () => {
             },
             options: {
                 scales: {
-                    yAxes: {
+                    y: {
                         max: 5,
                         min: 0,
-                        //stepSize: 0.5,
+                        ticks: {
+                            stepSize: 0.5,
+                        }
                     },
 
                 },
@@ -155,7 +162,7 @@ export const LDStats = () => {
             },
             options: {
                 scales: {
-                    yAxes:
+                    y:
                     {
                         max: 100,
                         min: 0,
@@ -170,7 +177,7 @@ export const LDStats = () => {
 
     return (
         <ChartsWrapper id='Charts'>
-            <h1>My Ludum Dare Stats</h1>
+            <Headline2>My Ludum Dare Stats</Headline2>
             <ChartGroup text='Placement' refer={placeRef} />
             <ChartGroup text='Category Rating out of 5' refer={statsRef} />
             <ChartGroup text='Percentile Placement Ranks (Higher is Better)' refer={percentileRef} />
@@ -192,7 +199,7 @@ type ChartGroupProps = {
 const ChartGroup = ({ text, refer }: ChartGroupProps) => {
     return (
         <div>
-            <h2>{text}</h2>
+            <Headline4>{text}</Headline4>
             <ChartCanvas
                 ref={refer}
                 width='1057'

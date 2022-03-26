@@ -83,7 +83,7 @@ export const MainPage = () => {
             </Card>
             <Card>
                 <StyledCardHeader>
-                    <Headline3>Ludum Dare 48!</Headline3>
+                    <Headline3>Ludum Dare 49!</Headline3>
                     <Headline5>That's a wrap!</Headline5>
                 </StyledCardHeader>
                 <CardContent>
@@ -96,7 +96,7 @@ export const MainPage = () => {
                 </CardContent>
                 <CardFooter>
                     <LinkGroup links={[
-                        { to: '/projects/LD48', text: 'Game' },
+                        { to: '/projects/LD49', text: 'Game' },
                         { href: 'https://ldjam.com', text: 'Ludum Dare' },
                         { to: '/ld-stats', text: 'Stats' }
                     ]} />

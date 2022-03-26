@@ -1,6 +1,6 @@
-import { ContainedButton } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, ContainedButton } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProps } from 'styled-components';
 import { LoadingModal } from '../../../modals/loading-modal';
 import { getSiteURLBase } from '../../../network/network-helper';
 import { ExtLink } from '../../../styles/common-styles';
@@ -8,7 +8,7 @@ import { ExtLink } from '../../../styles/common-styles';
 const ContentWrapper = styled.div`
     display: grid;
     width: 700px;
-    background: ${props => props.theme.color.bgSecondary};
+    background: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.color};
     border-radius: 15px;
     padding: 16px;
     gap: 8px;
