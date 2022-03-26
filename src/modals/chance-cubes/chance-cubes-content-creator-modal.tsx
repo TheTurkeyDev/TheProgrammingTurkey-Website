@@ -1,5 +1,6 @@
-import { ContainedButton, Input, InputsWrapper, Modal, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { ButtonRow, ContainedButton, Input, InputsWrapper, Modal, OutlinedButton, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
+import styled from 'styled-components';
 import { userListUpdateUser, userListAddUser } from '../../network/chance-cubes-network';
 import { CCContentCreator } from '../../types/chance-cubes/chance-cubes-content-creator';
 
@@ -39,8 +40,11 @@ export const ChanceCubesContentCreatorModal = ({ show, requestClose, user }: Cha
                 <Input name='userName' label='UserName' value={userName} onChange={e => setUserName(e.target.value)} />
                 <Input name='type' label='Type' value={type} onChange={e => setType(e.target.value)} />
                 <Input name='twitch' label='Twitch' value={twitch} onChange={e => setTwtich(e.target.value)} />
-                <ContainedButton onClick={() => submitInfo()}>Save</ContainedButton>
             </InputsWrapper>
+            <ButtonRow>
+                <OutlinedButton onClick={() => requestClose()}>Cancel</OutlinedButton>
+                <ContainedButton onClick={() => submitInfo()}>Save</ContainedButton>
+            </ButtonRow>
         </Modal>
     );
 };

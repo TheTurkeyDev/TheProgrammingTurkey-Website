@@ -1,4 +1,4 @@
-import { ContainedButton, Headline4, Input, OutlinedButton, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Headline4, Input, Modal, OutlinedButton, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import * as authAPI from '../../network/auth-network';
@@ -44,12 +44,14 @@ export const NewPermissionModal = ({ show, requestClose, update }: NewPermission
     };
 
     return (
-        <ContentWrapper>
-            <Headline4>Add New Permission</Headline4>
-            <Input type='text' name='id' label='Permission Id' value={permissionID} onChange={e => setPermissionID(e.target.value)} />
-            <Input type='text' name='description' label='Description' value={description} onChange={e => setDescription(e.target.value)} />
-            <OutlinedButton onClick={() => requestClose()}>Cancel</OutlinedButton>
-            <ContainedButton onClick={() => createPerm()}>Create</ContainedButton>
-        </ContentWrapper >
+        <Modal show={show} requestClose={requestClose}>
+            <ContentWrapper>
+                <Headline4>Add New Permission</Headline4>
+                <Input type='text' name='id' label='Permission Id' value={permissionID} onChange={e => setPermissionID(e.target.value)} />
+                <Input type='text' name='description' label='Description' value={description} onChange={e => setDescription(e.target.value)} />
+                <OutlinedButton onClick={() => requestClose()}>Cancel</OutlinedButton>
+                <ContainedButton onClick={() => createPerm()}>Create</ContainedButton>
+            </ContentWrapper >
+        </Modal>
     );
 };

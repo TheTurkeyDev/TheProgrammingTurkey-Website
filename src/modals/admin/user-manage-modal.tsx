@@ -1,4 +1,4 @@
-import { Body1, ContainedButton, Headline3, Headline5, Input, Modal, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { Body1, ContainedButton, Headline3, Headline5, Input, InputsWrapper, Modal, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
 import { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as authAPI from '../../network/auth-network';
@@ -57,10 +57,12 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
     return (
         <Modal show={show} requestClose={requestClose}>
             <ContentWrapper>
-                <Headline3 className='col'>Manage User: {displayName}</Headline3>
-                <Input name='userId' label='User Id' value={userId} disabled={true} />
-                <Input name='displayName' label='DisplayName' value={displayName} onChange={e => setDisplayName(e.target.value)} />
-                <Headline5 className='col'>Permissions</Headline5>
+                <Headline3>Manage User: {displayName}</Headline3>
+                <InputsWrapper>
+                    <Input name='userId' label='User Id' value={userId} disabled={true} />
+                    <Input name='displayName' label='DisplayName' value={displayName} onChange={e => setDisplayName(e.target.value)} />
+                </InputsWrapper>
+                <Headline5>Permissions</Headline5>
                 <PermissionsWrapper>
                     {
                         permissions.map(perm => {

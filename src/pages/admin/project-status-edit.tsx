@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ContainedButton, Select, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Dropdown, DropdownContent, Headline2, Option, Select, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
 import * as api from '../../network/network';
 import * as authAPI from '../../network/auth-network';
 
 
 const ContentWrapper = styled.div`
-    height: 80vh;
+    display: grid;
+    justify-items: center;
 `;
 
 type MappedProjects = {
@@ -89,10 +90,8 @@ export const ProjectStatusEdit = () => {
     };
 
     return (
-        <ContentWrapper className='fluid-container text-center mt-4'>
-            <div className='row m-0'>
-                <h1 className='col'>Project Status Edit</h1>
-            </div>
+        <ContentWrapper>
+            <Headline2>Project Status Edit</Headline2>
             <div className='row m-0 mt-2'>
                 <div className='dropdown col ml-auto'></div>
                 <div className='dropdown col-auto'>
@@ -114,22 +113,22 @@ export const ProjectStatusEdit = () => {
                     </div>
                 </div>
                 <Select value={selectedVersion} onChange={e => setSelectedVersion(e.target.value)}>
-                    <option value='-1'>Game Version</option>
+                    <Option value='-1'>Game Version</Option>
                     {
                         [...versions].sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).map(v => (
-                            <option key={v} value={v}>
+                            <Option key={v} value={v}>
                                 {v}
-                            </option>
+                            </Option>
                         ))}
                 </Select>
                 <Select value={selectedStatus} onChange={e => setSelectedStatus(e.target.value)}>
-                    <option value='-1'>Project Status</option>
-                    <option value='0'>Support - Active</option>
-                    <option value='1'>Support - Not Active</option>
-                    <option value='2'>In Progress</option>
-                    <option value='3'>Not Supported - Planned</option>
-                    <option value='4'>Not Supported - Not Planned</option>
-                    <option value='5'>Not Supported - Maybe</option>
+                    <Option value='-1'>Project Status</Option>
+                    <Option value='0'>Support - Active</Option>
+                    <Option value='1'>Support - Not Active</Option>
+                    <Option value='2'>In Progress</Option>
+                    <Option value='3'>Not Supported - Planned</Option>
+                    <Option value='4'>Not Supported - Not Planned</Option>
+                    <Option value='5'>Not Supported - Maybe</Option>
                 </Select>
                 <ContainedButton onClick={() => updateProject()}>
                     Update
