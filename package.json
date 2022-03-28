@@ -37,7 +37,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "@theturkeydev/gobble-lib-react": "^1.0.56",
+    "@theturkeydev/gobble-lib-react": "^1.0.57",
     "chart.js": "^3.7.1",
     "multiselect-react-dropdown": "^2.0.17",
     "promise": "^8.1.0",

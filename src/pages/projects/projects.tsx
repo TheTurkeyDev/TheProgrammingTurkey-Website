@@ -1,10 +1,9 @@
-import { Headline3 } from '@theturkeydev/gobble-lib-react';
+import { Headline3, ProjectTile, ProjectTilesList } from '@theturkeydev/gobble-lib-react';
 import { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import * as API from '../../network/network';
 import { ProjectGroup } from '../../types/project.group';
-import { ProjectTile } from './project-tile';
 
 const ProjectsWrapper = styled.div`
     display: grid;
@@ -16,13 +15,6 @@ const ProjectGroupWrapper = styled.div`
     text-align: center;
 `;
 
-const ProjectGroupProjectsWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-`;
 
 export const Projects = () => {
 
@@ -45,11 +37,11 @@ export const Projects = () => {
                         <Headline3>
                             <u>{groupedProjects[g].display}</u>
                         </Headline3>
-                        <ProjectGroupProjectsWrapper>
+                        <ProjectTilesList>
                             {[...groupedProjects[g].projects].sort((a, b) => a.order - b.order).map(proj => (
-                                <ProjectTile key={proj.id} project={proj} />
+                                <ProjectTile key={proj.id} link={proj.link} image={proj.image} title={proj.title} subtitle={proj.subtitle} />
                             ))}
-                        </ProjectGroupProjectsWrapper>
+                        </ProjectTilesList>
                     </ProjectGroupWrapper>
                     : <Fragment key={g} />
                 )}

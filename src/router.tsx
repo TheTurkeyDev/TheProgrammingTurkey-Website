@@ -72,6 +72,6 @@ export const Routing = () => (
         <Route path='/admin/permissionmanage' element={authWrap(<PermissionManagement />, 'admin.managepermissions')} />
         <Route path='/admin/processmanage' element={authWrap(<ProcessManagement />, 'admin.manageprocesses')} />
 
-        <Route element={<NotFound />} />
+        <Route path='/*' element={<NotFound />} />
     </Routes>
 );
