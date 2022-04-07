@@ -13,5 +13,6 @@ export const GlobalStyles = createGlobalStyle`
     body {
         background: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.color};
         color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
+        transition: .25s;
     }
 `;

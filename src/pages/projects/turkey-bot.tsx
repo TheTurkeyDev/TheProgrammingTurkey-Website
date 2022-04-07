@@ -1,7 +1,6 @@
-import { Body1, Headline4 } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, Headline4 } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
 import { ProjectWrapper } from '../../components/project-wrapper';
-import { ExtLink } from '../../styles/common-styles';
 
 const ListItem = styled.li`
     border-color: #131313;
@@ -28,7 +27,7 @@ export const TurkeyBot = () => {
                 works due to Twitch's internal changes of their endpoints.
                 If you are looking for a smaller indie style bot, check out
                 my friend
-                <ExtLink href='' onClick={() => window.open('http://mjrbot.mjrlegends.com')}> MJR's chat moderation bot</ExtLink>
+                <Anchor href='http://mjrbot.mjrlegends.com' openInNewTab={true}> MJR's chat moderation bot</Anchor>
             </Body1>
             <Headline4>Some of these tools include:</Headline4>
             <Body1>

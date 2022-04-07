@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { StreamAnimationSettingsModal } from './stream-animations-settings-modal';
 import * as API from '../../../../network/stream-animations-network';
-import { ConfirmationModal, Option, Select, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { Body1, ConfirmationModal, Option, Select, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
 import { StreamAnimationUserDataPoint } from '../../../../types/stream-animations/stream-animation-user-data';
 import { useState } from 'react';
 import { Mapped } from '../../../../types/mapped';
-import { StreamAnimationUserData } from './mapped-stream-animation-user-data';
+import { UserAnimationSettings } from './mapped-stream-animation-user-data';
 
 const ActionsWrapper = styled.div`
     display: grid;
@@ -18,18 +18,18 @@ const ActionsWrapper = styled.div`
 type StreamAnimationItemProps = {
     readonly animation: StreamAnimation
     readonly channelPointRewards: readonly TwitchChannelPointReward[]
-    readonly rewardData: StreamAnimationUserData
-    readonly save: (id: string, data: StreamAnimationUserData) => void
+    readonly animSettings: UserAnimationSettings
+    readonly save: (id: string, data: UserAnimationSettings) => void
     readonly remove: () => void
 }
-export const StreamAnimationItem = ({ animation, channelPointRewards, rewardData, save, remove }: StreamAnimationItemProps) => {
+export const StreamAnimationItem = ({ animation, channelPointRewards, animSettings, save, remove }: StreamAnimationItemProps) => {
     const { pushToast } = useToast();
 
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
-    const saveSettings = (values: StreamAnimationUserData) => {
-        const toSave = { ...rewardData };
+    const saveSettings = (values: UserAnimationSettings) => {
+        const toSave = { ...animSettings };
         Object.keys(values).map(k => (toSave as Mapped)[k] = ({ value: (values as Mapped)[k] }));
         save(animation.id, toSave);
     };
@@ -47,8 +47,10 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, rewardData
                 <i className='fas fa-edit clickable' title='Edit' onClick={() => setShowSettingsModal(true)} />
                 <i className='fas fa-play clickable' title='Test' onClick={() => test()} />
             </ActionsWrapper>
-            <span>{animation.display}</span>
-            <Select value={rewardData.channel_point.value ?? ''} onChange={e => { save(animation.id, { ...rewardData, channel_point: { ...rewardData.channel_point, value: e.target.value } }); }}>
+            <Body1>{animation.display}</Body1>
+            <Body1>//TODO</Body1>
+            <Body1>Channel Points //TODO</Body1>
+            {/* <Select value={animSettings.channel_point.value ?? ''} onChange={e => { save(animation.id, { ...animSettings, channel_point: { ...animSettings.channel_point, value: e.target.value } }); }}>
                 <Option value=''>N/A</Option>
                 {
                     channelPointRewards.map(reward => (
@@ -57,9 +59,8 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, rewardData
                         </Option>
                     ))
                 }
-            </Select>
-            <div />
-            <StreamAnimationSettingsModal show={showSettingsModal} requestClose={() => setShowSettingsModal(false)} animation={animation} userData={rewardData} channelPointRewards={channelPointRewards} save={saveSettings} />
+            </Select> */}
+            {/* <StreamAnimationSettingsModal show={showSettingsModal} requestClose={() => setShowSettingsModal(false)} animation={animation} animSettings={animSettings} channelPointRewards={channelPointRewards} save={saveSettings} /> */}
             <ConfirmationModal
                 show={showConfirmationModal}
                 requestClose={() => setShowConfirmationModal(false)}

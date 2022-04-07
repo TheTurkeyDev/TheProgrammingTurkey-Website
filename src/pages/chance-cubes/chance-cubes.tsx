@@ -1,7 +1,6 @@
-import { Body1, Headline5 } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, Headline5 } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
 import { ProjectWrapper } from '../../components/project-wrapper';
-import { ExtLink } from '../../styles/common-styles';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -34,21 +33,21 @@ export const ChanceCubesMC = () => {
                     ideas to the mod as it develops.
                 </Body1>
                 <Headline5><u>Rewards, Clips, and Gameplay Videos</u></Headline5>
-                <ExtLink className='ml-1' href='https://www.youtube.com/watch?v=zxzvBvMB0qQ'>
+                <Anchor className='ml-1' href='https://www.youtube.com/watch?v=zxzvBvMB0qQ' openInNewTab={true}>
                     Village Construction Reward
-                </ExtLink>
-                <ExtLink className='ml-1' href='https://www.youtube.com/watch?v=CMjavS2m2Tw'>
+                </Anchor>
+                <Anchor className='ml-1' href='https://www.youtube.com/watch?v=CMjavS2m2Tw' openInNewTab={true}>
                     Math Reward
-                </ExtLink>
-                <ExtLink className='ml-1' href='https://www.youtube.com/watch?v=VdiEjBlgbTs'>
+                </Anchor>
+                <Anchor className='ml-1' href='https://www.youtube.com/watch?v=VdiEjBlgbTs' openInNewTab={true}>
                     Giant Chance Cube and Bio Dome
-                </ExtLink>
-                <ExtLink className='ml-1' href='https://clips.twitch.tv/BenevolentGoldenClipsmomChocolateRain'>
+                </Anchor>
+                <Anchor className='ml-1' href='https://clips.twitch.tv/BenevolentGoldenClipsmomChocolateRain' openInNewTab={true}>
                     Sketch - Leonidas Reward
-                </ExtLink>
-                <ExtLink className='ml-1' href='https://clips.twitch.tv/PopularBoredEelFunRun'>
+                </Anchor>
+                <Anchor className='ml-1' href='https://clips.twitch.tv/PopularBoredEelFunRun' openInNewTab={true}>
                     Tic-Tac-Toe Reward
-                </ExtLink>
+                </Anchor>
             </ContentWrapper>
         </ProjectWrapper>
     );

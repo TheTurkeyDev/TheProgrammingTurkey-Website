@@ -35,11 +35,13 @@ import { StreamAnimationsOverlay } from './stream-tools/animation-overlay/stream
 import { YouTubeSubCount } from './stream-tools/yt-sub-count/youtube-sub-count';
 import { TwitchGamesProject } from '../twitch-games/twitch-games-info';
 import { authWrap } from '../../router';
+import { LD50 } from '../ludum-dare/ld-50';
 
 export const ProjectsRouter = () => {
     return (
         <Routes>
             <Route path='/' element={<Projects />} />
+            <Route path='/ld50' element={<LD50 />} />
             <Route path='/ld49' element={<LD49 />} />
             <Route path='/ld48' element={<LD48 />} />
             <Route path='/ld47' element={<LD47 />} />
@@ -72,3 +74,5 @@ export const ProjectsRouter = () => {
         </Routes>
     );
 };
+
+export default ProjectsRouter;

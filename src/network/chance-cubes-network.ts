@@ -7,11 +7,11 @@ import { getGetParams } from './network';
 import { getDevAPIBase } from './network-helper';
 import { RestResponseWrapper } from '../types/rest-response-wrapper';
 
-export async function getChanceCubesStats(start: string, end: string): Promise<ChanceCubesStats | null> {
+export async function getChanceCubesStats(start: string, end: string): Promise<ChanceCubesStats> {
     return await fetch(`${getDevAPIBase()}/chancecubes/stats?start=${start}&end=${end}`).then(resp => {
         if (resp.status === 200)
             return resp.json();
-        return null;
+        return undefined;
     });
 }
 

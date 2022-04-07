@@ -1,11 +1,11 @@
-import { WithChildren } from '@theturkeydev/gobble-lib-react';
-import { ExtLink, IntLink } from '../styles/common-styles';
+import { Anchor, WithChildren } from '@theturkeydev/gobble-lib-react';
+import { IntLink } from '../styles/common-styles';
 
 type AdaptiveLinkProps = WithChildren & {
     readonly link: string
 }
 export const AdaptiveLink = ({ link, children }: AdaptiveLinkProps) => {
     return link.startsWith('http') ?
-        <ExtLink href={link} target='_blank' rel='noopener noreferrer'>{children} </ExtLink> :
+        <Anchor href={link} openInNewTab={true}>{children} </Anchor> :
         <IntLink to={link} > {children} </IntLink>;
 };

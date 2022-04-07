@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LoadingModal } from '../../../../modals/loading-modal';
 import * as API from '../../../../network/stream-animations-network';
-import { Mapped } from '../../../../types/mapped';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { StreamAnimationSettingDef } from '../../../../types/stream-animations/stream-animation-settings-def';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
-import { StreamAnimationUserData } from './mapped-stream-animation-user-data';
+import { UserAnimationSettings } from './mapped-stream-animation-user-data';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -41,14 +40,14 @@ type StreamAnimationSettingsModalProps = {
     readonly show: boolean
     readonly requestClose: () => void
     readonly animation: StreamAnimation
-    readonly userData: StreamAnimationUserData
+    readonly animSettings: UserAnimationSettings
     readonly channelPointRewards: readonly TwitchChannelPointReward[]
-    readonly save: (values: StreamAnimationUserData) => void
+    readonly save: (values: UserAnimationSettings) => void
 }
 
-export const StreamAnimationSettingsModal = ({ show, requestClose, animation, userData, channelPointRewards, save }: StreamAnimationSettingsModalProps) => {
+export const StreamAnimationSettingsModal = ({ show, requestClose, animation, animSettings, channelPointRewards, save }: StreamAnimationSettingsModalProps) => {
     const [settingsDefs, setSettingsDefs] = useState<readonly StreamAnimationSettingDef[]>([]);
-    const [values, setValues] = useState<StreamAnimationUserData | undefined>(undefined);
+    const [values, setValues] = useState<UserAnimationSettings | undefined>(undefined);
 
     useEffect(() => {
         API.getSettingDef(animation.id).then(settings => {

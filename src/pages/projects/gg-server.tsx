@@ -1,7 +1,6 @@
-import { Body1, Headline4 } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, Headline4 } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
 import { ProjectWrapper } from '../../components/project-wrapper';
-import { ExtLink } from '../../styles/common-styles';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -33,15 +32,15 @@ export const GGServer = () => {
                     phone (Which uses Google FCM) so that I recieve the
                     notification and details of what was said.
                 </Body1>
-                <ExtLink href='https://github.com/TheTurkeyDev/GGServer'>
+                <Anchor href='https://github.com/TheTurkeyDev/GGServer' openInNewTab={true}>
                     GGServer Repository
-                </ExtLink>
-                <ExtLink href='https://github.com/TheTurkeyDev/TurkeyBot-Lurk'>
+                </Anchor>
+                <Anchor href='https://github.com/TheTurkeyDev/TurkeyBot-Lurk' openInNewTab={true}>
                     Twitch Service Repository
-                </ExtLink>
-                <ExtLink href='https://github.com/TheTurkeyDev/TurkeyBot-Reddit'>
+                </Anchor>
+                <Anchor href='https://github.com/TheTurkeyDev/TurkeyBot-Reddit' openInNewTab={true}>
                     Reddit Comment Scanner Repository
-                </ExtLink>
+                </Anchor>
                 <Body1>If this project gains popularity I'll add more here.</Body1>
             </ContentWrapper>
         </ProjectWrapper>

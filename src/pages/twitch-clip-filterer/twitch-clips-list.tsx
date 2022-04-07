@@ -1,11 +1,10 @@
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState } from 'react';
 import { Multiselect } from 'multiselect-react-dropdown';
 
 import * as clipAPI from '../../network/twitch-clips-network';
 import styled from 'styled-components';
-import { ExtLink } from '../../styles/common-styles';
 import { TwitchClipTagEditorModal } from './twitch-clip-tag-editor-modal';
-import { ContainedButton, InputsWrapper, Label, LinkButton, Option, OutlinedButton, Select, Table, TD, TextToast, TH, useToast } from '@theturkeydev/gobble-lib-react';
+import { Anchor, ContainedButton, InputsWrapper, Label, Option, OutlinedButton, Select, Table, TD, TextToast, TH, useToast } from '@theturkeydev/gobble-lib-react';
 import { TwitchClipTag } from '../../types/twitch-clip-filter/twitch-clip-tag';
 import { ManagingChannel } from '../../types/twitch-clip-filter/managing-channel';
 import { TwitchClip } from '../../types/twitch-clip-filter/twitch-clip';
@@ -255,15 +254,15 @@ export const TwitchClipsList = () => {
                                         {clip.date}
                                     </TD>
                                     <TD>
-                                        <ExtLink href={`https://twitch.tv/${clip.channel_name}`}>
+                                        <Anchor href={`https://twitch.tv/${clip.channel_name}`} openInNewTab={true}>
                                             {clip.channel_name}
-                                        </ExtLink>
+                                        </Anchor>
                                     </TD>
                                     <TD>
                                         <ClipTitle>
-                                            <ExtLink href={clip.url}>
+                                            <Anchor href={clip.url} openInNewTab={true}>
                                                 {clip.title}
-                                            </ExtLink>
+                                            </Anchor>
                                         </ClipTitle>
                                     </TD>
                                     <TD>

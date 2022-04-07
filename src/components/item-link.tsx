@@ -18,7 +18,7 @@ const ItemWrapper = styled.div`
 const ProjectLinkTitle = styled.div`
     z-index: 1;
     position: relative;
-    background: #333333;
+    background: ${({ theme }: ThemeProps<BaseTheme>) => theme.isDarkTheme ? '#333333' : '#bbbbbb'};
     min-height: 75px;
     bottom: 0px;
     opacity: 1;
@@ -38,6 +38,7 @@ const ProjectLinkTitle = styled.div`
 const IconWrapper = styled.i`
     margin-top: 8px;
     font-size: 128px;
+    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.on};
 `;
 
 const ImageWrapper = styled.img`
@@ -54,7 +55,7 @@ export const ItemLink = ({ item }: ItemLinkProps) => {
     return (
         <ItemWrapper>
             <IntLink to={item.link}>
-                {item.fa_icon && <IconWrapper className={`text-light ${item.icon}`} />}
+                {item.fa_icon && <IconWrapper className={item.icon} />}
                 {!item.fa_icon && <ImageWrapper src={item.icon} />}
                 <ProjectLinkTitle>
                     <Headline6>

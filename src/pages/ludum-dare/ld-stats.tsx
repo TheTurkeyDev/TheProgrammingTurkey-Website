@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, createRef } from 'react';
+import { useEffect, useState, createRef } from 'react';
 import Chart from 'chart.js/auto';
 
 import styled from 'styled-components';

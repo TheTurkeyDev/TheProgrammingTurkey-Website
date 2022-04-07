@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import { BaseTheme, Elevation } from '@theturkeydev/gobble-lib-react';
+import styled, { ThemeProps } from 'styled-components';
 import { PlatformLoginType } from '../../types/platform-login';
 
 const BadgeWrapper = styled.a`
@@ -10,9 +11,9 @@ const BadgeWrapper = styled.a`
     padding: 2px 0 2px 16px;
     color: #ffffff;
     background-color: ${({ color }) => color};
-    border: 1px solid #d1d1d1;
+    border: 1px solid ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
     border-radius: 5px;
-    box-shadow: 3px 5px #111314;
+    box-shadow: ${Elevation.medium};
 
     &:hover{
         text-decoration: none;

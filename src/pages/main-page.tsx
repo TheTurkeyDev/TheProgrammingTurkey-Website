@@ -1,7 +1,7 @@
-import { Body1, Card, CardContent, CardHeader, Headline3, Headline5 } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, Card, CardContent, CardHeader, Headline3, Headline5 } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
 import { LinkGroup } from '../components/link-group';
-import { ExtLink, StrikeThrough } from '../styles/common-styles';
+import { StrikeThrough } from '../styles/common-styles';
 
 const ContentWrapper = styled.div`
     margin: 16px 64px;
@@ -52,9 +52,9 @@ export const MainPage = () => {
                         learning it to work with it on another project, so
                         I'm using it here to aid in my testing and learning.
                         The source code for my website is actually available
-                        to everyone <ExtLink href='https://github.com/TheTurkeyDev/TheProgrammingTurkey-Website'>
+                        to everyone <Anchor href='https://github.com/TheTurkeyDev/TheProgrammingTurkey-Website' openInNewTab={true}>
                             on my Github page!
-                        </ExtLink>
+                        </Anchor>
                     </Body1>
                     <Body1>
                         Not all pages and links are currently available and
@@ -83,7 +83,7 @@ export const MainPage = () => {
             </Card>
             <Card>
                 <StyledCardHeader>
-                    <Headline3>Ludum Dare 49!</Headline3>
+                    <Headline3>Ludum Dare 50!</Headline3>
                     <Headline5>That's a wrap!</Headline5>
                 </StyledCardHeader>
                 <CardContent>
@@ -96,7 +96,7 @@ export const MainPage = () => {
                 </CardContent>
                 <CardFooter>
                     <LinkGroup links={[
-                        { to: '/projects/LD49', text: 'Game' },
+                        { to: '/projects/LD50', text: 'Game' },
                         { href: 'https://ldjam.com', text: 'Ludum Dare' },
                         { to: '/ld-stats', text: 'Stats' }
                     ]} />

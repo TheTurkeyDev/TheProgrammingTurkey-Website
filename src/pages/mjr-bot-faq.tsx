@@ -1,6 +1,6 @@
-import { Body1, Headline3, HorizontalRule, Subtitle1 } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, Headline3, HorizontalRule, Subtitle1 } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
-import { CenterContent, ExtLink } from '../styles/common-styles';
+import { CenterContent } from '../styles/common-styles';
 
 const ContentWrapper = styled(CenterContent)`
     max-width: 750px;
@@ -48,7 +48,7 @@ export const MJRBotFAQ = () => {
                 the other features MJR has to offer in his bot and suggest things to him that you want to see! He's constantly
                 looking for feedback and new ideas!
             </Body1>
-            <ExtLink href='' onClick={() => window.open('')}>Revoke Permission</ExtLink>
+            <Anchor href='' openInNewTab={true}>Revoke Permission</Anchor>
         </ContentWrapper>
     );
 };

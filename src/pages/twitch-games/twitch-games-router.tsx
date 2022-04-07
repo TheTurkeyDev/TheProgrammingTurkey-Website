@@ -15,3 +15,5 @@ export const TwitchGamesRouter = () => {
         </Routes>
     );
 };
+
+export default TwitchGamesRouter;

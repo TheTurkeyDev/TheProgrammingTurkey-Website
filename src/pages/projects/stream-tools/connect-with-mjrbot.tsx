@@ -1,9 +1,8 @@
-import { BaseTheme, ContainedButton } from '@theturkeydev/gobble-lib-react';
+import { Anchor, BaseTheme, Body1, ContainedButton, Headline5, Subtitle1 } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { LoadingModal } from '../../../modals/loading-modal';
 import { getSiteURLBase } from '../../../network/network-helper';
-import { ExtLink } from '../../../styles/common-styles';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -28,7 +27,7 @@ const LogoImage = styled.img`
     object-fit: contain;
 `;
 
-const PlusSign = styled.span`
+const PlusSign = styled(Body1)`
     font-size: 75px;
     line-height: 75px;
 `;
@@ -66,8 +65,8 @@ export const ConnectWithMJRBot = ({ refresh }: ConnectWithMJRBot) => {
     return (
         <>
             <LoadingModal loading={consentOpen} >
-                <h4>Waiting For MJRBot Consent</h4>
-                <p>Close the MJRBot tab when finished</p>
+                <Headline5>Waiting For MJRBot Consent</Headline5>
+                <Subtitle1>Close the MJRBot tab when finished</Subtitle1>
             </LoadingModal>
             <ContentWrapper>
                 <TopImages>
@@ -76,10 +75,10 @@ export const ConnectWithMJRBot = ({ refresh }: ConnectWithMJRBot) => {
                     <PlusSign>+</PlusSign>
                     <LogoImage src='https://mjrbot.mjrlegends.com/images/mjrbot_site_logo.png' alt='MJRBot ' />
                 </TopImages>
-                <span>You must first connnect with MJRNot to use this tool!</span>
+                <Body1>You must first connnect with MJRNot to use this tool!</Body1>
                 <Inline>
-                    <span>Learn more about MJR Bot and why I use it here: </span>
-                    <ExtLink href='' onClick={() => window.open(`${getSiteURLBase()}/mjrbotfaq`)}>MJR Bot FAQ</ExtLink>
+                    <Body1>Learn more about MJR Bot and why I use it here: </Body1>
+                    <Anchor href={`${getSiteURLBase()}/mjrbotfaq`} openInNewTab={true}>MJR Bot FAQ</Anchor>
                 </Inline>
                 <ButtonSecondaryWrapper onClick={openConsentScreen}>Connect With MJRBot</ButtonSecondaryWrapper>
             </ContentWrapper>

@@ -3,22 +3,24 @@ import styled from 'styled-components';
 import { useAuth } from '../../../../contexts/auth-context';
 import { getAppsSiteBase, getSiteURLBase } from '../../../../network/network-helper';
 import * as StreamAnimAPI from '../../../../network/stream-animations-network';
-import { ExtLink } from '../../../../styles/common-styles';
 import { ConnectWithMJRBot } from '../connect-with-mjrbot';
 import { StreamAnimationItem } from './stream-animation-item';
 import { AddNewStreamAnimationModal } from '../../../../modals/add-new-stream-animation-modal';
 import { SecretURL } from '../../../../components/secret-url';
-import { Body1, ContainedButton, Headline5, Loading, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, ContainedButton, Headline5, Loading, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
-import { MappedStreamAnimationUserData, StreamAnimationUserData } from './mapped-stream-animation-user-data';
-import { StreamAnimationUserDataPoint } from '../../../../types/stream-animations/stream-animation-user-data';
+import { StreamAnimationUserData, UserAnimationSettings } from './mapped-stream-animation-user-data';
 
 const PageWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 8px;
     margin: 16px;
+`;
+
+const URLWrapper = styled.div`
+    max-width: 600px;
 `;
 
 const StreamAnimationsList = styled.div`
@@ -42,7 +44,7 @@ export const AnimatedStreamOverlaySetup = () => {
     const [token, setToken] = useState('');
     const [animations, setAnimations] = useState<readonly StreamAnimation[]>([]);
     const [channelRewards, setchannelRewards] = useState<readonly TwitchChannelPointReward[]>([]);
-    const [animationUserData, setAnimationUserData] = useState<MappedStreamAnimationUserData>({});
+    const [animationUserData, setAnimationUserData] = useState<StreamAnimationUserData>({});
 
     useEffect(() => {
         async function loadData() {
@@ -73,7 +75,7 @@ export const AnimatedStreamOverlaySetup = () => {
             loadData();
     }, [authChecked, refreshMJRData]);
 
-    const updateUserAnimationData = (animId: string, rewardData: StreamAnimationUserData) => {
+    const updateUserAnimationData = (animId: string, rewardData: UserAnimationSettings) => {
         const updated = { ...animationUserData };
         updated[animId] = rewardData;
         StreamAnimAPI.saveUserData(updated).then(resp => {
@@ -87,7 +89,7 @@ export const AnimatedStreamOverlaySetup = () => {
     const removeAnimation = (animationId: string) => {
         StreamAnimAPI.removeUserAnimation(animationId).then(resp => {
             if (resp)
-                setAnimationUserData((old: MappedStreamAnimationUserData) => {
+                setAnimationUserData((old: StreamAnimationUserData) => {
                     const copy = { ...old };
                     delete copy[animationId];
                     return copy;
@@ -131,8 +133,8 @@ export const AnimatedStreamOverlaySetup = () => {
     return (
         <PageWrapper>
             <Inline>
-                <Body1>This tool was developed in Partnership with <ExtLink href='https://mjrbot.mjrlegends.com/'>MJRBot</ExtLink> and thus requires you to connect your Twitch account with the service as well. </Body1>
-                <ExtLink href='' onClick={() => window.open(`${getSiteURLBase()}/mjrbotfaq`)}>MJR Bot FAQ</ExtLink>
+                <Body1>This tool was developed in Partnership with <Anchor href='https://mjrbot.mjrlegends.com/' openInNewTab={true}>MJRBot</Anchor> and thus requires you to connect your Twitch account with the service as well. </Body1>
+                <Anchor href={`${getSiteURLBase()}/mjrbotfaq`} openInNewTab={true}>MJR Bot FAQ</Anchor>
             </Inline>
             <Headline5>OBS Browser Instructions:</Headline5>
             <ul>
@@ -148,23 +150,25 @@ export const AnimatedStreamOverlaySetup = () => {
             {
                 connectedToMJRBot &&
                 <>
-                    <SecretURL url={appUrl} regen={regenToken} />
+                    <URLWrapper>
+                        <SecretURL url={appUrl} regen={regenToken} />
+                    </URLWrapper>
                     <hr />
                     <ContainedButton onClick={() => setShowModal(true)}>
                         Add Animation
                     </ContainedButton>
 
                     <StreamAnimationsList>
-                        <Headline5>Actions</Headline5>
-                        <Headline5>Animation Name</Headline5>
-                        <Headline5>Channel Point Trigger</Headline5>
                         <div />
+                        <Headline5>Animation</Headline5>
+                        <Headline5>Display Name</Headline5>
+                        <Headline5>Event Trigger</Headline5>
                         {
                             Object.keys(animationUserData).map(animId => {
                                 const anim = animations.find(a => animId === a.id);
                                 if (!anim)
                                     return <></>;
-                                return (<StreamAnimationItem key={animId} animation={anim} channelPointRewards={channelRewards} rewardData={animationUserData[animId]} save={updateUserAnimationData} remove={() => removeAnimation(anim.id)} />);
+                                return (<StreamAnimationItem key={animId} animation={anim} channelPointRewards={channelRewards} animSettings={animationUserData[animId]} save={updateUserAnimationData} remove={() => removeAnimation(anim.id)} />);
                             })
                         }
                     </StreamAnimationsList>
