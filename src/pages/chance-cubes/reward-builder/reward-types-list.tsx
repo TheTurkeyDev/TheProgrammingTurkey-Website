@@ -1,5 +1,7 @@
-import { ConfirmationModal, ContainedButton } from '@theturkeydev/gobble-lib-react';
+import { ConfirmationModal, ContainedButton, Headline5 } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
+import styled from 'styled-components';
+import { CollapseChevron } from '../../../components/collapse-chevron';
 import { ChanceCubesRewardTypeType } from '../../../types/chance-cubes/chance-cubes-reward-types';
 import { ChanceCubesSettingDefType } from '../../../types/chance-cubes/chance-cubes-setting-def';
 import { Mapped } from '../../../types/mapped';
@@ -16,8 +18,23 @@ const colors = [
     '#af2ea2',
 ];
 
+const RewardTypeWrapper = styled.div`
+    max-width: 1000px;
+    margin: 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 8px;
+`;
+
+const Header = styled.div`
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
+`;
+
 type RewardTypesListProps = {
-    readonly json: readonly Mapped[]
+    readonly typesList: readonly Mapped[]
     readonly color: string
     readonly type: ChanceCubesRewardTypeType
     readonly settings: readonly ChanceCubesSettingDefType[]
@@ -26,52 +43,37 @@ type RewardTypesListProps = {
     readonly deleteRewardType: () => void
     readonly deleteRewardTypeIndex: (id: number) => void
 }
-export const RewardTypesList = ({ json, color, type, settings, insetRewardTypetoJson, changeRewardTypeValue, deleteRewardType, deleteRewardTypeIndex }: RewardTypesListProps) => {
+export const RewardTypesList = ({ typesList, color, type, settings, insetRewardTypetoJson, changeRewardTypeValue, deleteRewardType, deleteRewardTypeIndex }: RewardTypesListProps) => {
     const [showModal, setShowModal] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
 
     return (
-        <div
-            className='m-2 container'
-            style={{ border: `1px solid ${color}` }}
-        >
-            <div className='row m-2'>
-                <h4>{type} Events</h4>
-                <div
-                    className='ml-auto'
-                    onClick={() => setCollapsed(old => !old)}
-                >
-                    {collapsed ?
-                        <i className='clickable fas fa-chevron-left' /> :
-                        <i className='clickable fas fa-chevron-down' />
-                    }
-                </div>
-                <div className='ml-3' onClick={() => setShowModal(true)}>
-                    <i className='clickable fas fa-trash' />
-                </div>
-            </div>
-            {json.map((json, id) => {
-                return (
-                    <div
-                        key={id}
-                        className={`row m-2 ${collapsed ? 'hidden' : ''}`}
-                    >
-                        <RewardType
-                            json={json}
-                            color={colors[id % colors.length]}
-                            settings={settings}
-                            setRewardTypeState={blockJson => changeRewardTypeValue(id, blockJson)}
-                            deleteRewardType={() => deleteRewardTypeIndex(id)}
-                        />
-                    </div>
-                );
-            })}
-
-            <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
-                <ContainedButton onClick={() => insetRewardTypetoJson()}>
-                    Add {type} Event
-                </ContainedButton>
-            </div>
+        <RewardTypeWrapper style={{ border: `1px solid ${color}` }}>
+            <Header>
+                <Headline5>{type} Events</Headline5>
+                <CollapseChevron collapsed={collapsed} setCollapsed={setCollapsed} />
+                <i className='clickable fas fa-trash' onClick={() => setShowModal(true)} />
+            </Header>
+            {
+                !collapsed &&
+                <>
+                    {typesList.map((rewardTypeInst, id) => {
+                        return (
+                            <RewardType
+                                key={id}
+                                json={rewardTypeInst}
+                                color={colors[id % colors.length]}
+                                settings={settings}
+                                setRewardTypeState={rewardTypeInst => changeRewardTypeValue(id, rewardTypeInst)}
+                                deleteRewardType={() => deleteRewardTypeIndex(id)}
+                            />
+                        );
+                    })}
+                    <ContainedButton onClick={() => insetRewardTypetoJson()}>
+                        Add {type} Event
+                    </ContainedButton>
+                </>
+            }
             <ConfirmationModal
                 show={showModal}
                 text='Are you sure you want to delete everything in this reward event?'
@@ -80,6 +82,6 @@ export const RewardTypesList = ({ json, color, type, settings, insetRewardTypeto
                 noText='No'
                 onNoClick={() => setShowModal(false)}
             />
-        </div>
+        </RewardTypeWrapper>
     );
 };

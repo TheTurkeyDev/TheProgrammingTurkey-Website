@@ -1,6 +1,5 @@
-import { Anchor, Body1 } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, LinkButton } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
-import { IntLink } from '../styles/common-styles';
 import { LinkType } from '../types/link-type';
 
 const ProjectLinksWrapper = styled.div`
@@ -21,17 +20,13 @@ export const LinkGroup = ({ links }: LinkGroupProps) => {
             {
                 links.map(link => (
                     link.href ? (
-                        <Body1 key={link.href}>
-                            <Anchor href={link.href} openInNewTab={true}>
-                                {link.text}
-                            </Anchor>
-                        </Body1>
+                        <Anchor key={link.href} href={link.href} openInNewTab={true}>
+                            {link.text}
+                        </Anchor>
                     ) : (
-                        <Body1 key={link.to}>
-                            <IntLink to={link.to!}>
-                                {link.text}
-                            </IntLink>
-                        </Body1>
+                        <LinkButton key={link.to} to={link.to!}>
+                            {link.text}
+                        </LinkButton>
                     )
                 )).reduce((acc: readonly (JSX.Element | string)[], x) => acc.length === 0 ? [x] : [...acc, '|', x], [])
             }

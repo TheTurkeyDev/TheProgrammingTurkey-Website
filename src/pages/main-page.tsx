@@ -1,4 +1,4 @@
-import { Anchor, Body1, Card, CardContent, CardHeader, Headline3, Headline5 } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, Card, CardContent, CardHeader, Headline3, Headline5, Input } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
 import { LinkGroup } from '../components/link-group';
 import { StrikeThrough } from '../styles/common-styles';
@@ -47,7 +47,7 @@ export const MainPage = () => {
                         It was previously written with a very bad mix of php
                         and html with w3css for css organization. Let's just
                         say it wasn't all that great and a bit of a
-                        nightnare to work with and update. Now I am redoing
+                        nightmare to work with and update. Now I am redoing
                         it all with React <StrikeThrough>and bootstrap</StrikeThrough>! Why React? Well I'm
                         learning it to work with it on another project, so
                         I'm using it here to aid in my testing and learning.

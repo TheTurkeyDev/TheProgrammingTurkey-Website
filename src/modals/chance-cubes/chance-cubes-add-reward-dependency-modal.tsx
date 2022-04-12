@@ -1,5 +1,13 @@
-import { ContainedButton, Modal } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Headline4, Modal } from '@theturkeydev/gobble-lib-react';
+import styled from 'styled-components';
 import { ChanceCubesRewardDependency } from '../../pages/chance-cubes/reward-builder/chance-cubes-reward-dependency';
+
+const Content = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    justify-items: center;
+`;
 
 type ChanceCubesAddDependencyModalProps = {
     readonly show: boolean
@@ -16,12 +24,10 @@ export const ChanceCubesAddDependencyModal = ({ show, requestClose, deps, add }:
 
     return (
         <Modal show={show} requestClose={requestClose}>
-            <div className='row'>
-                <h2 className='col-auto mx-auto' style={{ textDecoration: 'underline' }}>
+            <Content>
+                <Headline4 style={{ textDecoration: 'underline' }}>
                     Add Dependency
-                </h2>
-            </div>
-            <>
+                </Headline4>
                 {
                     !deps.mod && (
                         <ContainedButton onClick={() => onPick('mod')}>
@@ -29,8 +35,6 @@ export const ChanceCubesAddDependencyModal = ({ show, requestClose, deps, add }:
                         </ContainedButton>
                     )
                 }
-            </>
-            <>
                 {
                     !deps.mcVersion && (
                         <ContainedButton onClick={() => onPick('mcVersion')}>
@@ -38,7 +42,7 @@ export const ChanceCubesAddDependencyModal = ({ show, requestClose, deps, add }:
                         </ContainedButton>
                     )
                 }
-            </>
+            </Content>
         </Modal>
     );
 };

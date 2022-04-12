@@ -1,10 +1,9 @@
-import { Headline2, useUrlParams } from '@theturkeydev/gobble-lib-react';
+import { Headline2, LinkButton, useUrlParams } from '@theturkeydev/gobble-lib-react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth-context';
 import * as authAPI from '../../network/auth-network';
 import { AccountMergeModal } from '../../modals/account-merge-modal';
-import { IntLink } from '../../styles/common-styles';
 
 type MergeInfo = {
     readonly platform: string
@@ -46,7 +45,7 @@ export const LoginResponse = () => {
     return (
         <>
             <Headline2>{message}</Headline2>
-            <IntLink to='/'> Click here if you do not get redirected!</IntLink>
+            <LinkButton to='/'> Click here if you do not get redirected!</LinkButton>
             <AccountMergeModal platform={mergeInfo?.platform ?? ''} username={mergeInfo?.username ?? ''} redir={stateParsed.redir_url} show={showModal} requestClose={() => setShowModal(false)} />
         </>
     );

@@ -1,6 +1,4 @@
-import { useEffect, useState, createRef } from 'react';
-import { Chart } from 'chart.js';
-
+import { useEffect, useState } from 'react';
 import { getChanceCubesStats } from '../../../network/chance-cubes-network';
 import { ChanceCubesStats } from '../../../types/chance-cubes/chance-cubes-stats';
 import { Body1, Headline2, Headline3, Headline5 } from '@theturkeydev/gobble-lib-react';
@@ -59,10 +57,31 @@ const colors = [
     '#708090',
 ];
 
+const ContentWrapper = styled.div`
+    width: 100%;
+`;
+
 const DataWrapper = styled.div`
     display: grid;
+    grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     gap: 8px;
+`;
+
+const ChartsDisplay = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 64px;
+    justify-items: center;
+`;
+
+const ChartWrapper = styled.div`
+    justify-items: center;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 500px;
+    margin-bottom: 16px;
 `;
 
 export const ChanceCubesStatsCharts = () => {
@@ -111,7 +130,17 @@ export const ChanceCubesStatsCharts = () => {
             saturdayAverage: json.daily_totals[6].total / json.daily_totals[6].days,
             sundayAverage: json.daily_totals[0].total / json.daily_totals[0].days,
         });
-        setStats(json);
+        const numDates = json.dates.length;
+        const toSet = {
+            ...json,
+            mc_versions: {
+                ...Object.fromEntries(Object.entries(json.mc_versions).map(([v, runs]) => [v, [...Array(numDates - runs.length).fill(0), ...runs]]))
+            },
+            versions: {
+                ...Object.fromEntries(Object.entries(json.versions).map(([v, runs]) => [v, [...Array(numDates - runs.length).fill(0), ...runs]]))
+            },
+        };
+        setStats(toSet);
     };
 
     useEffect(() => {
@@ -168,7 +197,7 @@ export const ChanceCubesStatsCharts = () => {
     }
 
     return (
-        <div id='charts'>
+        <ContentWrapper>
             <header>
                 <hgroup className='text-center'>
                     <Headline2>Chance Cubes Version Stats</Headline2>
@@ -192,19 +221,31 @@ export const ChanceCubesStatsCharts = () => {
                     />
                 </hgroup>
             </header>
-            <div id='LD_Stats' className='text-center'>
-                <Headline3 className='mt-5'> Version usage </Headline3>
-                <VersionLineChart stats={stats} getColorForKey={getColorForKey} />
-                <Headline3 className='mt-5'> Version usage % </Headline3>
-                <VersionPieChart stats={stats} getColorForKey={getColorForKey} />
-                <Headline3 className='mt-5'> MC Version usage</Headline3>
-                <MCVersionUsageLineChart stats={stats} getColorForKey={getColorForKey} />
-                <Headline3 className='mt-5'> MC Version usage % </Headline3>
-                <MCVersionPieChart stats={stats} getColorForKey={getColorForKey} />
-                <Headline3 className='mt-5'> MC Version usage % over Time</Headline3>
-                <MCVersionLineChart stats={stats} getColorForKey={getColorForKey} />
-                <Headline3 className='mt-5'> Run Totals </Headline3>
-                <RunTotalsLinechart stats={stats} />
+            <ChartsDisplay>
+                <ChartWrapper>
+                    <Headline3 className='mt-5'> Version usage </Headline3>
+                    <VersionLineChart stats={stats} getColorForKey={getColorForKey} />
+                </ChartWrapper>
+                <ChartWrapper>
+                    <Headline3 className='mt-5'> Version usage % </Headline3>
+                    <VersionPieChart stats={stats} getColorForKey={getColorForKey} />
+                </ChartWrapper>
+                <ChartWrapper>
+                    <Headline3 className='mt-5'> MC Version usage</Headline3>
+                    <MCVersionUsageLineChart stats={stats} getColorForKey={getColorForKey} />
+                </ChartWrapper>
+                <ChartWrapper>
+                    <Headline3 className='mt-5'> MC Version usage % </Headline3>
+                    <MCVersionPieChart stats={stats} getColorForKey={getColorForKey} />
+                </ChartWrapper>
+                <ChartWrapper>
+                    <Headline3 className='mt-5'> MC Version usage % over Time</Headline3>
+                    <MCVersionLineChart stats={stats} getColorForKey={getColorForKey} />
+                </ChartWrapper>
+                <ChartWrapper>
+                    <Headline3 className='mt-5'> Run Totals </Headline3>
+                    <RunTotalsLinechart stats={stats} />
+                </ChartWrapper>
                 <DataWrapper>
                     <Body1>
                         {`Total Mod Runs: ${numberWithCommas(pageData.totalRuns)} (${numberWithCommas(pageData.totalDays)} days)`}
@@ -238,8 +279,8 @@ export const ChanceCubesStatsCharts = () => {
                         {`Sunday: ${numberWithCommas(pageData.saturdayAverage)}`}
                     </Body1>
                 </DataWrapper>
-            </div>
-        </div>
+            </ChartsDisplay>
+        </ContentWrapper>
     );
 };
 

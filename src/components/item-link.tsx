@@ -1,6 +1,5 @@
-import { BaseTheme, Headline6 } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, Headline6, LinkButton } from '@theturkeydev/gobble-lib-react';
 import styled, { ThemeProps } from 'styled-components';
-import { IntLink } from '../styles/common-styles';
 import { ItemLinkType } from './item-link-type';
 
 const ItemWrapper = styled.div`
@@ -10,7 +9,7 @@ const ItemWrapper = styled.div`
     border-radius: 10px;
     overflow-y: hidden;
 
-    &:hover ${IntLink} {
+    &:hover a {
         text-decoration: none;
     }
 `;
@@ -54,7 +53,7 @@ type ItemLinkProps = {
 export const ItemLink = ({ item }: ItemLinkProps) => {
     return (
         <ItemWrapper>
-            <IntLink to={item.link}>
+            <LinkButton to={item.link}>
                 {item.fa_icon && <IconWrapper className={item.icon} />}
                 {!item.fa_icon && <ImageWrapper src={item.icon} />}
                 <ProjectLinkTitle>
@@ -62,7 +61,7 @@ export const ItemLink = ({ item }: ItemLinkProps) => {
                         {item.title}
                     </Headline6>
                 </ProjectLinkTitle>
-            </IntLink>
+            </LinkButton>
         </ItemWrapper>
     );
 };

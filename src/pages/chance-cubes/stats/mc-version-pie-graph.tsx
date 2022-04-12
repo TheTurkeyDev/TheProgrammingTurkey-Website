@@ -23,43 +23,40 @@ export const MCVersionPieChart = ({ stats, getColorForKey }: MCVersionPieChartPr
     const labelColors = info.map(i => i.color);
 
     return (
-        <ChartWrapper>
-            <ReactChart
-                type='pie'
-                data={{
-                    labels: [...labels],
-                    datasets: [
-                        {
-                            data: pieData,
-                            backgroundColor: labelColors,
+        <ReactChart
+            type='pie'
+            data={{
+                labels: [...labels],
+                datasets: [
+                    {
+                        data: pieData,
+                        backgroundColor: labelColors,
+                    },
+                ],
+            }}
+            options={{
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: 'rgb(217, 217, 217)',
                         },
-                    ],
-                }}
-                options={{
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: 'rgb(217, 217, 217)',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: context => {
+                                const allData = context.dataset.data;
+                                const tooltipLabel = context.label;
+                                const tooltipData = allData[context.dataIndex] as number;
+                                const total = allData.reduce((prev, curr) => (prev as number) + (curr as number), 0) as number;
+                                const tooltipPercentage = Math.round((tooltipData / total) * 100);
+                                return (`${tooltipLabel}: ${tooltipData} (${tooltipPercentage}%)`);
                             },
                         },
-                        tooltip: {
-                            callbacks: {
-                                label: context => {
-                                    const allData = context.dataset.data;
-                                    const tooltipLabel = context.label;
-                                    const tooltipData = allData[context.dataIndex] as number;
-                                    const total = allData.reduce((prev, curr) => (prev as number) + (curr as number), 0) as number;
-                                    const tooltipPercentage = Math.round((tooltipData / total) * 100);
-                                    return (`${tooltipLabel}: ${tooltipData} (${tooltipPercentage}%)`);
-                                },
-                            },
-                        },
-                    }
-                }}
-                height={995}
-                width={995}
-            />
-        </ChartWrapper>
+                    },
+                },
+                maintainAspectRatio: false
+            }}
+        />
     );
 };

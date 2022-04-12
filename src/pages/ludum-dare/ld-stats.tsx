@@ -1,11 +1,9 @@
-import { useEffect, useState, createRef } from 'react';
-import Chart from 'chart.js/auto';
-
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getLudumDareStats } from '../../network/network';
 import { Headline2, Headline4, Loading } from '@theturkeydev/gobble-lib-react';
 import { LDEvent } from '../../types/ld-event';
-import { RefObject } from 'react';
+import { ChartProps, ReactChart } from 'chartjs-react';
 
 const catergories = [
     {
@@ -49,14 +47,14 @@ const ChartsWrapper = styled.div`
 
 const getPlace = (cat: string, comps: readonly LDEvent[]) => {
     return comps.map(comp => {
-        const place = comp.categories.find(categ => categ.category === cat)?.place;
+        const place = comp.categories.find(categ => categ.category === cat)?.place ?? -1;
         return place === -1 ? NaN : place;
     });
 };
 
 const getStars = (cat: string, comps: readonly LDEvent[]) => {
     return comps.map(comp => {
-        const stars = comp.categories.find(categ => categ.category === cat)?.stars;
+        const stars = comp.categories.find(categ => categ.category === cat)?.stars ?? -1;
         return stars === -1 ? NaN : stars;
     });
 };
@@ -69,14 +67,13 @@ const getPercentile = (cat: string, comps: readonly LDEvent[]) => {
     });
 };
 
-
 export const LDStats = () => {
-    const placeRef = createRef<HTMLCanvasElement>();
-    const statsRef = createRef<HTMLCanvasElement>();
-    const percentileRef = createRef<HTMLCanvasElement>();
-
     const [loading, setLoading] = useState(true);
     const [comps, setComps] = useState<readonly LDEvent[]>([]);
+
+    window.addEventListener('beforeprint', (event) => {
+        console.log('After print', event.target);
+    });
 
     useEffect(() => {
         getLudumDareStats().then(json => {
@@ -86,125 +83,110 @@ export const LDStats = () => {
         });
     }, []);
 
-    useEffect(() => {
-        const placeChart = placeRef.current?.getContext('2d');
-        const statsChart = statsRef.current?.getContext('2d');
-        const percentileChart = percentileRef.current?.getContext('2d');
-
-        if (loading || !placeChart || !statsChart || !percentileChart)
-            return;
-
-        const labels = comps.map(comp => `LD${comp.ld_event_num} (${comp.games} games)`);
-
-        new Chart(placeChart, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: catergories.map(cat => ({
-                    label: cat.label,
-                    fill: false,
-                    backgroundColor: cat.backgroundColor,
-                    borderColor: cat.borderColor,
-                    data: getPlace(cat.label, comps),
-                }))
-            },
-            options: {
-                scales: {
-                    y: {
-                        max: 2250,
-                        min: 0,
-                        ticks: {
-                            stepSize: 100,
-                        },
-                        reverse: true,
-                    },
-                },
-            },
-        });
-
-        new Chart(statsChart, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: catergories.map(cat => ({
-                    label: cat.label,
-                    fill: false,
-                    backgroundColor: cat.backgroundColor,
-                    borderColor: cat.borderColor,
-                    data: getStars(cat.label, comps),
-                }))
-            },
-            options: {
-                scales: {
-                    y: {
-                        max: 5,
-                        min: 0,
-                        ticks: {
-                            stepSize: 0.5,
-                        }
-                    },
-
-                },
-            },
-        });
-
-        new Chart(percentileChart, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: catergories.map(cat => ({
-                    label: cat.label,
-                    fill: false,
-                    backgroundColor: cat.backgroundColor,
-                    borderColor: cat.borderColor,
-                    data: getPercentile(cat.label, comps),
-                }))
-            },
-            options: {
-                scales: {
-                    y:
-                    {
-                        max: 100,
-                        min: 0,
-                    },
-                },
-            },
-        });
-    }, [loading, comps, statsRef, percentileRef, placeRef]);
+    const labels = comps.map(comp => `LD${comp.ld_event_num} (${comp.games} games)`);
 
     if (loading)
         return <Loading />;
 
     return (
-        <ChartsWrapper id='Charts'>
+        <ChartsWrapper>
             <Headline2>My Ludum Dare Stats</Headline2>
-            <ChartGroup text='Placement' refer={placeRef} />
-            <ChartGroup text='Category Rating out of 5' refer={statsRef} />
-            <ChartGroup text='Percentile Placement Ranks (Higher is Better)' refer={percentileRef} />
+            <ChartGroup
+                text='Placement'
+                type='line'
+                data={{
+                    labels: labels,
+                    datasets: catergories.map(cat => ({
+                        label: cat.label,
+                        fill: false,
+                        backgroundColor: cat.backgroundColor,
+                        borderColor: cat.borderColor,
+                        data: getPlace(cat.label, comps),
+                    }))
+                }}
+                options={{
+                    scales: {
+                        y: {
+                            max: 2250,
+                            min: 0,
+                            ticks: {
+                                stepSize: 100,
+                            },
+                            reverse: true,
+                        },
+                    },
+                    maintainAspectRatio: false,
+                }} />
+            <ChartGroup
+                text='Category Rating out of 5'
+                type='line'
+                data={{
+                    labels: labels,
+                    datasets: catergories.map(cat => ({
+                        label: cat.label,
+                        fill: false,
+                        backgroundColor: cat.backgroundColor,
+                        borderColor: cat.borderColor,
+                        data: getStars(cat.label, comps),
+                    }))
+                }}
+                options={{
+                    scales: {
+                        y: {
+                            max: 5,
+                            min: 0,
+                            ticks: {
+                                stepSize: 0.5,
+                            }
+                        },
+
+                    },
+                    maintainAspectRatio: false,
+                }}
+            />
+            <ChartGroup
+                text='Percentile Placement Ranks (Higher is Better)'
+                type='line'
+                data={{
+                    labels: labels,
+                    datasets: catergories.map(cat => ({
+                        label: cat.label,
+                        fill: false,
+                        backgroundColor: cat.backgroundColor,
+                        borderColor: cat.borderColor,
+                        data: getPercentile(cat.label, comps),
+                    }))
+                }}
+                options={{
+                    scales: {
+                        y:
+                        {
+                            max: 100,
+                            min: 0,
+                        },
+                    },
+                    maintainAspectRatio: false,
+                }}
+            />
         </ChartsWrapper>
     );
 };
 
-const ChartCanvas = styled.canvas`
-    display: block;
-    width: 1057px;
-    height: 424px;
+const ChartWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 500px;
     margin-bottom: 16px;
 `;
 
-type ChartGroupProps = {
+type ChartGroupProps = ChartProps & {
     readonly text: string
-    readonly refer: RefObject<HTMLCanvasElement>
 }
-const ChartGroup = ({ text, refer }: ChartGroupProps) => {
+const ChartGroup = ({ text, ...props }: ChartGroupProps) => {
     return (
-        <div>
+        <ChartWrapper>
             <Headline4>{text}</Headline4>
-            <ChartCanvas
-                ref={refer}
-                width='1057'
-                height='424'
-            />
-        </div>
+            <ReactChart {...props} />
+        </ChartWrapper>
     );
 };

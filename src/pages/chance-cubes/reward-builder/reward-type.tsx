@@ -1,20 +1,28 @@
-import { ConfirmationModal, Input } from '@theturkeydev/gobble-lib-react';
+import { ConfirmationModal, Input, ToggleSwitch } from '@theturkeydev/gobble-lib-react';
 import { Fragment, useState } from 'react';
 import styled from 'styled-components';
+import { CollapseChevron } from '../../../components/collapse-chevron';
 import { ChanceCubesNumberSettingDef, ChanceCubesSettingDefType } from '../../../types/chance-cubes/chance-cubes-setting-def';
 import { Mapped } from '../../../types/mapped';
 
 const RewardTypeWrapper = styled.div`
     border: 1px solid ${({ color }) => color};
     width: 100%;
-    padding: 0 8px;
+    padding: 8px;
     display: grid;
     overflow-wrap: anywhere;
+    gap: 8px;
+`;
+
+const Header = styled.div`
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
 `;
 
 const SettingsWrapper = styled.div`
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto 1fr;
     gap: 8px;
     align-items: center;
     margin-bottom: 8px;
@@ -42,9 +50,10 @@ export const RewardType = ({ json, settings, color, setRewardTypeState, deleteRe
         if (numSetting.max !== undefined || numSetting.max === 0)
             value = Math.min(value, numSetting.max);
 
-        const jsonCopy = { ...json };
-        jsonCopy[setting.key] = value;
-        setRewardTypeState(jsonCopy);
+        setRewardTypeState({
+            ...json,
+            [setting.key]: value
+        });
     };
 
     const getInput = (setting: ChanceCubesSettingDefType) => {
@@ -63,26 +72,18 @@ export const RewardType = ({ json, settings, color, setRewardTypeState, deleteRe
                 );
             case 'boolean':
                 return (
-                    <div className='toggle-switch'>
-                        <input type='checkbox' checked={json[setting.key]} onChange={() => { }} />
-                        <span className='toggle-slider round' onClick={() => changeValue(setting, !json[setting.key])}></span>
-                    </div>
+                    <ToggleSwitch label={setting.display} checked={json[setting.key]} onClick={() => changeValue(setting, !json[setting.key])} />
                 );
         }
     };
 
     return (
         <RewardTypeWrapper color={color}>
-            <div className='row mt-2'>
-                <div className='col-auto ml-auto' onClick={() => setCollapsed(old => !old)}>
-                    {
-                        collapsed ? <i className='fas fa-chevron-left' /> : <i className='fas fa-chevron-down' />
-                    }
-                </div>
-                <div className='col-auto' onClick={() => setShowModal(true)}>
-                    <i className='clickable fas fa-trash' />
-                </div>
-            </div>
+            <Header>
+                <div />
+                <CollapseChevron collapsed={collapsed} setCollapsed={setCollapsed} />
+                <i className='clickable fas fa-trash' onClick={() => setShowModal(true)} />
+            </Header>
             {
                 collapsed ? (
                     <span>{JSON.stringify(json)}</span>

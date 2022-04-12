@@ -1,5 +1,7 @@
-import { ConfirmationModal, Input, OutlinedButton } from '@theturkeydev/gobble-lib-react';
+import { ConfirmationModal, Headline5, Input, InputsWrapper, OutlinedButton, ToggleSwitch } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
+import styled from 'styled-components';
+import { CollapseChevron } from '../../../components/collapse-chevron';
 import { ChanceCubesAddRewardTypeModal } from '../../../modals/chance-cubes/chance-cubes-add-reward-type-overlay';
 import { EventType } from '../../../types/chance-cubes/chance-cubes-event-type';
 import { ChanceCubesRewardType } from '../../../types/chance-cubes/chance-cubes-reward';
@@ -7,118 +9,24 @@ import { ChanceCubesRewardSettings } from '../../../types/chance-cubes/chance-cu
 import { ChanceCubesRewardTypeType } from '../../../types/chance-cubes/chance-cubes-reward-types';
 import { Mapped } from '../../../types/mapped';
 import { DependencyList } from './dependency-list';
+import { settings } from './raw-settings';
 import { RewardTypesList } from './reward-types-list';
 
-const settings: ChanceCubesRewardSettings = {
-    'Block': [
-        { key: 'xOffSet', display: 'X Offset', type: 'number', default: 0, description: 'Block offset in the x direction from the location of the broken chance cube, or the player' },
-        { key: 'yOffSet', display: 'Y Offset', type: 'number', default: 0, description: 'Block offset in the y direction from the location of the broken chance cube, or the player' },
-        { key: 'zOffSet', display: 'Z Offset', type: 'number', default: 0, description: 'Block offset in the z direction from the location of the broken chance cube, or the player' },
-        { key: 'block', display: 'Block', type: 'text', default: 'minecraft:dirt', description: 'Id of the block to place' },
-        { key: 'falling', display: 'Falling', type: 'boolean', default: false, description: 'Whether or not the block should fall into place, or be placed directly' },
-        { key: 'relativeToPlayer', display: 'Relative to Player', type: 'boolean', default: false, description: "If enabled, the offsets will be relative to the player's location and not the chance cube's" },
-        { key: 'removeUnbreakableBlocks', display: 'Remove Unbreakable Blocks', type: 'boolean', default: false, description: 'If enabled, placed blocks can replace unbreakable blocks.' },
-        { key: 'playSound', display: 'Play Sound', type: 'boolean', default: true, description: 'Play the sound of the block being placed' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the block gets placed' }
-    ],
-    'Message': [
-        { key: 'message', display: 'Message', type: 'text', default: '', description: 'Message to be sent' },
-        { key: 'serverWide', display: 'Server Wide', type: 'boolean', default: false, description: 'If enabled sends the message to all players on the server' },
-        { key: 'range', display: 'Range', type: 'number', default: 32, min: 0, description: 'All Players within this amount of blocks will recieve the message (server wide over rules this)' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the message is sent' }
-    ],
-    'Entity': [
-        { key: 'entity', display: 'Enity', type: 'text', default: '', description: 'NBT data of the entity to spawn' },
-        { key: 'removeBlocks', display: 'Remove Blocks', type: 'boolean', default: true, description: 'If enabled clears a 3x3x3 space around the cube to spawn the entities in' },
-        { key: 'copies', display: 'Copies', type: 'number', default: 0, min: 0, description: 'Number of additional times this entitiy should be spawned in' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the entity is spawned' }
-    ],
-    'Experience': [
-        { key: 'experienceAmount', display: 'Experience Amount', type: 'number', default: 1, description: 'Amount of experience in total in all the orbs' },
-        { key: 'numberOfOrbs', display: 'Number Of Orbs', type: 'number', default: 1, description: 'Number of orbs to spawn' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the experience is spawned' }
-    ],
-    'Item': [
-        { key: 'item', display: 'Item NBT', type: 'text', default: '', description: 'NBT of the item to be spawned in' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the item is spawned' }
-    ],
-    'Command': [
-        { key: 'command', display: 'Command', type: 'text', default: '/help', description: 'Command to be run. Placeholder values: TDB' },
-        { key: 'copies', display: 'Copies', type: 'number', default: 0, min: 0, description: 'Number of additional times the command should be run' },
-        { key: 'copiesSoft', display: 'Copies Soft', type: 'boolean', default: false, description: 'If enabled, the aditional runs of the command will regenerate their dynamic values' },
-        { key: 'relativeToPlayer', display: 'Relative To Player', type: 'boolean', default: false, description: 'If enabled, the command will be run in reference to the palyer\'s location and not the cube\'s' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the command is run' }
-    ],
-    'Potion': [
-        { key: 'potionid', display: 'Potion ID', type: 'text', default: 'speed', description: 'Id of the potion to be spawned in' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the potion is spawned' }
-    ],
-    'Sound': [
-        { key: 'sound', display: 'Sound', type: 'text', default: '', description: 'Id of the sound to play' },
-        { key: 'serverWide', display: 'Server Wide', type: 'boolean', default: false, description: 'If enabled, play the sound server wide' },
-        { key: 'range', display: 'Range', type: 'number', default: 16, min: 0, description: 'All Players within this amount of blocks will hear the sound (server wide over rules this)' },
-        { key: 'playAtPlayersLocation', display: 'Play At Players Location', type: 'boolean', default: false, description: "The source of the sound is at the players location instead of the Chance Cube's locaiton" },
-        { key: 'volume', display: 'Volume', type: 'decimal', default: 1, min: 0, max: 1, description: 'volume of the sound' },
-        { key: 'pitch', display: 'Pitch', type: 'decimal', default: 1, min: 0, max: 1, description: 'Pitch of the sound' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the sound is played' }
-    ],
-    'Schematic': [
-        { key: 'fileName', display: 'File Name', type: 'text', default: '', description: 'Name of the file to load in' },
-        { key: 'xOffSet', display: 'X Offset', type: 'number', default: 0, description: 'Schematic center offset in the x direction from the location of the broken chance cube, or the player' },
-        { key: 'yOffSet', display: 'Y Offset', type: 'number', default: 0, description: 'Schematic bottom in the y direction from the location of the broken chance cube, or the player' },
-        { key: 'zOffSet', display: 'Z Offset', type: 'number', default: 0, description: 'Schematic center offset in the z direction from the location of the broken chance cube, or the player' },
-        { key: 'falling', display: 'Falling', type: 'boolean', default: true, description: 'Whether or not the blocks should fall into place, or be placed directly' },
-        { key: 'relativeToPlayer', display: 'Relative to Player', type: 'boolean', default: false, description: '' },
-        { key: 'includeAirBlocks', display: 'Include Air Blocks', type: 'boolean', default: false, description: '' },
-        { key: 'playSound', display: 'Play Sound', type: 'boolean', default: true, description: '' },
-        { key: 'spacingDelay', display: 'Spacing Delay', type: 'decimal', default: 0.1, min: 0, description: '' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the structure begins building' }
-    ],
-    'Chest': [
-        { key: 'item', display: 'Item', type: 'text', default: 'minecraft:dirt', description: '' },
-        { key: 'amount', display: 'Amount', type: 'number', default: 1, min: 0, description: '' },
-        { key: 'chance', display: 'Chance', type: 'number', default: 50, min: 0, max: 100, description: '' }
-    ],
-    'Particle': [
-        { key: 'particle', display: 'Particle', type: 'text', default: 'explode', description: '' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the paticle is spawned' }
-    ],
-    'Effect': [
-        { key: 'potionid', display: 'Potion ID', type: 'text', default: 'speed', description: '' },
-        { key: 'duration', display: 'Duration', type: 'number', default: 1, min: 0, description: '' },
-        { key: 'amplifier', display: 'Amplifier', type: 'number', default: 0, min: 0, description: '' },
-        { key: 'radius', display: 'Radius', type: 'number', default: 1, min: 0, description: '' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the effect is given' }
-    ],
-    'Title': [
-        { key: 'message', display: 'Message', type: 'text', default: '', description: '' },
-        { key: 'type', display: 'Type', type: 'text', default: 'TITLE', description: '' },
-        { key: 'fadeInTime', display: 'Fade In Time', type: 'number', default: 0, min: 0, description: '' },
-        { key: 'displayTime', display: 'Display Time', type: 'number', default: 0, min: 0, description: '' },
-        { key: 'fadeOutTime', display: 'Fade Out Time', type: 'number', default: 0, min: 0, description: '' },
-        { key: 'isServerWide', display: 'Server Wide', type: 'boolean', default: false, description: '' },
-        { key: 'range', display: 'Range', type: 'number', default: 16, min: 0, description: '' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the title is placed' }
-    ],
-    'Area': [
-        { key: 'xSize', display: 'X Size', type: 'number', default: 1, min: 0, description: '' },
-        { key: 'ySize', display: 'Y Size', type: 'number', default: 1, min: 0, description: '' },
-        { key: 'zSize', display: 'Z Size', type: 'number', default: 1, min: 0, description: '' },
-        { key: 'block', display: 'Block', type: 'text', default: 'minecraft:dirt', description: '' },
-        { key: 'xOffSet', display: 'X Offset', type: 'number', default: 0, description: '' },
-        { key: 'yOffSet', display: 'Y Offset', type: 'number', default: 0, description: '' },
-        { key: 'zOffSet', display: 'Z Offset', type: 'number', default: 0, description: '' },
-        { key: 'falling', display: 'Falling', type: 'boolean', default: true, description: '' },
-        { key: 'causesUpdate', display: 'Causes Update', type: 'boolean', default: false, description: '' },
-        { key: 'relativeToPlayer', display: 'Relative to Player', type: 'boolean', default: false, description: '' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the blocks gets placed' }
-    ],
-    'Status': [
-
-    ]
-};
-
 const colors = ['#06f0fa', '#e0ab02', '#05568f', '#9708d8', '#318209', '#be3921'];
+
+const RewardWrapper = styled.div`
+    max-width: 1000px;
+    margin: 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 8px;
+`;
+
+const RewardHeader = styled.div`
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
+`;
 
 type ChanceCubesRewardProps = {
     readonly reward: ChanceCubesRewardType
@@ -139,25 +47,27 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
     };
 
     const changeChanceValue = (chance: number) => {
-        const jsonCopy = { ...reward };
-        if (chance)
-            jsonCopy.chance = Math.min(100, Math.max(-100, chance));
-        else
-            jsonCopy.chance = chance;
-        setRewardState(rewardId, jsonCopy);
+        setRewardState(rewardId, {
+            ...reward,
+            chance: chance ? Math.min(100, Math.max(-100, chance)) : chance
+        });
     };
 
     const setIsGiantCC = () => {
-        const jsonCopy = { ...reward };
-        jsonCopy.isGiantCubeReward = !jsonCopy.isGiantCubeReward;
-        setRewardState(rewardId, jsonCopy);
+        setRewardState(rewardId, {
+            ...reward,
+            isGiantCubeReward: !reward.isGiantCubeReward
+        });
     };
 
 
     const changeRewardTypeValue = (rewardType: ChanceCubesRewardTypeType, index: number, rewardjson: Mapped) => {
-        const jsonCopy = { ...reward };
-        (jsonCopy as Mapped)[rewardType][index] = rewardjson;
-        setRewardState(rewardId, jsonCopy);
+        const updated = reward[rewardType] ?? [];
+        updated[index] = rewardjson;
+        setRewardState(rewardId, {
+            ...reward,
+            [rewardType]: updated
+        });
     };
 
     const addRewardTypetoJson = (event: EventType) => {
@@ -174,7 +84,7 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
         const typeJson = (jsonCopy as Mapped)[type];
         insetRewardType(type, typeJson);
         (jsonCopy as Mapped)[type] = typeJson;
-        setRewardState(rewardId, jsonCopy);
+        setRewardState(rewardId, { ...reward });
     };
 
     // eslint-disable-next-line functional/prefer-readonly-type
@@ -188,7 +98,7 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
 
     const deleteRewardTypeIndex = (type: ChanceCubesRewardTypeType, index: number) => {
         const jsonCopy = { ...reward };
-        (jsonCopy as Mapped)[type] = ((jsonCopy as Mapped)[type] as readonly Mapped[]).filter((element, i) => i !== index);
+        (jsonCopy as Mapped)[type] = ((jsonCopy as Mapped)[type] as readonly Mapped[]).filter((_, i) => i !== index);
         setRewardState(rewardId, jsonCopy);
     };
 
@@ -211,50 +121,35 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
         setRewardState(rewardId, jsonCopy);
     };
 
-
     return (
-        <div className='m-2 container' style={{ border: `1px solid ${color}` }}>
-            <div className='row m-2'>
-                <h4>Reward</h4>
-                <div className='ml-auto' onClick={() => setCollapsed(old => !old)}>
-                    {collapsed && <i className='clickable fas fa-chevron-left' />}
-                    {!collapsed && <i className='clickable fas fa-chevron-down' />}
-                </div>
-                <div className='ml-3' onClick={() => setShowDeleteModal(true)}>
-                    <i className='clickable fas fa-trash' />
-                </div>
-            </div>
-            <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
-                <Input type='text' name='rewardId' label='Reward ID' value={rewardId} onChange={e => changeRewardID(e.target.value)} />
-            </div>
-            <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
-                <Input type='number' name='chanceValue' label='Chance Value' min={-100} max={100} value={reward.chance} onChange={e => changeChanceValue(parseInt(e.target.value))} />
-            </div>
-            <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
-                <label className='col-3 timer-label'>Giant Chance Cube Reward:</label>
-                <div className='toggle-switch'>
-                    <input type='checkbox' checked={reward.isGiantCubeReward} onChange={() => { }} />
-                    <span className='toggle-slider round' onClick={() => setIsGiantCC()}></span>
-                </div>
-            </div>
-            <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
-                <DependencyList deps={reward.dependencies} insertDependency={changeDepValue} changeValue={changeDepValue} deleteDependency={deleteDepValue} />
-            </div>
+        <RewardWrapper style={{ border: `1px solid ${color}` }}>
+            <RewardHeader>
+                <Headline5>Reward</Headline5>
+                <CollapseChevron collapsed={collapsed} setCollapsed={setCollapsed} />
+                <i className='clickable fas fa-trash' onClick={() => setShowDeleteModal(true)} />
+            </RewardHeader>
             {
-                Object.keys(settings).map((t, i) => {
-                    const type = t as keyof ChanceCubesRewardSettings;
-                    if ((reward as Mapped)[type]) {
-                        return (
-                            <div className={`row m-2 ${collapsed ? 'hidden' : ''}`} key={type}>
-                                <RewardTypesList type={type} color={colors[i % colors.length]} settings={(settings as Mapped)[type]} json={(reward as Mapped)[type]} insetRewardTypetoJson={() => insetRewardTypetoJson(type)} changeRewardTypeValue={(id, blockJson) => changeRewardTypeValue(type, id, blockJson)} deleteRewardTypeIndex={index => deleteRewardTypeIndex(type, index)} deleteRewardType={() => deleteRewardType(type)} />
-                            </div>
-                        );
+                !collapsed &&
+                <>
+                    <InputsWrapper>
+                        <Input type='text' name='rewardId' label='Reward ID' value={rewardId} onChange={e => changeRewardID(e.target.value)} />
+                        <Input type='number' name='chanceValue' label='Chance Value' min={-100} max={100} value={reward.chance} onChange={e => changeChanceValue(parseInt(e.target.value))} />
+                        <ToggleSwitch label='Giant Chance Cube Reward' checked={reward.isGiantCubeReward} onClick={() => setIsGiantCC()} />
+                    </InputsWrapper>
+                    <DependencyList deps={reward.dependencies} insertDependency={changeDepValue} changeValue={changeDepValue} deleteDependency={deleteDepValue} />
+                    {
+                        Object.keys(settings).map((t, i) => {
+                            const type = t as keyof ChanceCubesRewardSettings;
+                            if ((reward as Mapped)[type]) {
+                                return (
+                                    <RewardTypesList type={type} color={colors[i % colors.length]} settings={(settings as Mapped)[type]} typesList={(reward as Mapped)[type]} insetRewardTypetoJson={() => insetRewardTypetoJson(type)} changeRewardTypeValue={(id, blockJson) => changeRewardTypeValue(type, id, blockJson)} deleteRewardTypeIndex={index => deleteRewardTypeIndex(type, index)} deleteRewardType={() => deleteRewardType(type)} />
+                                );
+                            }
+                        })
                     }
-                })
+                    <OutlinedButton className='ml-2 mt-2' onClick={() => setShowAddModal(true)}>Add Reward Event</OutlinedButton>
+                </>
             }
-            <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
-                <OutlinedButton className='ml-2 mt-2' onClick={() => setShowAddModal(true)}>Add Reward Event</OutlinedButton>
-            </div>
             <ConfirmationModal
                 show={showDeleteModal}
                 text='Are you sure you want to delete this reward?'
@@ -265,10 +160,10 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
             />
             <ChanceCubesAddRewardTypeModal
                 show={showAddModal}
-                requestClose={() => setShowAddModal(true)}
+                requestClose={() => setShowAddModal(false)}
                 json={reward}
                 add={addRewardTypetoJson}
             />
-        </div>
+        </RewardWrapper>
     );
 };

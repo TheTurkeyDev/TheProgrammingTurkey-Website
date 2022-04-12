@@ -46,9 +46,8 @@ export const VersionLineChart = ({ stats, getColorForKey }: VersionLineChartProp
                         },
                     },
                 },
+                maintainAspectRatio: false,
             }}
-            height={400}
-            width={995}
         />
     );
 };

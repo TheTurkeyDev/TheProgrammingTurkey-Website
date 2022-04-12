@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { ChanceCubesRewardsStatus } from './reward-status/chance-cubes-rewards-status';
 import { ChanceCubesManageContentCreators } from './content-creators/chance-cubes-manage-content-creators';
-import { ChanceCubesRewardBuilder } from './chance-cubes-reward-builder';
+import { ChanceCubesRewardBuilder } from './reward-builder/chance-cubes-reward-builder';
 import { ChanceCubesStatsCharts } from './stats/chance-cubes-stats';
 import { authWrap } from '../../router';
 

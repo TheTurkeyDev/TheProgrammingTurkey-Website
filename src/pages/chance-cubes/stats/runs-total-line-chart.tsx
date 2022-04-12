@@ -50,9 +50,8 @@ export const RunTotalsLinechart = ({ stats }: RunTotalsLinechartProps) => {
                         },
                     },
                 },
+                maintainAspectRatio: false
             }}
-            height={400}
-            width={995}
         />
     );
 };

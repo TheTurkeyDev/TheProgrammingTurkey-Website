@@ -12,7 +12,7 @@ export const LD50 = () => {
             ]}
             videos={[
                 // { title: 'Devlog', url: 'GAtzLFWUQjw' },
-                //{ title: 'TimeLapse', url: 'YFlnv5HML10' },
+                { title: 'TimeLapse', url: 'dNQhh7RRUNM' },
             ]}
         >
             <Body1>

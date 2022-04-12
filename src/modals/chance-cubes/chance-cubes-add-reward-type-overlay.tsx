@@ -1,4 +1,5 @@
-import { ContainedButton } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Headline3, Modal, OutlinedButton } from '@theturkeydev/gobble-lib-react';
+import styled from 'styled-components';
 import { EventType } from '../../types/chance-cubes/chance-cubes-event-type';
 import { Mapped } from '../../types/mapped';
 
@@ -19,12 +20,20 @@ const events: readonly EventType[] = [
     { display: 'Block Area Event', code: 'Area' },
 ];
 
+const Wrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    justify-items: center;
+`;
+
 type ChanceCubesAddRewardTypeModalProps = {
     readonly show: boolean
     readonly requestClose: () => void
     readonly json: Mapped
     readonly add: (event: EventType) => void
 }
+
 export const ChanceCubesAddRewardTypeModal = ({ show, requestClose, json, add }: ChanceCubesAddRewardTypeModalProps) => {
     const onEventPick = (event: EventType) => {
         add(event);
@@ -32,21 +41,22 @@ export const ChanceCubesAddRewardTypeModal = ({ show, requestClose, json, add }:
     };
 
     return (
-        <div className='container'>
-            <div className='row'>
-                <h2 className='col-auto mx-auto' style={{ textDecoration: 'underline' }}>
+        <Modal show={show} requestClose={requestClose}>
+            <Wrapper>
+                <Headline3 style={{ textDecoration: 'underline' }}>
                     Add Event
-                </h2>
-            </div>
-            {
-                events.filter(event => !json[event.code]).map(event => (
-                    <div key={event.code} className='row'>
-                        <ContainedButton className='col-auto mx-auto mt-1 mb-2' onClick={() => onEventPick(event)}>
+                </Headline3>
+                {
+                    events.filter(event => !json[event.code]).map(event => (
+                        <ContainedButton key={event.code} onClick={() => onEventPick(event)}>
                             {event.display}
                         </ContainedButton>
-                    </div>
-                ))
-            }
-        </div>
+                    ))
+                }
+                <OutlinedButton onClick={() => requestClose()}>
+                    Cancel
+                </OutlinedButton>
+            </Wrapper>
+        </Modal>
     );
 };

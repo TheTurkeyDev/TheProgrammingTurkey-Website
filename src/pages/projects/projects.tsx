@@ -1,4 +1,4 @@
-import { Headline3, ProjectTile, ProjectTilesList } from '@theturkeydev/gobble-lib-react';
+import { Headline3, Loading, ProjectTile, ProjectTilesList } from '@theturkeydev/gobble-lib-react';
 import { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -17,12 +17,14 @@ const ProjectGroupWrapper = styled.div`
 
 
 export const Projects = () => {
-
     const { type } = useParams();
     const [groupedProjects, setGroupedProjects] = useState<{ readonly [key: string]: ProjectGroup }>({});
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         API.getProjects('').then(json => {
+            setLoading(false);
             if (json.success)
                 setGroupedProjects(json.data);
         });
@@ -31,6 +33,7 @@ export const Projects = () => {
     return (
         <ProjectsWrapper>
             {/* TODO: Add project group filter */}
+            {loading && <Loading />}
             {
                 Object.keys(groupedProjects).sort((a, b) => groupedProjects[a].order - groupedProjects[b].order).map(g => (!type || type === g) ?
                     <ProjectGroupWrapper key={g}>

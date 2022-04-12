@@ -1,8 +1,23 @@
-import { ContainedButton } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Headline5 } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
+import styled from 'styled-components';
 import { ChanceCubesAddDependencyModal } from '../../../modals/chance-cubes/chance-cubes-add-reward-dependency-modal';
+import { isNotNullOrUndef } from '../../../util/type-helper';
 import { ChanceCubesRewardDependency } from './chance-cubes-reward-dependency';
 import { Dependency } from './dependency';
+
+const Wrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 8px;
+`;
+
+const Header = styled.div`
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+`;
 
 type DependencyListProps = {
     readonly deps: ChanceCubesRewardDependency
@@ -15,54 +30,45 @@ export const DependencyList = ({ deps, changeValue, insertDependency, deleteDepe
     const [showModal, setShowModal] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
     return (
-        <div className='m-2 container' style={{ border: '1px solid black' }}>
-            <div className='row m-2'>
-                <h4>Dependencies</h4>
-                <div
-                    className='ml-auto'
-                    onClick={() => setCollapsed(old => !old)}
-                >
-                    {collapsed && (
-                        <i className='clickable fas fa-chevron-left' />
-                    )}
-                    {!collapsed && (
-                        <i className='clickable fas fa-chevron-down' />
-                    )}
-                </div>
-            </div>
-            {(!collapsed && !!deps.mod) &&
-                <div className='row m-2'>
-                    <Dependency
-                        type='Mod'
-                        value={deps.mod}
-                        color={'#c1fda1'}
-                        changeValue={value => changeValue('mod', value)}
-                        deleteDependency={() => deleteDependency('mod')}
-                    />
-                </div>
+        <Wrapper style={{ border: '1px solid black' }}>
+            <Header>
+                <Headline5>Dependencies</Headline5>
+                <i className={`clickable fas ${collapsed ? 'fa-chevron-left' : 'fa-chevron-down'}`} onClick={() => setCollapsed(old => !old)} />
+            </Header>
+            {
+                !collapsed &&
+                <>
+                    {
+                        isNotNullOrUndef(deps.mod) &&
+                        <Dependency
+                            type='Mod'
+                            value={deps.mod!}
+                            color={'#c1fda1'}
+                            changeValue={value => changeValue('mod', value)}
+                            deleteDependency={() => deleteDependency('mod')}
+                        />
+                    }
+                    {
+                        isNotNullOrUndef(deps.mcVersion) &&
+                        <Dependency
+                            type='Minecraft Version'
+                            value={deps.mcVersion!}
+                            color={'#af2ea2'}
+                            changeValue={value => changeValue('mcVersion', value)}
+                            deleteDependency={() => deleteDependency('mcVersion')}
+                        />
+                    }
+                    <ContainedButton onClick={() => setShowModal(true)}>
+                        Add Dependency
+                    </ContainedButton>
+                </>
             }
-            {(!collapsed && !!deps.mcVersion) &&
-                <div className='row m-2'>
-                    <Dependency
-                        type='Minecraft Version'
-                        value={deps.mcVersion}
-                        color={'#af2ea2'}
-                        changeValue={value => changeValue('mcVersion', value)}
-                        deleteDependency={() => deleteDependency('mcVersion')}
-                    />
-                </div>
-            }
-            <div className={`row m-2 ${collapsed ? 'hidden' : ''}`}>
-                <ContainedButton onClick={() => setShowModal(true)}>
-                    Add Dependency
-                </ContainedButton>
-            </div>
-            {showModal && <ChanceCubesAddDependencyModal
+            <ChanceCubesAddDependencyModal
                 show={showModal}
                 requestClose={() => setShowModal(false)}
                 deps={deps}
                 add={type => insertDependency(type, '')}
-            />}
-        </div>
+            />
+        </Wrapper>
     );
 };

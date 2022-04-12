@@ -1,5 +1,14 @@
 import { ConfirmationModal, Input } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
+import styled from 'styled-components';
+
+const DependencyWrapper = styled.div`
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+    align-items: center;
+    padding: 12px 8px;
+`;
 
 type DependencyProps = {
     readonly type: string
@@ -9,24 +18,13 @@ type DependencyProps = {
     readonly deleteDependency: () => void
 }
 export const Dependency = ({ type, value, color, changeValue, deleteDependency }: DependencyProps) => {
-
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <div
-            className='m-2 container pb-3'
-            style={{ border: `1px solid ${color}` }}
-        >
-            <div className='row ml-2 mr-2 mt-2'>
-                <Input type='text' name='dep-input' label={type} value={value} onChange={e => changeValue(e.target.value)} />
-                <div
-                    className='ml-auto col-auto'
-                    onClick={() => setShowModal(true)}
-                >
-                    <i className='clickable fas fa-trash' />
-                </div>
-            </div>
-            {showModal && <ConfirmationModal
+        <DependencyWrapper style={{ border: `1px solid ${color}` }}>
+            <Input type='text' name='dep-input' label={type} value={value} onChange={e => changeValue(e.target.value)} />
+            <i className='clickable fas fa-trash' onClick={() => setShowModal(true)} />
+            <ConfirmationModal
                 show={showModal}
                 text={'Are you sure you want to delete this dependency?'}
                 yesText='Yes'
@@ -36,7 +34,7 @@ export const Dependency = ({ type, value, color, changeValue, deleteDependency }
                 }}
                 noText='no'
                 onNoClick={() => setShowModal(false)}
-            />}
-        </div>
+            />
+        </DependencyWrapper>
     );
 };

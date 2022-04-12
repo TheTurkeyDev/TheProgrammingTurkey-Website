@@ -45,9 +45,8 @@ export const MCVersionUsageLineChart = ({ stats, getColorForKey }: MCVersionUsag
                         },
                     },
                 },
+                maintainAspectRatio: false,
             }}
-            height={400}
-            width={995}
         />
     );
 };
