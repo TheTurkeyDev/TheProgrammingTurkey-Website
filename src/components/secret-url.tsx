@@ -17,7 +17,7 @@ export const SecretURL = ({ url, regen }: SecretURLProps) => {
             <div />
             <ButtonRow>
                 <OutlinedButton onClick={regen}>Regen Token</OutlinedButton>
-                <ContainedButton onClick={() => setShowURL(old => !old)}>{showURL ? 'Hide' : 'Show'}URL</ContainedButton>
+                <ContainedButton onClick={() => setShowURL(old => !old)}>{showURL ? 'Hide' : 'Show'} URL</ContainedButton>
             </ButtonRow>
         </InputsWrapper>
     );

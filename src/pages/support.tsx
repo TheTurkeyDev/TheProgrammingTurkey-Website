@@ -1,4 +1,4 @@
-import { BaseTheme, Body1, Headline2, Headline5 } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, Body1, Headline2, Headline5, Opacity, TextHoverCss } from '@theturkeydev/gobble-lib-react';
 import styled, { ThemeProps } from 'styled-components';
 
 const SupportWrapper = styled.div`
@@ -36,9 +36,7 @@ const PlatformBadge = styled.a`
     gap: 16px;
     background-color:${props => props.color};
     border-radius: 3px;
-    &:hover {
-        text-decoration: none;
-    }
+    ${TextHoverCss}
 `;
 
 const SupportPlatformIcon = styled.i`
@@ -69,6 +67,8 @@ const PlatformLink = styled.a`
 const PlatformIcon = styled.i`
     font-size: 64px;
     color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
+
+    ${TextHoverCss}
 `;
 
 export const Support = () => {

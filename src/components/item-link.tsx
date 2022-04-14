@@ -17,7 +17,7 @@ const ItemWrapper = styled.div`
 const ProjectLinkTitle = styled.div`
     z-index: 1;
     position: relative;
-    background: ${({ theme }: ThemeProps<BaseTheme>) => theme.isDarkTheme ? '#333333' : '#bbbbbb'};
+    background: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.color};
     min-height: 75px;
     bottom: 0px;
     opacity: 1;

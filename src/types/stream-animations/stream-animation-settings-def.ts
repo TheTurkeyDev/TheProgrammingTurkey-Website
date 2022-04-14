@@ -1,5 +1,3 @@
-import { StreamAnimationUserDataPoint } from './stream-animation-user-data';
-
 export type StreamAnimationSettingDef = {
     readonly id: string
     readonly animation_id: string

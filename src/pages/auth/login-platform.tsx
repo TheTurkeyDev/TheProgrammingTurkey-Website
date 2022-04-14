@@ -1,4 +1,4 @@
-import { BaseTheme, Elevation } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, Elevation, Opacity } from '@theturkeydev/gobble-lib-react';
 import styled, { ThemeProps } from 'styled-components';
 import { PlatformLoginType } from '../../types/platform-login';
 
@@ -17,6 +17,8 @@ const BadgeWrapper = styled.a`
 
     &:hover{
         text-decoration: none;
+        opacity: ${Opacity.HOVER_MEDIUM};
+        cursor: pointer;
     }
 `;
 

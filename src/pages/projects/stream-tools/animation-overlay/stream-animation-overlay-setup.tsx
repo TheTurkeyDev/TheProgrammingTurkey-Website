@@ -10,7 +10,8 @@ import { SecretURL } from '../../../../components/secret-url';
 import { Anchor, Body1, ContainedButton, Headline5, Loading, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
-import { StreamAnimationUserData, UserAnimationSettings } from './mapped-stream-animation-user-data';
+import { StreamAnimationUserData } from './mapped-stream-animation-user-data';
+import { Mapped } from '../../../../types/mapped';
 
 const PageWrapper = styled.div`
     display: grid;
@@ -75,9 +76,19 @@ export const AnimatedStreamOverlaySetup = () => {
             loadData();
     }, [authChecked, refreshMJRData]);
 
-    const updateUserAnimationData = (animId: string, rewardData: UserAnimationSettings) => {
-        const updated = { ...animationUserData };
-        updated[animId] = rewardData;
+    const updateUserAnimationData = (animId: string, rewardData: Mapped) => {
+        // This is gross
+        const updated = Object.fromEntries(Object.entries(animationUserData).map(
+            ([k, v]) => [k, k === animId
+                ?
+                Object.fromEntries(Object.entries(v).map(([k2, v2]) => [k2, {
+                    ...v2,
+                    value: rewardData[k2]
+                }]))
+                :
+                v
+            ])) as StreamAnimationUserData;
+
         StreamAnimAPI.saveUserData(updated).then(resp => {
             if (resp)
                 setAnimationUserData(updated);

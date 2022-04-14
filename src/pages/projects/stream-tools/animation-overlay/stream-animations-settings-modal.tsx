@@ -1,12 +1,13 @@
-import { ContainedButton, Input, Modal } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Input, Loading, Modal, Select } from '@theturkeydev/gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LoadingModal } from '../../../../modals/loading-modal';
 import * as API from '../../../../network/stream-animations-network';
+import { Mapped } from '../../../../types/mapped';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { StreamAnimationSettingDef } from '../../../../types/stream-animations/stream-animation-settings-def';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
-import { UserAnimationSettings } from './mapped-stream-animation-user-data';
+import { StreamAnimationUserData, UserAnimationSettings } from './mapped-stream-animation-user-data';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -42,56 +43,59 @@ type StreamAnimationSettingsModalProps = {
     readonly animation: StreamAnimation
     readonly animSettings: UserAnimationSettings
     readonly channelPointRewards: readonly TwitchChannelPointReward[]
-    readonly save: (values: UserAnimationSettings) => void
+    readonly save: (values: Mapped) => void
 }
 
 export const StreamAnimationSettingsModal = ({ show, requestClose, animation, animSettings, channelPointRewards, save }: StreamAnimationSettingsModalProps) => {
     const [settingsDefs, setSettingsDefs] = useState<readonly StreamAnimationSettingDef[]>([]);
-    const [values, setValues] = useState<UserAnimationSettings | undefined>(undefined);
+    const [values, setValues] = useState<Mapped>();
 
     useEffect(() => {
         API.getSettingDef(animation.id).then(settings => {
-            // setValues(settings.reduce((curr, prev) => {
-            //     return { ...prev, [curr.id]: (userData as Mapped)[curr.id]?.value ?? curr.default_val };
-            // }, {} as StreamAnimationUserData));
+            setValues(settings.reduce((prev, curr) => {
+                return {
+                    ...prev,
+                    [curr.id]: (animSettings as Mapped)[curr.id]?.value ?? curr.default_val
+                };
+            }, {} as UserAnimationSettings));
             setSettingsDefs(settings);
         });
     }, []);
 
     const updateValue = (id: string, val: string) => {
         setValues(old => {
-            return { ...old!, [id]: { ...old![id], value: val } };
+            return { ...old!, [id]: val };
         });
     };
 
-    if (!values) {
-        <LoadingModal loading={true} />;
-    }
-
     return (
         <Modal show={show} requestClose={requestClose}>
-            <ContentWrapper>
-                <h2>{animation.display}</h2>
-                <SettingsWrapper>
-                    <Label>Channel Point</Label>
-                    <select value={values!.channel_point.value} onChange={e => updateValue('channel_point', e.target.value)}>
-                        <option value=''>N/A</option>
-                        {
-                            channelPointRewards.map(reward => (
-                                <option key={reward.id} value={reward.id}>
-                                    {reward.title}
-                                </option>
-                            ))
-                        }
-                    </select>
-                    {
-                        settingsDefs.filter(def => def.id !== 'channel_point').map(def => {
-                            return getInputForSetting(def, values![def.id].value, val => updateValue(def.id, val));
-                        })
-                    }
-                </SettingsWrapper>
-                <ContainedButton onClick={() => save(values!)} disabled={!values}>Save</ContainedButton>
-            </ContentWrapper>
+            {
+                values ?
+                    <ContentWrapper>
+                        <h2>{animation.display}</h2>
+                        <SettingsWrapper>
+                            <Select label='Channel Point' value={values.channel_point} onChange={e => updateValue('channel_point', e.target.value)}>
+                                <option value=''>N/A</option>
+                                {
+                                    channelPointRewards.map(reward => (
+                                        <option key={reward.id} value={reward.id}>
+                                            {reward.title}
+                                        </option>
+                                    ))
+                                }
+                            </Select>
+                            {
+                                settingsDefs.filter(def => def.id !== 'channel_point').map(def =>
+                                    getInputForSetting(def, values[def.id], val => updateValue(def.id, val))
+                                )
+                            }
+                        </SettingsWrapper>
+                        <ContainedButton onClick={() => save(values)}>Save</ContainedButton>
+                    </ContentWrapper>
+                    :
+                    <Loading />
+            }
         </Modal>
     );
 };

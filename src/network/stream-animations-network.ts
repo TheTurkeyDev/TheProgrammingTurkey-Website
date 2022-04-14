@@ -1,3 +1,4 @@
+import { StreamAnimationUserData } from '../pages/projects/stream-tools/animation-overlay/mapped-stream-animation-user-data';
 import { RestResponseWrapper } from '../types/rest-response-wrapper';
 import { StreamAnimation } from '../types/stream-animations/stream-animation';
 import { StreamAnimationSettingDef } from '../types/stream-animations/stream-animation-settings-def';
@@ -22,11 +23,7 @@ export async function getUserData(): Promise<RestResponseWrapper<StreamAnimData>
     });
 }
 
-export async function saveUserData(userData: {
-    readonly [x: string]: {
-        readonly channel_point: StreamAnimationUserDataPoint;
-    };
-}) {
+export async function saveUserData(userData: StreamAnimationUserData) {
     return await fetch(`${getDevAPIBase()}/streamanimations/userdata`, authAPI.getPostAuthParams({
         ...userData
     })).then(resp => {

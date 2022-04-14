@@ -1,4 +1,4 @@
-import { CenterContent, Dropdown, DropdownContent, LinkButton, NavBar, NavLink, NavText, SiteName, TextButton, useThemeContext } from '@theturkeydev/gobble-lib-react';
+import { CenterContent, Dropdown, DropdownContent, DropdownLinkItem, LinkButton, NavBar, NavLink, NavText, SiteName, TextButton, useThemeContext } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
 import { useAuth } from '../../contexts/auth-context';
 import { LoginButton } from './login-button';
@@ -45,8 +45,8 @@ export const TopNav = () => {
             <Dropdown>
                 {authState ? <UserAvatar src={avatar} /> : <UserIcon className='fas fa-user-circle' />}
                 <DropdownContent sideAnchor='right'>
-                    {authState ? <LinkButton to='/user/profile'>Profile</LinkButton> : <></>}
-                    {authState ? <LinkButton to='/logout'>Logout</LinkButton> : <LoginButton />}
+                    {authState ? <DropdownLinkItem to='/user/profile'>Profile</DropdownLinkItem> : <></>}
+                    {authState ? <DropdownLinkItem to='/logout'>Logout</DropdownLinkItem> : <LoginButton />}
                     <TextButton onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</TextButton>
                 </DropdownContent>
             </Dropdown>
