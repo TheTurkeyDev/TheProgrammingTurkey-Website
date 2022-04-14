@@ -61,9 +61,10 @@ export const YouTubeSubGetSetup = () => {
             const ctx = canvas.getContext('2d');
             if (!ctx)
                 return;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.font = `${fontSize}px ${fontFamily}`;
-            ctx.fillStyle = fontColor;
+            ctx.fillStyle = `#${fontColor}`;
             // ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
             if (loading) {
@@ -83,7 +84,6 @@ export const YouTubeSubGetSetup = () => {
     });
 
     const saveDisplaySettings = () => {
-        console.log(fontSize);
         authAPI.saveYTSubsDisplaySettings(token, {
             preview_bg_color: backgroundColor,
             font_family: fontFamily,

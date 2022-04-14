@@ -131,7 +131,7 @@ export const StreamTimerSetup = () => {
                 return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.font = `${fontSize}px ${font}`;
-            ctx.fillStyle = fontColor;
+            ctx.fillStyle = `#${fontColor}`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             lines.forEach((line, i) => {
