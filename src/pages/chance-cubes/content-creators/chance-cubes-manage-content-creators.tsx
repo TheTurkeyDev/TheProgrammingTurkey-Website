@@ -30,7 +30,7 @@ export const ChanceCubesManageContentCreators = () => {
     useEffect(() => {
         async function loadUserList() {
             api.getChanceCubeUserList().then(json => {
-                setUserList(json);
+                setUserList([...json].sort((a, b) => a.Name.localeCompare(b.Name)));
             });
         }
         if (authState) loadUserList();
@@ -48,7 +48,7 @@ export const ChanceCubesManageContentCreators = () => {
                         <TH>Actions</TH>
                         <TH>MC UUID</TH>
                         <TH>Name</TH>
-                        <TH >Type</TH>
+                        <TH>Type</TH>
                         <TH>Twitch</TH>
                     </tr>
                 </thead>

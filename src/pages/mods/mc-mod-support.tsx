@@ -79,6 +79,8 @@ export const MCModSupport = () => {
         return <Loading />;
     }
 
+    const versionsSorted = [...versions].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
     return (
         <div>
             <div className='m-2'>
@@ -87,7 +89,7 @@ export const MCModSupport = () => {
                         <tr className='text-center text-light'>
                             <th scope='col'>Mod/ Version</th>
                             {
-                                [...versions].sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).map(v => (
+                                versionsSorted.map(v => (
                                     <th key={v} scope='col'>
                                         {v}
                                     </th>
@@ -100,11 +102,12 @@ export const MCModSupport = () => {
                                 return (
                                     <tr key={mod}>
                                         <th scope='row' className='p-1 text-light'>
-                                            {' '}{mod}{' '}
+                                            {mod}
                                         </th>
                                         {
-                                            versions.map((v, index) => {
+                                            versionsSorted.map((v, index) => {
                                                 const supportID = projects[mod][v];
+                                                console.log(supportID, mod, v, support[supportID].bg);
                                                 return (
                                                     <ProjectVersionCell key={`${mod}-${index}`} className='p-1 text-center' color={support[supportID].bg}>
                                                         {

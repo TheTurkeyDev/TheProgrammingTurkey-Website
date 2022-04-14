@@ -1,4 +1,4 @@
-import styled, { ThemedStyledProps } from 'styled-components';
+import styled, { ThemedStyledProps, ThemeProps } from 'styled-components';
 import { ChanceCubesRewardInfoModal } from '../../../modals/chance-cubes/chance-cubes-reward-info-modal';
 import { ChanceCubesRewardEditModal } from '../../../modals/chance-cubes/chance-cubes-reward-edit-modal';
 import { ChanceCubesRewardStatusCell } from './chance-cubes-reward-status-row';
@@ -12,7 +12,7 @@ const IconsWrapper = styled(TD)`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
-    color: ${props => props.theme.color.textPrimary};
+    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
 `;
 
 type WrapperProps = {
@@ -20,11 +20,11 @@ type WrapperProps = {
 }
 
 const RewardNameWrapper = styled(TD)`
-    color: ${({ isGCCR, theme }: ThemedStyledProps<WrapperProps, BaseTheme>) => isGCCR ? theme.surface.on : theme.primary.color};
+    color: ${({ isGCCR, theme }: ThemedStyledProps<WrapperProps, BaseTheme>) => isGCCR ? theme.secondary.color : theme.surface.on};
 `;
 
 const ChanceValueWrapper = styled(TD)`
-     color: ${({ isGCCR, theme }: ThemedStyledProps<WrapperProps, BaseTheme>) => isGCCR ? theme.surface.on : theme.primary.color};
+    color: ${({ isGCCR, theme }: ThemedStyledProps<WrapperProps, BaseTheme>) => isGCCR ? theme.secondary.color : theme.surface.on};
     text-align: center;
 `;
 
@@ -48,7 +48,7 @@ export const ChanceCubesRewardStatusTableItem = ({ reward, rewardData, highlight
     };
 
     return (
-        <tr key={reward} id={reward} className={highlightedReward === reward ? 'highlight-fade' : ''}>
+        <tr id={reward} className={highlightedReward === reward ? 'highlight-fade' : ''}>
             <IconsWrapper>
                 <i className='clickable fas fa-link' onClick={() => copyToClipBoard(reward)} />
                 <i className='clickable fas fa-info-circle' onClick={() => setShowRewardOverlay(true)} />

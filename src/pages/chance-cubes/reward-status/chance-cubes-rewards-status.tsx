@@ -1,4 +1,4 @@
-import { BaseTheme, ContainedButton, Loading, useUrlParams } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, Body1, ContainedButton, Loading, useUrlParams } from '@theturkeydev/gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { useAuth } from '../../../contexts/auth-context';
@@ -6,15 +6,15 @@ import { ChanceCubesRewardCreateModal } from '../../../modals/chance-cubes/chanc
 import { getChanceCubesRewardStatus } from '../../../network/chance-cubes-network';
 import { ChanceCubesRewardNote } from '../../../types/chance-cubes/chance-cubes-reward-note';
 import { CCVersionReward } from '../../../types/chance-cubes/chance-cubes-versioned-reward';
-import { Mapped } from '../../../types/mapped';
+import { ChanceCubesRewardStatusStats } from './chance-cubes-reward-status-stats';
 import { ChanceCubesRewardStatusTable } from './chance-cubes-reward-status-table';
 
 export const statusInfo = [
-    { bg: '#8f8f8f', text: 'Untested' },
-    { bg: '#046e22', text: 'Working' },
-    { bg: '#edda09', text: 'Not Working' },
-    { bg: '#bf0000', text: 'Bugged' },
-    { bg: '#1f1f1f', text: 'Not Available' },
+    { bg: '#8f8f8f', color: 'black', text: 'Untested' },
+    { bg: '#046e22', color: '', text: 'Working' },
+    { bg: '#edda09', color: 'black', text: 'Not Working' },
+    { bg: '#bf0000', color: '', text: 'Bugged' },
+    { bg: '#1f1f1f', color: '', text: 'Not Available' },
 ];
 
 export const gameVersions = [
@@ -32,13 +32,28 @@ export const gameVersions = [
     '1.18',
 ];
 
-const ColDiv = styled.div`
-    width: 150px;
-    max-width: 150px;
+const RewardStatusWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
 `;
 
 const GCCRewardText = styled.div`
- color: ${({ theme }: ThemeProps<BaseTheme>) => theme.primary.color};
+ color: ${({ theme }: ThemeProps<BaseTheme>) => theme.secondary.color};
+`;
+
+const StatusChipsWrapper = styled.div`
+    margin-left: 8px;
+    display: flex;
+    gap: 8px;
+`;
+
+const StatusChip = styled.div`
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    width: 125px;
+    padding: 4px 8px;
 `;
 
 export const ChanceCubesRewardsStatus = () => {
@@ -100,69 +115,20 @@ export const ChanceCubesRewardsStatus = () => {
         return <Loading />;
 
     return (
-        <>
-            <div className='m-2'>
-                <div className='container'>
-                    <div className='row'>
-                        <ColDiv className='col text-right'>
-                            Game Version
-                        </ColDiv>
-                        <ColDiv className='col'>
-                            Reward Status
-                        </ColDiv>
-                        <ColDiv className='col'>
-                            %
-                        </ColDiv>
-                        <ColDiv className='col m-0 p-0'>
-                            Rewards Working
-                        </ColDiv>
-                        <ColDiv className='col'>
-                            %
-                        </ColDiv>
-                        <div className='col'>
-
-                        </div>
-                    </div>
-                    {
-                        Object.entries(computeVersionCompletion(rewards)).map(entry => {
-                            return (
-                                <div key={entry[0]} className='row'>
-                                    <ColDiv className='col text-right'>
-                                        {entry[0]}:
-                                    </ColDiv>
-                                    <ColDiv className='col'>
-                                        {entry[1].completed}/{entry[1].total}
-                                    </ColDiv>
-                                    <ColDiv className='col'>
-                                        {(entry[1].completed / entry[1].total * 100).toFixed(2)}%
-                                    </ColDiv>
-                                    <ColDiv className='col'>
-                                        {entry[1].working} / {entry[1].completed}
-                                    </ColDiv>
-                                    <ColDiv className='col'>
-                                        {(entry[1].working / (entry[1].completed === 0 ? 1 : entry[1].completed) * 100).toFixed(2)}%
-                                    </ColDiv>
-                                    <div className='col'>
-
-                                    </div>
-                                </div>
-                            );
-                        })
-                    }
-                </div>
-            </div>
-            <div className='text-center m-0 ml-2 fluid-container row'>
+        <RewardStatusWrapper>
+            <ChanceCubesRewardStatusStats rewards={rewards} />
+            <StatusChipsWrapper>
                 {
                     statusInfo.map(json => (
-                        <div key={json.text} className='col-auto m-2' style={{ background: json.bg, width: '125px' }}>
-                            {json.text}
-                        </div>
+                        <StatusChip key={json.text} style={{ background: json.bg }}>
+                            <Body1 style={{ color: json.color }}>{json.text}</Body1>
+                        </StatusChip>
                     ))
                 }
                 {
-                    canEdit && <ContainedButton className='m-2' onClick={() => setShowCreateModal(true)}>Add Reward</ContainedButton>
+                    canEdit && <ContainedButton onClick={() => setShowCreateModal(true)}>Add Reward</ContainedButton>
                 }
-            </div>
+            </StatusChipsWrapper>
             <GCCRewardText>
                 *GCC = Giant Chance Cube Reward
             </GCCRewardText>
@@ -173,7 +139,7 @@ export const ChanceCubesRewardsStatus = () => {
                 highlightedReward={reward}
                 canEdit={canEdit}
             />
-            <div className='mt-4'>
+            {/* <div className='mt-4'>
                 <h3 className='m-0'>Custom User Rewards</h3>
             </div>
             <ChanceCubesRewardStatusTable
@@ -182,31 +148,8 @@ export const ChanceCubesRewardsStatus = () => {
                 notes={notes}
                 highlightedReward={reward}
                 canEdit={canEdit}
-            />
+            /> */}
             <ChanceCubesRewardCreateModal show={showCreateModal} requestClose={() => setShowCreateModal(false)} />
-        </>
+        </RewardStatusWrapper>
     );
 };
-
-function computeVersionCompletion(rewards: CCVersionReward) {
-
-    const base = gameVersions.reduce((prev, curr) => prev[curr] = { completed: 0, total: 0, working: 0 }, {} as Mapped);
-    return Object.keys(rewards).reduce((prev, curr) => {
-        if (!curr.startsWith('chancecubes:cr')) {
-            gameVersions.forEach(version => {
-                const status = rewards[curr].versions[version] ?? 0;
-                if (status !== 4) {
-                    prev[version].total += 1;
-
-                    if (status !== 0) {
-                        prev[version].completed += 1;
-                        if (status === 1) {
-                            prev[version].working += 1;
-                        }
-                    }
-                }
-            });
-        }
-        return prev;
-    }, base);
-}

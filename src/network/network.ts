@@ -1,3 +1,4 @@
+import { CCContentCreator } from '../types/chance-cubes/chance-cubes-content-creator';
 import { LDEvent } from '../types/ld-event';
 import { ModStatus } from '../types/mod-status';
 import { ProjectGroup } from '../types/project.group';
@@ -21,7 +22,7 @@ export async function getModStatus(): Promise<readonly ModStatus[]> {
     });
 }
 
-export async function getChanceCubeUserList() {
+export async function getChanceCubeUserList(): Promise<readonly CCContentCreator[]> {
     return await fetch(`${getDevAPIBase()}/chancecubes/userlist`, getGetParams()).then(resp => {
         if (resp.status === 200)
             return resp.json();

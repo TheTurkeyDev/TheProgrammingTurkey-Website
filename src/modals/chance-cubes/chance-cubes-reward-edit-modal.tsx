@@ -1,6 +1,6 @@
-import { ContainedButton, Input, Modal, Option, Select, TextArea, ToggleSwitch } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, ContainedButton, Input, Modal, Option, Select, TextArea, ToggleSwitch } from '@theturkeydev/gobble-lib-react';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProps } from 'styled-components';
 import { getRewardSettings, saveReward } from '../../network/chance-cubes-network';
 import { gameVersions, statusInfo } from '../../pages/chance-cubes/reward-status/chance-cubes-rewards-status';
 import { ChanceCubesRewardSetting } from '../../types/chance-cubes/chance-cubes-reward-setting';
@@ -25,7 +25,7 @@ const InputsWrapper = styled.div`
 `;
 
 const RewardSettingsWrapper = styled.table`
-    color: ${props => props.theme.color.textPrimary};
+    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
 `;
 
 type ChanceCubesRewardEditModalProps = {

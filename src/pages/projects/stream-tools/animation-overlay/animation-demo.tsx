@@ -1,5 +1,6 @@
+import { BaseTheme } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProps } from 'styled-components';
 import { getStreamAnimationsOverlaySiteBase } from '../../../../network/network-helper';
 
 
@@ -12,14 +13,14 @@ const ContainedListItemWrapper = styled.div`
 `;
 
 const NameHeader = styled.div`
-    background: ${props => props.theme.color.textPrimary};
+    background: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
     width: 100%;
     border-radius: 5px 5px 0px 0px;
 `;
 
 const Header = styled.h4`
     margin: 0;
-    color: ${props => props.theme.color.bgPrimary};
+    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
 `;
 
 const IFrameWrap = styled.div`
@@ -27,7 +28,7 @@ const IFrameWrap = styled.div`
     height: 270px;
     padding: 0;
     overflow: hidden;
-    border: 3px solid ${props => props.theme.color.textPrimary};
+    border: 3px solid ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
     background: url('/images/stream_demo_bg.png');
     background-size: cover;
 `;

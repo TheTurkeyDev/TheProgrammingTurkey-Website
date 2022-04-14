@@ -29,6 +29,7 @@ export const ChanceCubesRewardStatusTable = ({ allRewards, shownRewards, notes, 
                 {
                     shownRewards.map(reward => (
                         <ChanceCubesRewardStatusTableItem
+                            key={reward}
                             reward={reward}
                             rewardData={allRewards[reward]}
                             notes={notes}

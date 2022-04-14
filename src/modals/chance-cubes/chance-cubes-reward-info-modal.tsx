@@ -1,5 +1,6 @@
+import { BaseTheme, Modal } from '@theturkeydev/gobble-lib-react';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProps } from 'styled-components';
 import { getRewardSettings } from '../../network/chance-cubes-network';
 import { ChanceCubesRewardSetting } from '../../types/chance-cubes/chance-cubes-reward-setting';
 import { CCVersionedRewardData } from '../../types/chance-cubes/chance-cubes-versioned-reward';
@@ -14,7 +15,7 @@ const ChanceValueWrapper = styled.div`
 `;
 
 const RewardSettingsWrapper = styled.table`
-    color: ${props => props.theme.color.textPrimary};
+    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
 `;
 
 type ChanceCubesRewardInfoModalProps = {
@@ -34,7 +35,7 @@ export const ChanceCubesRewardInfoModal = ({ show, requestClose, name, data }: C
         });
     }, []);
     return (
-        <>
+        <Modal show={show} requestClose={requestClose}>
             <h2>
                 {name}
             </h2>
@@ -81,6 +82,6 @@ export const ChanceCubesRewardInfoModal = ({ show, requestClose, name, data }: C
                     }
                 </tbody>
             </RewardSettingsWrapper>
-        </>
+        </Modal>
     );
 };
