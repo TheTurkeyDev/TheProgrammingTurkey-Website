@@ -29,6 +29,8 @@ export const ChanceCubesRewardInfoModal = ({ show, requestClose, name, data }: C
     const [settings, setSettings] = useState<readonly ChanceCubesRewardSetting[]>([]);
 
     useEffect(() => {
+        if (!show)
+            return;
         getRewardSettings(name).then(json => {
             if (json.success)
                 setSettings(json.data);

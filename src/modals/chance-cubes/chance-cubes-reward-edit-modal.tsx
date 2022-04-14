@@ -46,11 +46,13 @@ export const ChanceCubesRewardEditModal = ({ show, requestClose, name, data }: C
     const [allVersionsStatus, setAllVersionsStatus] = useState(data.versions);
 
     useEffect(() => {
+        if (!show)
+            return;
         getRewardSettings(name).then(json => {
             if (json.success)
                 setSettings(json.data);
         });
-    }, []);
+    }, [show]);
 
     useEffect(() => {
         setVersionStatus(allVersionsStatus[mcVersion] ?? 0);

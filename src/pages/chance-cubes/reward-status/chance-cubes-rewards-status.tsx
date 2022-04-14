@@ -76,7 +76,8 @@ export const ChanceCubesRewardsStatus = () => {
                 let rewards = json.rewards.reduce((prev, curr) => {
                     if (Object.keys(prev).includes(curr.name)) {
                         return {
-                            ...prev, [curr.name]: {
+                            ...prev,
+                            [curr.name]: {
                                 ...prev[curr.name],
                                 versions: {
                                     ...prev[curr.name].versions,
@@ -89,7 +90,7 @@ export const ChanceCubesRewardsStatus = () => {
                         ...prev,
                         [curr.name]: {
                             versions: {
-
+                                [curr.version]: curr.status,
                             },
                             chance: curr.chance,
                             isgcr: curr.is_giant_cube_reward

@@ -58,7 +58,7 @@ export const ChanceCubesRewardStatusTableItem = ({ reward, rewardData, highlight
             <ChanceValueWrapper isGCCR={rewardData.isgcr}> {rewardData.isgcr ? 'GCC*' : rewardData.chance} </ChanceValueWrapper>
             {
                 gameVersions.map(version => {
-                    const status = Object.prototype.hasOwnProperty.call(rewardData.versions, version) ? rewardData.versions[version] : 0;
+                    const status = rewardData.versions[version] ?? 0;
                     const rewardNotes = notes.filter(note => note.version === version && note.reward_name === reward);
                     return (
                         <ChanceCubesRewardStatusCell key={`${reward}-${version}`} notes={rewardNotes} status={status} />
