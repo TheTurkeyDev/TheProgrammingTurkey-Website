@@ -5,9 +5,10 @@
   "main": "index.tsx",
   "scripts": {
     "start": "webpack serve --config ./webpack.config.js --mode development",
-    "build": "webpack --progress --config webpack.config.js  --mode production",
+    "build": "webpack --progress --config webpack.config.js --mode production",
     "lint": "eslint ./src/**/*.{js,jsx} --quiet",
-    "lint-fix": "eslint --fix ./src/**/*.{js,jsx}"
+    "lint-fix": "eslint --fix ./src/**/*.{js,jsx}",
+    "profile": "webpack --mode production --profile --json > webpack-stats.json"
   },
   "keywords": [],
   "author": "",
@@ -37,7 +38,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "@theturkeydev/gobble-lib-react": "^1.0.68",
+    "@theturkeydev/gobble-lib-react": "^1.0.69",
     "chartjs-react": "^3.5.0",
     "multiselect-react-dropdown": "^2.0.21",
     "promise": "^8.1.0",

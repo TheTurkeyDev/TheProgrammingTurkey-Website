@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ContainedButton, Dropdown, DropdownContent, Headline2, Option, Select, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Headline2, Option, Select, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
 import * as api from '../../network/network';
 import * as authAPI from '../../network/auth-network';
 
@@ -80,13 +80,8 @@ export const ProjectStatusEdit = () => {
     /* When the user clicks on the button,
     toggle between hiding and showing the dropdown content */
     const showProjects = () => {
-        if (projectsVisible) {
-            setFilter('');
-            setProjectsVisible(false);
-        } else {
-            setFilter('');
-            setProjectsVisible(true);
-        }
+        setFilter('');
+        setProjectsVisible(!projectsVisible);
     };
 
     return (

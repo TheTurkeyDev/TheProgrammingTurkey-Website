@@ -4,7 +4,7 @@ import { MainPage } from './pages/main-page';
 import { Info } from './pages/info';
 import { MCModSupport } from './pages/mods/mc-mod-support';
 import { LDStats } from './pages/ludum-dare/ld-stats';
-import { Support } from './pages/support';
+import { Support } from './pages/support/support';
 import { StreamLEDControl } from './pages/projects/stream-led-control';
 import { Login } from './pages/auth/login';
 import { LoginResponse } from './pages/auth/login-response';

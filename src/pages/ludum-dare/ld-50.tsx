@@ -7,11 +7,12 @@ export const LD50 = () => {
             title={'I\'m Not A Robot'}
             subTittle='For LudumDare 50!'
             links={[
+                { href: 'https://site.theturkey.dev/projects/ld50/play/', text: 'Play The Game' },
                 { href: 'https://ldjam.com/events/ludum-dare/50/im-not-a-robot', text: 'Ludum Dare Page' },
                 { href: 'https://github.com/TheTurkeyDev/LudumDare50', text: 'Source Code' }
             ]}
             videos={[
-                // { title: 'Devlog', url: 'GAtzLFWUQjw' },
+                { title: 'Devlog', url: 'KGtvICIY_nk' },
                 { title: 'TimeLapse', url: 'dNQhh7RRUNM' },
             ]}
         >

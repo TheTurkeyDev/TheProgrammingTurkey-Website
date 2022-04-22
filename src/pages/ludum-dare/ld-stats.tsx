@@ -6,36 +6,12 @@ import { LDEvent } from '../../types/ld-event';
 import { ChartProps, ReactChart } from 'chartjs-react';
 
 const catergories = [
-    {
-        label: 'Overall',
-        backgroundColor: 'rgba(34, 153, 84,0.5)',
-        borderColor: 'rgba(34, 153, 84,0.8)',
-    },
-    {
-        label: 'Theme',
-        backgroundColor: 'rgba(230, 126, 34,0.5)',
-        borderColor: 'rgba(230, 126, 34,0.8)',
-    },
-    {
-        label: 'Innovation',
-        backgroundColor: 'rgba(169, 50, 38,0.5)',
-        borderColor: 'rgba(169, 50, 38,0.8)',
-    },
-    {
-        label: 'Fun',
-        backgroundColor: 'rgba(244, 208, 63,0.5)',
-        borderColor: 'rgba(244, 208, 63,0.8)',
-    },
-    {
-        label: 'Graphics',
-        backgroundColor: 'rgba(46, 134, 193,0.5)',
-        borderColor: 'rgba(46, 134, 193,0.8)',
-    },
-    {
-        label: 'Audio',
-        backgroundColor: 'rgba(125, 60, 152,0.5)',
-        borderColor: 'rgba(125, 60, 152,0.8)',
-    },
+    { label: 'Overall', color: '#229954' },
+    { label: 'Theme', color: '#e67e22' },
+    { label: 'Innovation', color: '#a93226' },
+    { label: 'Fun', color: '#f4d03f' },
+    { label: 'Graphics', color: '#2e86c1' },
+    { label: 'Audio', color: '#7d3c98' },
 ];
 
 const ChartsWrapper = styled.div`
@@ -71,10 +47,6 @@ export const LDStats = () => {
     const [loading, setLoading] = useState(true);
     const [comps, setComps] = useState<readonly LDEvent[]>([]);
 
-    window.addEventListener('beforeprint', (event) => {
-        console.log('After print', event.target);
-    });
-
     useEffect(() => {
         getLudumDareStats().then(json => {
             if (json.success)
@@ -99,8 +71,8 @@ export const LDStats = () => {
                     datasets: catergories.map(cat => ({
                         label: cat.label,
                         fill: false,
-                        backgroundColor: cat.backgroundColor,
-                        borderColor: cat.borderColor,
+                        backgroundColor: `${cat.color}7f`,
+                        borderColor: `${cat.color}cc`,
                         data: getPlace(cat.label, comps),
                     }))
                 }}
@@ -125,8 +97,8 @@ export const LDStats = () => {
                     datasets: catergories.map(cat => ({
                         label: cat.label,
                         fill: false,
-                        backgroundColor: cat.backgroundColor,
-                        borderColor: cat.borderColor,
+                        backgroundColor: `${cat.color}7f`,
+                        borderColor: `${cat.color}cc`,
                         data: getStars(cat.label, comps),
                     }))
                 }}
@@ -152,8 +124,8 @@ export const LDStats = () => {
                     datasets: catergories.map(cat => ({
                         label: cat.label,
                         fill: false,
-                        backgroundColor: cat.backgroundColor,
-                        borderColor: cat.borderColor,
+                        backgroundColor: `${cat.color}7f`,
+                        borderColor: `${cat.color}cc`,
                         data: getPercentile(cat.label, comps),
                     }))
                 }}

@@ -1,5 +1,6 @@
-import { BaseTheme, Body1, Headline2, Headline5, Opacity, TextHoverCss } from '@theturkeydev/gobble-lib-react';
-import styled, { ThemeProps } from 'styled-components';
+import { Body1, Headline2, Headline5, TextHoverCss } from '@theturkeydev/gobble-lib-react';
+import styled from 'styled-components';
+import { PlatformIcon } from './platform-icon';
 
 const SupportWrapper = styled.div`
     max-width: 700px;
@@ -58,19 +59,6 @@ const SupportPlatformText = styled(Headline5)`
     align-self: center;
 `;
 
-const PlatformLink = styled.a`
-    &:hover {
-        text-decoration: none;
-    }
-`;
-
-const PlatformIcon = styled.i`
-    font-size: 64px;
-    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
-
-    ${TextHoverCss}
-`;
-
 export const Support = () => {
     return (
         <SupportWrapper>
@@ -108,21 +96,11 @@ export const Support = () => {
                 Don't have any change to spare? No worries! Support me non-monitarily by following me and checking out my content below!
             </Body1>
             <PlatformsWrapper>
-                <PlatformLink href='https://theturkey.dev/youtube'>
-                    <PlatformIcon className='fab fa-youtube' />
-                </PlatformLink>
-                <PlatformLink href='https://theturkey.dev/twitch'>
-                    <PlatformIcon className='fab fa-twitch' />
-                </PlatformLink>
-                <PlatformLink href='https://theturkey.dev/github'>
-                    <PlatformIcon className='fab fa-github' />
-                </PlatformLink>
-                <PlatformLink href='https://theturkey.dev/twitter'>
-                    <PlatformIcon className='fab fa-twitter' />
-                </PlatformLink>
-                <PlatformLink href='https://theturkey.dev/instagram'>
-                    <PlatformIcon className='fab fa-instagram' />
-                </PlatformLink>
+                <PlatformIcon href='https://theturkey.dev/youtube' icon='fab fa-youtube' />
+                <PlatformIcon href='https://theturkey.dev/twitch' icon='fab fa-twitch' />
+                <PlatformIcon href='https://theturkey.dev/github' icon='fab fa-github' />
+                <PlatformIcon href='https://theturkey.dev/twitter' icon='fab fa-twitter' />
+                <PlatformIcon href='https://theturkey.dev/instagram' icon='fab fa-instagram' />
             </PlatformsWrapper>
         </SupportWrapper>
     );
