@@ -2,6 +2,7 @@ import { Body1, ContainedButton, Headline3, Headline5, Input, InputsWrapper, Mod
 import { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as authAPI from '../../network/auth-network';
+import { AddUserPermissionModal } from './add-user-permission-modal';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -25,9 +26,10 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
     const { pushToast } = useToast();
 
     const [update, setUpdate] = useState(false);
+    const [showPermModal, setShowPermModal] = useState(false);
 
     const [displayName, setDisplayName] = useState('');
-    const [permissions, setPermissions] = useState([]);
+    const [permissions, setPermissions] = useState<readonly string[]>([]);
 
     useEffect(() => {
         authAPI.getUserAdmin(userId).then(json => {
@@ -44,41 +46,43 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
         });
     };
 
-    const addNewPerm = () => {
-        // pushCurrentOverlay(
-        //     <AddUserPermission
-        //         userId={userId}
-        //         assignedPerms={permissions}
-        //         update={() => setUpdate(old => !old)}
-        //     />
-        // );
-    };
-
     return (
-        <Modal show={show} requestClose={requestClose}>
-            <ContentWrapper>
-                <Headline3>Manage User: {displayName}</Headline3>
-                <InputsWrapper>
-                    <Input name='userId' label='User Id' value={userId} disabled={true} />
-                    <Input name='displayName' label='DisplayName' value={displayName} onChange={e => setDisplayName(e.target.value)} />
-                </InputsWrapper>
-                <Headline5>Permissions</Headline5>
-                <PermissionsWrapper>
-                    {
-                        permissions.map(perm => {
-                            return (
-                                <Fragment key={perm}>
-                                    <i className='fas fa-user-minus' onClick={() => removePerm(perm)} />
-                                    <Body1>{perm}</Body1>
-                                </Fragment>
-                            );
-                        })
-                    }
-                </PermissionsWrapper>
-                <ContainedButton onClick={() => addNewPerm()}>
-                    Add Permission
-                </ContainedButton>
-            </ContentWrapper >
-        </Modal>
+        <>
+            <Modal show={show} requestClose={requestClose}>
+                <ContentWrapper>
+                    <Headline3>Manage User: {displayName}</Headline3>
+                    <InputsWrapper>
+                        <Input name='userId' label='User Id' value={userId} disabled={true} />
+                        <Input name='displayName' label='DisplayName' value={displayName} onChange={e => setDisplayName(e.target.value)} />
+                    </InputsWrapper>
+                    <Headline5>Permissions</Headline5>
+                    <PermissionsWrapper>
+                        {
+                            permissions.map(perm => {
+                                return (
+                                    <Fragment key={perm}>
+                                        <i className='fas fa-user-minus' onClick={() => removePerm(perm)} />
+                                        <Body1>{perm}</Body1>
+                                    </Fragment>
+                                );
+                            })
+                        }
+                    </PermissionsWrapper>
+                    <ContainedButton onClick={() => setShowPermModal(true)}>
+                        Add Permission
+                    </ContainedButton>
+                </ContentWrapper >
+            </Modal>
+            {
+                showPermModal &&
+                <AddUserPermissionModal
+                    show={showPermModal}
+                    requestClose={() => setShowPermModal(false)}
+                    userId={userId}
+                    assignedPerms={permissions}
+                    update={() => setUpdate(old => !old)}
+                />
+            }
+        </>
     );
 };

@@ -49,7 +49,7 @@ export const UserManagement = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {[...userList].sort((a, b) => a.user_id.localeCompare(b.user_id)).map(user => <UserManagementUserItem user={user} />)}
+                    {[...userList].sort((a, b) => a.user_id.localeCompare(b.user_id)).map(user => <UserManagementUserItem key={user.user_id} user={user} />)}
                 </tbody>
             </Table>
         </PageWrapper>

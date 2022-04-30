@@ -23,6 +23,9 @@ export const YouTubeSubGetSetup = () => {
     const [fontSize, setFontSize] = useState(12);
     const [fontColor, setFontColor] = useState('');
 
+    const [width, setWidth] = useState(200);
+    const [height, setHeight] = useState(200);
+
     const [backgroundColor, setBackgroundColor] = useState('ffffff');
 
     useEffect(() => {
@@ -47,6 +50,8 @@ export const YouTubeSubGetSetup = () => {
                     setFontFamily(json.data.font_family);
                     setFontSize(json.data.font_size);
                     setFontColor(json.data.font_color);
+                    setWidth(json.data.width);
+                    setHeight(json.data.height);
                 }
             });
         }
@@ -88,7 +93,9 @@ export const YouTubeSubGetSetup = () => {
             preview_bg_color: backgroundColor,
             font_family: fontFamily,
             font_size: fontSize,
-            font_color: fontColor
+            font_color: fontColor,
+            width,
+            height
         }).then(json => {
             pushToast(<TextToast text={json.success ? 'Settings Saved!' : json.message} />);
         });
@@ -108,6 +115,11 @@ export const YouTubeSubGetSetup = () => {
             <SecretURL url={ytSubsURL} regen={regenToken} />
             <HorizontalRule />
             <Headline3>Settings</Headline3>
+            <Headline5>View Port</Headline5>
+            <InputsWrapper>
+                <Input type='number' name='width' label='View Width' value={width} onChange={e => { setWidth(parseInt(e.target.value)); }} />
+                <Input type='number' name='height' label='View Height' value={height} onChange={e => { setHeight(parseInt(e.target.value)); }} />
+            </InputsWrapper>
             <Headline5>Font</Headline5>
             <InputsWrapper>
                 <ColorPicker name='color' label='Color' color={fontColor} onClose={color => setFontColor(color)} />
@@ -121,7 +133,7 @@ export const YouTubeSubGetSetup = () => {
             <InputsWrapper>
                 <ColorPicker name='color' label='Background' color={backgroundColor} onClose={color => setBackgroundColor(color)} />
             </InputsWrapper>
-            <canvas ref={canvasRef} className='m-3 p-1' style={{ backgroundColor: `#${backgroundColor}` }} width={200} height={200}>
+            <canvas ref={canvasRef} className='m-3 p-1' style={{ backgroundColor: `#${backgroundColor}` }} width={width} height={height}>
 
             </canvas>
         </ContentWrapper>
