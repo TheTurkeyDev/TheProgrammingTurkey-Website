@@ -4,5 +4,7 @@ export type YouTubeDisplaySettings = {
     readonly font_size: number,
     readonly font_color: string,
     readonly width: number,
-    readonly height: number
+    readonly height: number,
+    readonly outline_width: number,
+    readonly outline_color: string
 }

@@ -1,4 +1,4 @@
-import { Headline5 } from '@theturkeydev/gobble-lib-react';
+import { Headline5, HorizontalRule } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
 import { useAuth } from '../contexts/auth-context';
 import { ItemLink } from './item-link';
@@ -28,7 +28,7 @@ export const ItemLinkGroup = ({ groupTitle, items }: ItemLinkGroupProps) => {
     return (
         <GroupWrapper>
             <Headline5>{groupTitle}</Headline5>
-            <hr />
+            <HorizontalRule />
             <ItemsWrapper>
                 {
                     items.map(item => {

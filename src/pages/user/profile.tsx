@@ -4,6 +4,13 @@ import * as authApi from '../../network/auth-network';
 import { ItemLinkGroup } from '../../components/item-link-group';
 import { Headline3 } from '@theturkeydev/gobble-lib-react';
 import { ItemLinkType } from '../../components/item-link-type';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+    display: grid;
+    gap: 32px;
+    padding: 4px 8px;
+`;
 
 export const UserProfile = () => {
     const { permissions, userName } = useAuth();
@@ -25,10 +32,10 @@ export const UserProfile = () => {
     );
 
     return (
-        <>
+        <Wrapper>
             <Headline3>Hello {userName}!</Headline3>
             <ItemLinkGroup groupTitle='Beta Access' items={betaApps} />
             {adminShow && <ItemLinkGroup groupTitle='Admin Access' items={adminApps} />}
-        </ >
+        </Wrapper>
     );
 };

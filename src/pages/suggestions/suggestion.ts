@@ -1,5 +1,5 @@
 export type Suggestion = {
-    readonly id: string
+    readonly id: number
     readonly box_id: string
     readonly suggester: string
     readonly suggestion: string

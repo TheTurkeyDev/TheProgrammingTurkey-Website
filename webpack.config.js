@@ -25,9 +25,6 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.jsx']
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ],
     devServer: {
         historyApiFallback: true,
         static: './dist',

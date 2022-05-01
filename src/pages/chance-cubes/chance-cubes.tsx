@@ -1,4 +1,4 @@
-import { Anchor, Body1, Headline5 } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, Headline5, LinkButton } from '@theturkeydev/gobble-lib-react';
 import styled from 'styled-components';
 import { ProjectWrapper } from '../../components/project-wrapper';
 
@@ -32,6 +32,7 @@ export const ChanceCubesMC = () => {
                     mod remains, I have slowly been adding my own twists and
                     ideas to the mod as it develops.
                 </Body1>
+                <LinkButton to='/chancecubes/rewardbuilder'>Chance Cubes Reward Builder Tool</LinkButton>
                 <Headline5><u>Rewards, Clips, and Gameplay Videos</u></Headline5>
                 <Anchor className='ml-1' href='https://www.youtube.com/watch?v=zxzvBvMB0qQ' openInNewTab={true}>
                     Village Construction Reward

@@ -5,8 +5,8 @@ import { ViewSuggestionBox } from './view/view-suggestions-box';
 
 export const SuggestionsRouter = () => (
     <Routes>
-        {/* <Route path='/' element={authWrap(<ManageSuggestionBoxes />, 'admin.suggestions.manage')} />
-        <Route path='/:id' element={<ViewSuggestionBox />} /> */}
+        <Route path='/' element={authWrap(<ManageSuggestionBoxes />, 'suggestionsbox')} />
+        <Route path='/:id' element={authWrap(<ViewSuggestionBox />, 'suggestionsbox')} />
     </Routes>
 );
 

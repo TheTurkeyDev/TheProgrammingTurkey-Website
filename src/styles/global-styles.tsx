@@ -4,9 +4,6 @@ import { createGlobalStyle, ThemeProps } from 'styled-components';
 export const GlobalStyles = createGlobalStyle`
     html, body, #root {
         height: 100vh;
-    }
-
-    #root {
         overflow: hidden;
     }
 

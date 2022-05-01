@@ -1,6 +1,6 @@
 import { useClickOutside } from '@theturkeydev/gobble-lib-react';
 import { useCallback, useState, useEffect, createRef } from 'react';
-import { RgbColorPicker } from 'react-colorful';
+import { RgbaColor, RgbaColorPicker, RgbColorPicker } from 'react-colorful';
 import styled from 'styled-components';
 
 const LabelWrapper = styled.label`
@@ -33,20 +33,17 @@ const PopOver = styled.div`
     z-index: 5;
 `;
 
-type RGB = {
-    readonly r: number,
-    readonly g: number,
-    readonly b: number
-}
-const rgbToHex = (rgba: RGB) => {
-    return intToHexSafe(rgba.r) + intToHexSafe(rgba.g) + intToHexSafe(rgba.b);
+
+const rgbToHex = (rgba: RgbaColor, alpha = false) => {
+    return intToHexSafe(rgba.r) + intToHexSafe(rgba.g) + intToHexSafe(rgba.b) + (alpha ? intToHexSafe(Math.floor(rgba.a * 255)) : 'FF');
 };
 
-const hexToRGB = (hex: string): RGB => {
+const hexToRGB = (hex: string): RgbaColor => {
     return {
         r: parseInt(sliceSafe(hex, 0, 2), 16),
         g: parseInt(sliceSafe(hex, 2, 4), 16),
         b: parseInt(sliceSafe(hex, 4, 6), 16),
+        a: parseInt(sliceSafe(hex, 6, 8), 16) / 255.0,
     };
 };
 
@@ -67,24 +64,25 @@ type ColorPickerProps = {
     readonly name: string
     readonly label: string
     readonly color: string
+    readonly alpha?: boolean
     readonly onChange?: (hex: string) => void
     readonly onClose?: (hex: string) => void
 }
 
-export const ColorPicker = ({ name, label, color, onChange = () => { }, onClose = () => { } }: ColorPickerProps) => {
+export const ColorPicker = ({ name, label, color, alpha = false, onChange = () => { }, onClose = () => { } }: ColorPickerProps) => {
     const popover = createRef<HTMLDivElement>();
     const [isOpen, toggle] = useState(false);
-    const [internalColor, setInternalColor] = useState<RGB>(hexToRGB(color));
+    const [internalColor, setInternalColor] = useState<RgbaColor>(hexToRGB(color));
 
     const close = useCallback(() => {
         toggle(false);
-        onClose(rgbToHex(internalColor));
+        onClose(rgbToHex(internalColor, alpha));
     }, [internalColor]);
 
     useClickOutside(popover, close);
 
     useEffect(() => {
-        const timeOutId = setTimeout(() => onChange(rgbToHex(internalColor)), 1000);
+        const timeOutId = setTimeout(() => onChange(rgbToHex(internalColor, alpha)), 1000);
         return () => clearTimeout(timeOutId);
     }, [internalColor]);
 
@@ -92,10 +90,14 @@ export const ColorPicker = ({ name, label, color, onChange = () => { }, onClose 
         <>
             <LabelWrapper>{label}</LabelWrapper>
             <Picker>
-                <Swatch color={color} onClick={() => toggle(true)} />
+                <Swatch color={rgbToHex(internalColor, alpha)} onClick={() => toggle(true)} />
                 {isOpen && (
                     <PopOver ref={popover}>
-                        <RgbColorPicker color={internalColor} onChange={setInternalColor} />
+                        {
+                            alpha
+                                ? <RgbaColorPicker color={internalColor} onChange={setInternalColor} />
+                                : <RgbColorPicker color={{ r: internalColor.r, g: internalColor.g, b: internalColor.b }} onChange={col => setInternalColor({ ...col, a: 1 })} />
+                        }
                     </PopOver>
                 )}
             </Picker>
