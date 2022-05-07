@@ -19,7 +19,7 @@ export const TwitchRPSSetup = () => {
     const [ties, setTies] = useState(0);
     const [gamePlayType, setGamePlayType] = useState(GamePlayStyle.VOTING);
     const [votingTimer, setVotingTimer] = useState(0);
-    const [textColor, setTextColor] = useState('#000000');
+    const [textColor, setTextColor] = useState('000000');
     const [startDelay, setStartDelay] = useState(0);
 
     useEffect(() => {
@@ -87,7 +87,7 @@ export const TwitchRPSSetup = () => {
                 </Select>
                 <Input type='number' name='votingRoundTime' label='Voting Round Time' value={votingTimer} onChange={e => setVotingTimer(parseInt(e.target.value))} />
                 <Input type='number' name='startDelay' label='Start Delay' value={startDelay} onChange={e => setStartDelay(parseInt(e.target.value))} />
-                <ColorPicker name='text_color' label='Text Color' color={textColor} onClose={color => setTextColor(color)} />
+                <ColorPicker name='text_color' label='Text Color' color={`#${textColor}`} onClose={color => setTextColor(color)} />
             </InputsWrapper>
             <ButtonRow>
                 <ContainedButton onClick={saveDisplaySettings}>Save</ContainedButton>

@@ -25,7 +25,7 @@ export const TwitchBattleshipSetup = () => {
     const [gamePlayType, setGamePlayType] = useState(GamePlayStyle.VOTING);
     const [votingTimer, setVotingTimer] = useState(0);
     const [voteDisplayTimer, setVoteDisplayTimer] = useState(0);
-    const [textColor, setTextColor] = useState('#000000');
+    const [textColor, setTextColor] = useState('000000');
     const [startDelay, setStartDelay] = useState(0);
 
     useEffect(() => {
@@ -94,7 +94,7 @@ export const TwitchBattleshipSetup = () => {
                 <Input type='number' name='votingRoundTime' label='Voting Round Time' value={votingTimer} onChange={e => setVotingTimer(parseInt(e.target.value))} />
                 <Input type='number' name='voteDisplayTime' label='Vote Display Time' value={voteDisplayTimer} onChange={e => setVoteDisplayTimer(parseInt(e.target.value))} />
                 <Input type='number' name='startDelay' label='Start Delay' value={startDelay} onChange={e => setStartDelay(parseInt(e.target.value))} />
-                <ColorPicker name='color' label='Text Color' color={textColor} onClose={color => setTextColor(color)} />
+                <ColorPicker name='color' label='Text Color' color={`#${textColor}`} onClose={color => setTextColor(color)} />
             </InputsWrapper>
             <ButtonRow>
                 <ContainedButton onClick={saveDisplaySettings}>Save</ContainedButton>
