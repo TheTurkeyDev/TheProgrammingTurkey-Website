@@ -31,6 +31,12 @@ const TR = styled.tr<TRProps>`
     }
 `;
 
+const SpacedIcons = styled.div`
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 8px;
+`;
+
 function getIcon(verified: boolean, deleted: boolean) {
     if (deleted)
         return 'fas fa-times';
@@ -63,10 +69,10 @@ export const SuggestionItem = ({ suggestion }: SuggestionItemProps) => {
         <TR deleted={deleted}>
             <TD>
                 {verified && !deleted && <ActionIcon className='fas fa-trash-alt' onClick={deleteItem} title='Delete This Suggestion' />}
-                {!verified && <>
+                {!verified && !deleted && <SpacedIcons>
                     <ActionIcon className='fas fa-check' onClick={verifyItem} title='Vefiry This Suggestion' />
                     <ActionIcon className='fas fa-times' onClick={deleteItem} title='Deny This Suggestion' />
-                </>}
+                </SpacedIcons>}
                 {deleted && <ActionIcon className='fas fa-trash-restore' onClick={restoreItem} title='Restore This Suggestion' />}
             </TD>
             <TD><StatusIcon verified={verified} deleted={deleted} className={getIcon(verified, deleted)} title={getTitle(verified, deleted)} /></TD>
