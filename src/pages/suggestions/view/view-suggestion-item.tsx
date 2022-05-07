@@ -63,7 +63,10 @@ export const SuggestionItem = ({ suggestion }: SuggestionItemProps) => {
         <TR deleted={deleted}>
             <TD>
                 {verified && !deleted && <ActionIcon className='fas fa-trash-alt' onClick={deleteItem} title='Delete This Suggestion' />}
-                {!verified && <ActionIcon className='fas fa-check' onClick={verifyItem} title='Vefiry This Suggestion' />}
+                {!verified && <>
+                    <ActionIcon className='fas fa-check' onClick={verifyItem} title='Vefiry This Suggestion' />
+                    <ActionIcon className='fas fa-times' onClick={deleteItem} title='Deny This Suggestion' />
+                </>}
                 {deleted && <ActionIcon className='fas fa-trash-restore' onClick={restoreItem} title='Restore This Suggestion' />}
             </TD>
             <TD><StatusIcon verified={verified} deleted={deleted} className={getIcon(verified, deleted)} title={getTitle(verified, deleted)} /></TD>
