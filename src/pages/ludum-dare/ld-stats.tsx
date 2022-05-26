@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getLudumDareStats } from '../../network/network';
 import { Headline2, Headline4, Loading } from '@theturkeydev/gobble-lib-react';
 import { LDEvent } from '../../types/ld-event';
 import { ChartProps, ReactChart } from 'chartjs-react';
+import { useFetch } from '../../hooks/use-fetch';
 
 const catergories = [
     { label: 'Overall', color: '#229954' },
@@ -44,21 +43,17 @@ const getPercentile = (cat: string, comps: readonly LDEvent[]) => {
 };
 
 export const LDStats = () => {
-    const [loading, setLoading] = useState(true);
-    const [comps, setComps] = useState<readonly LDEvent[]>([]);
 
-    useEffect(() => {
-        getLudumDareStats().then(json => {
-            if (json.success)
-                setComps([...json.data].sort((a, b) => a.ld_event_num - b.ld_event_num));
-            setLoading(false);
-        });
-    }, []);
+    const { data, fetching, error } = useFetch<readonly LDEvent[]>('/ludumdare/stats');
+
+    if (fetching)
+        return <Loading />;
+
+    const comps = [...(data ?? [])].sort((a, b) => a.ld_event_num - b.ld_event_num);
+
+    console.log(comps);
 
     const labels = comps.map(comp => `LD${comp.ld_event_num} (${comp.games} games)`);
-
-    if (loading)
-        return <Loading />;
 
     return (
         <ChartsWrapper>

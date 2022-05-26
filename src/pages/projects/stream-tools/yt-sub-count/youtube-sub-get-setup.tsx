@@ -36,16 +36,14 @@ export const YouTubeSubGetSetup = () => {
     }, [authChecked]);
 
     useEffect(() => {
-        async function loadDisplay() {
-            authAPI.getYTSubsDisplaySettings(token).then(json => {
-                if (json.success) {
-                    setDisplaySettings(json.data);
-                }
-            });
-        }
+        if (!authState || !token)
+            return;
 
-        if (authState)
-            loadDisplay();
+        authAPI.getYTSubsDisplaySettings(token).then(json => {
+            if (json.success) {
+                setDisplaySettings(json.data);
+            }
+        });
     }, [token]);
 
     const getText = () => {

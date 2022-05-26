@@ -73,7 +73,7 @@ export const ChanceCubesRewardsStatus = () => {
         getChanceCubesRewardStatus()
             .then(json => {
                 // eslint-disable-next-line functional/no-let
-                let rewards = json.rewards.reduce((prev, curr) => {
+                const rewards = json.rewards.reduce((prev, curr) => {
                     if (Object.keys(prev).includes(curr.name)) {
                         return {
                             ...prev,

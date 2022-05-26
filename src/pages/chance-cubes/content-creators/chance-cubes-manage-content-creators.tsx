@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../../contexts/auth-context';
-import * as api from '../../../network/network';
 import { ChanceCubesContentCreatorModal } from '../../../modals/chance-cubes/chance-cubes-content-creator-modal';
 import { ContainedButton, Input, Table, TH } from '@theturkeydev/gobble-lib-react';
 import { CCContentCreator } from '../../../types/chance-cubes/chance-cubes-content-creator';
 import { ChanceCubesContentCreatorItem } from './chance-cubes-content-creator-item';
+import { useFetch } from '../../../hooks/use-fetch';
+import { getGetParams } from '../../../network/network';
 
 const PageWrapper = styled.div`
     padding: 8px 8px 0 8px;
@@ -20,21 +21,17 @@ const InputBard = styled.div`
 `;
 
 export const ChanceCubesManageContentCreators = () => {
-    const { authState, authChecked } = useAuth();
+    const { authChecked } = useAuth();
 
-    const [userList, setUserList] = useState<readonly CCContentCreator[]>([]);
+    const { data, fetching, error } = useFetch<readonly CCContentCreator[]>('/chancecubes/userlist', {
+        skip: !authChecked
+    });
     const [searchText, setSerachText] = useState('');
 
     const [showModal, setShowModal] = useState(false);
 
-    useEffect(() => {
-        async function loadUserList() {
-            api.getChanceCubeUserList().then(json => {
-                setUserList([...json].sort((a, b) => a.Name.localeCompare(b.Name)));
-            });
-        }
-        if (authState) loadUserList();
-    }, [authChecked]);
+
+    const userList = [...(data ?? [])].sort((a, b) => a.Name.localeCompare(b.Name));
 
     return (
         <PageWrapper>

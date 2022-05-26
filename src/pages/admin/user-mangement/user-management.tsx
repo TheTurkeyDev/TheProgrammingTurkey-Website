@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as authAPI from '../../../network/auth-network';
-import { UserManageModal } from '../../../modals/admin/user-manage-modal';
 import { ContainedButton, Input, Table, TD, TH } from '@theturkeydev/gobble-lib-react';
 import { UserAndPlatform } from '../../../types/user-and-platform';
 import { UserManagementUserItem } from './user-management-user-item';

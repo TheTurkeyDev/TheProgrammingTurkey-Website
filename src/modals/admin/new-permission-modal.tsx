@@ -1,4 +1,4 @@
-import { ContainedButton, Headline4, Input, Modal, OutlinedButton, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline4, Input, Modal, OutlinedButton, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import * as authAPI from '../../network/auth-network';
@@ -7,7 +7,7 @@ const ContentWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
-    justify-items: center;
+
     max-width: 400px;
     margin-right: auto;
     margin-left: auto;
@@ -49,8 +49,10 @@ export const NewPermissionModal = ({ show, requestClose, update }: NewPermission
                 <Headline4>Add New Permission</Headline4>
                 <Input type='text' name='id' label='Permission Id' value={permissionID} onChange={e => setPermissionID(e.target.value)} />
                 <Input type='text' name='description' label='Description' value={description} onChange={e => setDescription(e.target.value)} />
-                <OutlinedButton onClick={() => requestClose()}>Cancel</OutlinedButton>
-                <ContainedButton onClick={() => createPerm()}>Create</ContainedButton>
+                <ButtonRow>
+                    <OutlinedButton onClick={() => requestClose()}>Cancel</OutlinedButton>
+                    <ContainedButton onClick={() => createPerm()}>Create</ContainedButton>
+                </ButtonRow>
             </ContentWrapper >
         </Modal>
     );

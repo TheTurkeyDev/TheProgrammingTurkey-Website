@@ -54,10 +54,7 @@ export const MainPage = () => {
                         The source code for my website is actually available
                         to everyone <Anchor href='https://github.com/TheTurkeyDev/TheProgrammingTurkey-Website' openInNewTab={true}>
                             on my Github page!
-                        </Anchor>
-                    </Body1>
-                    <Body1>
-                        Not all pages and links are currently available and
+                        </Anchor> Not all pages and links are currently available and
                         over time I will slowly be adding everything back.
                         Please be patient with me!
                     </Body1>

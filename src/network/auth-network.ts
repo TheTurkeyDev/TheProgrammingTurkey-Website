@@ -108,14 +108,6 @@ export async function getUserProfileApps(adminApps: boolean) {
     });
 }
 
-export async function getUserAdmin(userId: string) {
-    return await fetch(`${getDevAPIBase()}/admin/getuser`, getPostAuthParams({
-        user_id: userId
-    })).then(resp => {
-        return resp.json();
-    });
-}
-
 export async function getAllUsers(usernameFilter: string, platforms: readonly string[]): Promise<readonly UserAndPlatform[]> {
     return await fetch(`${getDevAPIBase()}/admin/getusers`, getPostAuthParams({
         name_filter: usernameFilter,
@@ -157,7 +149,7 @@ export async function removeUserPermission(userId: string, permission: string) {
 
 export async function createPermission(permissionId: string, description: string) {
     return await fetch(`${getDevAPIBase()}/admin/createpermissions`, getPostAuthParams({
-        permission_id: permissionId,
+        permission: permissionId,
         description: description
     })).then(resp => {
         return resp.json();
@@ -174,7 +166,7 @@ export async function deletePermission(permission: string) {
 
 export async function setProjectStatus(project: string, version: string, status: string) {
     return await fetch(`${getDevAPIBase()}/admin/setprojectstatus`, getPostAuthParams({
-        project: project,
+        mod_name: project,
         version: version,
         status: status
     })).then(resp => resp.json());

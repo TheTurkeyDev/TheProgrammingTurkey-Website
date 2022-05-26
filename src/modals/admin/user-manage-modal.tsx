@@ -1,6 +1,7 @@
-import { Body1, ContainedButton, Headline3, Headline5, Input, InputsWrapper, Modal, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { Body1, ContainedButton, Headline3, Headline5, Input, InputsWrapper, Loading, Modal, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
 import { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useFetch } from '../../hooks/use-fetch';
 import * as authAPI from '../../network/auth-network';
 import { AddUserPermissionModal } from './add-user-permission-modal';
 
@@ -17,6 +18,12 @@ const PermissionsWrapper = styled.div`
     gap: 4px;
 `;
 
+type UserData = {
+    readonly user_id: string,
+    readonly display_name: string,
+    readonly permissions: readonly string[]
+}
+
 type UserManageModalProps = {
     readonly show: boolean
     readonly requestClose: () => void
@@ -31,12 +38,12 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
     const [displayName, setDisplayName] = useState('');
     const [permissions, setPermissions] = useState<readonly string[]>([]);
 
-    useEffect(() => {
-        authAPI.getUserAdmin(userId).then(json => {
-            setDisplayName(json.display_name);
-            setPermissions(json.permissions);
-        });
-    }, [update]);
+    const { fetching, error } = useFetch<UserData>(`/admin/getuser?user=${userId}`, {
+        onComplete: data => {
+            setDisplayName(data.display_name);
+            setPermissions(data.permissions);
+        }
+    });
 
     const removePerm = (perm: string) => {
         authAPI.removeUserPermission(userId, perm).then(json => {
@@ -49,29 +56,34 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
     return (
         <>
             <Modal show={show} requestClose={requestClose}>
-                <ContentWrapper>
-                    <Headline3>Manage User: {displayName}</Headline3>
-                    <InputsWrapper>
-                        <Input name='userId' label='User Id' value={userId} disabled={true} />
-                        <Input name='displayName' label='DisplayName' value={displayName} onChange={e => setDisplayName(e.target.value)} />
-                    </InputsWrapper>
-                    <Headline5>Permissions</Headline5>
-                    <PermissionsWrapper>
-                        {
-                            permissions.map(perm => {
-                                return (
-                                    <Fragment key={perm}>
-                                        <i className='fas fa-user-minus' onClick={() => removePerm(perm)} />
-                                        <Body1>{perm}</Body1>
-                                    </Fragment>
-                                );
-                            })
-                        }
-                    </PermissionsWrapper>
-                    <ContainedButton onClick={() => setShowPermModal(true)}>
-                        Add Permission
-                    </ContainedButton>
-                </ContentWrapper >
+                <>
+                    {fetching && <Loading />}
+                    {!fetching &&
+                        <ContentWrapper>
+                            <Headline3>Manage User: {displayName}</Headline3>
+                            <InputsWrapper>
+                                <Input name='userId' label='User Id' value={userId} disabled={true} />
+                                <Input name='displayName' label='DisplayName' value={displayName} onChange={e => setDisplayName(e.target.value)} />
+                            </InputsWrapper>
+                            <Headline5>Permissions</Headline5>
+                            <PermissionsWrapper>
+                                {
+                                    permissions.map(perm => {
+                                        return (
+                                            <Fragment key={perm}>
+                                                <i className='fas fa-user-minus clickable' onClick={() => removePerm(perm)} />
+                                                <Body1>{perm}</Body1>
+                                            </Fragment>
+                                        );
+                                    })
+                                }
+                            </PermissionsWrapper>
+                            <ContainedButton onClick={() => setShowPermModal(true)}>
+                                Add Permission
+                            </ContainedButton>
+                        </ContentWrapper >
+                    }
+                </>
             </Modal>
             {
                 showPermModal &&

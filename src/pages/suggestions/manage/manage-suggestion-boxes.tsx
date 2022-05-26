@@ -33,7 +33,7 @@ export const ManageSuggestionBoxes = () => {
                 </thead>
                 <tbody>
                     {
-                        boxes.map(box => <SuggestionBoxRow box={box} />)
+                        boxes.map(box => <SuggestionBoxRow key={box.id} box={box} />)
                     }
                 </tbody>
             </Table>

@@ -20,29 +20,28 @@ export const TwitchHangmanSetup = () => {
     const [wrongLetterColor, setWrongLetterColor] = useState('ff0000');
 
     useEffect(() => {
-        const getToken = async () => {
-            api.getToken(gameName).then(token => {
-                setToken(token);
-            });
-        };
-        if (authState) getToken();
-    }, [authChecked]);
+        if (!authChecked || !authState)
+            return;
+
+        api.getToken(gameName).then(token => {
+            setToken(token);
+        });
+    }, [authChecked, authState]);
 
     useEffect(() => {
-        async function loadDisplay() {
-            api.getTwitchGameSettings(gameName, token).then(json => {
-                if (json.success) {
-                    const data = json.data;
-                    setBGColor(data.bg_color);
-                    setWordColor(data.word_color);
-                    setCorrectLetterColor(data.correct_letter_color);
-                    setWrongLetterColor(data.wrong_letter_color);
-                }
-            });
-        }
+        if (!authState || !token)
+            return;
 
-        if (authState) loadDisplay();
-    }, [token]);
+        api.getTwitchGameSettings(gameName, token).then(json => {
+            if (json.success) {
+                const data = json.data;
+                setBGColor(data.bg_color);
+                setWordColor(data.word_color);
+                setCorrectLetterColor(data.correct_letter_color);
+                setWrongLetterColor(data.wrong_letter_color);
+            }
+        });
+    }, [token, authState]);
 
     const saveDisplaySettings = () => {
         api.saveTwitchGameSettings(gameName, token, {

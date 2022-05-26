@@ -2,7 +2,7 @@ export type TimerData = {
     readonly timer_id: number,
     readonly timer_display: string,
     readonly type: string,
-    readonly reference_datetime: string,
+    readonly reference_date: string,
     readonly length: number,
     readonly display_message: string,
     readonly has_end_message: boolean,

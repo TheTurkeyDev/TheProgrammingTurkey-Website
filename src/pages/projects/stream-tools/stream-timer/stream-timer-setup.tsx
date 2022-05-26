@@ -2,11 +2,12 @@ import { useEffect, useState, useRef } from 'react';
 import { ButtonRow, ContainedButton, Headline2, Headline4, HorizontalRule, Input, InputsWrapper, Option, Select, TextArea, TextToast, ToggleSwitch, useInterval, useToast } from '@theturkeydev/gobble-lib-react';
 
 import { useAuth } from '../../../../contexts/auth-context';
-import * as timerAPI from '../../../../network/timer-network';
+import * as timerAPI from './timer-network';
 import { getAppsSiteBase } from '../../../../network/network-helper';
 import { ColorPicker } from '../../../../components/inputs/color-input';
 import { Timer } from '../../../../types/timer';
 import { ContentWrapper } from '../../../../components/setup-page-content';
+import { useFetch } from '../../../../hooks/use-fetch';
 
 export const StreamTimerSetup = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -43,22 +44,17 @@ export const StreamTimerSetup = () => {
     const [fontSize, setFontSize] = useState(12);
     const [fontColor, setFontColor] = useState('');
 
-    useEffect(() => {
-        async function loadTimers() {
-            timerAPI.getTimers().then(json => {
-                setValidTimerIDs(json);
-            });
-        }
-        if (authState)
-            loadTimers();
-    }, [authChecked]);
+    useFetch<readonly Timer[]>('/streamtimer/timers', {
+        skip: !authChecked,
+        onComplete: timers => setValidTimerIDs(timers)
+    });
 
     useEffect(() => {
         async function loadTimer() {
             timerAPI.getTimer(userID, timerID).then(json => {
                 if (json) {
-                    if (json.reference_datetime)
-                        setDate(new Date(json.reference_datetime));
+                    if (json.reference_date)
+                        setDate(new Date(json.reference_date));
                     else
                         setDate(new Date());
                     setTimerType(json.type.toLowerCase());
@@ -202,7 +198,7 @@ export const StreamTimerSetup = () => {
             timer_id: timerID,
             timer_display: timerDisplay,
             type: timerType,
-            reference_datetime: date.toISOString(),
+            reference_date: date.toISOString(),
             length: length,
             display_message: displayMessage,
             has_end_message: hasEndMessage,
