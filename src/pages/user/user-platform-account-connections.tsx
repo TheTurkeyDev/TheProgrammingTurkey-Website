@@ -1,4 +1,4 @@
-import { Headline3 } from '@theturkeydev/gobble-lib-react';
+import { Headline3 } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ConnectMinecraftAccountModal } from '../../modals/admin/connect-minecraft-account-modal';

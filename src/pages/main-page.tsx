@@ -1,4 +1,4 @@
-import { Anchor, BaseTheme, Body1, Card, CardContent, CardHeader, Headline3, Headline5, Input } from '@theturkeydev/gobble-lib-react';
+import { Anchor, BaseTheme, Body1, Card, CardContent, CardHeader, Headline3, Headline5, Input } from 'gobble-lib-react';
 import styled, { ThemeProps } from 'styled-components';
 import { LinkGroup } from '../components/link-group';
 import { StrikeThrough } from '../styles/common-styles';

@@ -1,4 +1,4 @@
-import { Loading } from '@theturkeydev/gobble-lib-react';
+import { Loading } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as api from '../../network/network';

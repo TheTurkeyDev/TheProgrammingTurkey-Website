@@ -1,4 +1,4 @@
-import { ConfirmationModal, TD } from '@theturkeydev/gobble-lib-react';
+import { ConfirmationModal, TD } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ChanceCubesContentCreatorModal } from '../../../modals/chance-cubes/chance-cubes-content-creator-modal';

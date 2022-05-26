@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BaseTheme, ContainedButton, Input, Label, LinkButton, TextToast, ToggleSwitch, useToast, useUrlParams } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, ContainedButton, Input, Label, LinkButton, TextToast, ToggleSwitch, useToast, useUrlParams } from 'gobble-lib-react';
 import styled, { ThemeProps } from 'styled-components';
 import Multiselect from 'multiselect-react-dropdown';
 import { useAuth } from '../../contexts/auth-context';

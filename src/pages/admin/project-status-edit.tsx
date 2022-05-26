@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ContainedButton, Headline2, Option, Select, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Headline2, Option, Select, TextToast, useToast } from 'gobble-lib-react';
 import * as api from '../../network/network';
 import * as authAPI from '../../network/auth-network';
 

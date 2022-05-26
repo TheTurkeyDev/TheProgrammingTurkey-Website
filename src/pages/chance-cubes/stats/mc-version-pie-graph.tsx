@@ -1,4 +1,4 @@
-import { Loading } from '@theturkeydev/gobble-lib-react';
+import { Loading } from 'gobble-lib-react';
 import { ReactChart } from 'chartjs-react';
 import { ChanceCubesStats } from '../../../types/chance-cubes/chance-cubes-stats';
 import { ChartWrapper, versionCompare } from './chart-helper';

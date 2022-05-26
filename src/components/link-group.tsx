@@ -1,4 +1,4 @@
-import { Anchor, Body1, LinkButton } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, LinkButton } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { LinkType } from '../types/link-type';
 

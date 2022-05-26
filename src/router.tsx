@@ -11,7 +11,7 @@ import { LoginResponse } from './pages/auth/login-response';
 import { Logout } from './pages/auth/logout';
 import { AuthRoute } from './util/auth-route';
 import { MJRBotFAQ } from './pages/mjr-bot-faq';
-import { Loading, NotFound } from '@theturkeydev/gobble-lib-react';
+import { Loading, NotFound } from 'gobble-lib-react';
 import { lazy, Suspense } from 'react';
 
 const ChanceCubesRouter = lazy(() => import(/* webpackChunkName: "Chance Cubes" */ './pages/chance-cubes/chance-cubes-router'));

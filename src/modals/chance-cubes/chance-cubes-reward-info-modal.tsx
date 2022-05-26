@@ -1,4 +1,4 @@
-import { BaseTheme, Modal } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, Modal } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { getRewardSettings } from '../../network/chance-cubes-network';

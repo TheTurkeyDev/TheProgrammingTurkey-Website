@@ -1,4 +1,4 @@
-import { CenterContent, Dropdown, DropdownContent, DropdownLinkItem, LinkButton, NavBar, NavLink, NavText, SiteName, TextButton, useThemeContext } from '@theturkeydev/gobble-lib-react';
+import { CenterContent, Dropdown, DropdownContent, DropdownLinkItem, LinkButton, NavBar, NavLink, NavText, SiteName, TextButton, useThemeContext } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { useAuth } from '../../contexts/auth-context';
 import { LoginButton } from './login-button';

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { StreamAnimationSettingsModal } from './stream-animations-settings-modal';
 import * as API from '../../../../network/stream-animations-network';
-import { Body1, ConfirmationModal, Option, Select, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { Body1, ConfirmationModal, Option, Select, TextToast, useToast } from 'gobble-lib-react';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
 import { StreamAnimationUserDataPoint } from '../../../../types/stream-animations/stream-animation-user-data';

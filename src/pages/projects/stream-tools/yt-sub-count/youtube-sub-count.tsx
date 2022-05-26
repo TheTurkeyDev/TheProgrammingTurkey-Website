@@ -1,4 +1,4 @@
-import { Body1, Headline5 } from '@theturkeydev/gobble-lib-react';
+import { Body1, Headline5 } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { ProjectWrapper } from '../../../../components/project-wrapper';
 

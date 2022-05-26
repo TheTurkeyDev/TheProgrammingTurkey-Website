@@ -1,4 +1,4 @@
-import { ButtonRow, ContainedButton, Input, Modal, OutlinedButton, TextArea, ToggleSwitch } from '@theturkeydev/gobble-lib-react';
+import { ButtonRow, ContainedButton, Input, Modal, OutlinedButton, TextArea, ToggleSwitch } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { createReward } from '../../network/chance-cubes-network';

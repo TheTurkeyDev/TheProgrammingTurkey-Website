@@ -1,4 +1,4 @@
-import { Headline5, HorizontalRule } from '@theturkeydev/gobble-lib-react';
+import { Headline5, HorizontalRule } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { useAuth } from '../contexts/auth-context';
 import { ItemLink } from './item-link';

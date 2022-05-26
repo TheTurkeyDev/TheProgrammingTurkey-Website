@@ -1,4 +1,4 @@
-import { BaseTheme, Headline6, LinkButton } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, Headline6, LinkButton } from 'gobble-lib-react';
 import styled, { ThemeProps } from 'styled-components';
 import { ItemLinkType } from './item-link-type';
 

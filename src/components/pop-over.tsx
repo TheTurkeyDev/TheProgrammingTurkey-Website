@@ -1,4 +1,4 @@
-import { WithChildren } from '@theturkeydev/gobble-lib-react';
+import { WithChildren } from 'gobble-lib-react';
 import styled from 'styled-components';
 
 const PlatformIcon = styled.i`

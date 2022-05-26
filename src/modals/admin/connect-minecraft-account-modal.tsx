@@ -1,4 +1,4 @@
-import { Headline5, Input, Modal, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { Headline5, Input, Modal, TextToast, useToast } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as authAPI from '../../network/auth-network';

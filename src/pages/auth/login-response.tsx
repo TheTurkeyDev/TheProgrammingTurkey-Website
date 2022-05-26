@@ -1,4 +1,4 @@
-import { Headline2, LinkButton, useUrlParams } from '@theturkeydev/gobble-lib-react';
+import { Headline2, LinkButton, useUrlParams } from 'gobble-lib-react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth-context';

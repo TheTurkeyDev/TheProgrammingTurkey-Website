@@ -1,4 +1,4 @@
-import { TD } from '@theturkeydev/gobble-lib-react';
+import { TD } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Suggestion } from '../suggestion';

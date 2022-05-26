@@ -1,4 +1,4 @@
-import { Body1 } from '@theturkeydev/gobble-lib-react';
+import { Body1 } from 'gobble-lib-react';
 import { startStopProcess } from '../../../network/auth-network';
 import { ProcessHealth } from '../../../types/process-health';
 

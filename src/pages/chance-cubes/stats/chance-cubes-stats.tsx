@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getChanceCubesStats } from '../../../network/chance-cubes-network';
 import { ChanceCubesStats } from '../../../types/chance-cubes/chance-cubes-stats';
-import { Body1, Headline2, Headline3, Headline5 } from '@theturkeydev/gobble-lib-react';
+import { Body1, Headline2, Headline3, Headline5 } from 'gobble-lib-react';
 import { VersionLineChart } from './version-line-chart';
 import { ChanceCubesCalcStats } from './chance-cubes-calc-stats';
 import { VersionPieChart } from './version-pie-graph';

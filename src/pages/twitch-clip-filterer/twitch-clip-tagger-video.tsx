@@ -1,4 +1,4 @@
-import { ContainedButton, Loading } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Loading } from 'gobble-lib-react';
 import styled from 'styled-components';
 import * as networkHelper from '../../network/network-helper';
 import { TwitchClip } from '../../types/twitch-clip-filter/twitch-clip';

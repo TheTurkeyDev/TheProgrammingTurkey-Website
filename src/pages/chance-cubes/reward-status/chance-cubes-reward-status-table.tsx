@@ -1,5 +1,5 @@
 import { gameVersions } from './chance-cubes-rewards-status';
-import { Table, TH } from '@theturkeydev/gobble-lib-react';
+import { Table, TH } from 'gobble-lib-react';
 import { CCVersionReward } from '../../../types/chance-cubes/chance-cubes-versioned-reward';
 import { ChanceCubesRewardNote } from '../../../types/chance-cubes/chance-cubes-reward-note';
 import { ChanceCubesRewardStatusTableItem } from './chance-cubes-reward-status-table-item';

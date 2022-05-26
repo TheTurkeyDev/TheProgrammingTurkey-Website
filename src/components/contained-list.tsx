@@ -1,4 +1,4 @@
-import { Headline5, WithChildren } from '@theturkeydev/gobble-lib-react';
+import { Headline5, WithChildren } from 'gobble-lib-react';
 import styled from 'styled-components';
 
 type ContainedListWrapperProps = {

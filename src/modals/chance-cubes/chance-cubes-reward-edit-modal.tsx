@@ -1,4 +1,4 @@
-import { BaseTheme, ContainedButton, Input, Modal, Option, Select, TextArea, ToggleSwitch } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, ContainedButton, Input, Modal, Option, Select, TextArea, ToggleSwitch } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { getRewardSettings, saveReward } from '../../network/chance-cubes-network';

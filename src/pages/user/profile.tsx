@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/auth-context';
 import * as authApi from '../../network/auth-network';
 import { ItemLinkGroup } from '../../components/item-link-group';
-import { Headline3 } from '@theturkeydev/gobble-lib-react';
+import { Headline3 } from 'gobble-lib-react';
 import { ItemLinkType } from '../../components/item-link-type';
 import styled from 'styled-components';
 

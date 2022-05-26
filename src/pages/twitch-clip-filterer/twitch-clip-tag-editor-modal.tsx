@@ -1,4 +1,4 @@
-import { Modal } from '@theturkeydev/gobble-lib-react';
+import { Modal } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ColorPicker } from '../../components/inputs/color-input';

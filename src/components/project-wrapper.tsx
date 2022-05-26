@@ -1,4 +1,4 @@
-import { Body1, Headline2, Headline4, WithChildren } from '@theturkeydev/gobble-lib-react';
+import { Body1, Headline2, Headline4, WithChildren } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { CenterContent } from '../styles/common-styles';
 import { ProjectSectionWrapper } from '../styles/project-styles';

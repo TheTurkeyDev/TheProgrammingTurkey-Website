@@ -1,4 +1,4 @@
-import { ContainedButton, Headline3, Modal, OutlinedButton } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Headline3, Modal, OutlinedButton } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { EventType } from '../../types/chance-cubes/chance-cubes-event-type';
 import { Mapped } from '../../types/mapped';

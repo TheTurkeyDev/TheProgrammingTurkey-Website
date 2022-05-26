@@ -1,4 +1,4 @@
-import { useClickOutside } from '@theturkeydev/gobble-lib-react';
+import { useClickOutside } from 'gobble-lib-react';
 import { useCallback, useState, useEffect, createRef } from 'react';
 import { RgbaColor, RgbaColorPicker, RgbColorPicker } from 'react-colorful';
 import styled from 'styled-components';

@@ -1,4 +1,4 @@
-import { ContainedButton, Input, Loading, Modal, Select } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Input, Loading, Modal, Select } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LoadingModal } from '../../../../modals/loading-modal';

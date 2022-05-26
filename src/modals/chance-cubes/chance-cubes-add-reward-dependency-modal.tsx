@@ -1,4 +1,4 @@
-import { ContainedButton, Headline4, Modal } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Headline4, Modal } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { ChanceCubesRewardDependency } from '../../pages/chance-cubes/reward-builder/chance-cubes-reward-dependency';
 

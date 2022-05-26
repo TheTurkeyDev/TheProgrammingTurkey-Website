@@ -1,4 +1,4 @@
-import { Headline3, Headline5, Loading, ProjectTile, ProjectTilesList } from '@theturkeydev/gobble-lib-react';
+import { Headline3, Headline5, Loading, ProjectTile, ProjectTilesList } from 'gobble-lib-react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFetch } from '../../hooks/use-fetch';

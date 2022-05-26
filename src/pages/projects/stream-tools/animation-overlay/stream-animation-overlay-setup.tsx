@@ -7,7 +7,7 @@ import { ConnectWithMJRBot } from '../connect-with-mjrbot';
 import { StreamAnimationItem } from './stream-animation-item';
 import { AddNewStreamAnimationModal } from '../../../../modals/add-new-stream-animation-modal';
 import { SecretURL } from '../../../../components/secret-url';
-import { Anchor, Body1, ContainedButton, Headline5, Loading, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, ContainedButton, Headline5, Loading, TextToast, useToast } from 'gobble-lib-react';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
 import { StreamAnimationUserData } from './mapped-stream-animation-user-data';

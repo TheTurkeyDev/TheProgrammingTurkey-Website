@@ -2,7 +2,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthWrapper } from './contexts/auth-context';
 import { GlobalStyles } from './styles/global-styles';
 import { Routing } from './router';
-import { ThemeContextProvider, Toast } from '@theturkeydev/gobble-lib-react';
+import { ThemeContextProvider, Toast } from 'gobble-lib-react';
 import { PageWrapper } from './pages/base/page-wrapper';
 import 'chart.js/auto';
 

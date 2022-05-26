@@ -1,4 +1,4 @@
-import { Anchor, BaseTheme, Body1, ContainedButton, Headline5, Subtitle1 } from '@theturkeydev/gobble-lib-react';
+import { Anchor, BaseTheme, Body1, ContainedButton, Headline5, Subtitle1 } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { LoadingModal } from '../../../modals/loading-modal';

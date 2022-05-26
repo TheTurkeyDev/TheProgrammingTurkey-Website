@@ -3,7 +3,7 @@ import { ChanceCubesRewardInfoModal } from '../../../modals/chance-cubes/chance-
 import { ChanceCubesRewardEditModal } from '../../../modals/chance-cubes/chance-cubes-reward-edit-modal';
 import { ChanceCubesRewardStatusCell } from './chance-cubes-reward-status-row';
 import { gameVersions } from './chance-cubes-rewards-status';
-import { BaseTheme, TD, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, TD, TextToast, useToast } from 'gobble-lib-react';
 import { CCVersionedRewardData } from '../../../types/chance-cubes/chance-cubes-versioned-reward';
 import { ChanceCubesRewardNote } from '../../../types/chance-cubes/chance-cubes-reward-note';
 import { useState } from 'react';

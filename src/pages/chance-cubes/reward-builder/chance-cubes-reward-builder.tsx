@@ -1,4 +1,4 @@
-import { ContainedButton, Headline3 } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Headline3 } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ChanceCubesRewardType } from '../../../types/chance-cubes/chance-cubes-reward';

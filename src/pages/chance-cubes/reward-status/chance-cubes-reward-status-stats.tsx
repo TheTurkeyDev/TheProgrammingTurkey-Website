@@ -1,4 +1,4 @@
-import { Body1, Headline6 } from '@theturkeydev/gobble-lib-react';
+import { Body1, Headline6 } from 'gobble-lib-react';
 import { Fragment } from 'react';
 import styled from 'styled-components';
 import { CCVersionReward } from '../../../types/chance-cubes/chance-cubes-versioned-reward';

@@ -1,4 +1,4 @@
-import { ContainedButton, Headline3, Loading, Option, Select, Table, TH } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Headline3, Loading, Option, Select, Table, TH } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';

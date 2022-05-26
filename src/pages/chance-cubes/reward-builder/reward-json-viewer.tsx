@@ -1,4 +1,4 @@
-import { Headline4, TextArea } from '@theturkeydev/gobble-lib-react';
+import { Headline4, TextArea } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { MultiChanceCubesRewards } from './multi-chance-cubes-rewards';
 

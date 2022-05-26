@@ -1,4 +1,4 @@
-import { Headline3, Table, TH } from '@theturkeydev/gobble-lib-react';
+import { Headline3, Table, TH } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SuggestionBoxRow } from './manage-suggestion-boxes-row';

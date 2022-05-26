@@ -1,4 +1,4 @@
-import { BaseTheme } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { getStreamAnimationsOverlaySiteBase } from '../../../../network/network-helper';

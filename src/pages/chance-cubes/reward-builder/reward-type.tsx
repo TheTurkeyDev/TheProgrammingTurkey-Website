@@ -1,4 +1,4 @@
-import { ConfirmationModal, Input, ToggleSwitch } from '@theturkeydev/gobble-lib-react';
+import { ConfirmationModal, Input, ToggleSwitch } from 'gobble-lib-react';
 import { Fragment, useState } from 'react';
 import styled from 'styled-components';
 import { CollapseChevron } from '../../../components/collapse-chevron';

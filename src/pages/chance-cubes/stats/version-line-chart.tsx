@@ -1,7 +1,7 @@
 import { ChanceCubesStats } from '../../../types/chance-cubes/chance-cubes-stats';
 import { versionCompare } from './chart-helper';
 import { ReactChart } from 'chartjs-react';
-import { Loading } from '@theturkeydev/gobble-lib-react';
+import { Loading } from 'gobble-lib-react';
 
 type VersionLineChartProps = {
     readonly stats?: ChanceCubesStats

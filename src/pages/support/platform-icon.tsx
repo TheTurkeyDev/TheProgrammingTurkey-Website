@@ -1,4 +1,4 @@
-import { BaseTheme, TextHoverCss } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, TextHoverCss } from 'gobble-lib-react';
 import styled, { ThemeProps } from 'styled-components';
 
 const PlatformLink = styled.a`

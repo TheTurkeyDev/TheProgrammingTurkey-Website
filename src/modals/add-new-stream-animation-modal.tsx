@@ -1,4 +1,4 @@
-import { Body2, ContainedButton, Headline3, Modal } from '@theturkeydev/gobble-lib-react';
+import { Body2, ContainedButton, Headline3, Modal } from 'gobble-lib-react';
 import { Fragment } from 'react';
 import styled from 'styled-components';
 import { StreamAnimation } from '../types/stream-animations/stream-animation';

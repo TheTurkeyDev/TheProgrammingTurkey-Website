@@ -1,4 +1,4 @@
-import { ConfirmationModal, TD } from '@theturkeydev/gobble-lib-react';
+import { ConfirmationModal, TD } from 'gobble-lib-react';
 import { useState } from 'react';
 import { Persmission } from '../../../types/permission';
 

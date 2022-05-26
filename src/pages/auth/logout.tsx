@@ -1,4 +1,4 @@
-import { Headline2 } from '@theturkeydev/gobble-lib-react';
+import { Headline2 } from 'gobble-lib-react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth-context';

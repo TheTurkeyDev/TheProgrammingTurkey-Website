@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../../contexts/auth-context';
 import { ChanceCubesContentCreatorModal } from '../../../modals/chance-cubes/chance-cubes-content-creator-modal';
-import { ContainedButton, Input, Table, TH } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Input, Table, TH } from 'gobble-lib-react';
 import { CCContentCreator } from '../../../types/chance-cubes/chance-cubes-content-creator';
 import { ChanceCubesContentCreatorItem } from './chance-cubes-content-creator-item';
 import { useFetch } from '../../../hooks/use-fetch';

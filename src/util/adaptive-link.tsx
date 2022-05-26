@@ -1,4 +1,4 @@
-import { Anchor, LinkButton, WithChildren } from '@theturkeydev/gobble-lib-react';
+import { Anchor, LinkButton, WithChildren } from 'gobble-lib-react';
 
 type AdaptiveLinkProps = WithChildren & {
     readonly link: string

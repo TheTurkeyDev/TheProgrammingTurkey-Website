@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Headline2, Headline4, Loading } from '@theturkeydev/gobble-lib-react';
+import { Headline2, Headline4, Loading } from 'gobble-lib-react';
 import { LDEvent } from '../../types/ld-event';
 import { ChartProps, ReactChart } from 'chartjs-react';
 import { useFetch } from '../../hooks/use-fetch';

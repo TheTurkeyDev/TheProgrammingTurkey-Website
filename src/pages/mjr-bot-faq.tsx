@@ -1,4 +1,4 @@
-import { Anchor, Body1, Headline3, HorizontalRule, Subtitle1 } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, Headline3, HorizontalRule, Subtitle1 } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { CenterContent } from '../styles/common-styles';
 

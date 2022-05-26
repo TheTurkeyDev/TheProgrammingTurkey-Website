@@ -1,4 +1,4 @@
-import { Body1, Headline2, Headline5, TextHoverCss } from '@theturkeydev/gobble-lib-react';
+import { Body1, Headline2, Headline5, TextHoverCss } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { PlatformIcon } from './platform-icon';
 

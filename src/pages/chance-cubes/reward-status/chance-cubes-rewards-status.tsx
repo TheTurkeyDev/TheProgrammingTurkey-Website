@@ -1,4 +1,4 @@
-import { BaseTheme, Body1, ContainedButton, Loading, useUrlParams } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme, Body1, ContainedButton, Loading, useUrlParams } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { useAuth } from '../../../contexts/auth-context';

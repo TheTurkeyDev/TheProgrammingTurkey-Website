@@ -1,4 +1,4 @@
-import { ButtonRow, ContainedButton, Input, InputsWrapper, OutlinedButton, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { ButtonRow, ContainedButton, Input, InputsWrapper, OutlinedButton, TextToast, useToast } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 

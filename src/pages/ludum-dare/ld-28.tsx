@@ -1,4 +1,4 @@
-import { Body1 } from '@theturkeydev/gobble-lib-react';
+import { Body1 } from 'gobble-lib-react';
 import { ProjectWrapper } from '../../components/project-wrapper';
 
 export const LD28 = () => {

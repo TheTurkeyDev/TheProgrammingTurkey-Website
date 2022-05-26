@@ -1,4 +1,4 @@
-import { BaseTheme } from '@theturkeydev/gobble-lib-react';
+import { BaseTheme } from 'gobble-lib-react';
 import { createGlobalStyle, ThemeProps } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`

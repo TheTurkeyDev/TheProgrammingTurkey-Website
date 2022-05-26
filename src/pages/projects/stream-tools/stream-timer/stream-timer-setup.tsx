@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { ButtonRow, ContainedButton, Headline2, Headline4, HorizontalRule, Input, InputsWrapper, Option, Select, TextArea, TextToast, ToggleSwitch, useInterval, useToast } from '@theturkeydev/gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline2, Headline4, HorizontalRule, Input, InputsWrapper, Option, Select, TextArea, TextToast, ToggleSwitch, useInterval, useToast } from 'gobble-lib-react';
 
 import { useAuth } from '../../../../contexts/auth-context';
 import * as timerAPI from './timer-network';

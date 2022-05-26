@@ -1,4 +1,4 @@
-import { Body1, TextHoverCss } from '@theturkeydev/gobble-lib-react';
+import { Body1, TextHoverCss } from 'gobble-lib-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getSiteURLBase } from '../../network/network-helper';

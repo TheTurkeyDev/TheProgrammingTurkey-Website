@@ -1,4 +1,4 @@
-import { ButtonRow, ContainedButton, Input, InputsWrapper, Modal, OutlinedButton, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { ButtonRow, ContainedButton, Input, InputsWrapper, Modal, OutlinedButton, TextToast, useToast } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { userListUpdateUser, userListAddUser } from '../../network/chance-cubes-network';

@@ -1,4 +1,4 @@
-import { Body1, ContainedButton, Headline3, Modal, OutlinedButton } from '@theturkeydev/gobble-lib-react';
+import { Body1, ContainedButton, Headline3, Modal, OutlinedButton } from 'gobble-lib-react';
 import { useNavigate } from 'react-router-dom';
 import * as authAPI from '../network/auth-network';
 

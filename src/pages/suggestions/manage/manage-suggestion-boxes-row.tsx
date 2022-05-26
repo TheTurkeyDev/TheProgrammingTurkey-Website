@@ -1,4 +1,4 @@
-import { TD } from '@theturkeydev/gobble-lib-react';
+import { TD } from 'gobble-lib-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SuggestionBox } from '../suggestion-box';

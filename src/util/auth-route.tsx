@@ -1,4 +1,4 @@
-import { Loading, WithChildren } from '@theturkeydev/gobble-lib-react';
+import { Loading, WithChildren } from 'gobble-lib-react';
 import { Navigate } from 'react-router';
 import { useAuth } from '../contexts/auth-context';
 import { getSiteURLBase } from '../network/network-helper';

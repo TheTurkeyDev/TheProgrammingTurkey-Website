@@ -1,4 +1,4 @@
-import { Anchor, Body1, Headline5, LinkButton } from '@theturkeydev/gobble-lib-react';
+import { Anchor, Body1, Headline5, LinkButton } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { ProjectWrapper } from '../../components/project-wrapper';
 

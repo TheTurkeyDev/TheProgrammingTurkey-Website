@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as authAPI from '../../../network/auth-network';
 import { NewPermissionModal } from '../../../modals/admin/new-permission-modal';
 import styled from 'styled-components';
-import { ContainedButton, Input, Table, TextToast, TH, useToast } from '@theturkeydev/gobble-lib-react';
+import { ContainedButton, Input, Table, TextToast, TH, useToast } from 'gobble-lib-react';
 import { Persmission } from '../../../types/permission';
 import { PermissionManagementItem } from './permission-management-item';
 

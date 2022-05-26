@@ -1,4 +1,4 @@
-import { ConfirmationModal, Input } from '@theturkeydev/gobble-lib-react';
+import { ConfirmationModal, Input } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 

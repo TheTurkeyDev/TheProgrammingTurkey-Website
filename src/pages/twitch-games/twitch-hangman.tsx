@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/auth-context';
 import * as api from '../../network/twitch-games-network';
 import { getAppsSiteBase } from '../../network/network-helper';
 import { SecretURL } from '../../components/secret-url';
-import { ButtonRow, ContainedButton, Headline2, Headline4, HorizontalRule, Input, InputsWrapper, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline2, Headline4, HorizontalRule, Input, InputsWrapper, TextToast, useToast } from 'gobble-lib-react';
 import { ContentWrapper } from '../../components/setup-page-content';
 import { ColorPicker } from '../../components/inputs/color-input';
 

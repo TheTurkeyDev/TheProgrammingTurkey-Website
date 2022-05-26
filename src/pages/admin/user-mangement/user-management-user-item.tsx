@@ -1,4 +1,4 @@
-import { TD } from '@theturkeydev/gobble-lib-react';
+import { TD } from 'gobble-lib-react';
 import { Fragment, useState } from 'react';
 import { UserManageModal } from '../../../modals/admin/user-manage-modal';
 import { UserAndPlatform } from '../../../types/user-and-platform';

@@ -1,4 +1,4 @@
-import { WithChildren } from '@theturkeydev/gobble-lib-react';
+import { WithChildren } from 'gobble-lib-react';
 import { useState, useEffect, createContext, useContext } from 'react';
 import * as authAPI from '../network/auth-network';
 

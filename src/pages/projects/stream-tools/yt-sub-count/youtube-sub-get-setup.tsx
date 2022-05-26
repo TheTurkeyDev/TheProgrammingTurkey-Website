@@ -1,5 +1,5 @@
 import { useEffect, useState, createRef } from 'react';
-import { ButtonRow, ContainedButton, Headline2, Headline3, Headline5, HorizontalRule, Input, InputsFullWidth, InputsWrapper, Loading, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline2, Headline3, Headline5, HorizontalRule, Input, InputsFullWidth, InputsWrapper, Loading, TextToast, useToast } from 'gobble-lib-react';
 import { useAuth } from '../../../../contexts/auth-context';
 import * as authAPI from '../../../../network/auth-network';
 import { getAppsSiteBase } from '../../../../network/network-helper';

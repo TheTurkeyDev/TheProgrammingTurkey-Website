@@ -1,4 +1,4 @@
-import { Body1, Headline3, Headline5, Subtitle2 } from '@theturkeydev/gobble-lib-react';
+import { Body1, Headline3, Headline5, Subtitle2 } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { CenterContent } from '../styles/common-styles';
 

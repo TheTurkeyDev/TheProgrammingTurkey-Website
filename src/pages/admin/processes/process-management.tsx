@@ -1,4 +1,4 @@
-import { Body1, Headline3 } from '@theturkeydev/gobble-lib-react';
+import { Body1, Headline3 } from 'gobble-lib-react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import * as authAPI from '../../../network/auth-network';

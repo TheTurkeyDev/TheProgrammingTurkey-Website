@@ -1,4 +1,4 @@
-import { Body1, ContainedButton, Headline3, Headline5, Input, InputsWrapper, Loading, Modal, TextToast, useToast } from '@theturkeydev/gobble-lib-react';
+import { Body1, ContainedButton, Headline3, Headline5, Input, InputsWrapper, Loading, Modal, TextToast, useToast } from 'gobble-lib-react';
 import { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../hooks/use-fetch';
