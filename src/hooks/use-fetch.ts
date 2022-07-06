@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { getGetAuthParams } from '../network/auth-network';
-import { getGetParams } from '../network/network';
 import { getDevAPIBase } from '../network/network-helper';
 
 type AdditionalOptions<T> = {
