@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { MainPage } from './pages/main-page';
 import { Info } from './pages/info';
 import { MCModSupport } from './pages/mods/mc-mod-support';
-import { LDStats } from './pages/ludum-dare/ld-stats';
+import { LDStats } from './pages/game-jam/ld-stats';
 import { Support } from './pages/support/support';
 import { StreamLEDControl } from './pages/projects/stream-led-control';
 import { Login } from './pages/auth/login';

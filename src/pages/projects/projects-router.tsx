@@ -2,21 +2,23 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Projects } from './projects';
 
-import { LD49 } from '../ludum-dare/ld-49';
-import { LD48 } from '../ludum-dare/ld-48';
-import { LD47 } from '../ludum-dare/ld-47';
-import { LD46 } from '../ludum-dare/ld-46';
-import { LD39 } from '../ludum-dare/ld-39';
-import { LD37 } from '../ludum-dare/ld-37';
-import { LD35 } from '../ludum-dare/ld-35';
-import { LD34 } from '../ludum-dare/ld-34';
-import { LD33 } from '../ludum-dare/ld-33';
-import { LD32 } from '../ludum-dare/ld-32';
-import { LD31 } from '../ludum-dare/ld-31';
-import { LD30 } from '../ludum-dare/ld-30';
-import { LD29 } from '../ludum-dare/ld-29';
-import { LD28 } from '../ludum-dare/ld-28';
-import { LD27 } from '../ludum-dare/ld-27';
+import { LD49 } from '../game-jam/ld-49';
+import { LD48 } from '../game-jam/ld-48';
+import { LD47 } from '../game-jam/ld-47';
+import { LD46 } from '../game-jam/ld-46';
+import { LD39 } from '../game-jam/ld-39';
+import { LD37 } from '../game-jam/ld-37';
+import { LD35 } from '../game-jam/ld-35';
+import { LD34 } from '../game-jam/ld-34';
+import { LD33 } from '../game-jam/ld-33';
+import { LD32 } from '../game-jam/ld-32';
+import { LD31 } from '../game-jam/ld-31';
+import { LD30 } from '../game-jam/ld-30';
+import { LD29 } from '../game-jam/ld-29';
+import { LD28 } from '../game-jam/ld-28';
+import { LD27 } from '../game-jam/ld-27';
+import { LD50 } from '../game-jam/ld-50';
+import { GMTK2022 } from '../game-jam/gmtk-2022';
 
 import { PizzaMan } from './pizza-man';
 import { GGServer } from './gg-server';
@@ -35,12 +37,12 @@ import { StreamAnimationsOverlay } from './stream-tools/animation-overlay/stream
 import { YouTubeSubCount } from './stream-tools/yt-sub-count/youtube-sub-count';
 import { TwitchGamesProject } from '../twitch-games/twitch-games-info';
 import { authWrap } from '../../router';
-import { LD50 } from '../ludum-dare/ld-50';
 
 export const ProjectsRouter = () => {
     return (
         <Routes>
             <Route path='/' element={<Projects />} />
+            <Route path='/gmtk2022' element={<GMTK2022 />} />
             <Route path='/ld50' element={<LD50 />} />
             <Route path='/ld49' element={<LD49 />} />
             <Route path='/ld48' element={<LD48 />} />
