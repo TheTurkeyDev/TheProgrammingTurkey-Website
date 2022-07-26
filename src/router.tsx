@@ -21,7 +21,7 @@ const UserRouter = lazy(() => import(/* webpackChunkName: "User" */ './pages/use
 const AdminRouter = lazy(() => import(/* webpackChunkName: "Admin" */ './pages/admin/admin-router'));
 const TwitchClipFiltererRouter = lazy(() => import(/* webpackChunkName: "Twitch Clip Filterer" */ './pages/twitch-clip-filterer/twitch-clip-router'));
 const SuggestionsRouter = lazy(() => import(/* webpackChunkName: "Suggestions" */ './pages/suggestions/suggestions-router'));
-
+const CodeHighlighterRouter = lazy(() => import(/* webpackChunkName: "Code Highlighter" */ './pages/code-highlighter/code-highlighter-router'));
 
 export const authWrap = (element: JSX.Element, perm?: string) => <AuthRoute perm={perm}>{element}</AuthRoute>;
 
@@ -36,6 +36,7 @@ export const Routing = () => (
             <Route path='/admin/*' element={<AdminRouter />} />
             <Route path='/twitchclipfilterer/*' element={<TwitchClipFiltererRouter />} />
             <Route path='/suggestions/*' element={<SuggestionsRouter />} />
+            <Route path='/codehighlighter/*' element={<CodeHighlighterRouter />} />
 
             <Route path='/mod-support' element={<MCModSupport />} />
             <Route path='/ld-stats' element={<LDStats />} />
