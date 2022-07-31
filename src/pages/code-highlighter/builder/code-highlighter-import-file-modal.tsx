@@ -34,7 +34,6 @@ export const ImportFileModal = ({ show, requestClose, importCode }: ImportFileMo
     };
     const importFileContents = (file?: File) => file?.text().then(t => setCode(t));
 
-    console.log(code);
     return (
         <Modal show={show} requestClose={requestClose}>
             <Wrapper>

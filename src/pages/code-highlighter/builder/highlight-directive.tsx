@@ -1,5 +1,5 @@
 import { Input, InputsWrapper, Label, TextArea, Option, Select, OutlinedButton, TextButton } from 'gobble-lib-react';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CodeMap } from './code-highlighter-builder';
 import { DirectiveBaseDisplay } from './code-highlighter-styles';
@@ -18,7 +18,7 @@ const LinesWrapper = styled.div`
 `;
 
 export type HighlightDirectiveType = Directive & {
-    readonly code: string
+    readonly code: readonly string[]
     readonly lines: readonly Lines[]
     readonly startFrame: number,
     readonly showTime: number
@@ -39,6 +39,13 @@ type HighlightDirectiveProps = {
 }
 
 export const HighlightDirective = ({ hd, codeFiles, onDelete, onMove, update }: HighlightDirectiveProps) => {
+
+    const [file, setFile] = useState('');
+
+    useEffect(() => {
+        const code = codeFiles.find(c => c.name === file)?.code.split('\n') ?? [];
+        update({ ...hd, code });
+    }, [file]);
 
     const updateShowTime = (showTime: number) => {
         update({ ...hd, showTime: showTime, duration: 60 * (hd.lines.length * (hd.animTime + showTime)) });
@@ -63,9 +70,10 @@ export const HighlightDirective = ({ hd, codeFiles, onDelete, onMove, update }: 
     return (
         <DirectiveBaseDisplay onDelete={onDelete} onMove={onMove}>
             <HighlightDirectiveWrapper fullWidth={true}>
-                <Select label='Code' value={hd.code} onChange={e => update({ ...hd, code: e.target.value })} >
+                <Select label='Code' value={file} onChange={e => setFile(e.target.value)} >
+                    <Option value='' >Select File</Option>
                     {
-                        codeFiles.map(f => <Option value={f.name} >{f.name}</Option>)
+                        codeFiles.map(f => <Option key={f.name} value={f.name} >{f.name}</Option>)
                     }
                 </Select>
                 <Label>Lines</Label>

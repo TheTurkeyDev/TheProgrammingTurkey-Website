@@ -1,6 +1,9 @@
-import { ButtonRow, Headline2, OutlinedButton } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline2, OutlinedButton } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { postParams, useQuery } from '../../../hooks/use-query';
+import { getDevAPIBase } from '../../../network/network-helper';
 import { AddDirectiveModal } from './code-highlighter-add-directive-modal';
 import { ImportFileModal } from './code-highlighter-import-file-modal';
 import { Directive } from './directive';
@@ -22,11 +25,21 @@ export type CodeMap = {
     readonly code: string
 }
 
+type RenderResp = {
+    readonly id: string,
+    readonly format: string
+}
+
 export const CodeHighlighterBuilder = () => {
+    const navigate = useNavigate();
     const [directives, setDirectives] = useState<readonly Directive[]>([]);
     const [codeFiles, setCodeFiles] = useState<readonly CodeMap[]>([]);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showFileInportModal, setShowFileInportModal] = useState(false);
+
+    const { query } = useQuery<RenderResp>(`${getDevAPIBase()}/render/generate`, {
+        requestData: postParams
+    });
 
     const addCode = (name: string, code: string) => {
         setCodeFiles(old => [...old, { name, code }]);
@@ -34,7 +47,12 @@ export const CodeHighlighterBuilder = () => {
     };
 
     const genJson = () => {
-        navigator.clipboard.writeText(JSON.stringify(directives));
+        query(JSON.stringify({
+            git: 'git@github.com:TheTurkeyDev/YouTube-Video-Gen.git',
+            compositionId: 'CodeHighlight',
+            entry: './temp/src/index.tsx',
+            directives
+        })).then(() => navigate('/codehighlighter'));
     };
 
     const addNewDirective = (type: DirectiveType) => {
@@ -50,7 +68,7 @@ export const CodeHighlighterBuilder = () => {
                 return {
                     type: DirectiveType.HIGHLIGHT,
                     duration: 180,
-                    code: '',
+                    code: [],
                     lines: [{ start: 0, end: 0 }],
                     startFrame: 0,
                     showTime: 2,
@@ -109,7 +127,7 @@ export const CodeHighlighterBuilder = () => {
             <ButtonRow>
                 <OutlinedButton onClick={() => setShowAddModal(true)}>Add Directive</OutlinedButton>
                 <OutlinedButton onClick={() => setShowFileInportModal(true)}>Add File</OutlinedButton>
-                <OutlinedButton onClick={() => genJson()}>Generate Json</OutlinedButton>
+                <ContainedButton onClick={() => genJson()}>Render</ContainedButton>
             </ButtonRow>
             <AddDirectiveModal show={showAddModal} requestClose={() => setShowAddModal(false)} addNewDirective={type => { addDirective(addNewDirective(type)); setShowAddModal(false); }} />
             <ImportFileModal show={showFileInportModal} requestClose={() => setShowFileInportModal(false)} importCode={(name, code) => addCode(name, code)} />
