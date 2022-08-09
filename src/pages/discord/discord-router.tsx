@@ -3,7 +3,7 @@ import { DiscordRolesManagement } from './roles-management/discord-roles-mangeme
 
 export const DiscordRouter = () => (
     <Routes>
-        {/* <Route path='/' element={<DiscordRolesManagement />} /> */}
+        <Route path='/' element={<DiscordRolesManagement />} />
     </Routes>
 );
 

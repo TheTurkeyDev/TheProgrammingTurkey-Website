@@ -1,6 +1,11 @@
 import { ButtonRow, ContainedButton, Headline3 } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useFetch } from '../../../hooks/use-fetch';
+import { postParams, useQuery } from '../../../hooks/use-query';
+import { getDevAPIBase } from '../../../network/network-helper';
+import { randomUID } from '../../../util/id';
+import { DiscordGuild } from './discord-guild';
 import { DiscordRolesGroup } from './discord-roles-group';
 import { DiscordRolesOptions } from './discord-roles-options';
 
@@ -16,9 +21,38 @@ const Wrapper = styled.div`
 export const DiscordRolesManagement = () => {
     const [groups, setGroups] = useState<readonly DiscordRolesGroup[]>([]);
 
+    const { data } = useFetch<readonly DiscordGuild[]>('/discord/guilds');
+    useFetch<readonly DiscordRolesGroup[]>('/discord/groups', {
+        onComplete: setGroups
+    });
+    const { query } = useQuery<DiscordRolesGroup>(`${getDevAPIBase()}/discord/savegroup`, {
+        requestData: postParams,
+
+    });
+
     const createNewGroup = () => {
-        setGroups(old => [...old, { server: 'TODO', channel: 'TODO', name: 'TODO', description: 'TODO description' }]);
+        setGroups(old => [...old, {
+            id: randomUID(),
+            server_id: '',
+            server_name: 'TODO',
+            channel_id: '',
+            channel_name: 'TODO',
+            name: 'TODO',
+            description: 'TODO description',
+            message_id: ''
+        }]);
     };
+
+    const updateGroup = (g: DiscordRolesGroup) => {
+        console.log('Update', g);
+        query(JSON.stringify(g)).then(updated => {
+            if (updated) {
+                const i = groups.findIndex(gr => gr.id === updated.id);
+                setGroups(old => [...old.slice(0, i), updated, ...old.slice(i + 1)]);
+            }
+        });
+    };
+
     return (
         <Wrapper>
             <Headline3>Discord Roles Management</Headline3>
@@ -26,7 +60,7 @@ export const DiscordRolesManagement = () => {
                 <ContainedButton onClick={() => createNewGroup()}>New Group</ContainedButton>
             </ButtonRow>
             {
-                groups.map(g => <DiscordRolesOptions group={g} />)
+                groups.map(g => <DiscordRolesOptions key={g.id} group={g} updateGroup={updateGroup} guilds={data ?? []} />)
             }
         </Wrapper>
     );

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const getParams: RequestInit = {
+export const getParams: RequestInit = {
     method: 'GET',
     credentials: 'include',
     headers: {

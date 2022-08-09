@@ -38,7 +38,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "gobble-lib-react": "^1.0.80",
+    "gobble-lib-react": "^1.0.83",
     "chartjs-react": "^3.5.0",
     "multiselect-react-dropdown": "^2.0.21",
     "promise": "^8.1.0",

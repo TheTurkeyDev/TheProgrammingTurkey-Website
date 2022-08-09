@@ -51,8 +51,6 @@ export const LDStats = () => {
 
     const comps = [...(data ?? [])].sort((a, b) => a.ld_event_num - b.ld_event_num);
 
-    console.log(comps);
-
     const labels = comps.map(comp => `LD${comp.ld_event_num} (${comp.games} games)`);
 
     return (

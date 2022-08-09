@@ -56,8 +56,6 @@ export const ViewSuggestionBox = () => {
     if (!box)
         return <Loading />;
 
-    console.log(suggestions.length % viewAmount);
-
     return (
         <Wrapper>
             <Headline3>{box.name}</Headline3>
