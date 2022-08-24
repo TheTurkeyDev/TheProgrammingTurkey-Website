@@ -9,6 +9,10 @@ const SupportWrapper = styled.div`
     margin-right: auto;
     margin-top: 16px;
     gap: 16px;
+
+    @media (max-width: 768px) {
+        margin-inline: 16px;
+    }
 `;
 
 const HeaderWrapper = styled(Headline2)`
@@ -17,9 +21,15 @@ const HeaderWrapper = styled(Headline2)`
 
 const PlatfromBadgeWrapper = styled.div`
     display: grid;
-    grid-template-columns: 300px 300px;
+    grid-template-columns: 250px 250px;
     grid-template-rows: 50px 50px;
     gap: 16px;
+    margin-inline: auto;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 250px;
+        grid-template-rows: 50px 50px 50px 50px;
+    }
 `;
 
 const PlatformsWrapper = styled.div`
@@ -28,6 +38,10 @@ const PlatformsWrapper = styled.div`
     grid-template-columns: auto auto auto auto auto;
     justify-items: center;
     justify-self: center;
+
+    @media (max-width: 600px) {
+        grid-template-columns: auto auto;
+    }
 `;
 
 const PlatformBadge = styled.a`

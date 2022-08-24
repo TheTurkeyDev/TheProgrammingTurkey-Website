@@ -1,3 +1,5 @@
+import { DiscordRoleOption } from './discord-role-option';
+
 export type DiscordRolesGroup = {
     readonly id: string
     readonly server_name: string
@@ -7,4 +9,5 @@ export type DiscordRolesGroup = {
     readonly name: string
     readonly description: string
     readonly message_id: string
+    readonly roles: readonly DiscordRoleOption[]
 }

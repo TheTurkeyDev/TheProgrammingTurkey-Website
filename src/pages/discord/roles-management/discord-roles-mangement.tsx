@@ -27,7 +27,6 @@ export const DiscordRolesManagement = () => {
     });
     const { query } = useQuery<DiscordRolesGroup>(`${getDevAPIBase()}/discord/savegroup`, {
         requestData: postParams,
-
     });
 
     const createNewGroup = () => {
@@ -39,7 +38,8 @@ export const DiscordRolesManagement = () => {
             channel_name: 'TODO',
             name: 'TODO',
             description: 'TODO description',
-            message_id: ''
+            message_id: '',
+            roles: []
         }]);
     };
 

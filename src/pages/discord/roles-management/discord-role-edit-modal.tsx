@@ -1,5 +1,5 @@
 import { ButtonRow, ContainedButton, Headline3, Input, InputsWrapper, Modal, Option, OutlinedButton, Select, TextArea } from 'gobble-lib-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/use-fetch';
 import { DiscordRole } from './discord-role';
@@ -38,6 +38,7 @@ export const DiscordRoleEditModal = ({ show, requestClose, save, roleOption, gro
     const updateDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setRoleOptionCache(old => { return { ...old, description: e.target.value }; });
     };
+
     return (
         <Modal show={show} requestClose={() => { if (canClose) requestClose(); }}>
             <Content>
@@ -47,7 +48,7 @@ export const DiscordRoleEditModal = ({ show, requestClose, save, roleOption, gro
                     <TextArea label='Description' onChange={updateDescription} value={roleOptionCache.description} />
                     <Select label='Role' value={roleOptionCache.roles} onChange={handleSelectChange} style={{ height: '100px' }} multiple >
                         {
-                            roles?.map(r => <Option value={r.id}>{r.name}</Option>)
+                            roles?.map(r => <Option key={r.id} value={r.id}>{r.name}</Option>)
                         }
                     </Select>
                 </InputsWrapper>

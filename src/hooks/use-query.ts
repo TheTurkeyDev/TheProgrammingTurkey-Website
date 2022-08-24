@@ -25,11 +25,11 @@ export function useQuery<T>(url: string, options?: AdditionalOptions<T>) {
     const [querying, setQuerying] = useState(false);
     const [error, setError] = useState<string>();
 
-    const query = async (body: string) => {
+    const query = async (body: string, pathParams?: string, queryParams?: string) => {
         setQuerying(true);
         const reqData = options?.requestData ?? getParams;
         reqData.body = body;
-        return fetch(`${url}`, reqData)
+        return fetch(`${url}/${pathParams ?? ''}?${queryParams ?? ''}`, reqData)
             .then(r => r.json().then(data => ({ status: r.status, body: data })))
             .then(({ status, body }) => {
                 setQuerying(false);

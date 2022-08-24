@@ -1,6 +1,8 @@
 import { Body1 } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useQuery } from '../../../hooks/use-query';
+import { getDevAPIBase } from '../../../network/network-helper';
 import { DiscordRoleEditModal } from './discord-role-edit-modal';
 import { DiscordRoleOption } from './discord-role-option';
 import { DiscordRolesGroup } from './discord-roles-group';
@@ -21,11 +23,27 @@ type DiscordRoleItemProps = {
 
 export const DiscordRoleItem = ({ roleOption, group, save }: DiscordRoleItemProps) => {
     const [showEdit, setShowEdit] = useState(roleOption.label === '');
+
+    const { query } = useQuery<void>(`${getDevAPIBase()}/discord/roleoptionroles`, {
+        requestData: {
+            method: 'DELETE',
+            credentials: 'include',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        },
+    });
+
+    const deleteItem = () => {
+        query('', group.id);
+    };
+
     return (
         <RoleWrapper>
             <Body1>{roleOption.label}</Body1>
             <i className='fas fa-edit clickable' onClick={() => setShowEdit(true)} />
-            <i className='fas fa-trash-alt clickable' />
+            <i className='fas fa-trash-alt clickable' onClick={() => deleteItem()} />
             {showEdit && <DiscordRoleEditModal show={showEdit} requestClose={() => setShowEdit(false)} save={roleOpt => { save(roleOpt); setShowEdit(false); }} group={group} roleOption={roleOption} />}
         </RoleWrapper>
     );

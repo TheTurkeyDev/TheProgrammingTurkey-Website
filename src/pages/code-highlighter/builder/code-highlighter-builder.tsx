@@ -6,6 +6,7 @@ import { postParams, useQuery } from '../../../hooks/use-query';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { AddDirectiveModal } from './code-highlighter-add-directive-modal';
 import { ImportFileModal } from './code-highlighter-import-file-modal';
+import { ImportJsonModal } from './code-highlighter-import-json';
 import { Directive } from './directive';
 import { DirectiveType } from './directives-type';
 import { HighlightDirective, HighlightDirectiveType } from './highlight-directive';
@@ -34,6 +35,7 @@ export const CodeHighlighterBuilder = () => {
     const navigate = useNavigate();
     const [directives, setDirectives] = useState<readonly Directive[]>([]);
     const [codeFiles, setCodeFiles] = useState<readonly CodeMap[]>([]);
+    const [showJsonImport, setShowJsonImport] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showFileInportModal, setShowFileInportModal] = useState(false);
 
@@ -125,10 +127,12 @@ export const CodeHighlighterBuilder = () => {
             <Headline2>Code Highlighter Builder</Headline2>
             {directives.map((d, i) => getDirectiveComponent(d, i))}
             <ButtonRow>
+                <OutlinedButton onClick={() => setShowJsonImport(true)}>Import Json</OutlinedButton>
                 <OutlinedButton onClick={() => setShowAddModal(true)}>Add Directive</OutlinedButton>
                 <OutlinedButton onClick={() => setShowFileInportModal(true)}>Add File</OutlinedButton>
                 <ContainedButton onClick={() => genJson()}>Render</ContainedButton>
             </ButtonRow>
+            <ImportJsonModal show={showJsonImport} requestClose={() => setShowJsonImport(false)} importJson={json => { setDirectives(json); setShowJsonImport(false); }} />
             <AddDirectiveModal show={showAddModal} requestClose={() => setShowAddModal(false)} addNewDirective={type => { addDirective(addNewDirective(type)); setShowAddModal(false); }} />
             <ImportFileModal show={showFileInportModal} requestClose={() => setShowFileInportModal(false)} importCode={(name, code) => addCode(name, code)} />
         </DirectivesList>

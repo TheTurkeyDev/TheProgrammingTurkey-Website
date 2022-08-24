@@ -3,11 +3,46 @@ import styled, { ThemeProps } from 'styled-components';
 import { LinkGroup } from '../components/link-group';
 import { StrikeThrough } from '../styles/common-styles';
 
+/*
+/ Extra small devices (phones, 600px and down) /
+@media only screen and (max-width: 600px) {...}
+
+/ Small devices (portrait tablets and large phones, 600px and up) /
+@media only screen and (min-width: 600px) {...}
+
+/ Medium devices (landscape tablets, 768px and up) /
+@media only screen and (min-width: 768px) {...}
+
+/ Large devices (laptops/desktops, 992px and up) /
+@media only screen and (min-width: 992px) {...}
+
+/ Extra large devices (large laptops and desktops, 1200px and up) /
+@media only screen and (min-width: 1200px) {...}
+*/
+
 const ContentWrapper = styled.div`
     margin: 16px 64px;
     display: grid;
     grid-template-columns: 1fr;
     gap: 32px;
+
+    @media (max-width: 600px) {
+        margin: 16px 8px;
+    }
+
+    @media (min-width: 600px) {
+        margin: 16px 16px;
+    }
+
+    @media (min-width: 768px) {
+        margin: 16px 32px;
+    }
+
+    @media (min-width: 992px) {
+        margin: 16px 64px;
+        max-width: 1000px;
+        margin-inline: auto;
+    }
 `;
 
 const StyledCardHeader = styled(CardHeader)`

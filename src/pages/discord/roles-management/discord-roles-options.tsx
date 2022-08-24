@@ -2,7 +2,8 @@ import { BaseTheme, ButtonRow, ContainedButton, Headline5, Input, InputsWrapper,
 import { useEffect, useState } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { CollapseChevron } from '../../../components/collapse-chevron';
-import { getParams, useQuery } from '../../../hooks/use-query';
+import { getParams, postParams, useQuery } from '../../../hooks/use-query';
+import { getDevAPIBase } from '../../../network/network-helper';
 import { randomUID } from '../../../util/id';
 import { DiscordGuild } from './discord-guild';
 import { DiscordRoleItem } from './discord-role-item';
@@ -54,11 +55,17 @@ type DiscordRolesOptionsProps = {
     readonly updateGroup: (group: DiscordRolesGroup) => void
 }
 export const DiscordRolesOptions = ({ group, guilds, updateGroup }: DiscordRolesOptionsProps) => {
-
     const [collapsed, setCollapsed] = useState(true);
     const [changes, setChanges] = useState(false);
     const [editedGroup, setEditedGroup] = useState(group);
-    const [roles, setRoles] = useState<readonly DiscordRoleOption[]>([]);
+
+    const { query: saveRoleOptions } = useQuery<void>(`${getDevAPIBase()}/discord/roleoption`, {
+        requestData: postParams,
+    });
+
+    const { query: setRoleOptionRoles } = useQuery<void>(`${getDevAPIBase()}/discord/roleoptionroles`, {
+        requestData: postParams,
+    });
 
     useEffect(() => {
         setEditedGroup(group);
@@ -77,6 +84,16 @@ export const DiscordRolesOptions = ({ group, guilds, updateGroup }: DiscordRoles
     const setChannel = (id: string) => {
         const channelName = guilds.find(g => g.id === editedGroup.server_id)?.channels.find(c => c.id === id);
         update({ ...editedGroup, channel_id: id, channel_name: channelName?.name ?? 'Error' });
+    };
+
+    const setRoles = (roles: readonly DiscordRoleOption[]) => {
+        update({ ...editedGroup, roles });
+    };
+
+    const saveRoleItem = (roleOpt: DiscordRoleOption, i: number) => {
+        setRoles([...editedGroup.roles.slice(0, i), roleOpt, ...editedGroup.roles.slice(i + 1)]);
+        saveRoleOptions(JSON.stringify(roleOpt));
+        setRoleOptionRoles(JSON.stringify(roleOpt.roles), roleOpt.id);
     };
 
     return (
@@ -107,13 +124,13 @@ export const DiscordRolesOptions = ({ group, guilds, updateGroup }: DiscordRoles
                     <RolesHeadline>Roles</RolesHeadline>
                     <RolesContent>
                         {
-                            roles.map((r, i) => <DiscordRoleItem roleOption={r} group={group} save={roleOpt => setRoles(old => [...old.slice(0, i), roleOpt, ...old.slice(i + 1)])} />)
+                            editedGroup.roles.map((r, i) => <DiscordRoleItem key={i} roleOption={r} group={group} save={roleOpt => saveRoleItem(roleOpt, i)} />)
                         }
                     </RolesContent>
 
                     <div></div>
                     <ButtonRow>
-                        <OutlinedButton disabled={roles.length >= 24} onClick={() => setRoles(old => [...old, { id: randomUID(), label: '', description: '', roles: [], default: false }])}>Add Role</OutlinedButton>
+                        <OutlinedButton disabled={editedGroup.roles.length >= 24} onClick={() => setRoles([...editedGroup.roles, { role_group_id: editedGroup.id, id: randomUID(), label: '', description: '', roles: [], default: false }])}>Add Role</OutlinedButton>
                         <ContainedButton disabled={!changes} onClick={() => { updateGroup(editedGroup); setChanges(false); }}>Save</ContainedButton>
                     </ButtonRow>
                 </RolesGroupContent>
