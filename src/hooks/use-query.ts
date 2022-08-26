@@ -20,12 +20,13 @@ export const postParams: RequestInit = {
 
 type AdditionalOptions<T> = {
     readonly requestData?: RequestInit
+    readonly shouldThrow?: boolean
 }
 export function useQuery<T>(url: string, options?: AdditionalOptions<T>) {
     const [querying, setQuerying] = useState(false);
     const [error, setError] = useState<string>();
 
-    const query = async (body: string, pathParams?: string, queryParams?: string) => {
+    const query = async (body?: string, pathParams?: string, queryParams?: string) => {
         setQuerying(true);
         const reqData = options?.requestData ?? getParams;
         reqData.body = body;
@@ -40,6 +41,9 @@ export function useQuery<T>(url: string, options?: AdditionalOptions<T>) {
                     // TODO throw
                     // options?.onError && options?.onError(body.message);
                     setError(body.message);
+                    if (options?.shouldThrow) {
+                        throw ({ status, message: body.message });
+                    }
                 }
                 return null;
             }).catch(e => {

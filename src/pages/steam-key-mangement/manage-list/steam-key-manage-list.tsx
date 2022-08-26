@@ -61,7 +61,7 @@ export const SteamKeyManageList = () => {
                                 <div></div>
                                 <Body1>{key.key}</Body1>
                                 <Body1>{key.added_at}</Body1>
-                                <Body1>{key.claimer ?? 'Not Claimed'}</Body1>
+                                <Body1>{key.claimer_name ?? '--'}</Body1>
                                 <Body1>{key.claimed_at ?? '--'}</Body1>
                             </>
                         );
