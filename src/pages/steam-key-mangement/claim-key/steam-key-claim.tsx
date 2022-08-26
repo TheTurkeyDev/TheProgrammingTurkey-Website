@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
 
 export const SteamKeyClaim = () => {
     const { id } = useParams();
-    const { data, fetching } = useFetch<readonly SteamKeyList[]>(`/steamkeys/getKeys/${id}`);
+    const { data, fetching, error } = useFetch<readonly SteamKeyList[]>(`/steamkeys/getKeys/${id}`);
 
     return (
         <Wrapper>
@@ -22,6 +22,10 @@ export const SteamKeyClaim = () => {
             <Body1>
                 For help with redeeming codes visit <Anchor href='https://help.steampowered.com/en/faqs/view/2A12-9D79-C3D7-F870'>Steam Support</Anchor>
             </Body1>
+            {
+                error === 'You must login or connect with your Discord Account!' &&
+                <Body1>{error}</Body1>
+            }
             {
                 fetching && <Loading />
             }
