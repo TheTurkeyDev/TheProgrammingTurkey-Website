@@ -8,7 +8,7 @@ export const SteamKeyManagementRouter = () => (
     <Routes>
         <Route path='/list' element={authWrap(<SteamKeyManagementList />, 'steamkeys.list')} />
         <Route path='/list/:id' element={authWrap(<SteamKeyManageList />, 'steamkeys.list')} />
-        <Route path='/claim/:id' element={<SteamKeyClaim />} />
+        <Route path='/claim/:id' element={authWrap(<SteamKeyClaim />)} />
     </Routes>
 );
 
