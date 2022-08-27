@@ -1,5 +1,5 @@
 import { Body1, ButtonRow, Headline2, Headline5, Loading, OutlinedButton, Subtitle1 } from 'gobble-lib-react';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/use-fetch';
@@ -39,6 +39,11 @@ export const SteamKeyManageList = () => {
         });
     };
 
+    const getDate = (str: string) => {
+        const date = new Date(str ?? '');
+        return isNaN(date.getTime()) ? 0 : date.getTime();
+    };
+
     if (fetching)
         return <Loading />;
 
@@ -55,15 +60,15 @@ export const SteamKeyManageList = () => {
                 <Headline5>Claimed By</Headline5>
                 <Headline5>Claimed At</Headline5>
                 {
-                    [...data?.keys ?? []].sort((a, b) => new Date(b.claimed_at).getTime() - new Date(a.claimed_at).getTime()).map(key => {
+                    [...data?.keys ?? []].sort((a, b) => getDate(b.claimed_at) - getDate(a.claimed_at)).map(key => {
                         return (
-                            <>
+                            <Fragment key={key.key}>
                                 <div></div>
                                 <Body1>{key.key}</Body1>
                                 <Body1>{key.added_at}</Body1>
                                 <Body1>{key.claimer_name ?? '--'}</Body1>
                                 <Body1>{key.claimed_at ?? '--'}</Body1>
-                            </>
+                            </Fragment>
                         );
                     })
                 }
