@@ -55,7 +55,7 @@ export const SteamKeyManageList = () => {
                 <Headline5>Claimed By</Headline5>
                 <Headline5>Claimed At</Headline5>
                 {
-                    data?.keys.map(key => {
+                    [...data?.keys ?? []].sort((a, b) => new Date(b.claimed_at).getTime() - new Date(a.claimed_at).getTime()).map(key => {
                         return (
                             <>
                                 <div></div>
