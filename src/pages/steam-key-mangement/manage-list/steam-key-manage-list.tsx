@@ -1,10 +1,10 @@
-import { Body1, ButtonRow, Headline2, Headline5, Loading, OutlinedButton, Subtitle1 } from 'gobble-lib-react';
+import { Body1, ButtonRow, Headline2, Headline5, Loading, OutlinedButton, TextToast, useToast } from 'gobble-lib-react';
 import { Fragment, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/use-fetch';
 import { postParams, useQuery } from '../../../hooks/use-query';
-import { getDevAPIBase } from '../../../network/network-helper';
+import { getDevAPIBase, getSiteURLBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
 import { SteamKeyManageImportKeysModal } from './steam-key-manage-import-keys-modal';
 
@@ -24,6 +24,8 @@ const KeysWrapper = styled.div`
 
 export const SteamKeyManageList = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
+    const { pushToast } = useToast();
 
     const { data, fetching } = useFetch<SteamKeyList>(`/steamkeys/list/${id}`);
     const { query } = useQuery<void>(`${getDevAPIBase()}/steamkeys/list/${id}/addkeys`, {
@@ -39,6 +41,11 @@ export const SteamKeyManageList = () => {
         });
     };
 
+    const copyToClipBoard = () => {
+        navigator.clipboard.writeText(`${getSiteURLBase()}/steamkeys/claim/${id}`);
+        pushToast(<TextToast text='URL copied to clipboard!' />);
+    };
+
     const getDate = (str: string) => {
         const date = new Date(str ?? '');
         return isNaN(date.getTime()) ? 0 : date.getTime();
@@ -51,6 +58,8 @@ export const SteamKeyManageList = () => {
         <Wrapper>
             <Headline2>{data?.title} Steam Keys</Headline2>
             <ButtonRow>
+                <OutlinedButton onClick={() => navigate('/steamkeys/list')}>Back To Lists</OutlinedButton>
+                <OutlinedButton onClick={() => copyToClipBoard()}>Claim Link</OutlinedButton>
                 <OutlinedButton onClick={() => setShowImportKeys(true)}>Import Keys</OutlinedButton>
             </ButtonRow>
             <KeysWrapper>
