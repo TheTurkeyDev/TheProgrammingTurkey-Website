@@ -30,6 +30,7 @@ export const gameVersions = [
     '1.16',
     '1.17',
     '1.18',
+    '1.19',
 ];
 
 const RewardStatusWrapper = styled.div`
