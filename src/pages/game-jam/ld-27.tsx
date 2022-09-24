@@ -7,7 +7,7 @@ export const LD27 = () => {
             title='Flash Memory'
             subTittle='For LudumDare 27!'
             links={[
-                { href: '', text: 'Download Coming Soon!' },
+                { href: 'ld27', text: 'Download Coming Soon!' },
                 { href: 'http://ludumdare.com/compo/ludum-dare-27/?action=preview&uid=24562', text: 'Ludum Dare Page' }
             ]}
             videos={[]}

@@ -7,7 +7,7 @@ export const LD28 = () => {
             title='Ninja Thief'
             subTittle='For LudumDare 28!'
             links={[
-                { href: '', text: 'Download Coming Soon!' },
+                { href: 'ld28', text: 'Download Coming Soon!' },
                 { href: 'http://ludumdare.com/compo/ludum-dare-28/?action=preview&uid=24562', text: 'Ludum Dare Page' },
                 { href: 'https://github.com/TheTurkeyDev/LudumDare28', text: 'Source Code' }
             ]}
