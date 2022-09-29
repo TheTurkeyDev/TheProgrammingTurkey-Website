@@ -10,8 +10,13 @@ type AdditionalOptions<T> = {
 }
 export function useFetch<T>(url: string, options?: AdditionalOptions<T>) {
     const [fetching, setFetching] = useState(false);
+    const [responseData, setResponseData] = useState<T>();
     const [data, setData] = useState<T>();
     const [error, setError] = useState<string>();
+
+    const resetData = () => {
+        setData(responseData);
+    };
 
     useEffect(() => {
         if (options?.skip)
@@ -24,6 +29,7 @@ export function useFetch<T>(url: string, options?: AdditionalOptions<T>) {
                 if (status === 200) {
                     options?.onComplete && options?.onComplete(body as T);
                     setData(body as T);
+                    setResponseData(body as T);
                 }
                 else {
                     options?.onError && options?.onError(body.message);
@@ -38,5 +44,5 @@ export function useFetch<T>(url: string, options?: AdditionalOptions<T>) {
             });
     }, [options?.skip]);
 
-    return { fetching, data, error };
+    return { fetching, data, error, setData, resetData };
 };

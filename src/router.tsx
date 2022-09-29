@@ -24,6 +24,7 @@ const SuggestionsRouter = lazy(() => import(/* webpackChunkName: "Suggestions" *
 const CodeHighlighterRouter = lazy(() => import(/* webpackChunkName: "Code Highlighter" */ './pages/code-highlighter/code-highlighter-router'));
 const DiscordRouter = lazy(() => import(/* webpackChunkName: "Discord" */ './pages/discord/discord-router'));
 const SteamKeyManagementRouter = lazy(() => import(/* webpackChunkName: "Steam Keys" */ './pages/steam-key-mangement/steam-key-management-router'));
+const GameSettingsRouter = lazy(() => import(/* webpackChunkName: "Game Settings" */ './pages/game-settings/game-settings-router'));
 
 export const authWrap = (element: JSX.Element, perm?: string) => <AuthRoute perm={perm}>{element}</AuthRoute>;
 
@@ -41,6 +42,7 @@ export const Routing = () => (
             <Route path='/codehighlighter/*' element={<CodeHighlighterRouter />} />
             <Route path='/discord/*' element={<DiscordRouter />} />
             <Route path='/steamkeys/*' element={<SteamKeyManagementRouter />} />
+            <Route path='/gamesettings/*' element={<GameSettingsRouter />} />
 
             <Route path='/mod-support' element={<MCModSupport />} />
             <Route path='/ld-stats' element={<LDStats />} />
