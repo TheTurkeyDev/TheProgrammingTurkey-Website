@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useFetch } from '../../../hooks/use-fetch';
 import { postParams, useQuery } from '../../../hooks/use-query';
 import { getDevAPIBase, getSiteURLBase } from '../../../network/network-helper';
+import { SteamKey } from '../steam-key';
 import { SteamKeyList } from '../steam-key-list';
 import { SteamKeyManageImportKeysModal } from './steam-key-manage-import-keys-modal';
 
@@ -27,19 +28,9 @@ export const SteamKeyManageList = () => {
     const navigate = useNavigate();
     const { pushToast } = useToast();
 
-    const { data, fetching } = useFetch<SteamKeyList>(`/steamkeys/list/${id}`);
-    const { query } = useQuery<void>(`${getDevAPIBase()}/steamkeys/list/${id}/addkeys`, {
-        requestData: postParams
-    });
+    const { data, fetching, setData } = useFetch<SteamKeyList>(`/steamkeys/list/${id}`);
 
     const [showImportKeys, setShowImportKeys] = useState(false);
-
-    const importKeys = (keys: string) => {
-        const keysArr = keys.split('\n');
-        query(JSON.stringify(keysArr)).then(() => {
-            setShowImportKeys(false);
-        });
-    };
 
     const copyToClipBoard = () => {
         navigator.clipboard.writeText(`${getSiteURLBase()}/steamkeys/claim/${id}`);
@@ -49,6 +40,11 @@ export const SteamKeyManageList = () => {
     const getDate = (str: string) => {
         const date = new Date(str ?? '');
         return isNaN(date.getTime()) ? 0 : date.getTime();
+    };
+
+    const addKeys = (keys: readonly SteamKey[]) => {
+        if (data)
+            setData({ ...data, keys: [...(data.keys ?? []), ...keys] });
     };
 
     if (fetching)
@@ -82,7 +78,7 @@ export const SteamKeyManageList = () => {
                     })
                 }
             </KeysWrapper>
-            <SteamKeyManageImportKeysModal show={showImportKeys} requestClose={() => setShowImportKeys(true)} importKeys={importKeys} />
+            <SteamKeyManageImportKeysModal show={showImportKeys} requestClose={() => setShowImportKeys(false)} id={id ?? ''} addKeys={addKeys} />
         </Wrapper>
     );
 };

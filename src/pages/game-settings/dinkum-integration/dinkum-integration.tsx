@@ -81,7 +81,7 @@ export const DinkumIntegration = () => {
             }
             <ButtonRow>
                 <OutlinedButton onClick={() => resetData()}>Cancel</OutlinedButton>
-                <ContainedButton onClick={() => save()} icon={querying ? '↻' : ''} >Save</ContainedButton>
+                <ContainedButton onClick={() => save()} loading={querying} >Save</ContainedButton>
             </ButtonRow>
         </Wrapper>
     );

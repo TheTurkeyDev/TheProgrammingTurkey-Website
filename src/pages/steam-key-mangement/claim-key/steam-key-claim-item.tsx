@@ -39,11 +39,9 @@ export const SteamKeyClaimItem = ({ list }: SteamKeyClaimItemProps) => {
         <ItemWrapper>
             <Body1>{list.title}</Body1>
             {
-                querying ?
-                    <LoadingIcon /> :
-                    key === '' ?
-                        <ContainedButton onClick={() => claim()}>Claim</ContainedButton> :
-                        <Input onClick={() => copyToClipBoard()} value={key} readOnly={true} />
+                key === '' ?
+                    <ContainedButton onClick={() => claim()} loading={querying} disabled={querying}>Claim</ContainedButton> :
+                    <Input onClick={() => copyToClipBoard()} value={key} readOnly={true} />
             }
         </ItemWrapper>
     );
