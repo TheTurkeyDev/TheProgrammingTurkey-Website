@@ -1,5 +1,4 @@
 import { ButtonRow, ContainedButton, Headline3 } from 'gobble-lib-react';
-import { useState } from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/use-fetch';
 import { postParams, useQuery } from '../../../hooks/use-query';
@@ -19,18 +18,16 @@ const Wrapper = styled.div`
 `;
 
 export const DiscordRolesManagement = () => {
-    const [groups, setGroups] = useState<readonly DiscordRolesGroup[]>([]);
-
     const { data } = useFetch<readonly DiscordGuild[]>('/discord/guilds');
-    useFetch<readonly DiscordRolesGroup[]>('/discord/groups', {
-        onComplete: setGroups
-    });
+    const { data: groupsData, setData: setGroups } = useFetch<readonly DiscordRolesGroup[]>('/discord/groups');
     const { query } = useQuery<DiscordRolesGroup>(`${getDevAPIBase()}/discord/savegroup`, {
         requestData: postParams,
     });
 
+    const groups = groupsData ?? [];
+
     const createNewGroup = () => {
-        setGroups(old => [...old, {
+        setGroups(old => [...(old ?? []), {
             id: randomUID(),
             server_id: '',
             server_name: 'TODO',
@@ -48,7 +45,7 @@ export const DiscordRolesManagement = () => {
         query(JSON.stringify(g)).then(updated => {
             if (updated) {
                 const i = groups.findIndex(gr => gr.id === updated.id);
-                setGroups(old => [...old.slice(0, i), updated, ...old.slice(i + 1)]);
+                setGroups(old => [...(old ?? []).slice(0, i), updated, ...(old ?? []).slice(i + 1)]);
             }
         });
     };

@@ -43,7 +43,7 @@ export const ChanceCubesRewardStatusTableItem = ({ reward, rewardData, highlight
     const [showRewardOverlay, setShowRewardOverlay] = useState(false);
 
     const copyToClipBoard = (reward: string) => {
-        navigator.clipboard.writeText(`https://site.theturkey.dev/chancecubes/rewardstatus?reward=${reward}`);
+        navigator.clipboard.writeText(`https://theturkey.dev/chancecubes/rewardstatus?reward=${reward}`);
         pushToast(<TextToast text='URL copied to clipboard' />);
     };
 

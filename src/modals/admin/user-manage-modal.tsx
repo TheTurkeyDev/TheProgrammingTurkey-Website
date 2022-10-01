@@ -35,15 +35,8 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
     const [update, setUpdate] = useState(false);
     const [showPermModal, setShowPermModal] = useState(false);
 
-    const [displayName, setDisplayName] = useState('');
-    const [permissions, setPermissions] = useState<readonly string[]>([]);
 
-    const { fetching, error } = useFetch<UserData>(`/admin/getuser?user=${userId}`, {
-        onComplete: data => {
-            setDisplayName(data.display_name);
-            setPermissions(data.permissions);
-        }
-    });
+    const { data, fetching, error, setData } = useFetch<UserData>(`/admin/getuser?user=${userId}`);
 
     const removePerm = (perm: string) => {
         authAPI.removeUserPermission(userId, perm).then(json => {
@@ -58,17 +51,17 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
             <Modal show={show} requestClose={requestClose}>
                 <>
                     {fetching && <Loading />}
-                    {!fetching &&
+                    {!fetching && data &&
                         <ContentWrapper>
-                            <Headline3>Manage User: {displayName}</Headline3>
+                            <Headline3>Manage User: {data.display_name}</Headline3>
                             <InputsWrapper>
                                 <Input name='userId' label='User Id' value={userId} disabled={true} />
-                                <Input name='displayName' label='DisplayName' value={displayName} onChange={e => setDisplayName(e.target.value)} />
+                                <Input name='displayName' label='DisplayName' value={data.display_name} onChange={e => setData({ ...data, display_name: e.target.value })} />
                             </InputsWrapper>
                             <Headline5>Permissions</Headline5>
                             <PermissionsWrapper>
                                 {
-                                    permissions.map(perm => {
+                                    data.permissions.map(perm => {
                                         return (
                                             <Fragment key={perm}>
                                                 <i className='fas fa-user-minus clickable' onClick={() => removePerm(perm)} />
@@ -91,7 +84,7 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
                     show={showPermModal}
                     requestClose={() => setShowPermModal(false)}
                     userId={userId}
-                    assignedPerms={permissions}
+                    assignedPerms={data?.permissions ?? []}
                     update={() => setUpdate(old => !old)}
                 />
             }

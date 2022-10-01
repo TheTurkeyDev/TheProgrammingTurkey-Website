@@ -18,7 +18,6 @@ export const StreamTimerSetup = () => {
     const [loaded, setLoaded] = useState(0);
     const [refreshtoggle, setRefreshToggle] = useState(false);
 
-    const [validTimerIDs, setValidTimerIDs] = useState<readonly Timer[]>([]);
     const [timerID, setTimerID] = useState(0);
     const [timerType, setTimerType] = useState('');
     const [timerDisplay, setTimerDisplay] = useState('');
@@ -44,10 +43,11 @@ export const StreamTimerSetup = () => {
     const [fontSize, setFontSize] = useState(12);
     const [fontColor, setFontColor] = useState('');
 
-    useFetch<readonly Timer[]>('/streamtimer/timers', {
+    const { data: validTimersData, setData: setValidTimerIDs } = useFetch<readonly Timer[]>('/streamtimer/timers', {
         skip: !authChecked,
-        onComplete: timers => setValidTimerIDs(timers)
     });
+
+    const validTimerIDs = validTimersData ?? [];
 
     useEffect(() => {
         async function loadTimer() {
@@ -214,7 +214,7 @@ export const StreamTimerSetup = () => {
             if (json.success) {
                 const timer = validTimerIDs.find(t => t.id === json.timer_id);
                 if (timer)
-                    setValidTimerIDs(ids => [...ids.filter(t => t.id !== json.timer_id), { ...timer, display: json.timer_display }]);
+                    setValidTimerIDs(ids => [...(ids ?? []).filter(t => t.id !== json.timer_id), { ...timer, display: json.timer_display }]);
                 pushToast(<TextToast text='Timer Saved!' />);
             }
         });
@@ -223,7 +223,7 @@ export const StreamTimerSetup = () => {
     const newTimer = () => {
         timerAPI.newTimer().then(json => {
             if (json.success) {
-                setValidTimerIDs(ids => [...ids, { id: json.timer_id, display: json.timer_display }]);
+                setValidTimerIDs(ids => [...(ids ?? []), { id: json.timer_id, display: json.timer_display }]);
                 setTimerID(json.timer_id);
                 setDate(new Date(json.reference_datetime));
                 setTimerType(json.timer_type);

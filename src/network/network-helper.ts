@@ -3,11 +3,11 @@ export function getDevAPIBase() {
 }
 
 export function getSiteURLBase() {
-    return isDevEnv() ? 'https://test.local' : 'https://site.theturkey.dev';
+    return isDevEnv() ? 'https://test.local' : 'https://theturkey.dev';
 }
 
 export function getYTSiteURLBase() {
-    return isDevEnv() ? 'http://localhost:8082' : 'https://site.theturkey.dev';
+    return isDevEnv() ? 'http://localhost:8082' : 'https://theturkey.dev';
 }
 
 export function getAppsSiteBase() {
