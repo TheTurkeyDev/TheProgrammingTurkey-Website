@@ -13,10 +13,10 @@ const UserAvatar = styled.img`
     border-radius: 16px;
 `;
 const links = [
-    { title: 'Twitch', link: 'https://theturkey.dev/twitch' },
-    { title: 'YouTube', link: 'https://theturkey.dev/youtube' },
+    { title: 'Twitch', link: 'https://trky.dev/twitch' },
+    { title: 'YouTube', link: 'https://trky.dev/youtube' },
     { title: 'Discord', link: 'https://discord.gg/DkexpJj' },
-    { title: 'Github', link: 'https://theturkey.dev/github' },
+    { title: 'Github', link: 'https://trky.dev/github' },
     { title: 'LudumDare', link: 'https://ldjam.com' },
 ];
 

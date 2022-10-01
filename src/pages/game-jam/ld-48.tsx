@@ -7,7 +7,7 @@ export const LD48 = () => {
             title='Scriptless Pipes'
             subTittle='For LudumDare 48!'
             links={[
-                { href: 'https://ld48.theturkey.dev/', text: 'Play The Game' },
+                { href: 'https://games.theturkey.dev/ld48', text: 'Play The Game' },
                 { href: 'https://ldjam.com/events/ludum-dare/48/scriptless-pipes', text: 'Ludum Dare Page' },
                 { href: 'https://github.com/TheTurkeyDev/LudumDare48', text: 'Source Code' }
             ]}

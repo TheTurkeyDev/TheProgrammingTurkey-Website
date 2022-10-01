@@ -110,11 +110,11 @@ export const Support = () => {
                 Don't have any change to spare? No worries! Support me non-monitarily by following me and checking out my content below!
             </Body1>
             <PlatformsWrapper>
-                <PlatformIcon href='https://theturkey.dev/youtube' icon='fab fa-youtube' />
-                <PlatformIcon href='https://theturkey.dev/twitch' icon='fab fa-twitch' />
-                <PlatformIcon href='https://theturkey.dev/github' icon='fab fa-github' />
-                <PlatformIcon href='https://theturkey.dev/twitter' icon='fab fa-twitter' />
-                <PlatformIcon href='https://theturkey.dev/instagram' icon='fab fa-instagram' />
+                <PlatformIcon href='https://trky.dev/youtube' icon='fab fa-youtube' />
+                <PlatformIcon href='https://trky.dev/twitch' icon='fab fa-twitch' />
+                <PlatformIcon href='https://trky.dev/github' icon='fab fa-github' />
+                <PlatformIcon href='https://trky.dev/twitter' icon='fab fa-twitter' />
+                <PlatformIcon href='https://trky.dev/instagram' icon='fab fa-instagram' />
             </PlatformsWrapper>
         </SupportWrapper>
     );
