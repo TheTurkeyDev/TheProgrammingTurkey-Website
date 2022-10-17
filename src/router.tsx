@@ -13,6 +13,8 @@ import { AuthRoute } from './util/auth-route';
 import { MJRBotFAQ } from './pages/mjr-bot-faq';
 import { Loading, NotFound } from 'gobble-lib-react';
 import { lazy, Suspense } from 'react';
+import { PrivacyPolicy } from './pages/legal/privacy-policy';
+import { TermsOfService } from './pages/legal/tos';
 
 const ChanceCubesRouter = lazy(() => import(/* webpackChunkName: "Chance Cubes" */ './pages/chance-cubes/chance-cubes-router'));
 const ProjectsRouter = lazy(() => import(/* webpackChunkName: "Projects" */ './pages/projects/projects-router'));
@@ -53,6 +55,8 @@ export const Routing = () => (
             <Route path='/login' element={<Login />} />
             <Route path='/logout' element={<Logout />} />
             <Route path='/loginresp/:platform' element={<LoginResponse />} />
+            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+            <Route path='/tos' element={<TermsOfService />} />
             <Route path='/*' element={<NotFound />} />
         </Routes>
     </Suspense>
