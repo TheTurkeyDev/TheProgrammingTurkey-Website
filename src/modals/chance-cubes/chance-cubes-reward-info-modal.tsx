@@ -35,7 +35,7 @@ export const ChanceCubesRewardInfoModal = ({ show, requestClose, name, data }: C
             if (json.success)
                 setSettings(json.data);
         });
-    }, []);
+    }, [show]);
     return (
         <Modal show={show} requestClose={requestClose}>
             <h2>

@@ -1,5 +1,5 @@
 
-export type ChanceCubesSettingDefType = ChanceCubesNumberSettingDef | ChanceCubesDecimalSettingDef | ChanceCubesTextSettingDef | ChanceCubesBooleanSettingDef
+export type ChanceCubesSettingDefType = ChanceCubesNumberSettingDef | ChanceCubesDecimalSettingDef | ChanceCubesTextSettingDef | ChanceCubesBooleanSettingDef | ChanceCubesNBTSettingsDef
 
 export type ChanceCubesSettingDef = {
     readonly key: string
@@ -29,4 +29,9 @@ export type ChanceCubesTextSettingDef = ChanceCubesSettingDef & {
 export type ChanceCubesBooleanSettingDef = ChanceCubesSettingDef & {
     readonly type: 'boolean'
     readonly default: boolean
+}
+
+export type ChanceCubesNBTSettingsDef = ChanceCubesSettingDef & {
+    readonly type: 'nbt'
+    readonly default: {}
 }

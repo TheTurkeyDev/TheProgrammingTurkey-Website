@@ -15,13 +15,13 @@ export const settings: ChanceCubesRewardSettings = {
     'Message': [
         { key: 'message', display: 'Message', type: 'text', default: '', description: 'Message to be sent' },
         { key: 'serverWide', display: 'Server Wide', type: 'boolean', default: false, description: 'If enabled sends the message to all players on the server' },
-        { key: 'range', display: 'Range', type: 'number', default: 32, min: 0, description: 'All Players within this amount of blocks will recieve the message (server wide over rules this)' },
+        { key: 'range', display: 'Range', type: 'number', default: 32, min: 0, description: 'All Players within this amount of blocks will receive the message (server wide over rules this)' },
         { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the message is sent' }
     ],
     'Entity': [
-        { key: 'entity', display: 'Enity', type: 'text', default: '', description: 'NBT data of the entity to spawn' },
+        { key: 'entity', display: 'Entity', type: 'text', default: '', description: 'NBT data of the entity to spawn' },
         { key: 'removeBlocks', display: 'Remove Blocks', type: 'boolean', default: true, description: 'If enabled clears a 3x3x3 space around the cube to spawn the entities in' },
-        { key: 'copies', display: 'Copies', type: 'number', default: 0, min: 0, description: 'Number of additional times this entitiy should be spawned in' },
+        { key: 'copies', display: 'Copies', type: 'number', default: 0, min: 0, description: 'Number of additional times this entity should be spawned in' },
         { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the entity is spawned' }
     ],
     'Experience': [
@@ -30,14 +30,14 @@ export const settings: ChanceCubesRewardSettings = {
         { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the experience is spawned' }
     ],
     'Item': [
-        { key: 'item', display: 'Item NBT', type: 'text', default: '', description: 'NBT of the item to be spawned in' },
+        { key: 'item', display: 'Item NBT', type: 'nbt', default: {}, description: 'NBT of the item to be spawned in' },
         { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the item is spawned' }
     ],
     'Command': [
         { key: 'command', display: 'Command', type: 'text', default: '/help', description: 'Command to be run. Placeholder values: TDB' },
         { key: 'copies', display: 'Copies', type: 'number', default: 0, min: 0, description: 'Number of additional times the command should be run' },
-        { key: 'copiesSoft', display: 'Copies Soft', type: 'boolean', default: false, description: 'If enabled, the aditional runs of the command will regenerate their dynamic values' },
-        { key: 'relativeToPlayer', display: 'Relative To Player', type: 'boolean', default: false, description: 'If enabled, the command will be run in reference to the palyer\'s location and not the cube\'s' },
+        { key: 'copiesSoft', display: 'Copies Soft', type: 'boolean', default: false, description: 'If enabled, the additional runs of the command will regenerate their dynamic values' },
+        { key: 'relativeToPlayer', display: 'Relative To Player', type: 'boolean', default: false, description: 'If enabled, the command will be run in reference to the player\'s location and not the cube\'s' },
         { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the command is run' }
     ],
     'Potion': [
@@ -48,7 +48,7 @@ export const settings: ChanceCubesRewardSettings = {
         { key: 'sound', display: 'Sound', type: 'text', default: '', description: 'Id of the sound to play' },
         { key: 'serverWide', display: 'Server Wide', type: 'boolean', default: false, description: 'If enabled, play the sound server wide' },
         { key: 'range', display: 'Range', type: 'number', default: 16, min: 0, description: 'All Players within this amount of blocks will hear the sound (server wide over rules this)' },
-        { key: 'playAtPlayersLocation', display: 'Play At Players Location', type: 'boolean', default: false, description: "The source of the sound is at the players location instead of the Chance Cube's locaiton" },
+        { key: 'playAtPlayersLocation', display: 'Play At Players Location', type: 'boolean', default: false, description: "The source of the sound is at the players location instead of the Chance Cube's location" },
         { key: 'volume', display: 'Volume', type: 'decimal', default: 1, min: 0, max: 1, description: 'volume of the sound' },
         { key: 'pitch', display: 'Pitch', type: 'decimal', default: 1, min: 0, max: 1, description: 'Pitch of the sound' },
         { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the sound is played' }
@@ -72,7 +72,7 @@ export const settings: ChanceCubesRewardSettings = {
     ],
     'Particle': [
         { key: 'particle', display: 'Particle', type: 'text', default: 'explode', description: '' },
-        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the paticle is spawned' }
+        { key: 'delay', display: 'Delay', type: 'number', default: 0, min: 0, description: 'Delay amount (in ticks) from after the cube is broken till the particle is spawned' }
     ],
     'Effect': [
         { key: 'potionid', display: 'Potion ID', type: 'text', default: 'speed', description: '' },

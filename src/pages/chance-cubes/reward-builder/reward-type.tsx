@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { CollapseChevron } from '../../../components/collapse-chevron';
 import { ChanceCubesNumberSettingDef, ChanceCubesSettingDefType } from '../../../types/chance-cubes/chance-cubes-setting-def';
 import { Mapped } from '../../../types/mapped';
+import { NBTInput } from './nbt-input';
 
 const RewardTypeWrapper = styled.div`
     border: 1px solid ${({ color }) => color};
@@ -73,6 +74,10 @@ export const RewardType = ({ json, settings, color, setRewardTypeState, deleteRe
             case 'boolean':
                 return (
                     <ToggleSwitch label={setting.display} checked={json[setting.key]} onClick={() => changeValue(setting, !json[setting.key])} />
+                );
+            case 'nbt':
+                return (
+                    <NBTInput label={setting.display} />
                 );
         }
     };

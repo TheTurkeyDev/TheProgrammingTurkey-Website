@@ -61,16 +61,16 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
     };
 
 
-    const changeRewardTypeValue = (rewardType: ChanceCubesRewardTypeType, index: number, rewardjson: Mapped) => {
+    const changeRewardTypeValue = (rewardType: ChanceCubesRewardTypeType, index: number, rewardJson: Mapped) => {
         const updated = reward[rewardType] ?? [];
-        updated[index] = rewardjson;
+        updated[index] = rewardJson;
         setRewardState(rewardId, {
             ...reward,
             [rewardType]: updated
         });
     };
 
-    const addRewardTypetoJson = (event: EventType) => {
+    const addRewardTypeToJson = (event: EventType) => {
         const jsonCopy = { ...reward };
         // eslint-disable-next-line functional/prefer-readonly-type
         const typeJson: Mapped[] = [];
@@ -79,7 +79,7 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
         setRewardState(rewardId, jsonCopy);
     };
 
-    const insetRewardTypetoJson = (type: ChanceCubesRewardTypeType) => {
+    const insetRewardTypeToJson = (type: ChanceCubesRewardTypeType) => {
         const jsonCopy = { ...reward };
         const typeJson = (jsonCopy as Mapped)[type];
         insetRewardType(type, typeJson);
@@ -142,7 +142,15 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
                             const type = t as keyof ChanceCubesRewardSettings;
                             if ((reward as Mapped)[type]) {
                                 return (
-                                    <RewardTypesList type={type} color={colors[i % colors.length]} settings={(settings as Mapped)[type]} typesList={(reward as Mapped)[type]} insetRewardTypetoJson={() => insetRewardTypetoJson(type)} changeRewardTypeValue={(id, blockJson) => changeRewardTypeValue(type, id, blockJson)} deleteRewardTypeIndex={index => deleteRewardTypeIndex(type, index)} deleteRewardType={() => deleteRewardType(type)} />
+                                    <RewardTypesList
+                                        type={type}
+                                        color={colors[i % colors.length]}
+                                        settings={(settings as Mapped)[type]}
+                                        typesList={(reward as Mapped)[type]}
+                                        insetRewardTypeToJson={() => insetRewardTypeToJson(type)}
+                                        changeRewardTypeValue={(id, blockJson) => changeRewardTypeValue(type, id, blockJson)}
+                                        deleteRewardTypeIndex={index => deleteRewardTypeIndex(type, index)}
+                                        deleteRewardType={() => deleteRewardType(type)} />
                                 );
                             }
                         })
@@ -162,7 +170,7 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
                 show={showAddModal}
                 requestClose={() => setShowAddModal(false)}
                 json={reward}
-                add={addRewardTypetoJson}
+                add={addRewardTypeToJson}
             />
         </RewardWrapper>
     );

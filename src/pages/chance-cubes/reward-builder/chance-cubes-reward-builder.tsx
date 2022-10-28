@@ -42,9 +42,20 @@ export const ChanceCubesRewardBuilder = () => {
             <RewardJsonViewer rewards={rewards} />
             <RewardsWrapper>
                 <Headline3>Chance Cubes Reward Builder</Headline3>
+                <ContainedButton>Import Reward</ContainedButton>
                 {
                     Object.keys(rewards).map((reward, i) => {
-                        return (<ChanceCubesReward key={i} setRewardID={setRewardID} setRewardState={setRewardState} rewardId={reward} reward={rewards[reward]} color={colors[i % colors.length]} removeReward={() => removeReward(reward)} />);
+                        return (
+                            <ChanceCubesReward
+                                key={i}
+                                setRewardID={setRewardID}
+                                setRewardState={setRewardState}
+                                rewardId={reward}
+                                reward={rewards[reward]}
+                                color={colors[i % colors.length]}
+                                removeReward={() => removeReward(reward)}
+                            />
+                        );
                     })
                 }
                 <ContainedButton onClick={() => addReward()}>Add Reward</ContainedButton>

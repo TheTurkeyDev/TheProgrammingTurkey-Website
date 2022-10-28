@@ -38,12 +38,12 @@ type RewardTypesListProps = {
     readonly color: string
     readonly type: ChanceCubesRewardTypeType
     readonly settings: readonly ChanceCubesSettingDefType[]
-    readonly insetRewardTypetoJson: () => void
+    readonly insetRewardTypeToJson: () => void
     readonly changeRewardTypeValue: (index: number, rewardjson: Mapped) => void
     readonly deleteRewardType: () => void
     readonly deleteRewardTypeIndex: (id: number) => void
 }
-export const RewardTypesList = ({ typesList, color, type, settings, insetRewardTypetoJson, changeRewardTypeValue, deleteRewardType, deleteRewardTypeIndex }: RewardTypesListProps) => {
+export const RewardTypesList = ({ typesList, color, type, settings, insetRewardTypeToJson, changeRewardTypeValue, deleteRewardType, deleteRewardTypeIndex }: RewardTypesListProps) => {
     const [showModal, setShowModal] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
 
@@ -69,7 +69,7 @@ export const RewardTypesList = ({ typesList, color, type, settings, insetRewardT
                             />
                         );
                     })}
-                    <ContainedButton onClick={() => insetRewardTypetoJson()}>
+                    <ContainedButton onClick={() => insetRewardTypeToJson()}>
                         Add {type} Event
                     </ContainedButton>
                 </>
