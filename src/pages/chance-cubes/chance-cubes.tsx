@@ -34,19 +34,19 @@ export const ChanceCubesMC = () => {
                 </Body1>
                 <LinkButton to='/chancecubes/rewardbuilder'>Chance Cubes Reward Builder Tool</LinkButton>
                 <Headline5><u>Rewards, Clips, and Gameplay Videos</u></Headline5>
-                <Anchor className='ml-1' href='https://www.youtube.com/watch?v=zxzvBvMB0qQ' openInNewTab={true}>
+                <Anchor href='https://www.youtube.com/watch?v=zxzvBvMB0qQ' openInNewTab={true}>
                     Village Construction Reward
                 </Anchor>
-                <Anchor className='ml-1' href='https://www.youtube.com/watch?v=CMjavS2m2Tw' openInNewTab={true}>
+                <Anchor href='https://www.youtube.com/watch?v=CMjavS2m2Tw' openInNewTab={true}>
                     Math Reward
                 </Anchor>
-                <Anchor className='ml-1' href='https://www.youtube.com/watch?v=VdiEjBlgbTs' openInNewTab={true}>
+                <Anchor href='https://www.youtube.com/watch?v=VdiEjBlgbTs' openInNewTab={true}>
                     Giant Chance Cube and Bio Dome
                 </Anchor>
-                <Anchor className='ml-1' href='https://clips.twitch.tv/BenevolentGoldenClipsmomChocolateRain' openInNewTab={true}>
+                <Anchor href='https://clips.twitch.tv/BenevolentGoldenClipsmomChocolateRain' openInNewTab={true}>
                     Sketch - Leonidas Reward
                 </Anchor>
-                <Anchor className='ml-1' href='https://clips.twitch.tv/PopularBoredEelFunRun' openInNewTab={true}>
+                <Anchor href='https://clips.twitch.tv/PopularBoredEelFunRun' openInNewTab={true}>
                     Tic-Tac-Toe Reward
                 </Anchor>
             </ContentWrapper>

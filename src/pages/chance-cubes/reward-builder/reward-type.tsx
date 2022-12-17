@@ -2,6 +2,7 @@ import { ConfirmationModal, Input, ToggleSwitch } from 'gobble-lib-react';
 import { Fragment, useState } from 'react';
 import styled from 'styled-components';
 import { CollapseChevron } from '../../../components/collapse-chevron';
+import { IconWithPopOver } from '../../../components/pop-over';
 import { ChanceCubesNumberSettingDef, ChanceCubesSettingDefType } from '../../../types/chance-cubes/chance-cubes-setting-def';
 import { Mapped } from '../../../types/mapped';
 import { NBTInput } from './nbt-input';
@@ -97,14 +98,9 @@ export const RewardType = ({ json, settings, color, setRewardTypeState, deleteRe
                         {
                             settings.map(setting => (
                                 <Fragment key={setting.key}>
-                                    <div className='mypopover w-100 text-center'>
-                                        <span>
-                                            <i className='fas fa-info-circle' />
-                                        </span>
-                                        <div className='mypopovertext-right'>
-                                            {setting.description}
-                                        </div>
-                                    </div>
+                                    <IconWithPopOver icon='fas fa-info-circle' direction='right'>
+                                        {setting.description}
+                                    </IconWithPopOver>
                                     {getInput(setting)}
                                 </Fragment>
                             ))

@@ -57,18 +57,16 @@ export const RewardTypesList = ({ typesList, color, type, settings, insetRewardT
             {
                 !collapsed &&
                 <>
-                    {typesList.map((rewardTypeInst, id) => {
-                        return (
-                            <RewardType
-                                key={id}
-                                json={rewardTypeInst}
-                                color={colors[id % colors.length]}
-                                settings={settings}
-                                setRewardTypeState={rewardTypeInst => changeRewardTypeValue(id, rewardTypeInst)}
-                                deleteRewardType={() => deleteRewardTypeIndex(id)}
-                            />
-                        );
-                    })}
+                    {typesList.map((rewardTypeInst, id) => (
+                        <RewardType
+                            key={`${type}-${id}`}
+                            json={rewardTypeInst}
+                            color={colors[id % colors.length]}
+                            settings={settings}
+                            setRewardTypeState={rewardTypeInst => changeRewardTypeValue(id, rewardTypeInst)}
+                            deleteRewardType={() => deleteRewardTypeIndex(id)}
+                        />
+                    ))}
                     <ContainedButton onClick={() => insetRewardTypeToJson()}>
                         Add {type} Event
                     </ContainedButton>

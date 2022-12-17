@@ -2,7 +2,7 @@ import { Input, Modal, Table, TD, TextToast, TH, useToast } from 'gobble-lib-rea
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as authAPI from '../../network/auth-network';
-import { Persmission } from '../../types/permission';
+import { Permission } from '../../types/permission';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -25,7 +25,7 @@ type AddUserPermissionModalType = {
 export const AddUserPermissionModal = ({ show, requestClose, assignedPerms, userId, update }: AddUserPermissionModalType) => {
     const { pushToast } = useToast();
 
-    const [permissionList, setPermissionList] = useState<readonly Persmission[]>([]);
+    const [permissionList, setPermissionList] = useState<readonly Permission[]>([]);
 
     const [filter, setFilter] = useState('');
 

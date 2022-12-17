@@ -3,7 +3,7 @@ import * as authAPI from '../../../network/auth-network';
 import { NewPermissionModal } from '../../../modals/admin/new-permission-modal';
 import styled from 'styled-components';
 import { ContainedButton, Input, Table, TextToast, TH, useToast } from 'gobble-lib-react';
-import { Persmission } from '../../../types/permission';
+import { Permission } from '../../../types/permission';
 import { PermissionManagementItem } from './permission-management-item';
 
 const PageWrapper = styled.div`
@@ -22,7 +22,7 @@ const HeaderInputsWrapper = styled.div`
 export const PermissionManagement = () => {
     const { pushToast } = useToast();
 
-    const [permissionList, setPermissionList] = useState<readonly Persmission[]>([]);
+    const [permissionList, setPermissionList] = useState<readonly Permission[]>([]);
 
     const [updatePermissions, setUpdatePersmissions] = useState(false);
     const [filter, setFilter] = useState('');
@@ -34,7 +34,7 @@ export const PermissionManagement = () => {
         });
     }, [updatePermissions]);
 
-    const deletePerm = (perm: Persmission) => {
+    const deletePerm = (perm: Permission) => {
         authAPI.deletePermission(perm.permission).then(json => {
             if (json.message)
                 pushToast(<TextToast text={json.message} />);

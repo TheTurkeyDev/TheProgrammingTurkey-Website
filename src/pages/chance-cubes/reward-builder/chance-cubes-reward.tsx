@@ -136,7 +136,7 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
                         <Input type='number' name='chanceValue' label='Chance Value' min={-100} max={100} value={reward.chance} onChange={e => changeChanceValue(parseInt(e.target.value))} />
                         <ToggleSwitch label='Giant Chance Cube Reward' checked={reward.isGiantCubeReward} onClick={() => setIsGiantCC()} />
                     </InputsWrapper>
-                    <DependencyList deps={reward.dependencies} insertDependency={changeDepValue} changeValue={changeDepValue} deleteDependency={deleteDepValue} />
+                    <DependencyList deps={reward.dependencies ?? []} insertDependency={changeDepValue} changeValue={changeDepValue} deleteDependency={deleteDepValue} />
                     {
                         Object.keys(settings).map((t, i) => {
                             const type = t as keyof ChanceCubesRewardSettings;

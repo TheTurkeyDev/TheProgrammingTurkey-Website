@@ -6,7 +6,6 @@ import { ContainedButton, Input, Table, TH } from 'gobble-lib-react';
 import { CCContentCreator } from '../../../types/chance-cubes/chance-cubes-content-creator';
 import { ChanceCubesContentCreatorItem } from './chance-cubes-content-creator-item';
 import { useFetch } from '../../../hooks/use-fetch';
-import { getGetParams } from '../../../network/network';
 
 const PageWrapper = styled.div`
     padding: 8px 8px 0 8px;

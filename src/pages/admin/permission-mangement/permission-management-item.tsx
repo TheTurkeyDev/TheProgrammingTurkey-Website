@@ -1,20 +1,27 @@
 import { ConfirmationModal, TD } from 'gobble-lib-react';
 import { useState } from 'react';
-import { Persmission } from '../../../types/permission';
+import styled from 'styled-components';
+import { Permission } from '../../../types/permission';
+
+const TDIcons = styled(TD)`
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 8px;
+`;
 
 type PermissionManagementItemProps = {
-    readonly perm: Persmission
-    readonly deletePerm: (perm: Persmission) => void
+    readonly perm: Permission
+    readonly deletePerm: (perm: Permission) => void
 }
 
 export const PermissionManagementItem = ({ perm, deletePerm }: PermissionManagementItemProps) => {
     const [showDeletePermModal, setShowDeletePermModal] = useState(false);
     return (
         <tr key={perm.permission}>
-            <TD>
-                <i className='fas fa-edit clickable mr-2' />
+            <TDIcons>
+                <i className='fas fa-edit clickable' />
                 <i className='fas fa-trash clickable' onClick={() => setShowDeletePermModal(true)} />
-            </TD>
+            </TDIcons>
             <TD>{perm.permission}</TD>
             <TD>{perm.description}</TD>
             <ConfirmationModal

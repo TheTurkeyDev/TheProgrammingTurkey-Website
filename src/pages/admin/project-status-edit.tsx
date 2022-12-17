@@ -4,10 +4,16 @@ import { ContainedButton, Headline2, Option, Select, TextToast, useToast } from 
 import * as api from '../../network/network';
 import * as authAPI from '../../network/auth-network';
 
-
 const ContentWrapper = styled.div`
     display: grid;
     justify-items: center;
+`;
+
+const Wrapper = styled.div`
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 8px;
+    margin-inline: auto;
 `;
 
 type MappedProjects = {
@@ -21,12 +27,9 @@ export const ProjectStatusEdit = () => {
 
     const [projects, setProjects] = useState({});
     const [versions, setVersions] = useState<readonly string[]>([]);
-
-    const [filter, setFilter] = useState('');
     const [selectedProject, setSelectedProject] = useState('');
     const [selectedVersion, setSelectedVersion] = useState('-1');
     const [selectedStatus, setSelectedStatus] = useState('-1');
-    const [projectsVisible, setProjectsVisible] = useState(false);
 
     useEffect(() => {
         api.getModStatus().then(json => {
@@ -72,41 +75,18 @@ export const ProjectStatusEdit = () => {
         //TODO: Overlay w/ custom endpoint
     };
 
-    const setProject = (project: string) => {
-        setSelectedProject(project);
-        setProjectsVisible(false);
-    };
-
-    /* When the user clicks on the button,
-    toggle between hiding and showing the dropdown content */
-    const showProjects = () => {
-        setFilter('');
-        setProjectsVisible(!projectsVisible);
-    };
-
     return (
         <ContentWrapper>
             <Headline2>Project Status Edit</Headline2>
-            <div className='row m-0 mt-2'>
-                <div className='dropdown col ml-auto'></div>
-                <div className='dropdown col-auto'>
-                    <button className='dropbtn' id='project_button' onClick={() => showProjects()}>
-                        {selectedProject ? selectedProject : 'Project'}
-                    </button>
-                    <div id='projects' className='dropdown-menu' style={{ display: projectsVisible ? 'block' : 'none' }}>
-                        <input className='dropdown-item' type='text' placeholder='Search..' value={filter} onChange={e => setFilter(e.target.value)} />
-                        {
-                            Object.keys(projects)
-                                .sort((a, b) => a.localeCompare(b))
-                                .filter(a => a.toLowerCase().indexOf(filter.toLowerCase()) > -1)
-                                .map(proj => (
-                                    <span key={proj} className='dropdown-item' onClick={() => setProject(proj)}>
-                                        {proj}
-                                    </span>
-                                ))
-                        }
-                    </div>
-                </div>
+            <Wrapper>
+                <Select value={selectedProject} onChange={e => setSelectedProject(e.target.value)}>
+                    {
+                        Object.keys(projects).sort((a, b) => a.localeCompare(b)).map(proj => (
+                            <Option key={proj} value={proj}>
+                                {proj}
+                            </Option>
+                        ))}
+                </Select>
                 <Select value={selectedVersion} onChange={e => setSelectedVersion(e.target.value)}>
                     <Option value='-1'>Game Version</Option>
                     {
@@ -129,9 +109,9 @@ export const ProjectStatusEdit = () => {
                     Update
                 </ContainedButton>
                 <ContainedButton onClick={() => newVersion()}>
-                    AddVersion
+                    Add Version
                 </ContainedButton>
-            </div>
+            </Wrapper>
         </ContentWrapper>
     );
 };

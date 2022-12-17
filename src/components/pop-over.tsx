@@ -32,6 +32,8 @@ const PopOverWrapper = styled.div`
     position: relative;
     display: inline-block;
 
+    justify-items: center;
+
     &:hover ${PopOverText}{
         visibility: visible;
         opacity: 1;
@@ -44,7 +46,7 @@ type IconWithPopOverProps = WithChildren & {
 }
 export const IconWithPopOver = ({ icon, direction, children }: IconWithPopOverProps) => {
     return (
-        <PopOverWrapper className='text-center'>
+        <PopOverWrapper>
             <PlatformIcon className={icon} />
             <PopOverText direction={direction}>
                 {children}

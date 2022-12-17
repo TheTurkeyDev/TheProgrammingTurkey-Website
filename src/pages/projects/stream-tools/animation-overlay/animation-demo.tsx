@@ -20,7 +20,7 @@ const NameHeader = styled.div`
 
 const Header = styled.h4`
     margin: 0;
-    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
+    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.color};
 `;
 
 const IFrameWrap = styled.div`

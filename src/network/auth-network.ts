@@ -2,7 +2,7 @@ import { getDevAPIBase } from './network-helper';
 import { getGetParams } from './network';
 import { PlatformLoginType } from '../types/platform-login';
 import { UserAndPlatform } from '../types/user-and-platform';
-import { Persmission } from '../types/permission';
+import { Permission } from '../types/permission';
 import { ProcessHealth } from '../types/process-health';
 import { UserConnection } from '../types/user-connection';
 import { YouTubeDisplaySettings } from '../pages/projects/stream-tools/yt-sub-count/youtube-display-settings';
@@ -119,7 +119,7 @@ export async function getAllUsers(usernameFilter: string, platforms: readonly st
     });
 }
 
-export async function getAllPermissions(filter: string): Promise<readonly Persmission[]> {
+export async function getAllPermissions(filter: string): Promise<readonly Permission[]> {
     return await fetch(`${getDevAPIBase()}/admin/getpermissions`, getPostAuthParams({
         filter
     })).then(resp => {

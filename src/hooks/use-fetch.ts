@@ -24,7 +24,7 @@ export function useFetch<T>(url: string, options?: AdditionalOptions<T>) {
 
         setFetching(true);
         fetch(`${getDevAPIBase()}${url}`, options?.requestData ?? getGetAuthParams())
-            .then(r => r.json().then(data => ({ status: r.status, body: data })))
+            .then(r => r.json().then(data => ({ status: r.status, body: data })).catch(e => ({ status: r.status, body: null })))
             .then(({ status, body }) => {
                 if (status === 200) {
                     options?.onComplete && options?.onComplete(body as T);

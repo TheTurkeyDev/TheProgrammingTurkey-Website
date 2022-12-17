@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ChanceCubesRewardType } from '../../../types/chance-cubes/chance-cubes-reward';
 import { ChanceCubesReward } from './chance-cubes-reward';
 import { MultiChanceCubesRewards } from './multi-chance-cubes-rewards';
+import { RewardImportModal } from './reward-import-modal';
 import { RewardJsonViewer } from './reward-json-viewer';
 
 const colors = ['#61a11f', '#445f8b', '#a6142a', '#c1fda1', '#fd3bf1', '#3d9bf3', '#62b770', '#af2ea2'];
@@ -13,6 +14,7 @@ const RewardsWrapper = styled.div`
 `;
 
 export const ChanceCubesRewardBuilder = () => {
+    const [showRewardImport, setShowRewardImport] = useState(false);
     const [rewards, setRewards] = useState<MultiChanceCubesRewards>({});
 
     const addReward = () => {
@@ -42,7 +44,7 @@ export const ChanceCubesRewardBuilder = () => {
             <RewardJsonViewer rewards={rewards} />
             <RewardsWrapper>
                 <Headline3>Chance Cubes Reward Builder</Headline3>
-                <ContainedButton>Import Reward</ContainedButton>
+                <ContainedButton onClick={() => setShowRewardImport(true)}>Import Reward</ContainedButton>
                 {
                     Object.keys(rewards).map((reward, i) => {
                         return (
@@ -60,6 +62,7 @@ export const ChanceCubesRewardBuilder = () => {
                 }
                 <ContainedButton onClick={() => addReward()}>Add Reward</ContainedButton>
             </RewardsWrapper>
+            <RewardImportModal show={showRewardImport} requestClose={() => setShowRewardImport(false)} importRewards={rewards => { setRewards(rewards); setShowRewardImport(false); }} />
         </>
     );
 };
