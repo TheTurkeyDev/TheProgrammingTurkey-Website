@@ -28,7 +28,6 @@ const KeysWrapper = styled.div`
 export const SteamKeyManageList = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { pushToast } = useToast();
 
     const { data, fetching, setData } = useFetch<SteamKeyList>(`/steamkeys/list/${id}`);
 

@@ -27,14 +27,9 @@ const CenterText = styled.div`
 `;
 
 export const SteamKeyManagementList = () => {
-    const [showNewList, setShowNewList] = useState(false);
     const [items, setItems] = useState<readonly SteamKeyList[]>([]);
-
     const { data, fetching } = useFetch<readonly SteamKeyList[]>('/steamkeys/list');
-
-    const { query } = useQuery<void>(`${getDevAPIBase()}/steamkeys/list`, {
-        requestData: postParams
-    });
+    const [showNewList, setShowNewList] = useState(false);
 
     useEffect(() => {
         if (!!data)
@@ -42,9 +37,12 @@ export const SteamKeyManagementList = () => {
     }, [data]);
 
     const addNewList = (list: SteamKeyList) => {
-        query(JSON.stringify(list)).then(() => {
-            setItems(old => [...old, list]);
-        });
+        setItems(old => [...old, list]);
+        setShowNewList(false);
+    };
+
+    const deleteList = (list: SteamKeyList) => {
+        setItems(old => [...old.filter(li => li.id !== list.id)]);
     };
 
     return (
@@ -58,7 +56,7 @@ export const SteamKeyManagementList = () => {
             }
             <ListItems>
                 {
-                    items?.map(list => <SteamKeyManagementListItem list={list} />)
+                    items?.map(list => <SteamKeyManagementListItem list={list} deleteList={() => deleteList(list)} />)
                 }
             </ListItems>
             {

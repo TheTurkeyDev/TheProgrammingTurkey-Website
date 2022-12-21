@@ -1,30 +1,29 @@
-import { Body1, ConfirmationModal } from 'gobble-lib-react';
+import { Body1, ConfirmationModal, TextToast, useToast } from 'gobble-lib-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuery } from '../../../hooks/use-query';
+import { deleteParams, useQuery } from '../../../hooks/use-query';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
 
 
 type SteamKeyManagementListItemProps = {
     readonly list: SteamKeyList;
+    readonly deleteList: () => void
 }
-export const SteamKeyManagementListItem = ({ list }: SteamKeyManagementListItemProps) => {
-
+export const SteamKeyManagementListItem = ({ list, deleteList }: SteamKeyManagementListItemProps) => {
     const nav = useNavigate();
+    const { pushToast } = useToast();
     const [showDelete, setShowDelete] = useState(false);
 
-    const { query } = useQuery<void>(`${getDevAPIBase()}/steamkeys/list`, {
-        requestData: {
-            method: 'DELETE',
-            credentials: 'include',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-    });
+    const { query } = useQuery<void>(`${getDevAPIBase()}/steamkeys/list`, { requestData: deleteParams });
 
+
+    const confirmDelete = () => {
+        query('', list.id).then(() => {
+            deleteList();
+            setShowDelete(false);
+        }).catch(e => pushToast(<TextToast text={`Failed to delete! ${e.message}`} />));
+    };
 
     return (
         <>
@@ -37,7 +36,7 @@ export const SteamKeyManagementListItem = ({ list }: SteamKeyManagementListItemP
                 requestClose={() => setShowDelete(false)}
                 text={'Are you sure you want to delete this list?'}
                 yesText={'Yes'}
-                onYesClick={() => query(JSON.stringify(list))}
+                onYesClick={confirmDelete}
                 noText={'No'}
                 onNoClick={() => setShowDelete(false)}
             />
