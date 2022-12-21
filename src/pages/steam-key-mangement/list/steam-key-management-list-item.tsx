@@ -6,10 +6,10 @@ import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
 
 
-type SteamKeyManagmentListItemProps = {
+type SteamKeyManagementListItemProps = {
     readonly list: SteamKeyList;
 }
-export const SteamKeyManagmentListItem = ({ list }: SteamKeyManagmentListItemProps) => {
+export const SteamKeyManagementListItem = ({ list }: SteamKeyManagementListItemProps) => {
 
     const nav = useNavigate();
     const [showDelete, setShowDelete] = useState(false);

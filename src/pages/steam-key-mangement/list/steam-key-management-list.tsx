@@ -5,8 +5,8 @@ import { useFetch } from '../../../hooks/use-fetch';
 import { postParams, useQuery } from '../../../hooks/use-query';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
-import { SteamKeyManagmentAddListModal } from './steam-key-management-add-list-modal';
-import { SteamKeyManagmentListItem } from './steam-key-management-list-item';
+import { SteamKeyManagementAddListModal } from './steam-key-management-add-list-modal';
+import { SteamKeyManagementListItem } from './steam-key-management-list-item';
 
 const ContentWrapper = styled.div`
     max-width: 1000px;
@@ -58,14 +58,14 @@ export const SteamKeyManagementList = () => {
             }
             <ListItems>
                 {
-                    items?.map(list => <SteamKeyManagmentListItem list={list} />)
+                    items?.map(list => <SteamKeyManagementListItem list={list} />)
                 }
             </ListItems>
             {
                 (items?.length ?? 0) === 0 && <CenterText><Body1>You currently have no lists!</Body1></CenterText>
             }
             {
-                showNewList && <SteamKeyManagmentAddListModal show={showNewList} requestClose={() => setShowNewList(false)} addNewList={addNewList} />
+                showNewList && <SteamKeyManagementAddListModal show={showNewList} requestClose={() => setShowNewList(false)} addNewList={addNewList} />
             }
         </ContentWrapper>
     );

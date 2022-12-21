@@ -7,7 +7,9 @@ import { postParams, useQuery } from '../../../hooks/use-query';
 import { getDevAPIBase, getSiteURLBase } from '../../../network/network-helper';
 import { SteamKey } from '../steam-key';
 import { SteamKeyList } from '../steam-key-list';
+import { SteamKeyServerRole } from '../steam-key-server-role';
 import { SteamKeyManageImportKeysModal } from './steam-key-manage-import-keys-modal';
+import { SteamKeyManagementAddSeverRoleModal } from '../manage-list-server-roles/steam-key-management-add-server-role-modal';
 
 const Wrapper = styled.div`
     max-width: 1000px;
@@ -32,11 +34,6 @@ export const SteamKeyManageList = () => {
 
     const [showImportKeys, setShowImportKeys] = useState(false);
 
-    const copyToClipBoard = () => {
-        navigator.clipboard.writeText(`${getSiteURLBase()}/steamkeys/claim/${id}`);
-        pushToast(<TextToast text='URL copied to clipboard!' />);
-    };
-
     const getDate = (str: string) => {
         const date = new Date(str ?? '');
         return isNaN(date.getTime()) ? 0 : date.getTime();
@@ -55,7 +52,8 @@ export const SteamKeyManageList = () => {
             <Headline2>{data?.title} Steam Keys</Headline2>
             <ButtonRow>
                 <OutlinedButton onClick={() => navigate('/steamkeys/list')}>Back To Lists</OutlinedButton>
-                <OutlinedButton onClick={() => copyToClipBoard()}>Claim Link</OutlinedButton>
+                <OutlinedButton onClick={() => navigate(`/steamkeys/listserverroles/${id}`)}>Manage Server Roles</OutlinedButton>
+                <OutlinedButton onClick={() => navigate(`/steamkeys/listclaimgroup/${id}`)}>Manage Claim Groups</OutlinedButton>
                 <OutlinedButton onClick={() => setShowImportKeys(true)}>Import Keys</OutlinedButton>
             </ButtonRow>
             <KeysWrapper>

@@ -1,22 +1,16 @@
 import { useState } from 'react';
 
-export const getParams: RequestInit = {
-    method: 'GET',
+const baseParams: RequestInit = {
     credentials: 'include',
     headers: {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-store'
     }
 };
-
-export const postParams: RequestInit = {
-    method: 'POST',
-    credentials: 'include',
-    mode: 'cors',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-};
+const paramsForType = (method: string) => ({ method, ...baseParams });
+export const getParams: RequestInit = paramsForType('GET');
+export const postParams: RequestInit = paramsForType('POST');
+export const deleteParams: RequestInit = paramsForType('DELETE');
 
 type AdditionalOptions<T> = {
     readonly requestData?: RequestInit
