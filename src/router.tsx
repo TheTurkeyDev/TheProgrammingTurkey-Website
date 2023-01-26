@@ -23,7 +23,7 @@ const UserRouter = lazy(() => import(/* webpackChunkName: "User" */ './pages/use
 const AdminRouter = lazy(() => import(/* webpackChunkName: "Admin" */ './pages/admin/admin-router'));
 const TwitchClipFiltererRouter = lazy(() => import(/* webpackChunkName: "Twitch Clip Filterer" */ './pages/twitch-clip-filterer/twitch-clip-router'));
 const SuggestionsRouter = lazy(() => import(/* webpackChunkName: "Suggestions" */ './pages/suggestions/suggestions-router'));
-const CodeHighlighterRouter = lazy(() => import(/* webpackChunkName: "Code Highlighter" */ './pages/code-highlighter/code-highlighter-router'));
+const VideoGenRouter = lazy(() => import(/* webpackChunkName: "Video Generator" */ './pages/code-highlighter/video-gen-router'));
 const DiscordRouter = lazy(() => import(/* webpackChunkName: "Discord" */ './pages/discord/discord-router'));
 const SteamKeyManagementRouter = lazy(() => import(/* webpackChunkName: "Steam Keys" */ './pages/steam-key-mangement/steam-key-management-router'));
 const GameSettingsRouter = lazy(() => import(/* webpackChunkName: "Game Settings" */ './pages/game-settings/game-settings-router'));
@@ -41,7 +41,7 @@ export const Routing = () => (
             <Route path='/admin/*' element={<AdminRouter />} />
             <Route path='/twitchclipfilterer/*' element={<TwitchClipFiltererRouter />} />
             <Route path='/suggestions/*' element={<SuggestionsRouter />} />
-            <Route path='/codehighlighter/*' element={<CodeHighlighterRouter />} />
+            <Route path='/videogen/*' element={<VideoGenRouter />} />
             <Route path='/discord/*' element={<DiscordRouter />} />
             <Route path='/steamkeys/*' element={<SteamKeyManagementRouter />} />
             <Route path='/gamesettings/*' element={<GameSettingsRouter />} />

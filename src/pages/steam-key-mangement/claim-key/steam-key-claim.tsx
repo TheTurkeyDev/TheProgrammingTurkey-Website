@@ -28,6 +28,10 @@ export const SteamKeyClaim = () => {
                 error === 'You must login or connect with your Discord Account!' &&
                 <Body1>{error}</Body1>
             }
+            {
+                data?.keyLists?.length === 0 &&
+                <Body1>Sorry, there are no keys that you are eligible to claim!</Body1>
+            }
             {data?.keyLists?.map(list => <SteamKeyClaimItem key={list.id} list={list} />)}
         </Wrapper>
     );

@@ -30,6 +30,12 @@ module.exports = {
         static: './dist',
         hot: true,
         port: 8082,
-        allowedHosts: 'all'
+        allowedHosts: 'all',
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8081',
+                pathRewrite: { '^/api': '' },
+            },
+        },
     }
 };

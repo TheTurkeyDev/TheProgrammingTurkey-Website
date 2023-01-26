@@ -52,7 +52,7 @@ export const TwitchClipTagEditorModal = ({ show, requestClose, tags, setTags }: 
                 <h2>Twitch Clip Tags</h2>
                 <TagsList>
                     {[...tagsCopy].sort((a, b) => a.id - b.id).map(tag => (
-                        <ColorPicker key={tag.id} name='bg_color' label={tag.display} color={tag.color?.substr(1) ?? ''} onClose={color => editTag({ ...tag, color: `#${color}` })} />
+                        <ColorPicker key={tag.id} label={tag.display} color={tag.color?.substr(1) ?? ''} onClose={color => editTag({ ...tag, color: `#${color}` })} />
                     ))}
                 </TagsList>
             </ContentWrapper>

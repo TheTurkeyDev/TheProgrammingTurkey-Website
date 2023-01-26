@@ -1,11 +1,11 @@
 import { Body1, ButtonText } from 'gobble-lib-react';
-import { CodeHighlightRender } from './code-highlight-render-data';
+import { VideoGenRender } from './video-gen-render-data';
 
-type CodeHighlightVideoProps = {
-    readonly video: CodeHighlightRender
+type VideoGenVideoProps = {
+    readonly video: VideoGenRender
 }
 
-export const CodeHighlightVideo = ({ video }: CodeHighlightVideoProps) => {
+export const VideoGenVideo = ({ video }: VideoGenVideoProps) => {
 
     return (
         <>

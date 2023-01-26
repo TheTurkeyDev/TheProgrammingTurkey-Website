@@ -110,9 +110,9 @@ export const YouTubeSubGetSetup = () => {
                 <InputsFullWidth>
                     <Headline5>Font</Headline5>
                 </InputsFullWidth>
-                <ColorPicker name='color' label='Color' color={displaySettings.font_color} onClose={e => { setDisplaySettings(() => { return { ...displaySettings, font_color: e }; }); }} />
+                <ColorPicker label='Color' color={displaySettings.font_color} onClose={e => { setDisplaySettings(() => { return { ...displaySettings, font_color: e }; }); }} />
                 <Input type='number' name='size' label='Size' value={displaySettings.font_size} onChange={e => { setDisplaySettings(() => { return { ...displaySettings, font_size: parseInt(e.target.value) }; }); }} />
-                <ColorPicker name='outline_color' label='Outline Color' alpha={true} color={displaySettings.outline_color} onClose={e => { setDisplaySettings(() => { return { ...displaySettings, outline_color: e }; }); }} />
+                <ColorPicker label='Outline Color' alpha={true} color={displaySettings.outline_color} onClose={e => { setDisplaySettings(() => { return { ...displaySettings, outline_color: e }; }); }} />
                 <Input type='number' name='outline_width' label='Outline Width' value={displaySettings.outline_width} onChange={e => { setDisplaySettings(() => { return { ...displaySettings, outline_width: parseInt(e.target.value) }; }); }} />
             </InputsWrapper>
             <ContainedButton disabled={!displaySettings} onClick={saveDisplaySettings}>
@@ -121,7 +121,7 @@ export const YouTubeSubGetSetup = () => {
             <HorizontalRule />
             <Headline3>Preview</Headline3>
             <InputsWrapper>
-                <ColorPicker name='background_color' label='Background' color={displaySettings.preview_bg_color} onClose={e => { setDisplaySettings(() => { return { ...displaySettings, preview_bg_color: e }; }); }} />
+                <ColorPicker label='Background' color={displaySettings.preview_bg_color} onClose={e => { setDisplaySettings(() => { return { ...displaySettings, preview_bg_color: e }; }); }} />
             </InputsWrapper>
             <canvas ref={canvasRef} className='m-3 p-1' style={{ backgroundColor: `#${displaySettings.preview_bg_color}` }} width={displaySettings.width} height={displaySettings.height}>
 

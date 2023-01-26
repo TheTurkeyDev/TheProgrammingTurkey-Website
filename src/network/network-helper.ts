@@ -1,9 +1,9 @@
 export function getDevAPIBase() {
-    return isDevEnv() ? 'https://api.test.local' : 'https://api.theturkey.dev';
+    return isDevEnv() ? 'http://localhost:8082/api' : 'https://api.theturkey.dev';
 }
 
 export function getSiteURLBase() {
-    return isDevEnv() ? 'https://test.local' : 'https://theturkey.dev';
+    return isDevEnv() ? 'http://localhost:8082' : 'https://theturkey.dev';
 }
 
 export function getYTSiteURLBase() {

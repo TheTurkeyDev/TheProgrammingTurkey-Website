@@ -295,7 +295,7 @@ export const StreamTimerSetup = () => {
             </InputsWrapper>
             <Headline4>Font</Headline4>
             <InputsWrapper>
-                <ColorPicker name='color' label='Color' color={fontColor} onClose={color => setFontColor(color)} />
+                <ColorPicker label='Color' color={fontColor} onClose={color => setFontColor(color)} />
                 <Input type='number' name='size' label='Size' value={fontSize} onChange={e => { setFontSize(parseInt(e.target.value)); }} />
             </InputsWrapper>
             <ContainedButton onClick={saveSettings}>
@@ -304,7 +304,7 @@ export const StreamTimerSetup = () => {
             <HorizontalRule />
             <Headline4>Preview</Headline4>
             <InputsWrapper>
-                <ColorPicker name='bg_color' label='Background' color={backgroundColor} onClose={color => setBackgroundColor(color)} />
+                <ColorPicker label='Background' color={backgroundColor} onClose={color => setBackgroundColor(color)} />
             </InputsWrapper>
             <canvas ref={canvasRef} className='m-3 p-1' style={{ backgroundColor: `#${backgroundColor}` }} width={200} height={200}>
 

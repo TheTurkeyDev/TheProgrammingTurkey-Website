@@ -1,4 +1,4 @@
-export type CodeHighlightRender = {
+export type VideoGenRender = {
     readonly id: string
     readonly display: string
     readonly creator: string

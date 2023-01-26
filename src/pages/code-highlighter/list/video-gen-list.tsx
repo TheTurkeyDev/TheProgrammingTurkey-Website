@@ -2,8 +2,8 @@ import { ButtonRow, ContainedButton, Headline2, Headline6 } from 'gobble-lib-rea
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/use-fetch';
-import { CodeHighlightRender } from './code-highlight-render-data';
-import { CodeHighlightVideo } from './code-highlight-video';
+import { VideoGenRender } from './video-gen-render-data';
+import { VideoGenVideo } from './video-gen-video';
 
 const Content = styled.div`
     display: grid;
@@ -20,15 +20,15 @@ const ListWrapper = styled.div`
     grid-template-columns: auto auto auto auto auto;
 `;
 
-export const CodeHighlightList = () => {
+export const VideoGenList = () => {
     const navigate = useNavigate();
-    const { data } = useFetch<readonly CodeHighlightRender[]>('/render/list');
+    const { data } = useFetch<readonly VideoGenRender[]>('/render/list');
 
     return (
         <Content>
-            <Headline2>Code Highlighter</Headline2>
+            <Headline2>Video Generator</Headline2>
             <ButtonRow>
-                <ContainedButton onClick={() => navigate('/codehighlighter/build')}>New</ContainedButton>
+                <ContainedButton onClick={() => navigate('/videogen/build')}>New</ContainedButton>
             </ButtonRow>
             <ListWrapper>
                 <Headline6>Display</Headline6>
@@ -37,7 +37,7 @@ export const CodeHighlightList = () => {
                 <Headline6>Created At</Headline6>
                 <Headline6>Download</Headline6>
                 {
-                    data?.map(v => <CodeHighlightVideo key={v.id} video={v} />)
+                    data?.map(v => <VideoGenVideo key={v.id} video={v} />)
                 }
             </ListWrapper>
         </Content>

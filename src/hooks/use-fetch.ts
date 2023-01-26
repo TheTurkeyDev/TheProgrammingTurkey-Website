@@ -22,8 +22,15 @@ export function useFetch<T>(url: string, options?: AdditionalOptions<T>) {
         if (options?.skip)
             return;
 
+        const controller = new AbortController();
+
+        const init = {
+            signal: controller.signal,
+            ...(options?.requestData ?? getGetAuthParams())
+        };
+
         setFetching(true);
-        fetch(`${getDevAPIBase()}${url}`, options?.requestData ?? getGetAuthParams())
+        fetch(`${getDevAPIBase()}${url}`, init)
             .then(r => r.json().then(data => ({ status: r.status, body: data })).catch(e => ({ status: r.status, body: null })))
             .then(({ status, body }) => {
                 if (status === 200) {
@@ -39,9 +46,13 @@ export function useFetch<T>(url: string, options?: AdditionalOptions<T>) {
                 setFetching(false);
             }).catch(e => {
                 console.log(e);
-                setError('An error has occured!');
+                setError('An error has occurred!');
                 setFetching(false);
             });
+
+        return () => {
+            controller.abort();
+        };
     }, [options?.skip]);
 
     return { fetching, data, error, setData, resetData };

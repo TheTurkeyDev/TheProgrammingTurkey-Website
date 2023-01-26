@@ -87,7 +87,7 @@ export const TwitchRPSSetup = () => {
                 </Select>
                 <Input type='number' name='votingRoundTime' label='Voting Round Time' value={votingTimer} onChange={e => setVotingTimer(parseInt(e.target.value))} />
                 <Input type='number' name='startDelay' label='Start Delay' value={startDelay} onChange={e => setStartDelay(parseInt(e.target.value))} />
-                <ColorPicker name='text_color' label='Text Color' color={`#${textColor}`} onClose={color => setTextColor(color)} />
+                <ColorPicker label='Text Color' color={`#${textColor}`} onClose={color => setTextColor(color)} />
             </InputsWrapper>
             <ButtonRow>
                 <ContainedButton onClick={saveDisplaySettings}>Save</ContainedButton>

@@ -69,10 +69,10 @@ export const TwitchHangmanSetup = () => {
             <HorizontalRule />
             <Headline4>Settings</Headline4>
             <InputsWrapper fullWidth={true}>
-                <ColorPicker name='text_color' label='Background Color' color={bgColor} onClose={color => setBGColor(color)} />
-                <ColorPicker name='word_color' label='Word Color' color={wordColor} onClose={color => setWordColor(color)} />
-                <ColorPicker name='correct_letter_color' label='Correct Letter Color' color={correctLetterColor} onClose={color => setCorrectLetterColor(color)} />
-                <ColorPicker name='wrong_letter_color' label='Wrong Letter Color' color={wrongLetterColor} onClose={color => setWrongLetterColor(color)} />
+                <ColorPicker label='Background Color' color={bgColor} onClose={color => setBGColor(color)} />
+                <ColorPicker label='Word Color' color={wordColor} onClose={color => setWordColor(color)} />
+                <ColorPicker label='Correct Letter Color' color={correctLetterColor} onClose={color => setCorrectLetterColor(color)} />
+                <ColorPicker label='Wrong Letter Color' color={wrongLetterColor} onClose={color => setWrongLetterColor(color)} />
             </InputsWrapper>
             <ButtonRow>
                 <ContainedButton onClick={saveDisplaySettings}>Save</ContainedButton>
