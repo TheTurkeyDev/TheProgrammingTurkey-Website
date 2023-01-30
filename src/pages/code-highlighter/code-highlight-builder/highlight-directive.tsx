@@ -1,6 +1,7 @@
 import { Input, InputsWrapper, Label, TextArea, Option, Select, OutlinedButton, TextButton } from 'gobble-lib-react';
 import { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Icon } from '../../../components/icon';
 import { CodeMap } from './code-highlighter-builder';
 import { DirectiveBaseDisplay } from './code-highlighter-styles';
 import { Directive } from './directive';
@@ -83,7 +84,9 @@ export const HighlightDirective = ({ hd, codeFiles, onDelete, onMove, update }: 
                             <Fragment key={i}>
                                 <Input label='' type='number' value={lines.start} onChange={e => updateLines(i, { start: parseInt(e.target.value), end: hd.lines[i].end })} />
                                 <Input label='' type='number' value={lines.end} onChange={e => updateLines(i, { start: hd.lines[i].start, end: parseInt(e.target.value) })} />
-                                <TextButton onClick={() => removeLine(i)}><i className='fas fa-trash-alt' /></TextButton>
+                                <TextButton onClick={() => removeLine(i)}>
+                                    <Icon name='fas fa-trash-alt' />
+                                </TextButton>
                             </Fragment>
                         ))
                     }

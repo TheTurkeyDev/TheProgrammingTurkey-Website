@@ -1,3 +1,4 @@
+import { Icon } from './icon';
 
 type CollapseChevronProps = {
     readonly collapsed: boolean
@@ -5,5 +6,5 @@ type CollapseChevronProps = {
 }
 
 export const CollapseChevron = ({ collapsed, setCollapsed }: CollapseChevronProps) => (
-    <i className={`clickable fas ${collapsed ? 'fa-chevron-left' : 'fa-chevron-down'}`} onClick={() => setCollapsed(!collapsed)} />
+    <Icon name={collapsed ? 'fa-chevron-left' : 'fa-chevron-down'} onClick={() => setCollapsed(!collapsed)} />
 );

@@ -7,6 +7,7 @@ import { BaseTheme, TD, TextToast, useToast } from 'gobble-lib-react';
 import { CCVersionedRewardData } from '../../../types/chance-cubes/chance-cubes-versioned-reward';
 import { ChanceCubesRewardNote } from '../../../types/chance-cubes/chance-cubes-reward-note';
 import { useState } from 'react';
+import { Icon } from '../../../components/icon';
 
 const IconsWrapper = styled(TD)`
     display: grid;
@@ -50,9 +51,9 @@ export const ChanceCubesRewardStatusTableItem = ({ reward, rewardData, highlight
     return (
         <tr id={reward} className={highlightedReward === reward ? 'highlight-fade' : ''}>
             <IconsWrapper>
-                <i className='clickable fas fa-link' onClick={() => copyToClipBoard(reward)} />
-                <i className='clickable fas fa-info-circle' onClick={() => setShowRewardOverlay(true)} />
-                {canEdit && <i className='clickable fas fa-edit' onClick={() => setShowRewardEditOverlay(true)} />}
+                <Icon name='fas fa-link' onClick={() => copyToClipBoard(reward)} />
+                <Icon name='fas fa-info-circle' onClick={() => setShowRewardOverlay(true)} />
+                {canEdit && <Icon name='fas fa-edit' onClick={() => setShowRewardEditOverlay(true)} />}
             </IconsWrapper>
             <RewardNameWrapper isGCCR={rewardData.isgcr}> {reward} </RewardNameWrapper>
             <ChanceValueWrapper isGCCR={rewardData.isgcr}> {rewardData.isgcr ? 'GCC*' : rewardData.chance} </ChanceValueWrapper>

@@ -1,10 +1,7 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { App } from './App';
 
-
-
-const routing = <App />;
-
-ReactDOM.render(routing, document.getElementById('root'));
-
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(<App />);
 module.hot?.accept();

@@ -1,6 +1,7 @@
 import { Body1, ContainedButton, Headline3, Headline5, Input, InputsWrapper, Loading, Modal, TextToast, useToast } from 'gobble-lib-react';
 import { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Icon } from '../../components/icon';
 import { useFetch } from '../../hooks/use-fetch';
 import * as authAPI from '../../network/auth-network';
 import { AddUserPermissionModal } from './add-user-permission-modal';
@@ -64,7 +65,7 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
                                     data.permissions.map(perm => {
                                         return (
                                             <Fragment key={perm}>
-                                                <i className='fas fa-user-minus clickable' onClick={() => removePerm(perm)} />
+                                                <Icon name='fas fa-user-minus' onClick={() => removePerm(perm)} />
                                                 <Body1>{perm}</Body1>
                                             </Fragment>
                                         );

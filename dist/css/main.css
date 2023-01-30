@@ -27,10 +27,6 @@
     margin-top: 3px;
 }
 
-.clickable {
-    cursor: pointer;
-}
-
 .text-light {
     color: #f3f3f3 !important;
 }
@@ -44,114 +40,11 @@
     background-color: #222831;
 }
 
-.hidden {
-    display: none;
-}
-
 /* Timer Styles */
 
 .timer-label {
     max-width: 175px;
     padding: 0px;
-}
-
-.timer-textarea {
-    max-width: 400px;
-    padding: 0px;
-    word-wrap: hidden;
-}
-
-/* Style the header */
-
-.sticky-table {
-    position: relative;
-    border-collapse: collapse;
-}
-
-.sticky-table th {
-    position: sticky;
-    top: 0;
-    border-top: 0px;
-    background-color: #222831;
-}
-
-/* ===== TOOL TIP ====*/
-
-.mypopover {
-    position: relative;
-    display: inline-block;
-}
-
-.mypopover i {
-    color: white
-}
-
-.mypopover .mypopovertext, .mypopover .mypopovertext-right {
-    visibility: hidden;
-    width: 400px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.mypopover .mypopovertext {
-    top: -50%;
-    right: 100%;
-    margin-left: -200px;
-}
-
-.mypopover .mypopovertext-right {
-    top: -50%;
-    left: 125%;
-    margin-right: -200px;
-}
-
-.mypopover:hover .mypopovertext, .mypopover:hover .mypopovertext-right {
-    visibility: visible;
-    opacity: 1;
-}
-
-/*==================Snackbar Stuff=====================*/
-
-.toast {
-    min-width: 320px;
-    /* Set a default minimum width */
-    margin-left: -160px;
-    /* Black background color */
-    color: #fff;
-    /* White text color */
-    text-align: center;
-    /* Centered text */
-    border-radius: 25px;
-    /* Rounded borders */
-    padding: 16px;
-    /* Padding */
-    position: fixed;
-    /* Sit on top of the screen */
-    z-index: 5;
-    /* Add a z-index if needed */
-    left: 50%;
-    /* Center the snackbar */
-    bottom: 30px;
-    /* 30px from the bottom */
-    box-shadow: 7px 7px 25px black;
-}
-
-/* Show the snackbar when clicking on a button (class added with JavaScript) */
-
-.toast.show {
-    visibility: visible;
-    /* Show the snackbar */
-    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-      However, delay the fade out process for 2.5 seconds */
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 9.7s;
-    animation: fadein 0.5s, fadeout 0.5s 9.7s;
 }
 
 /* Spinner */
@@ -192,91 +85,6 @@
 .spinner:after {
     border-top-color: #f0db75;
     animation-delay: 0.3s;
-}
-
-/* Toggle Switch */
-
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-.toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-    border-radius: 34px;
-}
-
-.toggle-slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-    border-radius: 50%;
-}
-
-input:checked+.toggle-slider {
-    background-color: #2196F3;
-}
-
-input:focus+.toggle-slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked+.toggle-slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-}
-
-/* TEMP */
-
-.dropbtn {
-    background-color: #aaaaaa;
-    color: black;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    width: 350px;
-}
-
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #888888;
-}
-
-#myInput {
-    box-sizing: border-box;
-    background-image: url('searchicon.png');
-    background-position: 14px 12px;
-    background-repeat: no-repeat;
-    font-size: 16px;
-    padding: 14px 20px 12px 45px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-}
-
-#myInput:focus {
-    outline: 3px solid #ddd;
 }
 
 /*==========Scroll Bar=========*/

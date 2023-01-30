@@ -1,4 +1,5 @@
 import { Input } from 'gobble-lib-react';
+import { Icon } from '../../../components/icon';
 import { DinkumIntegrationSettings } from './dinkum-integration-setting';
 
 type DinkumIntegrationItemAdjustmentProps = {
@@ -17,7 +18,7 @@ export const DinkumIntegrationItemAdjustment = ({ setting, update, remove, nums 
 
     return (
         <>
-            <i className='fas fa-trash-alt clickable' onClick={() => remove()} />
+            <Icon name='fas fa-trash-alt' onClick={() => remove()} />
             <Input placeholder='Item Id' type='number' value={setting.itemId} onChange={e => update({ ...setting, itemId: getValidNumber(parseInt(e.target.value)) })} />
             <Input placeholder='Value' type='number' value={setting.value} onChange={e => update({ ...setting, value: parseInt(e.target.value) })} />
         </>

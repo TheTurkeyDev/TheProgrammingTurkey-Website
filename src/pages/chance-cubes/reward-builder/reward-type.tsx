@@ -2,6 +2,7 @@ import { ConfirmationModal, Input, ToggleSwitch } from 'gobble-lib-react';
 import { Fragment, useState } from 'react';
 import styled from 'styled-components';
 import { CollapseChevron } from '../../../components/collapse-chevron';
+import { Icon } from '../../../components/icon';
 import { IconWithPopOver } from '../../../components/pop-over';
 import { ChanceCubesNumberSettingDef, ChanceCubesSettingDefType } from '../../../types/chance-cubes/chance-cubes-setting-def';
 import { Mapped } from '../../../types/mapped';
@@ -88,7 +89,7 @@ export const RewardType = ({ json, settings, color, setRewardTypeState, deleteRe
             <Header>
                 <div />
                 <CollapseChevron collapsed={collapsed} setCollapsed={setCollapsed} />
-                <i className='clickable fas fa-trash' onClick={() => setShowModal(true)} />
+                <Icon name='fas fa-trash' onClick={() => setShowModal(true)} />
             </Header>
             {
                 collapsed ? (

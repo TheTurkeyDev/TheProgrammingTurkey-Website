@@ -1,7 +1,9 @@
-export type ScoreboardData = {
+export type ScoreboardBaseData = {
   readonly width: number,
   readonly height: number,
   readonly split: number,
+}
+export type ScoreboardTeamData = {
   readonly primaryColor: string
   readonly secondaryColor: string
   readonly primaryFontSize: number

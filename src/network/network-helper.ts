@@ -18,6 +18,10 @@ export function getStreamAnimationsOverlaySiteBase() {
     return isDevEnv() ? 'http://localhost:8085/' : 'https://apps.theturkey.dev/streamanimations';
 }
 
+export function getVideoGenSiteBase() {
+    return isDevEnv() ? 'http://localhost:8084/' : 'https://vidgen.theturkey.dev';
+}
+
 function isDevEnv() {
     return process.env.NODE_ENV && process.env.NODE_ENV === 'development';
 }

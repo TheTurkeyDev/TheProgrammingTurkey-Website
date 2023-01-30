@@ -1,6 +1,7 @@
 import { Body1, ConfirmationModal, TextToast, useToast } from 'gobble-lib-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Icon } from '../../../components/icon';
 import { deleteParams, useQuery } from '../../../hooks/use-query';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
@@ -27,9 +28,9 @@ export const SteamKeyManagementListItem = ({ list, deleteList }: SteamKeyManagem
 
     return (
         <>
-            <i className='clickable fas fa-arrow-alt-circle-right' onClick={() => nav(`/steamkeys/list/${list.id}`)} />
+            <Icon name='fas fa-arrow-alt-circle-right' onClick={() => nav(`/steamkeys/list/${list.id}`)} />
             <Body1>{list.title}</Body1>
-            <i className='clickable fas fa-trash-alt' onClick={() => setShowDelete(true)} />
+            <Icon name='fas fa-trash-alt' onClick={() => setShowDelete(true)} />
 
             <ConfirmationModal
                 show={showDelete}

@@ -73,6 +73,9 @@ const DeleteTagButton = styled.div`
     border: 1px solid #ffffff;
     border-radius: 10px;
     text-align: center;
+    &:hover{
+        cursor: pointer;
+    }
 `;
 
 const ClipTags = styled.div`
@@ -280,7 +283,7 @@ export const TwitchClipsList = () => {
                                                             <span>
                                                                 {tag.display}
                                                             </span>
-                                                            <DeleteTagButton className='bg-secondary clickable' onClick={() => removeTag(clip.id, tagId)}>
+                                                            <DeleteTagButton className='bg-secondary' onClick={() => removeTag(clip.id, tagId)}>
                                                                 x
                                                             </DeleteTagButton>
                                                         </TagWrapper>

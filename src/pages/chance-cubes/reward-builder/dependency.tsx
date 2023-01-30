@@ -1,6 +1,7 @@
 import { ConfirmationModal, Input } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { Icon } from '../../../components/icon';
 
 const DependencyWrapper = styled.div`
     display: grid;
@@ -23,7 +24,7 @@ export const Dependency = ({ type, value, color, changeValue, deleteDependency }
     return (
         <DependencyWrapper style={{ border: `1px solid ${color}` }}>
             <Input type='text' name='dep-input' label={type} value={value} onChange={e => changeValue(e.target.value)} />
-            <i className='clickable fas fa-trash' onClick={() => setShowModal(true)} />
+            <Icon name=' fas fa-trash' onClick={() => setShowModal(true)} />
             <ConfirmationModal
                 show={showModal}
                 text={'Are you sure you want to delete this dependency?'}

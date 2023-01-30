@@ -8,6 +8,7 @@ import { StreamAnimationUserDataPoint } from '../../../../types/stream-animation
 import { useState } from 'react';
 import { Mapped } from '../../../../types/mapped';
 import { UserAnimationSettings } from './mapped-stream-animation-user-data';
+import { Icon } from '../../../../components/icon';
 
 const ActionsWrapper = styled.div`
     display: grid;
@@ -37,9 +38,9 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, animSettin
     return (
         <>
             <ActionsWrapper>
-                <i className='fas fa-trash clickable' title='Delete' onClick={() => setShowConfirmationModal(true)} />
-                <i className='fas fa-edit clickable' title='Edit' onClick={() => setShowSettingsModal(true)} />
-                <i className='fas fa-play clickable' title='Test' onClick={() => test()} />
+                <Icon name='fas fa-trash' title='Delete' onClick={() => setShowConfirmationModal(true)} />
+                <Icon name='fas fa-edit' title='Edit' onClick={() => setShowSettingsModal(true)} />
+                <Icon name='fas fa-play' title='Test' onClick={() => test()} />
             </ActionsWrapper>
             <Body1>{animation.display}</Body1>
             <Body1>//Coming soon!</Body1>

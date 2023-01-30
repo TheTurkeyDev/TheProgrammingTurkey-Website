@@ -1,6 +1,7 @@
 import { Body1 } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { Icon } from '../../../components/icon';
 import { useQuery } from '../../../hooks/use-query';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { DiscordRoleEditModal } from './discord-role-edit-modal';
@@ -42,8 +43,8 @@ export const DiscordRoleItem = ({ roleOption, group, save }: DiscordRoleItemProp
     return (
         <RoleWrapper>
             <Body1>{roleOption.label}</Body1>
-            <i className='fas fa-edit clickable' onClick={() => setShowEdit(true)} />
-            <i className='fas fa-trash-alt clickable' onClick={() => deleteItem()} />
+            <Icon name='fas fa-edit' onClick={() => setShowEdit(true)} />
+            <Icon name='fas fa-trash-alt' onClick={() => deleteItem()} />
             {showEdit && <DiscordRoleEditModal show={showEdit} requestClose={() => setShowEdit(false)} save={roleOpt => { save(roleOpt); setShowEdit(false); }} group={group} roleOption={roleOption} />}
         </RoleWrapper>
     );

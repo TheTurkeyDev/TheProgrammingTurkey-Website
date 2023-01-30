@@ -1,6 +1,7 @@
 import { ConfirmationModal, TD } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { Icon } from '../../../components/icon';
 import { ChanceCubesContentCreatorModal } from '../../../modals/chance-cubes/chance-cubes-content-creator-modal';
 import { userListDeleteUser } from '../../../network/chance-cubes-network';
 import { CCContentCreator } from '../../../types/chance-cubes/chance-cubes-content-creator';
@@ -23,8 +24,8 @@ export const ChanceCubesContentCreatorItem = ({ user }: ChanceCubesContentCreato
         <tr>
             <TD>
                 <IconsWrapper>
-                    <i className='fas fa-edit clickable' onClick={() => setShowModal(true)} />
-                    <i className='fas fa-trash clickable' onClick={() => setShowDeleteModal(true)} />
+                    <Icon name='fas fa-edit' onClick={() => setShowModal(true)} />
+                    <Icon name='fas fa-trash' onClick={() => setShowDeleteModal(true)} />
                 </IconsWrapper>
             </TD>
             <TD>{user.UUID}</TD>

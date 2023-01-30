@@ -1,6 +1,7 @@
 import { TD } from 'gobble-lib-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { Icon } from '../../../components/icon';
 import { SuggestionBox } from '../suggestion-box';
 
 const TR = styled.tr`
@@ -16,7 +17,7 @@ const TR = styled.tr`
 type StatusIconProps = {
     readonly open: boolean
 }
-const StatusIcon = styled.i<StatusIconProps>`
+const StatusIcon = styled(Icon) <StatusIconProps>`
     color: ${({ open }: StatusIconProps) => open ? 'green' : 'red'};
 `;
 
@@ -31,10 +32,10 @@ export const SuggestionBoxRow = ({ box }: SuggestionBoxRowProps) => {
     return (
         <TR onClick={() => navigate(`/suggestions/${box.id}`)}>
             <TD>
-                <i className='far fa-arrow-alt-circle-right' />
+                <Icon name='far fa-arrow-alt-circle-right' />
             </TD>
             <TD>
-                <StatusIcon open={box.open} className={`fas ${box.open ? 'fa-check' : 'fa-times'}`} />
+                <StatusIcon open={box.open} name={box.open ? 'fas fa-check' : 'fas fa-times'} />
             </TD>
             <TD>
                 {box.id}

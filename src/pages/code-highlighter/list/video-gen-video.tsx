@@ -1,4 +1,5 @@
 import { Body1, ButtonText } from 'gobble-lib-react';
+import { Icon } from '../../../components/icon';
 import { VideoGenRender } from './video-gen-render-data';
 
 type VideoGenVideoProps = {
@@ -14,7 +15,7 @@ export const VideoGenVideo = ({ video }: VideoGenVideoProps) => {
             <Body1>{video.type}</Body1>
             <Body1>{video.createdAt}</Body1>
             <a href={video.url} download>
-                <i className='fas fa-download clickable' />
+                <Icon name='fas fa-download' />
             </a>
         </>
     );

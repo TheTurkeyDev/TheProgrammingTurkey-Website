@@ -1,9 +1,10 @@
 import { CollapsibleCenterContent, CollapsedNavbar, BaseTheme, Dropdown, DropdownContent, DropdownLinkItem, NavLink, NavText, SiteName, TextButton, useThemeContext } from 'gobble-lib-react';
 import styled, { ThemeProps } from 'styled-components';
+import { Icon } from '../../components/icon';
 import { useAuth } from '../../contexts/auth-context';
 import { LoginButton } from './login-button';
 
-const UserIcon = styled.i`
+const UserIcon = styled(Icon)`
     font-size: 32px;
 `;
 
@@ -37,7 +38,7 @@ export const TopNav = () => {
 
     return (
         <NavBar>
-            <CollapsedNavbar icon="fas bars">
+            <CollapsedNavbar icon='fas bars'>
                 <NavLink link='/'>Home</NavLink>
                 <NavLink link='/projects'>Projects</NavLink>
                 <NavLink link='https://trky.dev/blog'>Blog</NavLink>
@@ -61,7 +62,7 @@ export const TopNav = () => {
                 </Dropdown>
             </CollapsibleCenterContent>
             <Dropdown>
-                {authState ? <UserAvatar src={avatar} /> : <UserIcon className='fas fa-user-circle' />}
+                {authState ? <UserAvatar src={avatar} /> : <UserIcon name='fas fa-user-circle' />}
                 <DropdownContent sideAnchor='right'>
                     {authState ? <DropdownLinkItem to='/user/profile'>Profile</DropdownLinkItem> : <></>}
                     {authState ? <DropdownLinkItem to='/logout'>Logout</DropdownLinkItem> : <LoginButton />}

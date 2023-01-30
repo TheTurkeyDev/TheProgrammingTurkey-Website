@@ -1,5 +1,6 @@
 import { TextButton, WithChildren } from 'gobble-lib-react';
 import styled from 'styled-components';
+import { Icon } from '../../../components/icon';
 
 const DirectiveBaseDisplayWrapper = styled.div`
     display: grid;
@@ -23,11 +24,17 @@ export const DirectiveBaseDisplay = ({ children, onDelete, onMove }: DirectiveBa
     return (
         <DirectiveBaseDisplayWrapper>
             <DirectiveControllsWrapper>
-                <TextButton onClick={() => onMove(true)}><i className='fas fa-arrow-up' /></TextButton>
+                <TextButton onClick={() => onMove(true)}>
+                    <Icon name='fas fa-arrow-up' />
+                </TextButton>
                 <div></div>
-                <TextButton onClick={onDelete}><i className='fas fa-trash' /></TextButton>
+                <TextButton onClick={onDelete}>
+                    <Icon name='fas fa-trash' />
+                </TextButton>
                 <div></div>
-                <TextButton onClick={() => onMove(false)}><i className='fas fa-arrow-down' /></TextButton>
+                <TextButton onClick={() => onMove(false)}>
+                    <Icon name='fas fa-arrow-down' />
+                </TextButton>
             </ DirectiveControllsWrapper>
             {children}
         </DirectiveBaseDisplayWrapper>
