@@ -19,7 +19,7 @@ export function getStreamAnimationsOverlaySiteBase() {
 }
 
 export function getVideoGenSiteBase() {
-    return isDevEnv() ? 'http://localhost:8084/' : 'https://vidgen.theturkey.dev';
+    return isDevEnv() ? 'http://localhost:8084/' : 'https://videogen.theturkey.dev';
 }
 
 function isDevEnv() {
