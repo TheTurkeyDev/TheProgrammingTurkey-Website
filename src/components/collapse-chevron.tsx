@@ -1,4 +1,4 @@
-import { Icon } from './icon';
+import { Icon } from 'gobble-lib-react';
 
 type CollapseChevronProps = {
     readonly collapsed: boolean
@@ -6,5 +6,5 @@ type CollapseChevronProps = {
 }
 
 export const CollapseChevron = ({ collapsed, setCollapsed }: CollapseChevronProps) => (
-    <Icon name={collapsed ? 'fa-chevron-left' : 'fa-chevron-down'} onClick={() => setCollapsed(!collapsed)} />
+    <Icon className={collapsed ? 'fa-chevron-left' : 'fa-chevron-down'} onClick={() => setCollapsed(!collapsed)} />
 );

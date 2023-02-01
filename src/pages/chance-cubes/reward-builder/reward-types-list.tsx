@@ -1,8 +1,7 @@
-import { ConfirmationModal, ContainedButton, Headline5 } from 'gobble-lib-react';
+import { ConfirmationModal, ContainedButton, Headline5, Icon } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { CollapseChevron } from '../../../components/collapse-chevron';
-import { Icon } from '../../../components/icon';
 import { ChanceCubesRewardTypeType } from '../../../types/chance-cubes/chance-cubes-reward-types';
 import { ChanceCubesSettingDefType } from '../../../types/chance-cubes/chance-cubes-setting-def';
 import { Mapped } from '../../../types/mapped';
@@ -53,7 +52,7 @@ export const RewardTypesList = ({ typesList, color, type, settings, insetRewardT
             <Header>
                 <Headline5>{type} Events</Headline5>
                 <CollapseChevron collapsed={collapsed} setCollapsed={setCollapsed} />
-                <Icon name='fas fa-trash' onClick={() => setShowModal(true)} />
+                <Icon className='fas fa-trash' onClick={() => setShowModal(true)} />
             </Header>
             {
                 !collapsed &&

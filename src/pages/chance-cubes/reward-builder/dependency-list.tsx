@@ -1,7 +1,6 @@
-import { ContainedButton, Headline5 } from 'gobble-lib-react';
+import { ContainedButton, Headline5, Icon } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Icon } from '../../../components/icon';
 import { ChanceCubesAddDependencyModal } from '../../../modals/chance-cubes/chance-cubes-add-reward-dependency-modal';
 import { isNotNullOrUndef } from '../../../util/type-helper';
 import { ChanceCubesRewardDependency } from './chance-cubes-reward-dependency';
@@ -34,7 +33,7 @@ export const DependencyList = ({ deps, changeValue, insertDependency, deleteDepe
         <Wrapper style={{ border: '1px solid black' }}>
             <Header>
                 <Headline5>Dependencies</Headline5>
-                <Icon name={collapsed ? 'fas fa-chevron-left' : 'fas fa-chevron-down'} onClick={() => setCollapsed(old => !old)} />
+                <Icon className={collapsed ? 'fas fa-chevron-left' : 'fas fa-chevron-down'} onClick={() => setCollapsed(old => !old)} />
             </Header>
             {
                 !collapsed &&

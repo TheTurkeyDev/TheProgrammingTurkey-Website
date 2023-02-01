@@ -3,11 +3,10 @@ import { ChanceCubesRewardInfoModal } from '../../../modals/chance-cubes/chance-
 import { ChanceCubesRewardEditModal } from '../../../modals/chance-cubes/chance-cubes-reward-edit-modal';
 import { ChanceCubesRewardStatusCell } from './chance-cubes-reward-status-row';
 import { gameVersions } from './chance-cubes-rewards-status';
-import { BaseTheme, TD, TextToast, useToast } from 'gobble-lib-react';
+import { BaseTheme, Icon, TD, TextToast, useToast } from 'gobble-lib-react';
 import { CCVersionedRewardData } from '../../../types/chance-cubes/chance-cubes-versioned-reward';
 import { ChanceCubesRewardNote } from '../../../types/chance-cubes/chance-cubes-reward-note';
 import { useState } from 'react';
-import { Icon } from '../../../components/icon';
 
 const IconsWrapper = styled(TD)`
     display: grid;
@@ -51,9 +50,9 @@ export const ChanceCubesRewardStatusTableItem = ({ reward, rewardData, highlight
     return (
         <tr id={reward} className={highlightedReward === reward ? 'highlight-fade' : ''}>
             <IconsWrapper>
-                <Icon name='fas fa-link' onClick={() => copyToClipBoard(reward)} />
-                <Icon name='fas fa-info-circle' onClick={() => setShowRewardOverlay(true)} />
-                {canEdit && <Icon name='fas fa-edit' onClick={() => setShowRewardEditOverlay(true)} />}
+                <Icon className='fas fa-link' onClick={() => copyToClipBoard(reward)} />
+                <Icon className='fas fa-info-circle' onClick={() => setShowRewardOverlay(true)} />
+                {canEdit && <Icon className='fas fa-edit' onClick={() => setShowRewardEditOverlay(true)} />}
             </IconsWrapper>
             <RewardNameWrapper isGCCR={rewardData.isgcr}> {reward} </RewardNameWrapper>
             <ChanceValueWrapper isGCCR={rewardData.isgcr}> {rewardData.isgcr ? 'GCC*' : rewardData.chance} </ChanceValueWrapper>

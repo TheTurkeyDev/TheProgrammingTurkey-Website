@@ -1,7 +1,6 @@
-import { TD } from 'gobble-lib-react';
+import { Icon, TD } from 'gobble-lib-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Icon } from '../../../components/icon';
 import { SuggestionBox } from '../suggestion-box';
 
 const TR = styled.tr`
@@ -32,10 +31,10 @@ export const SuggestionBoxRow = ({ box }: SuggestionBoxRowProps) => {
     return (
         <TR onClick={() => navigate(`/suggestions/${box.id}`)}>
             <TD>
-                <Icon name='far fa-arrow-alt-circle-right' />
+                <Icon className='far fa-arrow-alt-circle-right' />
             </TD>
             <TD>
-                <StatusIcon open={box.open} name={box.open ? 'fas fa-check' : 'fas fa-times'} />
+                <StatusIcon open={box.open} className={box.open ? 'fas fa-check' : 'fas fa-times'} />
             </TD>
             <TD>
                 {box.id}

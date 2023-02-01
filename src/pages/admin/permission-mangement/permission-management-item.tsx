@@ -1,7 +1,6 @@
-import { ConfirmationModal, TD } from 'gobble-lib-react';
+import { ConfirmationModal, Icon, TD } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Icon } from '../../../components/icon';
 import { Permission } from '../../../types/permission';
 
 const TDIcons = styled(TD)`
@@ -20,8 +19,8 @@ export const PermissionManagementItem = ({ perm, deletePerm }: PermissionManagem
     return (
         <tr key={perm.permission}>
             <TDIcons>
-                <Icon name='fas fa-edit' />
-                <Icon name='fas fa-trash' onClick={() => setShowDeletePermModal(true)} />
+                <Icon className='fas fa-edit' />
+                <Icon className='fas fa-trash' onClick={() => setShowDeletePermModal(true)} />
             </TDIcons>
             <TD>{perm.permission}</TD>
             <TD>{perm.description}</TD>

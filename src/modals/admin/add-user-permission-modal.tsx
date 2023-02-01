@@ -1,7 +1,6 @@
-import { Input, Modal, Table, TD, TextToast, TH, useToast } from 'gobble-lib-react';
+import { Icon, Input, Modal, Table, TD, TextToast, TH, useToast } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Icon } from '../../components/icon';
 import * as authAPI from '../../network/auth-network';
 import { Permission } from '../../types/permission';
 
@@ -68,7 +67,7 @@ export const AddUserPermissionModal = ({ show, requestClose, assignedPerms, user
                             permissionList.map(perm => (
                                 <tr key={perm.permission}>
                                     <TD>
-                                        <Icon name='fas fa-plus' onClick={() => givePerm(perm.permission)} />
+                                        <Icon className='fas fa-plus' onClick={() => givePerm(perm.permission)} />
                                     </TD>
                                     <TD>{perm.permission}</TD>
                                     <TD>{perm.description}</TD>

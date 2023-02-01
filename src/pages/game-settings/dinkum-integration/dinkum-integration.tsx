@@ -1,6 +1,5 @@
-import { ButtonRow, ContainedButton, Headline2, Headline5, HorizontalRule, Input, OutlinedButton, SpaceBetween } from 'gobble-lib-react';
-import styled, { keyframes } from 'styled-components';
-import { Icon } from '../../../components/icon';
+import { ButtonRow, ContainedButton, Headline2, Headline5, HorizontalRule, Icon, OutlinedButton, SpaceBetween } from 'gobble-lib-react';
+import styled from 'styled-components';
 import { LoadingIcon } from '../../../components/loading-icon';
 import { useAuth } from '../../../contexts/auth-context';
 import { useFetch } from '../../../hooks/use-fetch';
@@ -67,7 +66,7 @@ export const DinkumIntegration = () => {
             <HorizontalRule />
             <SpaceBetween>
                 <Headline5>Item Adjustments</Headline5>
-                <Icon name='fas fa-plus' onClick={() => setData(old => [...(old ?? []), { itemId: getValidNumber(0), value: 0, description: '' }])} />
+                <Icon className='fas fa-plus' onClick={() => setData(old => [...(old ?? []), { itemId: getValidNumber(0), value: 0, description: '' }])} />
             </SpaceBetween>
             {
                 fetching && <LoadingIcon />

@@ -1,8 +1,7 @@
-import { ConfirmationModal, Headline5, Input, InputsWrapper, OutlinedButton, ToggleSwitch } from 'gobble-lib-react';
+import { ConfirmationModal, Headline5, Icon, Input, InputsWrapper, OutlinedButton, ToggleSwitch } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { CollapseChevron } from '../../../components/collapse-chevron';
-import { Icon } from '../../../components/icon';
 import { ChanceCubesAddRewardTypeModal } from '../../../modals/chance-cubes/chance-cubes-add-reward-type-overlay';
 import { EventType } from '../../../types/chance-cubes/chance-cubes-event-type';
 import { ChanceCubesRewardType } from '../../../types/chance-cubes/chance-cubes-reward';
@@ -127,7 +126,7 @@ export const ChanceCubesReward = ({ reward, color, rewardId, setRewardID, setRew
             <RewardHeader>
                 <Headline5>Reward</Headline5>
                 <CollapseChevron collapsed={collapsed} setCollapsed={setCollapsed} />
-                <Icon name='fas fa-trash' onClick={() => setShowDeleteModal(true)} />
+                <Icon className='fas fa-trash' onClick={() => setShowDeleteModal(true)} />
             </RewardHeader>
             {
                 !collapsed &&

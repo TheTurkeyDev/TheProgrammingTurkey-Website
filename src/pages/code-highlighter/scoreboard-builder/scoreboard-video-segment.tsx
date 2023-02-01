@@ -1,7 +1,6 @@
-import { Accordion, Body1, Headline4, HorizontalRule, Input, OutlinedButton, SpaceBetween, TextButton } from 'gobble-lib-react';
+import { Accordion, Body1, Headline4, HorizontalRule, Icon, Input, OutlinedButton, SpaceBetween, TextButton } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Icon } from '../../../components/icon';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -122,7 +121,7 @@ export const ScoreboardVideoSegment = ({ segmentData, setSegmentData }: Scoreboa
                         {
                             segmentData.primaryText.map((pt, i) => (
                                 <InputLine key={i}>
-                                    <Icon name='fas fa-trash-alt' onClick={() => deletePrimaryText(i)} />
+                                    <Icon className='fas fa-trash-alt' onClick={() => deletePrimaryText(i)} />
                                     <Input value={pt} onChange={e => updatePrimaryText(e.target.value, i)} />
                                 </InputLine>
                             ))
@@ -138,7 +137,7 @@ export const ScoreboardVideoSegment = ({ segmentData, setSegmentData }: Scoreboa
                         {
                             segmentData.secondaryText.map((pt, i) => (
                                 <InputLine key={i}>
-                                    <Icon name='fas fa-trash-alt' onClick={() => deletePrimaryText(i)} />
+                                    <Icon className='fas fa-trash-alt' onClick={() => deletePrimaryText(i)} />
                                     <Input value={pt} onChange={e => updateSecondaryText(e.target.value, i)} />
                                 </InputLine>
                             ))

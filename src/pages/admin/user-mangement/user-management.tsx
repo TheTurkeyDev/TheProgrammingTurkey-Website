@@ -45,10 +45,13 @@ export const UserManagement = () => {
                         <TH>Platforms</TH>
                         <TH>Username</TH>
                         <TH>User ID</TH>
+                        <TH>Created At</TH>
                     </tr>
                 </thead>
                 <tbody>
-                    {[...userList].sort((a, b) => a.user_id.localeCompare(b.user_id)).map(user => <UserManagementUserItem key={user.user_id} user={user} />)}
+                    {[...userList]
+                        .sort((a, b) => new Date(b.user_info.created_at).getTime() - new Date(a.user_info.created_at).getTime())
+                        .map(user => <UserManagementUserItem key={user.user_info.user_id} user={user} />)}
                 </tbody>
             </Table>
         </PageWrapper>

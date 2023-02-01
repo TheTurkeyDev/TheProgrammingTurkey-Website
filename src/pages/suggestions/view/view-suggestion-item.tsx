@@ -1,7 +1,6 @@
-import { TD } from 'gobble-lib-react';
+import { Icon, TD } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Icon } from '../../../components/icon';
 import { Suggestion } from '../suggestion';
 import * as SuggestionsAPI from '../suggestions-network';
 
@@ -63,12 +62,12 @@ export const SuggestionItem = ({ suggestion }: SuggestionItemProps) => {
     return (
         <TR deleted={deleted}>
             <TD>
-                {verified && !deleted && <Icon name='fas fa-trash-alt' onClick={deleteItem} title='Delete This Suggestion' />}
+                {verified && !deleted && <Icon className='fas fa-trash-alt' onClick={deleteItem} title='Delete This Suggestion' />}
                 {!verified && !deleted && <SpacedIcons>
-                    <Icon name='fas fa-check' onClick={verifyItem} title='Vefiry This Suggestion' />
-                    <Icon name='fas fa-times' onClick={deleteItem} title='Deny This Suggestion' />
+                    <Icon className='fas fa-check' onClick={verifyItem} title='Vefiry This Suggestion' />
+                    <Icon className='fas fa-times' onClick={deleteItem} title='Deny This Suggestion' />
                 </SpacedIcons>}
-                {deleted && <Icon name='fas fa-trash-restore' onClick={restoreItem} title='Restore This Suggestion' />}
+                {deleted && <Icon className='fas fa-trash-restore' onClick={restoreItem} title='Restore This Suggestion' />}
             </TD>
             <TD><StatusIcon verified={verified} deleted={deleted} className={getIcon(verified, deleted)} title={getTitle(verified, deleted)} /></TD>
             <TD>{suggestion.suggester}</TD>

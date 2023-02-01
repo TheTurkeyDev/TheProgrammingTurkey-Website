@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 import { StreamAnimationSettingsModal } from './stream-animations-settings-modal';
 import * as API from '../../../../network/stream-animations-network';
-import { Body1, ConfirmationModal, Option, Select, TextToast, useToast } from 'gobble-lib-react';
+import { Body1, ConfirmationModal, Icon, TextToast, useToast } from 'gobble-lib-react';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
-import { StreamAnimationUserDataPoint } from '../../../../types/stream-animations/stream-animation-user-data';
 import { useState } from 'react';
 import { Mapped } from '../../../../types/mapped';
 import { UserAnimationSettings } from './mapped-stream-animation-user-data';
-import { Icon } from '../../../../components/icon';
 
 const ActionsWrapper = styled.div`
     display: grid;
@@ -38,9 +36,9 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, animSettin
     return (
         <>
             <ActionsWrapper>
-                <Icon name='fas fa-trash' title='Delete' onClick={() => setShowConfirmationModal(true)} />
-                <Icon name='fas fa-edit' title='Edit' onClick={() => setShowSettingsModal(true)} />
-                <Icon name='fas fa-play' title='Test' onClick={() => test()} />
+                <Icon className='fas fa-trash' title='Delete' onClick={() => setShowConfirmationModal(true)} />
+                <Icon className='fas fa-edit' title='Edit' onClick={() => setShowSettingsModal(true)} />
+                <Icon className='fas fa-play' title='Test' onClick={() => test()} />
             </ActionsWrapper>
             <Body1>{animation.display}</Body1>
             <Body1>//Coming soon!</Body1>
