@@ -27,7 +27,7 @@ export const TopNav = () => {
 
     return (
         <NavBar>
-            <CollapsedNavbar icon='fas bars'>
+            <CollapsedNavbar icon='fas fa-bars'>
                 <NavLink link='/'>Home</NavLink>
                 <NavLink link='/projects'>Projects</NavLink>
                 <NavLink link='https://trky.dev/blog'>Blog</NavLink>
