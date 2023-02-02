@@ -40,20 +40,22 @@ const defaultBaseData = {
     split: 70,
 };
 const defaultData = {
+    primaryText: [],
     primaryFontSize: 150,
+    primaryColor: 'de4bb2',
+    primaryFontColor: 'ffffff',
+    primaryOutlineWidth: 1,
+    primaryOutlineColor: '000000',
+    primaryAmimOffset: 0,
+    secondaryText: [],
     secondaryFontSize: 56,
+    secondaryColor: '3999e3',
+    secondaryFontColor: 'ffffff',    
+    secondaryOutlineWidth: 1,
+    secondaryOutlineColor: '000000',
+    secondaryAmimOffset: 30,
     textShowLength: 120,
     animationDuration: 15,
-    primaryAmimOffset: 0,
-    secondaryAmimOffset: 30,
-    primaryColor: 'de4bb2',
-    secondaryColor: '3999e3',
-    primaryFontColor: 'ffffff',
-    secondaryFontColor: 'ffffff',
-    primaryText: [],
-    secondaryText: [],
-    outlineWidth: 1,
-    outlineColor: '000000'
 };
 const HOME = 0b1;
 const AWAY = 0b10;
@@ -74,20 +76,22 @@ export const ScoreboardVideoBuilder = () => {
                     width: baseData.width,
                     height: baseData.height,
                     split: baseData.split,
+                    primaryText: segmentData.primaryText ?? teamBaseData.primaryText,
                     primaryColor: `#${segmentData.primaryColor ?? teamBaseData.primaryColor}`,
                     primaryFontSize: `${segmentData.primaryFontSize ?? teamBaseData.primaryFontSize}px`,
                     primaryFontColor: `#${segmentData.primaryFontColor ?? teamBaseData.primaryFontColor}`,
+                    primaryOutlineWidth: segmentData.outlineWidth ?? teamBaseData.primaryOutlineWidth,
+                    primaryOutlineColor: `#${segmentData.outlineColor ?? teamBaseData.primaryOutlineColor}`,
+                    primaryAmimOffset: segmentData.primaryAmimOffset ?? teamBaseData.primaryAmimOffset,
+                    secondaryText: segmentData.secondaryText ?? teamBaseData.secondaryText,
                     secondaryColor: `#${segmentData.secondaryColor ?? teamBaseData.secondaryColor}`,
                     secondaryFontSize: `${segmentData.secondaryFontSize ?? teamBaseData.secondaryFontSize}px`,
                     secondaryFontColor: `#${segmentData.secondaryFontColor ?? teamBaseData.secondaryFontColor}`,
+                    secondaryOutlineWidth: segmentData.outlineWidth ?? teamBaseData.secondaryOutlineWidth,
+                    secondaryOutlineColor: `#${segmentData.outlineColor ?? teamBaseData.secondaryOutlineColor}`,
+                    secondaryAmimOffset: segmentData.secondaryAmimOffset ?? teamBaseData.secondaryAmimOffset,
                     textShowLength: segmentData.textShowLength ?? teamBaseData.textShowLength,
-                    primaryText: segmentData.primaryText ?? teamBaseData.primaryText,
-                    secondaryText: segmentData.secondaryText ?? teamBaseData.secondaryText,
-                    outlineWidth: segmentData.outlineWidth ?? teamBaseData.outlineWidth,
-                    outlineColor: `#${segmentData.outlineColor ?? teamBaseData.outlineColor}`,
-                    animationDuration: segmentData.animationDuration ?? teamBaseData.animationDuration,
-                    primaryAmimOffset: segmentData.primaryAmimOffset ?? teamBaseData.primaryAmimOffset,
-                    secondaryAmimOffset: segmentData.secondaryAmimOffset ?? teamBaseData.secondaryAmimOffset
+                    animationDuration: segmentData.animationDuration ?? teamBaseData.animationDuration
                 };
             })
         };
@@ -152,12 +156,15 @@ export const ScoreboardVideoBuilder = () => {
                         <ColorPicker label='Primary Color' showHexInput={true} color={homeBaseData.primaryColor} onChange={e => updateValue('primaryColor', e, HOME)} />
                         <ColorPicker label='Primary Text Color' showHexInput={true} color={homeBaseData.primaryFontColor} onChange={e => updateValue('secondaryColor', e, HOME)} />
                         <Input label='Primary Text Size' type='number' value={homeBaseData.primaryFontSize} onChange={e => updateValue('primaryFontSize', clamp(0, 1000, parseInt(e.target.value)), HOME)} />
-
+                        <Input label='Primary Outline Width' type='number' value={homeBaseData.primaryOutlineWidth} onChange={e => updateValue('primaryOutlineWidth', clamp(0, 100, parseInt(e.target.value)), HOME)} />
+                        <ColorPicker label='Primary Outline Color' showHexInput={true} color={homeBaseData.primaryOutlineColor} onChange={e => updateValue('primaryOutlineColor', e, HOME)} />
                     </InputsWrapper>
                     <InputsWrapper fullWidth={true}>
                         <ColorPicker label='Secondary Color' showHexInput={true} color={homeBaseData.secondaryColor} onChange={e => updateValue('secondaryColor', e, HOME)} />
                         <ColorPicker label='Secondary Text Color' showHexInput={true} color={homeBaseData.secondaryFontColor} onChange={e => updateValue('secondaryColor', e, HOME)} />
                         <Input label='Secondary Text Size' type='number' value={homeBaseData.secondaryFontSize} onChange={e => updateValue('secondaryFontSize', clamp(0, 1000, parseInt(e.target.value)), HOME)} />
+                        <Input label='Secondary Outline Width' type='number' value={homeBaseData.secondaryOutlineWidth} onChange={e => updateValue('secondaryOutlineWidth', clamp(0, 100, parseInt(e.target.value)), HOME)} />
+                        <ColorPicker label='Secondary Outline Color' showHexInput={true} color={homeBaseData.secondaryOutlineColor} onChange={e => updateValue('secondaryOutlineColor', e, HOME)} />
                     </InputsWrapper>
                 </BaseInfoWrapper>
             </Accordion>
@@ -167,11 +174,15 @@ export const ScoreboardVideoBuilder = () => {
                         <ColorPicker label='Primary Color' showHexInput={true} color={awayBaseData.primaryColor} onChange={e => updateValue('primaryColor', e, AWAY)} />
                         <ColorPicker label='Primary Text Color' showHexInput={true} color={awayBaseData.primaryFontColor} onChange={e => updateValue('secondaryColor', e, AWAY)} />
                         <Input label='Primary Text Size' type='number' value={awayBaseData.primaryFontSize} onChange={e => updateValue('primaryFontSize', clamp(0, 1000, parseInt(e.target.value)), AWAY)} />
+                        <Input label='Primary Outline Width' type='number' value={awayBaseData.primaryOutlineWidth} onChange={e => updateValue('primaryOutlineWidth', clamp(0, 100, parseInt(e.target.value)), AWAY)} />
+                        <ColorPicker label='Primary Outline Color' showHexInput={true} color={awayBaseData.primaryOutlineColor} onChange={e => updateValue('primaryOutlineColor', e, AWAY)} />
                     </InputsWrapper>
                     <InputsWrapper fullWidth={true}>
                         <ColorPicker label='Secondary Color' showHexInput={true} color={awayBaseData.secondaryColor} onChange={e => updateValue('secondaryColor', e, AWAY)} />
                         <ColorPicker label='Secondary Text Color' showHexInput={true} color={awayBaseData.secondaryFontColor} onChange={e => updateValue('secondaryColor', e, AWAY)} />
                         <Input label='Secondary Text Size' type='number' value={awayBaseData.secondaryFontSize} onChange={e => updateValue('secondaryFontSize', clamp(0, 1000, parseInt(e.target.value)), AWAY)} />
+                        <Input label='Secondary Outline Width' type='number' value={awayBaseData.secondaryOutlineWidth} onChange={e => updateValue('secondaryOutlineWidth', clamp(0, 100, parseInt(e.target.value)), AWAY)} />
+                        <ColorPicker label='Secondary Outline Color' showHexInput={true} color={awayBaseData.secondaryOutlineColor} onChange={e => updateValue('secondaryOutlineColor', e, AWAY)} />
                     </InputsWrapper>
                 </BaseInfoWrapper>
             </Accordion>
