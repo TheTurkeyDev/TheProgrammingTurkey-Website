@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import { ColorPicker } from '../../../components/inputs/color-input';
 import { getVideoGenSiteBase } from '../../../network/network-helper';
 import { clamp } from '../../../util/number-helper';
-import { ScoreboardBaseData, ScoreboardTeamData } from './scoreboard-data';
+import { ScoreboardData } from './scoreboard-data';
+import { ScoreboardGenData } from './scoreboard-gen-data';
 import { ScoreboardSegmentData, ScoreboardVideoSegment } from './scoreboard-video-segment';
 
 type ComponentData = {
@@ -37,9 +38,10 @@ const PreviewWrapper = styled.div`
 const defaultBaseData = {
     width: 400,
     height: 256,
-    split: 70,
+    videoSegments: []
 };
 const defaultData = {
+    split: 70,
     primaryText: [],
     primaryFontSize: 150,
     primaryColor: 'de4bb2',
@@ -50,7 +52,7 @@ const defaultData = {
     secondaryText: [],
     secondaryFontSize: 56,
     secondaryColor: '3999e3',
-    secondaryFontColor: 'ffffff',    
+    secondaryFontColor: 'ffffff',
     secondaryOutlineWidth: 1,
     secondaryOutlineColor: '000000',
     secondaryAmimOffset: 30,
@@ -62,9 +64,9 @@ const AWAY = 0b10;
 
 export const ScoreboardVideoBuilder = () => {
     const iframeRef = createRef<HTMLIFrameElement>();
-    const [baseData, setBaseData] = useState<ScoreboardBaseData>(defaultBaseData);
-    const [homeBaseData, setHomeBaseData] = useState<ScoreboardTeamData>(defaultData);
-    const [awayBaseData, setAwayBaseData] = useState<ScoreboardTeamData>(defaultData);
+    const [baseData, setBaseData] = useState<ScoreboardGenData>(defaultBaseData);
+    const [homeBaseData, setHomeBaseData] = useState<ScoreboardData>(defaultData);
+    const [awayBaseData, setAwayBaseData] = useState<ScoreboardData>(defaultData);
     const [videoSegments, setVideoSegments] = useState<readonly ScoreboardSegmentData[]>([]);
 
     useEffect(() => {
@@ -75,20 +77,20 @@ export const ScoreboardVideoBuilder = () => {
                 return {
                     width: baseData.width,
                     height: baseData.height,
-                    split: baseData.split,
+                    split: segmentData.split ?? teamBaseData.split,
                     primaryText: segmentData.primaryText ?? teamBaseData.primaryText,
                     primaryColor: `#${segmentData.primaryColor ?? teamBaseData.primaryColor}`,
                     primaryFontSize: `${segmentData.primaryFontSize ?? teamBaseData.primaryFontSize}px`,
                     primaryFontColor: `#${segmentData.primaryFontColor ?? teamBaseData.primaryFontColor}`,
-                    primaryOutlineWidth: segmentData.outlineWidth ?? teamBaseData.primaryOutlineWidth,
-                    primaryOutlineColor: `#${segmentData.outlineColor ?? teamBaseData.primaryOutlineColor}`,
+                    primaryOutlineWidth: segmentData.primaryOutlineWidth ?? teamBaseData.primaryOutlineWidth,
+                    primaryOutlineColor: `#${segmentData.primaryOutlineColor ?? teamBaseData.primaryOutlineColor}`,
                     primaryAmimOffset: segmentData.primaryAmimOffset ?? teamBaseData.primaryAmimOffset,
                     secondaryText: segmentData.secondaryText ?? teamBaseData.secondaryText,
                     secondaryColor: `#${segmentData.secondaryColor ?? teamBaseData.secondaryColor}`,
                     secondaryFontSize: `${segmentData.secondaryFontSize ?? teamBaseData.secondaryFontSize}px`,
                     secondaryFontColor: `#${segmentData.secondaryFontColor ?? teamBaseData.secondaryFontColor}`,
-                    secondaryOutlineWidth: segmentData.outlineWidth ?? teamBaseData.secondaryOutlineWidth,
-                    secondaryOutlineColor: `#${segmentData.outlineColor ?? teamBaseData.secondaryOutlineColor}`,
+                    secondaryOutlineWidth: segmentData.secondaryOutlineWidth ?? teamBaseData.secondaryOutlineWidth,
+                    secondaryOutlineColor: `#${segmentData.secondaryOutlineColor ?? teamBaseData.secondaryOutlineColor}`,
                     secondaryAmimOffset: segmentData.secondaryAmimOffset ?? teamBaseData.secondaryAmimOffset,
                     textShowLength: segmentData.textShowLength ?? teamBaseData.textShowLength,
                     animationDuration: segmentData.animationDuration ?? teamBaseData.animationDuration
@@ -140,7 +142,7 @@ export const ScoreboardVideoBuilder = () => {
                     <InputsWrapper fullWidth={true}>
                         <Input label='Width' type='number' value={baseData.width} onChange={e => updateBaseValue('width', clamp(0, 1920, parseInt(e.target.value)))} />
                         <Input label='Height' type='number' value={baseData.height} onChange={e => updateBaseValue('height', clamp(0, 1080, parseInt(e.target.value)))} />
-                        <Input label='Split' type='number' value={baseData.split} onChange={e => updateBaseValue('split', clamp(0, 100, parseInt(e.target.value)))} />
+                        <Input label='Split' type='number' value={homeBaseData.split} onChange={e => updateValue('split', clamp(0, 100, parseInt(e.target.value)))} />
                     </InputsWrapper>
                     <InputsWrapper fullWidth={true}>
                         <Input label='Text Show Length' type='number' value={homeBaseData.textShowLength} onChange={e => updateValue('textShowLength', clamp(0, 1000, parseInt(e.target.value)))} />

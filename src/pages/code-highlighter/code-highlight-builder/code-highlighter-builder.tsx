@@ -52,9 +52,9 @@ export const CodeHighlighterBuilder = () => {
         query(JSON.stringify({
             git: 'git@github.com:TheTurkeyDev/YouTube-Video-Gen.git',
             compositionId: 'CodeHighlight',
-            entry: './temp/src/index.tsx',
+            entry: './temp/src/remotion.tsx',
             directives
-        })).then(() => navigate('/codehighlighter'));
+        })).then(() => navigate('/videogen'));
     };
 
     const addNewDirective = (type: DirectiveType) => {
@@ -106,8 +106,8 @@ export const CodeHighlighterBuilder = () => {
                     key={i}
                     td={directive as TitleDirectiveType}
                     onDelete={() => removeDirective(i)}
-                    onMove={(up) => moveDirective(i, up)}
-                    update={(td) => updateDirective(i, td)}
+                    onMove={up => moveDirective(i, up)}
+                    update={td => updateDirective(i, td)}
                 />;
             case DirectiveType.HIGHLIGHT:
             default:
@@ -116,8 +116,8 @@ export const CodeHighlighterBuilder = () => {
                     hd={directive as HighlightDirectiveType}
                     codeFiles={codeFiles}
                     onDelete={() => removeDirective(i)}
-                    onMove={(up) => moveDirective(i, up)}
-                    update={(hd) => updateDirective(i, hd)}
+                    onMove={up => moveDirective(i, up)}
+                    update={hd => updateDirective(i, hd)}
                 />;
         }
     };

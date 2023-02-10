@@ -20,7 +20,6 @@ const LinesWrapper = styled.div`
 export type HighlightDirectiveType = Directive & {
     readonly code: readonly string[]
     readonly lines: readonly Lines[]
-    readonly startFrame: number,
     readonly showTime: number
     readonly animTime: number
     readonly fontSize: number

@@ -1,6 +1,7 @@
 import { Accordion, Body1, Headline4, HorizontalRule, Icon, Input, OutlinedButton, SpaceBetween, TextButton } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { ScoreboardData } from './scoreboard-data';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -32,21 +33,24 @@ const FineTuneCtrlHeader = styled.div`
 `;
 
 export type ScoreboardSegmentData = {
-    readonly isHome: boolean
+    readonly isHome: Boolean,
+    readonly split?: number,
+    readonly primaryText: readonly string[],
     readonly primaryColor?: string
-    readonly secondaryColor?: string
     readonly primaryFontSize?: number
     readonly primaryFontColor?: string
-    readonly secondaryFontSize?: number
-    readonly secondaryFontColor?: string
-    readonly textShowLength?: number,
-    readonly primaryText: readonly string[],
-    readonly secondaryText: readonly string[],
-    readonly outlineWidth?: number,
-    readonly outlineColor?: string,
-    readonly animationDuration?: number,
+    readonly primaryOutlineWidth?: number,
+    readonly primaryOutlineColor?: string,
     readonly primaryAmimOffset?: number,
+    readonly secondaryText: readonly string[],
+    readonly secondaryColor?: string
+    readonly secondaryFontSize?: number
+    readonly secondaryFontColor?: string,
+    readonly secondaryOutlineWidth?: number,
+    readonly secondaryOutlineColor?: string,
     readonly secondaryAmimOffset?: number
+    readonly textShowLength?: number,
+    readonly animationDuration?: number
 }
 type ScoreboardVideoSegmentProps = {
     readonly segmentData: ScoreboardSegmentData
