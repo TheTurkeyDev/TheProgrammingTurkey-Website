@@ -52,7 +52,7 @@ export const CodeHighlighterBuilder = () => {
         query(JSON.stringify({
             git: 'git@github.com:TheTurkeyDev/YouTube-Video-Gen.git',
             compositionId: 'CodeHighlight',
-            entry: './temp/src/remotion.tsx',
+            entry: '/app/temp/src/remotion.tsx',
             directives
         })).then(() => navigate('/videogen'));
     };

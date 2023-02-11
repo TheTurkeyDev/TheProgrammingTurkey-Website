@@ -37,7 +37,7 @@ export const VideoGenList = () => {
                 <Headline6>Created At</Headline6>
                 <Headline6>Download</Headline6>
                 {
-                    data?.map(v => <VideoGenVideo key={v.id} video={v} />)
+                    [...(data ?? [])].sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()).map(v => <VideoGenVideo key={v.id} video={v} />)
                 }
             </ListWrapper>
         </Content>
