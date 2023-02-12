@@ -23,7 +23,7 @@ type DiscordRoleEditModalProps = {
 export const DiscordRoleEditModal = ({ show, requestClose, save, roleOption, group }: DiscordRoleEditModalProps) => {
 
     const [roleOptionCache, setRoleOptionCache] = useState(roleOption);
-    const { data: roles } = useFetch<readonly DiscordRole[]>(`/discord/roles?guildid=${group.server_id}`);
+    const [roles] = useFetch<readonly DiscordRole[]>(`/discord/roles?guildid=${group.server_id}`);
 
     const canClose = roleOptionCache.label !== '' && roleOptionCache.description !== '';
 

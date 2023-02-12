@@ -25,7 +25,7 @@ export const SteamKeyManagementAddSeverRoleModal = ({ show, requestClose, listId
     const [serverId, setServerId] = useState('');
     const [roleId, setRoleId] = useState('');
 
-    const { query, querying } = useQuery<SteamKeyServerRole>(`${getDevAPIBase()}/steamkeys/list/${listId}/serverrole`, { requestData: postParams });
+    const [query, querying] = useQuery<SteamKeyServerRole>(`${getDevAPIBase()}/steamkeys/list/${listId}/serverrole`, { requestData: postParams });
 
     const addServerRole = () => {
         const serverRole = { listId: listId, discordServer: serverId, discordRole: roleId };

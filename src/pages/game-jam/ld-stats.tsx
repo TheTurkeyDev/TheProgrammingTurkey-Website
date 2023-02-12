@@ -44,7 +44,7 @@ const getPercentile = (cat: string, comps: readonly LDEvent[]) => {
 
 export const LDStats = () => {
 
-    const { data, fetching, error } = useFetch<readonly LDEvent[]>('/ludumdare/stats');
+    const [data, fetching] = useFetch<readonly LDEvent[]>('/ludumdare/stats');
 
     if (fetching)
         return <Loading />;

@@ -2,7 +2,8 @@
     "parser": "@typescript-eslint/parser",
     "plugins": [
         "@typescript-eslint",
-        "functional"
+        "functional",
+        "react"
     ],
     "extends": [],
     "parserOptions": {
@@ -55,6 +56,10 @@
         "arrow-parens": [
             "error",
             "as-needed"
+        ],
+        "react/jsx-curly-brace-presence": [
+            "error",
+            "never"
         ]
     },
     "settings": {

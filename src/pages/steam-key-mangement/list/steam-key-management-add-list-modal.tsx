@@ -24,7 +24,7 @@ export const SteamKeyManagementAddListModal = ({ show, requestClose, addNewList 
     const { pushToast } = useToast();
     const [title, setTitle] = useState('');
 
-    const { query } = useQuery<void>(`${getDevAPIBase()}/steamkeys/list`, { requestData: postParams });
+    const [query] = useQuery<void>(`${getDevAPIBase()}/steamkeys/list`, { requestData: postParams });
 
     const addList = () => {
         const list: SteamKeyList = { id: randomUID(), creator: userID, title, serverRoles: [], keys: [] };

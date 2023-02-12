@@ -8,7 +8,14 @@ type AdditionalOptions<T> = {
     readonly onComplete?: (data: T) => void
     readonly onError?: (message: String) => void
 }
-export function useFetch<T>(url: string, options?: AdditionalOptions<T>) {
+
+type ExtraData<T> = {
+    readonly error: string | undefined
+    readonly setData: React.Dispatch<React.SetStateAction<T | undefined>>
+    readonly resetData: () => void;
+}
+
+export function useFetch<T>(url: string, options?: AdditionalOptions<T>): readonly [T | undefined, boolean, ExtraData<T>] {
     const [fetching, setFetching] = useState(false);
     const [responseData, setResponseData] = useState<T>();
     const [data, setData] = useState<T>();
@@ -55,5 +62,5 @@ export function useFetch<T>(url: string, options?: AdditionalOptions<T>) {
         };
     }, [options?.skip]);
 
-    return { fetching, data, error, setData, resetData };
+    return [data, fetching, { error, setData, resetData }];
 };

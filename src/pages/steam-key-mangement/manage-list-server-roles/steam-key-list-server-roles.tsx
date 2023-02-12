@@ -3,8 +3,6 @@ import { Fragment, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/use-fetch';
-import { postParams, useQuery } from '../../../hooks/use-query';
-import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
 import { SteamKeyServerRole } from '../steam-key-server-role';
 import { SteamKeyManagementAddSeverRoleModal } from './steam-key-management-add-server-role-modal';
@@ -27,7 +25,7 @@ export const SteamKeyListServerRoles = () => {
     const nav = useNavigate();
     const { id } = useParams();
 
-    const { data: listData, fetching, setData } = useFetch<SteamKeyList>(`/steamkeys/list/${id}`);
+    const [listData, fetching, { setData }] = useFetch<SteamKeyList>(`/steamkeys/list/${id}`);
 
     const [showAddServerRoleModal, setShowAddServerRoleModal] = useState(false);
 

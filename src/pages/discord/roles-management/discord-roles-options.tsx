@@ -59,11 +59,11 @@ export const DiscordRolesOptions = ({ group, guilds, updateGroup }: DiscordRoles
     const [changes, setChanges] = useState(false);
     const [editedGroup, setEditedGroup] = useState(group);
 
-    const { query: saveRoleOptions } = useQuery<void>(`${getDevAPIBase()}/discord/roleoption`, {
+    const [saveRoleOptions] = useQuery<void>(`${getDevAPIBase()}/discord/roleoption`, {
         requestData: postParams,
     });
 
-    const { query: setRoleOptionRoles } = useQuery<void>(`${getDevAPIBase()}/discord/roleoptionroles`, {
+    const [setRoleOptionRoles] = useQuery<void>(`${getDevAPIBase()}/discord/roleoptionroles`, {
         requestData: postParams,
     });
 
@@ -107,15 +107,15 @@ export const DiscordRolesOptions = ({ group, guilds, updateGroup }: DiscordRoles
             {
                 !collapsed &&
                 <RolesGroupContent>
-                    <Input label='Name' value={editedGroup.name} onChange={(e) => update({ ...editedGroup, name: e.target.value })} />
-                    <TextArea label='Description' value={editedGroup.description} onChange={(e) => update({ ...editedGroup, description: e.target.value })} />
-                    <Select label='Guild' value={editedGroup.server_id} onChange={(e) => setGuild(e.target.value)}>
+                    <Input label='Name' value={editedGroup.name} onChange={e => update({ ...editedGroup, name: e.target.value })} />
+                    <TextArea label='Description' value={editedGroup.description} onChange={e => update({ ...editedGroup, description: e.target.value })} />
+                    <Select label='Guild' value={editedGroup.server_id} onChange={e => setGuild(e.target.value)}>
                         <Option value=''>Select Guild</Option>
                         {
                             guilds.map(g => <Option key={g.id} value={g.id}>{g.name}</Option>)
                         }
                     </Select>
-                    <Select label='Channel' value={editedGroup.channel_id} disabled={editedGroup.server_id === ''} onChange={(e) => setChannel(e.target.value)}>
+                    <Select label='Channel' value={editedGroup.channel_id} disabled={editedGroup.server_id === ''} onChange={e => setChannel(e.target.value)}>
                         <Option value=''>Select Channel</Option>
                         {
                             guilds.find(g => g.id === editedGroup.server_id)?.channels.map(c => <Option key={c.id} value={c.id}>{c.name}</Option>)

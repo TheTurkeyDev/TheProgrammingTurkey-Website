@@ -16,7 +16,7 @@ type AdditionalOptions<T> = {
     readonly requestData?: RequestInit
     readonly shouldThrow?: boolean
 }
-export function useQuery<T>(url: string, options?: AdditionalOptions<T>) {
+export function useQuery<T>(url: string, options?: AdditionalOptions<T>): readonly [(body?: string, pathParams?: string, queryParams?: string) => Promise<T | null>, boolean, string | undefined] {
     const [querying, setQuerying] = useState(false);
     const [error, setError] = useState<string>();
 
@@ -46,5 +46,5 @@ export function useQuery<T>(url: string, options?: AdditionalOptions<T>) {
             });
     };
 
-    return { query, querying, error };
+    return [ query, querying, error ];
 };

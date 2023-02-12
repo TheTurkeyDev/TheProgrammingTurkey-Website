@@ -36,7 +36,7 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
     const [showPermModal, setShowPermModal] = useState(false);
 
 
-    const { data, fetching, error, setData } = useFetch<UserData>(`/admin/getuser?user=${userId}`);
+    const [data, fetching, { setData }] = useFetch<UserData>(`/admin/getuser?user=${userId}`);
 
     const removePerm = (perm: string) => {
         authAPI.removeUserPermission(userId, perm).then(json => {

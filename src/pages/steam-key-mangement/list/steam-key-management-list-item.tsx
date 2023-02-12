@@ -15,7 +15,7 @@ export const SteamKeyManagementListItem = ({ list, deleteList }: SteamKeyManagem
     const { pushToast } = useToast();
     const [showDelete, setShowDelete] = useState(false);
 
-    const { query } = useQuery<void>(`${getDevAPIBase()}/steamkeys/list`, { requestData: deleteParams });
+    const [query] = useQuery<void>(`${getDevAPIBase()}/steamkeys/list`, { requestData: deleteParams });
 
 
     const confirmDelete = () => {

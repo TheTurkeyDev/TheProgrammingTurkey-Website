@@ -28,10 +28,10 @@ export const SteamKeyManageClaimGroups = () => {
     const { pushToast } = useToast();
     const { id } = useParams();
 
-    const { data, fetching, setData } = useFetch<readonly SteamKeyClaimGroup[]>('/steamkeys/claimgroups');
+    const [data, _, { setData }] = useFetch<readonly SteamKeyClaimGroup[]>('/steamkeys/claimgroups');
     const url = `${getDevAPIBase()}/steamkeys/list/${id}/claimgroup`;
-    const { query: addGroup, querying: addGroupQuerying } = useQuery<SteamKeyClaimGroupMapping>(url, { requestData: postParams });
-    const { query: removeGroup, querying: removeGroupQuerying } = useQuery<SteamKeyClaimGroupMapping>(url, { requestData: deleteParams });
+    const [addGroup, addGroupQuerying] = useQuery<SteamKeyClaimGroupMapping>(url, { requestData: postParams });
+    const [removeGroup, removeGroupQuerying] = useQuery<SteamKeyClaimGroupMapping>(url, { requestData: deleteParams });
 
 
     const [showAddNewClaimGroup, setShowAddNewClaimGroup] = useState(false);

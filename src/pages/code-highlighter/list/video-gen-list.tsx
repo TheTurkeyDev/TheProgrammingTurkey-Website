@@ -22,7 +22,7 @@ const ListWrapper = styled.div`
 
 export const VideoGenList = () => {
     const navigate = useNavigate();
-    const { data } = useFetch<readonly VideoGenRender[]>('/render/list');
+    const [data] = useFetch<readonly VideoGenRender[]>('/render/list');
 
     return (
         <Content>
@@ -37,7 +37,7 @@ export const VideoGenList = () => {
                 <Headline6>Created At</Headline6>
                 <Headline6>Download</Headline6>
                 {
-                    [...(data ?? [])].sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()).map(v => <VideoGenVideo key={v.id} video={v} />)
+                    [...(data ?? [])].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()).map(v => <VideoGenVideo key={v.id} video={v} />)
                 }
             </ListWrapper>
         </Content>

@@ -1,15 +1,12 @@
-import { Body1, ButtonRow, Headline2, Headline5, Loading, OutlinedButton, TextToast, useToast } from 'gobble-lib-react';
+import { ButtonRow, ConfirmationModal, Headline2, Headline5, Loading, OutlinedButton } from 'gobble-lib-react';
 import { Fragment, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/use-fetch';
-import { postParams, useQuery } from '../../../hooks/use-query';
-import { getDevAPIBase, getSiteURLBase } from '../../../network/network-helper';
 import { SteamKey } from '../steam-key';
 import { SteamKeyList } from '../steam-key-list';
-import { SteamKeyServerRole } from '../steam-key-server-role';
 import { SteamKeyManageImportKeysModal } from './steam-key-manage-import-keys-modal';
-import { SteamKeyManagementAddSeverRoleModal } from '../manage-list-server-roles/steam-key-management-add-server-role-modal';
+import { SteamKeyManageListItem } from './steam-key-manage-list-item';
 
 const Wrapper = styled.div`
     max-width: 1000px;
@@ -29,7 +26,7 @@ export const SteamKeyManageList = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const { data, fetching, setData } = useFetch<SteamKeyList>(`/steamkeys/list/${id}`);
+    const [data, fetching, { setData }] = useFetch<SteamKeyList>(`/steamkeys/list/${id}`);
 
     const [showImportKeys, setShowImportKeys] = useState(false);
 
@@ -40,7 +37,12 @@ export const SteamKeyManageList = () => {
 
     const addKeys = (keys: readonly SteamKey[]) => {
         if (data)
-            setData({ ...data, keys: [...(data.keys ?? []), ...keys] });
+            setData({ ...data, keys: [...data.keys, ...keys] });
+    };
+
+    const deleteSteamKey = (key: SteamKey, deleted: readonly string[]) => {
+        if (data)
+            setData({ ...data, keys: data.keys.filter(k => !deleted?.includes(k.key)) });
     };
 
     if (fetching)
@@ -62,17 +64,9 @@ export const SteamKeyManageList = () => {
                 <Headline5>Claimed By</Headline5>
                 <Headline5>Claimed At</Headline5>
                 {
-                    [...data?.keys ?? []].sort((a, b) => getDate(b.claimed_at) - getDate(a.claimed_at)).map(key => {
-                        return (
-                            <Fragment key={key.key}>
-                                <div></div>
-                                <Body1>{key.key}</Body1>
-                                <Body1>{key.added_at}</Body1>
-                                <Body1>{key.claimer_name ?? '--'}</Body1>
-                                <Body1>{key.claimed_at ?? '--'}</Body1>
-                            </Fragment>
-                        );
-                    })
+                    [...data?.keys ?? []].sort((a, b) => getDate(b.claimed_at) - getDate(a.claimed_at)).map(key => (
+                        <SteamKeyManageListItem key={key.key} steamKey={key} listId={id ?? ''} deleteSteamKey={deleteSteamKey} />
+                    ))
                 }
             </KeysWrapper>
             <SteamKeyManageImportKeysModal show={showImportKeys} requestClose={() => setShowImportKeys(false)} id={id ?? ''} addKeys={addKeys} />

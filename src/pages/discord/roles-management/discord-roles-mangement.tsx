@@ -18,9 +18,9 @@ const Wrapper = styled.div`
 `;
 
 export const DiscordRolesManagement = () => {
-    const { data } = useFetch<readonly DiscordGuild[]>('/discord/guilds');
-    const { data: groupsData, setData: setGroups } = useFetch<readonly DiscordRolesGroup[]>('/discord/groups');
-    const { query } = useQuery<DiscordRolesGroup>(`${getDevAPIBase()}/discord/savegroup`, {
+    const [data] = useFetch<readonly DiscordGuild[]>('/discord/guilds');
+    const [groupsData, _, { setData: setGroups }] = useFetch<readonly DiscordRolesGroup[]>('/discord/groups');
+    const [query] = useQuery<DiscordRolesGroup>(`${getDevAPIBase()}/discord/savegroup`, {
         requestData: postParams,
     });
 

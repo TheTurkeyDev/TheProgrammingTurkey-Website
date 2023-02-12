@@ -1,5 +1,5 @@
 import { ButtonRow, ContainedButton, Headline2, OutlinedButton } from 'gobble-lib-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { postParams, useQuery } from '../../../hooks/use-query';
@@ -39,7 +39,7 @@ export const CodeHighlighterBuilder = () => {
     const [showAddModal, setShowAddModal] = useState(false);
     const [showFileInportModal, setShowFileInportModal] = useState(false);
 
-    const { query } = useQuery<RenderResp>(`${getDevAPIBase()}/render/generate`, {
+    const [query] = useQuery<RenderResp>(`${getDevAPIBase()}/render/generate`, {
         requestData: postParams
     });
 

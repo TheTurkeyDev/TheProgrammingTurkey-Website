@@ -24,7 +24,7 @@ type DiscordRoleItemProps = {
 export const DiscordRoleItem = ({ roleOption, group, save }: DiscordRoleItemProps) => {
     const [showEdit, setShowEdit] = useState(roleOption.label === '');
 
-    const { query } = useQuery<void>(`${getDevAPIBase()}/discord/roleoptionroles`, {
+    const [query] = useQuery<void>(`${getDevAPIBase()}/discord/roleoptionroles`, {
         requestData: {
             method: 'DELETE',
             credentials: 'include',

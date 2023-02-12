@@ -22,7 +22,7 @@ const InputBard = styled.div`
 export const ChanceCubesManageContentCreators = () => {
     const { authChecked } = useAuth();
 
-    const { data, fetching, error } = useFetch<readonly CCContentCreator[]>('/chancecubes/userlist', {
+    const [data] = useFetch<readonly CCContentCreator[]>('/chancecubes/userlist', {
         skip: !authChecked
     });
     const [searchText, setSerachText] = useState('');

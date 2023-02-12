@@ -43,7 +43,7 @@ export const StreamTimerSetup = () => {
     const [fontSize, setFontSize] = useState(12);
     const [fontColor, setFontColor] = useState('');
 
-    const { data: validTimersData, setData: setValidTimerIDs } = useFetch<readonly Timer[]>('/streamtimer/timers', {
+    const [validTimersData, _, { setData: setValidTimerIDs }] = useFetch<readonly Timer[]>('/streamtimer/timers', {
         skip: !authChecked,
     });
 

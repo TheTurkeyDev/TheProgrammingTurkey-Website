@@ -1,5 +1,4 @@
-import { Anchor, Body1, Headline2, LinkButton, Loading } from 'gobble-lib-react';
-import { useParams } from 'react-router-dom';
+import { Anchor, Body1, Headline2, Loading } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/use-fetch';
 import { SteamKeyList } from '../steam-key-list';
@@ -13,7 +12,7 @@ export const Wrapper = styled.div`
 `;
 
 export const SteamKeysClaimed = () => {
-    const { data, fetching, error } = useFetch<readonly SteamKeyList[]>('/steamkeys/getclaimedkeys');
+    const [data, fetching, { error }] = useFetch<readonly SteamKeyList[]>('/steamkeys/getclaimedkeys');
 
     return (
         <Wrapper>

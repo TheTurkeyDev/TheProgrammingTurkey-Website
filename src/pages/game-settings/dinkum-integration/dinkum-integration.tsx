@@ -29,13 +29,10 @@ const ItemsWrapper = styled.div`
 export const DinkumIntegration = () => {
 
     const { userID } = useAuth();
-    const { fetching, data: settings, error, setData, resetData } = useFetch<readonly DinkumIntegrationSettings[]>(
-        `/gamesettings/dinkum/${userID}/integration`,
-        {
-            skip: !userID
-        }
-    );
-    const { query, querying } = useQuery(`${getDevAPIBase()}/gamesettings/dinkum/${userID}/integration`, {
+    const [settings, fetching, { setData, resetData }] = useFetch<readonly DinkumIntegrationSettings[]>(`/gamesettings/dinkum/${userID}/integration`, {
+        skip: !userID
+    });
+    const [query, querying] = useQuery(`${getDevAPIBase()}/gamesettings/dinkum/${userID}/integration`, {
         requestData: getPostAuthParams()
     });
 

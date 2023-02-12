@@ -23,7 +23,7 @@ export const SteamKeyManageImportKeysModal = ({ show, requestClose, id, addKeys 
     const [keys, setKeys] = useState('');
     const [error, setError] = useState('');
 
-    const { query, querying } = useQuery<readonly SteamKey[]>(`${getDevAPIBase()}/steamkeys/list/${id}/addkeys`, {
+    const [query, querying] = useQuery<readonly SteamKey[]>(`${getDevAPIBase()}/steamkeys/list/${id}/addkeys`, {
         requestData: postParams
     });
 

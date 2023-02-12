@@ -21,7 +21,7 @@ export const Projects = () => {
 
     const group = '';
 
-    const { data, fetching, error } = useFetch<ProjectGroups>(`/projects${!group ? '' : `?group=${group}`}`);
+    const [data, fetching, { error }] = useFetch<ProjectGroups>(`/projects${!group ? '' : `?group=${group}`}`);
 
     return (
         <ProjectsWrapper>

@@ -24,7 +24,7 @@ export const SteamKeyClaimItem = ({ list }: SteamKeyClaimItemProps) => {
     const { pushToast } = useToast();
     const [key, setKey] = useState(list.keys.length > 0 ? list.keys[0].key : '');
 
-    const { query, querying } = useQuery<SteamKeyList>(`${getDevAPIBase()}/steamkeys/claim/${list.id}`, { shouldThrow: true });
+    const [ query, querying ] = useQuery<SteamKeyList>(`${getDevAPIBase()}/steamkeys/claim/${list.id}`, { shouldThrow: true });
 
     const claim = () => {
         query().then(k => setKey(k?.keys[0]?.key ?? 'No Keys Available!')).catch(console.log);

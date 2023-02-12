@@ -25,7 +25,7 @@ type SteamKeyManagementAddClaimGroupModalProps = {
 export const SteamKeyManagementAddClaimGroupModal = ({ show, requestClose, listId, addNewClaimGroup }: SteamKeyManagementAddClaimGroupModalProps) => {
     const [name, setName] = useState('');
 
-    const { query, querying } = useQuery<SteamKeyClaimGroup>(`${getDevAPIBase()}/steamkeys/list/${listId}/claimgroup`, { requestData: postParams });
+    const [ query, querying ] = useQuery<SteamKeyClaimGroup>(`${getDevAPIBase()}/steamkeys/list/${listId}/claimgroup`, { requestData: postParams });
 
     const addClaimGroup = () => {
         const claimGroup: SteamKeyClaimGroup = { id: randomUID(8), name, keyLists: [] };
