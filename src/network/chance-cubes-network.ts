@@ -2,8 +2,7 @@ import { ChanceCubesRewardSetting } from '../types/chance-cubes/chance-cubes-rew
 import { CCContentCreator } from '../types/chance-cubes/chance-cubes-content-creator';
 import { ChanceCubesRewardStatus } from '../types/chance-cubes/chance-cubes-reward-status';
 import { ChanceCubesStats } from '../types/chance-cubes/chance-cubes-stats';
-import { getPostAuthParams } from './auth-network';
-import { getGetParams } from './network';
+import { getParams, getPostAuthParams } from './auth-network';
 import { getDevAPIBase } from './network-helper';
 import { RestResponseWrapper } from '../types/rest-response-wrapper';
 
@@ -42,7 +41,7 @@ export async function userListDeleteUser(uuid: string) {
 }
 
 export async function getRewardSettings(rewardId: string): Promise<RestResponseWrapper<readonly ChanceCubesRewardSetting[]>> {
-    return await fetch(`${getDevAPIBase()}/chancecubes/rewardsettings?rewardId=${rewardId}`, getGetParams()).then(resp => {
+    return await fetch(`${getDevAPIBase()}/chancecubes/rewardsettings?rewardId=${rewardId}`, getParams).then(resp => {
         return resp.json();
     });
 }
