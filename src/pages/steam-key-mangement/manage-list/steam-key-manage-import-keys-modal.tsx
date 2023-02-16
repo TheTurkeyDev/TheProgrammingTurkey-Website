@@ -1,7 +1,7 @@
-import { Body1, Headline4, InputsWrapper, Modal, OutlinedButton, TextArea } from 'gobble-lib-react';
+import { Body1, Headline4, InputsWrapper, Modal, OutlinedButton, TextArea, useQuery } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postParams, useQuery } from '../../../hooks/use-query';
+import { postParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKey } from '../steam-key';
 

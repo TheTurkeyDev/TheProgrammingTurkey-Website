@@ -1,8 +1,8 @@
-import { BaseTheme, ButtonRow, ContainedButton, Headline5, Input, InputsWrapper, Option, OutlinedButton, Select, Subtitle1, TextArea, TextButton } from 'gobble-lib-react';
+import { BaseTheme, ButtonRow, ContainedButton, Headline5, Input, Option, OutlinedButton, Select, Subtitle1, TextArea, useQuery } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled, { ThemeProps } from 'styled-components';
 import { CollapseChevron } from '../../../components/collapse-chevron';
-import { getParams, postParams, useQuery } from '../../../hooks/use-query';
+import { postParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { randomUID } from '../../../util/id';
 import { DiscordGuild } from './discord-guild';

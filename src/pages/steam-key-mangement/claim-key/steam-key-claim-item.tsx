@@ -1,8 +1,7 @@
-import { BaseTheme, Body1, ContainedButton, Input, TextToast, useToast } from 'gobble-lib-react';
+import { BaseTheme, Body1, ContainedButton, Input, TextToast, useQuery, useToast } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled, { ThemeProps } from 'styled-components';
-import { LoadingIcon } from '../../../components/loading-icon';
-import { useQuery } from '../../../hooks/use-query';
+import { getParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
 
@@ -24,7 +23,10 @@ export const SteamKeyClaimItem = ({ list }: SteamKeyClaimItemProps) => {
     const { pushToast } = useToast();
     const [key, setKey] = useState(list.keys.length > 0 ? list.keys[0].key : '');
 
-    const [ query, querying ] = useQuery<SteamKeyList>(`${getDevAPIBase()}/steamkeys/claim/${list.id}`, { shouldThrow: true });
+    const [ query, querying ] = useQuery<SteamKeyList>(`${getDevAPIBase()}/steamkeys/claim/${list.id}`, { 
+        shouldThrow: true,
+        requestData: getParams
+    });
 
     const claim = () => {
         query().then(k => setKey(k?.keys[0]?.key ?? 'No Keys Available!')).catch(console.log);

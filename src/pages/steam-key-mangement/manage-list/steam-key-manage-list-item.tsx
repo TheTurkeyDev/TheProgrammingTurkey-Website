@@ -1,6 +1,6 @@
-import { Body1, ConfirmationModal, Icon } from 'gobble-lib-react';
+import { Body1, ConfirmationModal, Icon, useQuery } from 'gobble-lib-react';
 import { useState } from 'react';
-import { deleteParams, useQuery } from '../../../hooks/use-query';
+import { deleteParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKey } from '../steam-key';
 

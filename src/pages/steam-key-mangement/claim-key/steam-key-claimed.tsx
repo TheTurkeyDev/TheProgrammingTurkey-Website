@@ -1,6 +1,7 @@
-import { Anchor, Body1, Headline2, Loading } from 'gobble-lib-react';
+import { Anchor, Body1, Headline2, Loading, useFetch } from 'gobble-lib-react';
 import styled from 'styled-components';
-import { useFetch } from '../../../hooks/use-fetch';
+import { getParams } from '../../../network/auth-network';
+import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
 import { SteamKeyClaimItem } from './steam-key-claim-item';
 
@@ -12,7 +13,9 @@ export const Wrapper = styled.div`
 `;
 
 export const SteamKeysClaimed = () => {
-    const [data, fetching, { error }] = useFetch<readonly SteamKeyList[]>('/steamkeys/getclaimedkeys');
+    const [data, fetching, { error }] = useFetch<readonly SteamKeyList[]>(`${getDevAPIBase()}/steamkeys/getclaimedkeys`, {
+        requestData: getParams
+    });
 
     return (
         <Wrapper>

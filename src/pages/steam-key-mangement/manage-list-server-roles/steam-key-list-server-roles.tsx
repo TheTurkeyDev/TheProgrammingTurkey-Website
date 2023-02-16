@@ -1,8 +1,9 @@
-import { Body1, ButtonRow, Headline2, Headline5, Loading, OutlinedButton } from 'gobble-lib-react';
+import { Body1, ButtonRow, Headline2, Headline5, Loading, OutlinedButton, useFetch } from 'gobble-lib-react';
 import { Fragment, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useFetch } from '../../../hooks/use-fetch';
+import { getParams } from '../../../network/auth-network';
+import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
 import { SteamKeyServerRole } from '../steam-key-server-role';
 import { SteamKeyManagementAddSeverRoleModal } from './steam-key-management-add-server-role-modal';
@@ -25,7 +26,9 @@ export const SteamKeyListServerRoles = () => {
     const nav = useNavigate();
     const { id } = useParams();
 
-    const [listData, fetching, { setData }] = useFetch<SteamKeyList>(`/steamkeys/list/${id}`);
+    const [listData, fetching, { setData }] = useFetch<SteamKeyList>(`${getDevAPIBase()}/steamkeys/list/${id}`, {
+        requestData: getParams
+    });
 
     const [showAddServerRoleModal, setShowAddServerRoleModal] = useState(false);
 

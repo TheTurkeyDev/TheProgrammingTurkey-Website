@@ -1,7 +1,7 @@
-import { Body1, Icon } from 'gobble-lib-react';
+import { Body1, Icon, useQuery } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '../../../hooks/use-query';
+import { deleteParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { DiscordRoleEditModal } from './discord-role-edit-modal';
 import { DiscordRoleOption } from './discord-role-option';
@@ -25,14 +25,7 @@ export const DiscordRoleItem = ({ roleOption, group, save }: DiscordRoleItemProp
     const [showEdit, setShowEdit] = useState(roleOption.label === '');
 
     const [query] = useQuery<void>(`${getDevAPIBase()}/discord/roleoptionroles`, {
-        requestData: {
-            method: 'DELETE',
-            credentials: 'include',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        },
+        requestData: deleteParams,
     });
 
     const deleteItem = () => {

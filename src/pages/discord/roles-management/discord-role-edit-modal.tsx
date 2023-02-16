@@ -1,7 +1,8 @@
-import { ButtonRow, ContainedButton, Headline3, Input, InputsWrapper, Modal, Option, OutlinedButton, Select, TextArea } from 'gobble-lib-react';
-import { useEffect, useState } from 'react';
+import { ButtonRow, ContainedButton, Headline3, Input, InputsWrapper, Modal, Option, OutlinedButton, Select, TextArea, useFetch } from 'gobble-lib-react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { useFetch } from '../../../hooks/use-fetch';
+import { getParams } from '../../../network/auth-network';
+import { getDevAPIBase } from '../../../network/network-helper';
 import { DiscordRole } from './discord-role';
 import { DiscordRoleOption } from './discord-role-option';
 import { DiscordRolesGroup } from './discord-roles-group';
@@ -23,7 +24,9 @@ type DiscordRoleEditModalProps = {
 export const DiscordRoleEditModal = ({ show, requestClose, save, roleOption, group }: DiscordRoleEditModalProps) => {
 
     const [roleOptionCache, setRoleOptionCache] = useState(roleOption);
-    const [roles] = useFetch<readonly DiscordRole[]>(`/discord/roles?guildid=${group.server_id}`);
+    const [roles] = useFetch<readonly DiscordRole[]>(`${getDevAPIBase()}/discord/roles?guildid=${group.server_id}`, {
+        requestData: getParams
+    });
 
     const canClose = roleOptionCache.label !== '' && roleOptionCache.description !== '';
 

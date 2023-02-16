@@ -1,8 +1,8 @@
-import { Body1, ContainedButton, Headline3, Headline5, Icon, Input, InputsWrapper, Loading, Modal, TextToast, useToast } from 'gobble-lib-react';
+import { Body1, ContainedButton, Headline3, Headline5, Icon, Input, InputsWrapper, Loading, Modal, TextToast, useFetch, useToast } from 'gobble-lib-react';
 import { Fragment, useState } from 'react';
 import styled from 'styled-components';
-import { useFetch } from '../../hooks/use-fetch';
 import * as authAPI from '../../network/auth-network';
+import { getDevAPIBase } from '../../network/network-helper';
 import { AddUserPermissionModal } from './add-user-permission-modal';
 
 const ContentWrapper = styled.div`
@@ -36,7 +36,9 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
     const [showPermModal, setShowPermModal] = useState(false);
 
 
-    const [data, fetching, { setData }] = useFetch<UserData>(`/admin/getuser?user=${userId}`);
+    const [data, fetching, { setData }] = useFetch<UserData>(`${getDevAPIBase()}/admin/getuser?user=${userId}`, {
+        requestData: authAPI.getParams
+    });
 
     const removePerm = (perm: string) => {
         authAPI.removeUserPermission(userId, perm).then(json => {

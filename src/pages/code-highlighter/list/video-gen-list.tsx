@@ -1,7 +1,8 @@
-import { ButtonRow, ContainedButton, Headline2, Headline6 } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline2, Headline6, useFetch } from 'gobble-lib-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useFetch } from '../../../hooks/use-fetch';
+import { getParams } from '../../../network/auth-network';
+import { getDevAPIBase } from '../../../network/network-helper';
 import { VideoGenRender } from './video-gen-render-data';
 import { VideoGenVideo } from './video-gen-video';
 
@@ -22,7 +23,9 @@ const ListWrapper = styled.div`
 
 export const VideoGenList = () => {
     const navigate = useNavigate();
-    const [data] = useFetch<readonly VideoGenRender[]>('/render/list');
+    const [data] = useFetch<readonly VideoGenRender[]>(`${getDevAPIBase()}/render/list`, {
+        requestData: getParams
+    });
 
     return (
         <Content>

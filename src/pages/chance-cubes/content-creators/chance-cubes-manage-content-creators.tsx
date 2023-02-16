@@ -2,10 +2,11 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../../contexts/auth-context';
 import { ChanceCubesContentCreatorModal } from '../../../modals/chance-cubes/chance-cubes-content-creator-modal';
-import { ContainedButton, Input, Table, TH } from 'gobble-lib-react';
+import { ContainedButton, Input, Table, TH, useFetch } from 'gobble-lib-react';
 import { CCContentCreator } from '../../../types/chance-cubes/chance-cubes-content-creator';
 import { ChanceCubesContentCreatorItem } from './chance-cubes-content-creator-item';
-import { useFetch } from '../../../hooks/use-fetch';
+import { getParams } from '../../../network/auth-network';
+import { getDevAPIBase } from '../../../network/network-helper';
 
 const PageWrapper = styled.div`
     padding: 8px 8px 0 8px;
@@ -22,8 +23,9 @@ const InputBard = styled.div`
 export const ChanceCubesManageContentCreators = () => {
     const { authChecked } = useAuth();
 
-    const [data] = useFetch<readonly CCContentCreator[]>('/chancecubes/userlist', {
-        skip: !authChecked
+    const [data] = useFetch<readonly CCContentCreator[]>(`${getDevAPIBase()}/chancecubes/userlist`, {
+        skip: !authChecked,
+        requestData: getParams
     });
     const [searchText, setSerachText] = useState('');
 

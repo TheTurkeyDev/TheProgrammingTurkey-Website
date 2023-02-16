@@ -1,10 +1,8 @@
-import { ButtonRow, ContainedButton, Headline2, Headline5, HorizontalRule, Icon, OutlinedButton, SpaceBetween } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline2, Headline5, HorizontalRule, Icon, OutlinedButton, SpaceBetween, useFetch, useQuery } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { LoadingIcon } from '../../../components/loading-icon';
 import { useAuth } from '../../../contexts/auth-context';
-import { useFetch } from '../../../hooks/use-fetch';
-import { useQuery } from '../../../hooks/use-query';
-import { getPostAuthParams } from '../../../network/auth-network';
+import { getParams, postParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { DinkumIntegrationItemAdjustment } from './dinkum-integration-item-adjustment';
 import { DinkumIntegrationSettings } from './dinkum-integration-setting';
@@ -29,11 +27,12 @@ const ItemsWrapper = styled.div`
 export const DinkumIntegration = () => {
 
     const { userID } = useAuth();
-    const [settings, fetching, { setData, resetData }] = useFetch<readonly DinkumIntegrationSettings[]>(`/gamesettings/dinkum/${userID}/integration`, {
-        skip: !userID
+    const [settings, fetching, { setData, resetData }] = useFetch<readonly DinkumIntegrationSettings[]>(`${getDevAPIBase()}/gamesettings/dinkum/${userID}/integration`, {
+        skip: !userID,
+        requestData: getParams
     });
     const [query, querying] = useQuery(`${getDevAPIBase()}/gamesettings/dinkum/${userID}/integration`, {
-        requestData: getPostAuthParams()
+        requestData: postParams
     });
 
     const update = (index: number, setting: DinkumIntegrationSettings) => {

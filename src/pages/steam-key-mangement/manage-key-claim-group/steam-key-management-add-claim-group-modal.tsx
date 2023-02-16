@@ -1,13 +1,10 @@
-import { Headline4, Input, InputsWrapper, Modal, OutlinedButton } from 'gobble-lib-react';
+import { Headline4, Input, InputsWrapper, Modal, OutlinedButton, useQuery } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useAuth } from '../../../contexts/auth-context';
-import { postParams, useQuery } from '../../../hooks/use-query';
+import { postParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { randomUID } from '../../../util/id';
 import { SteamKeyClaimGroup } from '../claim-key/steam-key-claim-group';
-import { SteamKeyList } from '../steam-key-list';
-import { SteamKeyServerRole } from '../steam-key-server-role';
 
 const Wrapper = styled.div`
     display: grid;

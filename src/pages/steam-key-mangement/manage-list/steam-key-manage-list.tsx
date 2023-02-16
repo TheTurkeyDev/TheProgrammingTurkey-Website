@@ -1,8 +1,9 @@
-import { ButtonRow, ConfirmationModal, Headline2, Headline5, Loading, OutlinedButton } from 'gobble-lib-react';
-import { Fragment, useState } from 'react';
+import { ButtonRow, Headline2, Headline5, Loading, OutlinedButton, useFetch } from 'gobble-lib-react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useFetch } from '../../../hooks/use-fetch';
+import { getParams } from '../../../network/auth-network';
+import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKey } from '../steam-key';
 import { SteamKeyList } from '../steam-key-list';
 import { SteamKeyManageImportKeysModal } from './steam-key-manage-import-keys-modal';
@@ -26,7 +27,9 @@ export const SteamKeyManageList = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const [data, fetching, { setData }] = useFetch<SteamKeyList>(`/steamkeys/list/${id}`);
+    const [data, fetching, { setData }] = useFetch<SteamKeyList>(`${getDevAPIBase()}/steamkeys/list/${id}`, {
+        requestData: getParams
+    });
 
     const [showImportKeys, setShowImportKeys] = useState(false);
 

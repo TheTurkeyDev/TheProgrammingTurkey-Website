@@ -1,7 +1,8 @@
-import { Body1, ButtonRow, ContainedButton, Headline2, Loading } from 'gobble-lib-react';
+import { Body1, ButtonRow, ContainedButton, Headline2, Loading, useFetch } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useFetch } from '../../../hooks/use-fetch';
+import { getParams } from '../../../network/auth-network';
+import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
 import { SteamKeyManagementAddListModal } from './steam-key-management-add-list-modal';
 import { SteamKeyManagementListItem } from './steam-key-management-list-item';
@@ -26,7 +27,9 @@ const CenterText = styled.div`
 
 export const SteamKeyManagementList = () => {
     const [items, setItems] = useState<readonly SteamKeyList[]>([]);
-    const [data, fetching] = useFetch<readonly SteamKeyList[]>('/steamkeys/list');
+    const [data, fetching] = useFetch<readonly SteamKeyList[]>(`${getDevAPIBase()}/steamkeys/list`, {
+        requestData: getParams
+    });
     const [showNewList, setShowNewList] = useState(false);
 
     useEffect(() => {

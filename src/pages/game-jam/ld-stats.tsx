@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { Headline2, Headline4, Loading } from 'gobble-lib-react';
+import { Headline2, Headline4, Loading, useFetch } from 'gobble-lib-react';
 import { LDEvent } from '../../types/ld-event';
 import { ChartProps, ReactChart } from 'chartjs-react';
-import { useFetch } from '../../hooks/use-fetch';
+import { getDevAPIBase } from '../../network/network-helper';
+import { getParams } from '../../network/auth-network';
 
 const catergories = [
     { label: 'Overall', color: '#229954' },
@@ -44,7 +45,9 @@ const getPercentile = (cat: string, comps: readonly LDEvent[]) => {
 
 export const LDStats = () => {
 
-    const [data, fetching] = useFetch<readonly LDEvent[]>('/ludumdare/stats');
+    const [data, fetching] = useFetch<readonly LDEvent[]>(`${getDevAPIBase()}/ludumdare/stats`,{
+        requestData: getParams
+    });
 
     if (fetching)
         return <Loading />;

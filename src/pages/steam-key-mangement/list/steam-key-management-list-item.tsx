@@ -1,7 +1,7 @@
-import { Body1, ConfirmationModal, Icon, TextToast, useToast } from 'gobble-lib-react';
+import { Body1, ConfirmationModal, Icon, TextToast, useQuery, useToast } from 'gobble-lib-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { deleteParams, useQuery } from '../../../hooks/use-query';
+import { deleteParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { SteamKeyList } from '../steam-key-list';
 
@@ -33,10 +33,10 @@ export const SteamKeyManagementListItem = ({ list, deleteList }: SteamKeyManagem
             <ConfirmationModal
                 show={showDelete}
                 requestClose={() => setShowDelete(false)}
-                text={'Are you sure you want to delete this list?'}
-                yesText={'Yes'}
+                text='Are you sure you want to delete this list?'
+                yesText='Yes'
                 onYesClick={confirmDelete}
-                noText={'No'}
+                noText='No'
                 onNoClick={() => setShowDelete(false)}
             />
         </>

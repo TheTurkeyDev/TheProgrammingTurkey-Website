@@ -1,5 +1,4 @@
 import { getDevAPIBase } from './network-helper';
-import { getGetParams } from './network';
 import { PlatformLoginType } from '../types/platform-login';
 import { UserAndPlatform } from '../types/user-and-platform';
 import { Permission } from '../types/permission';
@@ -7,6 +6,18 @@ import { ProcessHealth } from '../types/process-health';
 import { UserConnection } from '../types/user-connection';
 import { YouTubeDisplaySettings } from '../pages/projects/stream-tools/yt-sub-count/youtube-display-settings';
 import { RestResponseWrapper } from '../types/rest-response-wrapper';
+
+const baseParams: RequestInit = {
+    credentials: 'include',
+    headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store'
+    }
+};
+const paramsForType = (method: string) => ({ method, ...baseParams });
+export const getParams: RequestInit = paramsForType('GET');
+export const postParams: RequestInit = paramsForType('POST');
+export const deleteParams: RequestInit = paramsForType('DELETE');
 
 export function getGetAuthParams(): RequestInit {
     return {
@@ -33,7 +44,7 @@ export function getPostAuthParams(body?: any): RequestInit {
 }
 
 export async function getLogins(returnurl: string): Promise<readonly PlatformLoginType[]> {
-    return await fetch(`${getDevAPIBase()}/auth/platformlogins?returnurl=${returnurl}`, getGetParams()).then(resp => {
+    return await fetch(`${getDevAPIBase()}/auth/platformlogins?returnurl=${returnurl}`, getParams).then(resp => {
         if (resp.status === 200)
             return resp.json();
         return [];
@@ -41,7 +52,7 @@ export async function getLogins(returnurl: string): Promise<readonly PlatformLog
 }
 
 export async function getPlatformLinks(returnurl: string): Promise<readonly PlatformLoginType[]> {
-    return await fetch(`${getDevAPIBase()}/auth/platformlinks?returnurl=${returnurl}`, getGetParams()).then(resp => {
+    return await fetch(`${getDevAPIBase()}/auth/platformlinks?returnurl=${returnurl}`, getParams).then(resp => {
         if (resp.status === 200)
             return resp.json();
         return [];

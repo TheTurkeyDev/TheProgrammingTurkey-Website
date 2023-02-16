@@ -1,8 +1,8 @@
-import { ButtonRow, ContainedButton, Headline2, OutlinedButton } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline2, OutlinedButton, useQuery } from 'gobble-lib-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { postParams, useQuery } from '../../../hooks/use-query';
+import { postParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { AddDirectiveModal } from './code-highlighter-add-directive-modal';
 import { ImportFileModal } from './code-highlighter-import-file-modal';

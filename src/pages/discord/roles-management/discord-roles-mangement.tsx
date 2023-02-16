@@ -1,7 +1,6 @@
-import { ButtonRow, ContainedButton, Headline3 } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline3, useFetch, useQuery } from 'gobble-lib-react';
 import styled from 'styled-components';
-import { useFetch } from '../../../hooks/use-fetch';
-import { postParams, useQuery } from '../../../hooks/use-query';
+import { getParams, postParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { randomUID } from '../../../util/id';
 import { DiscordGuild } from './discord-guild';
@@ -18,8 +17,12 @@ const Wrapper = styled.div`
 `;
 
 export const DiscordRolesManagement = () => {
-    const [data] = useFetch<readonly DiscordGuild[]>('/discord/guilds');
-    const [groupsData, _, { setData: setGroups }] = useFetch<readonly DiscordRolesGroup[]>('/discord/groups');
+    const [data] = useFetch<readonly DiscordGuild[]>(`${getDevAPIBase()}/discord/guilds`, {
+        requestData: getParams
+    });
+    const [groupsData, _, { setData: setGroups }] = useFetch<readonly DiscordRolesGroup[]>(`${getDevAPIBase()}/discord/groups`, {
+        requestData: getParams
+    });
     const [query] = useQuery<DiscordRolesGroup>(`${getDevAPIBase()}/discord/savegroup`, {
         requestData: postParams,
     });

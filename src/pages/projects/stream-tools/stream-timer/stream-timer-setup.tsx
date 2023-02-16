@@ -1,13 +1,12 @@
 import { useEffect, useState, useRef } from 'react';
-import { ButtonRow, ContainedButton, Headline2, Headline4, HorizontalRule, Input, InputsWrapper, Option, Select, TextArea, TextToast, ToggleSwitch, useInterval, useToast } from 'gobble-lib-react';
-
+import { ButtonRow, ContainedButton, Headline2, Headline4, HorizontalRule, Input, InputsWrapper, Option, Select, TextArea, TextToast, ToggleSwitch, useFetch, useInterval, useToast } from 'gobble-lib-react';
 import { useAuth } from '../../../../contexts/auth-context';
 import * as timerAPI from './timer-network';
-import { getAppsSiteBase } from '../../../../network/network-helper';
+import { getAppsSiteBase, getDevAPIBase } from '../../../../network/network-helper';
 import { ColorPicker } from '../../../../components/inputs/color-input';
 import { Timer } from '../../../../types/timer';
 import { ContentWrapper } from '../../../../components/setup-page-content';
-import { useFetch } from '../../../../hooks/use-fetch';
+import { getParams } from '../../../../network/auth-network';
 
 export const StreamTimerSetup = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -43,8 +42,9 @@ export const StreamTimerSetup = () => {
     const [fontSize, setFontSize] = useState(12);
     const [fontColor, setFontColor] = useState('');
 
-    const [validTimersData, _, { setData: setValidTimerIDs }] = useFetch<readonly Timer[]>('/streamtimer/timers', {
+    const [validTimersData, _, { setData: setValidTimerIDs }] = useFetch<readonly Timer[]>(`${getDevAPIBase()}/streamtimer/timers`, {
         skip: !authChecked,
+        requestData: getParams
     });
 
     const validTimerIDs = validTimersData ?? [];
@@ -265,7 +265,7 @@ export const StreamTimerSetup = () => {
             <HorizontalRule />
             <Headline4>Settings</Headline4>
             <InputsWrapper>
-                <Input name='timerName' label='Timer Name' value={'timerDisplay'} onChange={e => { setTimerDisplay(e.target.value); }} />
+                <Input name='timerName' label='Timer Name' value='timerDisplay' onChange={e => { setTimerDisplay(e.target.value); }} />
                 <Select name='timerType' label='TimerType' value={timerType} onChange={e => { setTimerType(e.target.value); }}>
                     <Option value='countdown_date'>Countdown To Date</Option>
                     <Option value='countup_date'>Countup To Date</Option>

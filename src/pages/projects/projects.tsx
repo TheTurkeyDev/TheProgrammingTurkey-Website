@@ -1,7 +1,8 @@
-import { Headline3, Headline5, Loading, ProjectTile, ProjectTilesList } from 'gobble-lib-react';
+import { Headline3, Headline5, Loading, ProjectTile, ProjectTilesList, useFetch } from 'gobble-lib-react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useFetch } from '../../hooks/use-fetch';
+import { getParams } from '../../network/auth-network';
+import { getDevAPIBase } from '../../network/network-helper';
 import { ProjectGroup } from '../../types/project.group';
 
 const ProjectsWrapper = styled.div`
@@ -21,7 +22,9 @@ export const Projects = () => {
 
     const group = '';
 
-    const [data, fetching, { error }] = useFetch<ProjectGroups>(`/projects${!group ? '' : `?group=${group}`}`);
+    const [data, fetching, { error }] = useFetch<ProjectGroups>(`${getDevAPIBase()}/projects${!group ? '' : `?group=${group}`}`, {
+        requestData: getParams
+    });
 
     return (
         <ProjectsWrapper>

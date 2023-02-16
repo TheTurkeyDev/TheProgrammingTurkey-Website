@@ -1,9 +1,8 @@
-import { Body1, ButtonRow, Headline2, Headline5, OutlinedButton, TextToast, useToast } from 'gobble-lib-react';
+import { ButtonRow, Headline2, Headline5, OutlinedButton, TextToast, useFetch, useQuery, useToast } from 'gobble-lib-react';
 import { Fragment, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useFetch } from '../../../hooks/use-fetch';
-import { deleteParams, postParams, useQuery } from '../../../hooks/use-query';
+import { deleteParams, getParams, postParams } from '../../../network/auth-network';
 import { getDevAPIBase, getSiteURLBase } from '../../../network/network-helper';
 import { SteamKeyClaimGroup } from '../claim-key/steam-key-claim-group';
 import { SteamKeyClaimGroupMapping } from '../claim-key/steam-key-claim-group-mapping';
@@ -28,7 +27,9 @@ export const SteamKeyManageClaimGroups = () => {
     const { pushToast } = useToast();
     const { id } = useParams();
 
-    const [data, _, { setData }] = useFetch<readonly SteamKeyClaimGroup[]>('/steamkeys/claimgroups');
+    const [data, _, { setData }] = useFetch<readonly SteamKeyClaimGroup[]>(`${getDevAPIBase()}/steamkeys/claimgroups`, {
+        requestData: getParams
+    });
     const url = `${getDevAPIBase()}/steamkeys/list/${id}/claimgroup`;
     const [addGroup, addGroupQuerying] = useQuery<SteamKeyClaimGroupMapping>(url, { requestData: postParams });
     const [removeGroup, removeGroupQuerying] = useQuery<SteamKeyClaimGroupMapping>(url, { requestData: deleteParams });
