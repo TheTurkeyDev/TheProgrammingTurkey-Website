@@ -164,12 +164,24 @@ const picks: { readonly [key: string]: readonly string[] } = {
         'ar',
         'at',
         'williams',
+    ],
+    'Brightlylit': [
+        'merc',
+        'ferrari',
+        'rb',
+        'mclaren',
+        'alpine',
+        'am',
+        'ar',
+        'williams',
+        'haas',
+        'at',
     ]
 };
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: repeat(8, auto) 1fr;
+    grid-template-columns: repeat(9, auto) 1fr;
     margin: 8px;
     gap: 16px;
 `;
