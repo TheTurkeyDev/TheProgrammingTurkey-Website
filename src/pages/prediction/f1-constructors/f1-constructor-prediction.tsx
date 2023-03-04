@@ -1,5 +1,6 @@
-import { Headline6, Subtitle1 } from 'gobble-lib-react';
+import { Body1, Headline6, Subtitle1 } from 'gobble-lib-react';
 import styled from 'styled-components';
+import { IconWithPopOver } from '../../../components/pop-over';
 import { F1Constructor } from './f1-constructor';
 import { F1TeamItem } from './f1-team-item';
 
@@ -151,6 +152,18 @@ const picks: { readonly [key: string]: readonly string[] } = {
         'ar',
         'at',
         'williams',
+    ],
+    'JRights': [
+        'rb',
+        'merc',
+        'ferrari',
+        'am',
+        'alpine',
+        'haas',
+        'mclaren',
+        'ar',
+        'at',
+        'williams',
     ]
 };
 
@@ -159,6 +172,12 @@ const Wrapper = styled.div`
     grid-template-columns: repeat(7, auto) 1fr;
     margin: 8px;
     gap: 16px;
+`;
+
+const PointsWrapper = styled.div`
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 8px;
 `;
 
 
@@ -173,12 +192,19 @@ export const F1ConstructorPredictions = () => {
         <Wrapper>
             <Headline6>Live</Headline6>
             {
-                Object.keys(calcPoints).map(k => <Headline6 style={{textAlign: 'center'}}>{k}</Headline6>)
+                Object.keys(calcPoints).map(k => <Headline6 style={{ textAlign: 'center' }}>{k}</Headline6>)
             }
             <div />
-            <Headline6>Points</Headline6>
+            <PointsWrapper>
+                <Headline6>Points</Headline6>
+                <IconWithPopOver icon='fas fa-info-circle' direction='right'>
+                    <Body1>Lower is better</Body1>
+                    <br />
+                    <Body1>1 point per position guess is off</Body1>
+                </IconWithPopOver>
+            </PointsWrapper>
             {
-                Object.keys(calcPoints).map(k => <Headline6 style={{textAlign: 'center'}}>{calcPoints[k].reduce((prev, curr) => prev + curr, 0)}  </Headline6>)
+                Object.keys(calcPoints).map(k => <Headline6 style={{ textAlign: 'center' }}>{calcPoints[k].reduce((prev, curr) => prev + curr, 0)}  </Headline6>)
             }
             <div />
             {
