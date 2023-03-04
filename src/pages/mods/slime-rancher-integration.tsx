@@ -1,5 +1,10 @@
 import { Body1 } from 'gobble-lib-react';
+import styled from 'styled-components';
 import { ProjectWrapper } from '../../components/project-wrapper';
+
+const ListItem = styled.li`
+    list-style-type: none;
+`;
 
 export const SlimeRancherIntegration = () => {
     return (
@@ -17,31 +22,31 @@ export const SlimeRancherIntegration = () => {
                 based events that get triggered from Twitch events.
             </Body1>
             <Body1>Supported Game Events:</Body1>
-            <ul className='list-group'>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+            <ul>
+                <ListItem>
                     Spawning objects
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Downgrading plots
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Inventory bomb
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Player stats edit
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Move/ Pushing the player
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Adjusting player's money
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Shoot the players gun
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Day / Night toggle
-                </li>
+                </ListItem>
             </ul>
         </ProjectWrapper>
     );

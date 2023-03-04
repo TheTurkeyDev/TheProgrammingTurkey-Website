@@ -26,7 +26,7 @@ export const Dependency = ({ type, value, color, changeValue, deleteDependency }
             <Icon className=' fas fa-trash' onClick={() => setShowModal(true)} />
             <ConfirmationModal
                 show={showModal}
-                text={'Are you sure you want to delete this dependency?'}
+                text='Are you sure you want to delete this dependency?'
                 yesText='Yes'
                 onYesClick={() => {
                     setShowModal(false);

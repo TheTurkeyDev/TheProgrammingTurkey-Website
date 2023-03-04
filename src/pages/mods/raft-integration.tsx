@@ -1,5 +1,10 @@
 import { Body1 } from 'gobble-lib-react';
+import styled from 'styled-components';
 import { ProjectWrapper } from '../../components/project-wrapper';
+
+const ListItem = styled.li`
+    list-style-type: none;
+`;
 
 export const RaftIntegration = () => {
     return (
@@ -17,43 +22,43 @@ export const RaftIntegration = () => {
                 based events that get triggered from Twitch events.
             </Body1>
             <Body1>Supported Game Events:</Body1>
-            <ul className='list-group'>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+            <ul>
+                <ListItem>
                     Sounds
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Chat message
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Give items
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Inventory bomb
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Game stats/ settings edit
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Move/ Pushing the player
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Spawn an entity
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Change the weather
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Change the time of day
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Pickup trash
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Execute a command
-                </li>
-                <li className='list-group-item bg-primary pt-0 pb-0'>
+                </ListItem>
+                <ListItem>
                     Spawn a meteor shower
-                </li>
+                </ListItem>
             </ul>
         </ProjectWrapper>
     );

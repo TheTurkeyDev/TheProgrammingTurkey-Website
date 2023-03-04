@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { ProjectWrapper } from '../../components/project-wrapper';
 
 const ListItem = styled.li`
-    border-color: #131313;
+    border: 1px solid #131313;
+    border-radius: 3px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    list-style-type: none;
 `;
 
 export const TurkeyBot = () => {
@@ -31,7 +35,7 @@ export const TurkeyBot = () => {
             </Body1>
             <Headline4>Some of these tools include:</Headline4>
             <Body1>
-                <ul className='list-group'>
+                <ul>
                     {[
                         'Commands',
                         'Auto-Announcements',
@@ -45,7 +49,7 @@ export const TurkeyBot = () => {
                         'In-chat mini-games',
                     ].map((item, index) => {
                         return (
-                            <ListItem key={index} className='list-group-item bg-primary'>
+                            <ListItem key={index}>
                                 {item}
                             </ListItem>
                         );

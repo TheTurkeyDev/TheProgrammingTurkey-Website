@@ -89,19 +89,19 @@ export const Support = () => {
                 Below is a list of ways you can support me, both monitarily and non-monitarily!
             </Body1>
             <PlatfromBadgeWrapper>
-                <PlatformBadge className='anti-a-white' color={'#6441a5'} href='https://www.twitch.tv/turkeydev/subscribe'>
+                <PlatformBadge color='#6441a5' href='https://www.twitch.tv/turkeydev/subscribe'>
                     <SupportPlatformIcon className='fab fa-twitch' />
                     <SupportPlatformText>Subscribe</SupportPlatformText>
                 </PlatformBadge>
-                <PlatformBadge className='anti-a-white' color={'#00b9fe'} href='https://ko-fi.com/H2H26OY2S'>
+                <PlatformBadge color='#00b9fe' href='https://ko-fi.com/H2H26OY2S'>
                     <SupportPlatformImage src='https://storage.ko-fi.com/cdn/cup-border.png' />
                     <SupportPlatformText>Support Me</SupportPlatformText>
                 </PlatformBadge>
-                <PlatformBadge className='anti-a-white' color={'#333'} href='https://github.com/sponsors/TheTurkeyDev'>
+                <PlatformBadge color='#333' href='https://github.com/sponsors/TheTurkeyDev'>
                     <SupportPlatformIcon className='fab fa-github' />
                     <SupportPlatformText>Sponsor Me</SupportPlatformText>
                 </PlatformBadge>
-                <PlatformBadge className='anti-a-white' color={'#00457C'} href='https://paypal.me/turkeydev'>
+                <PlatformBadge color='#00457C' href='https://paypal.me/turkeydev'>
                     <SupportPlatformIcon className='fab fa-paypal' />
                     <SupportPlatformText>Tip</SupportPlatformText>
                 </PlatformBadge>

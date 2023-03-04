@@ -152,7 +152,7 @@ export const ChanceCubesStatsCharts = () => {
                     [key: string]: number
                 }
             } = {};
-            Object.keys(json.versions).forEach((key) => {
+            Object.keys(json.versions).forEach(key => {
                 const usage = json.versions[key];
                 const parts = key.split('-');
                 const verParts = parts[0].split('.');
@@ -208,7 +208,7 @@ export const ChanceCubesStatsCharts = () => {
                         min='2017-05-05'
                         max={todayStr}
                         value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
+                        onChange={e => setStartDate(e.target.value)}
                     />
                     End:
                     <input
@@ -217,7 +217,7 @@ export const ChanceCubesStatsCharts = () => {
                         min='2017-05-05'
                         max={todayStr}
                         value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
+                        onChange={e => setEndDate(e.target.value)}
                     />
                 </hgroup>
             </header>

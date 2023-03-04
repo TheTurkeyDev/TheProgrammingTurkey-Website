@@ -12,6 +12,10 @@ import { UserPlatformAccount } from './user-platform-account';
 const AccountsWrapper = styled.div`
     max-width: 500px;
     min-width: 500px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
 `;
 
 export const UserPlatformAccountConnections = () => {
@@ -32,10 +36,8 @@ export const UserPlatformAccountConnections = () => {
     };
 
     return (
-        <AccountsWrapper className='fluid-container mx-auto'>
-            <div className='row m-0 text-center'>
-                <Headline3 className='col mt-1'>Connect Accounts!</Headline3>
-            </div>
+        <AccountsWrapper>
+            <Headline3>Connect Accounts!</Headline3>
             {
                 links.map(platformLink => (
                     <UserPlatformAccount

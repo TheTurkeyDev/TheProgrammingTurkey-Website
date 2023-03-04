@@ -15,6 +15,7 @@ import { Loading, NotFound } from 'gobble-lib-react';
 import { lazy, Suspense } from 'react';
 import { PrivacyPolicy } from './pages/legal/privacy-policy';
 import { TermsOfService } from './pages/legal/tos';
+import { F1ConstructorPredictions } from './pages/prediction/f1-constructors/f1-constructor-prediction';
 
 const ChanceCubesRouter = lazy(() => import(/* webpackChunkName: "Chance Cubes" */ './pages/chance-cubes/chance-cubes-router'));
 const ProjectsRouter = lazy(() => import(/* webpackChunkName: "Projects" */ './pages/projects/projects-router'));
@@ -27,6 +28,7 @@ const VideoGenRouter = lazy(() => import(/* webpackChunkName: "Video Generator" 
 const DiscordRouter = lazy(() => import(/* webpackChunkName: "Discord" */ './pages/discord/discord-router'));
 const SteamKeyManagementRouter = lazy(() => import(/* webpackChunkName: "Steam Keys" */ './pages/steam-key-mangement/steam-key-management-router'));
 const GameSettingsRouter = lazy(() => import(/* webpackChunkName: "Game Settings" */ './pages/game-settings/game-settings-router'));
+const PredictionRouter = lazy(() => import(/* webpackChunkName: "Predictions" */ './pages/prediction/prediction-router'));
 
 export const authWrap = (element: JSX.Element, perm?: string) => <AuthRoute perm={perm}>{element}</AuthRoute>;
 
@@ -45,6 +47,7 @@ export const Routing = () => (
             <Route path='/discord/*' element={<DiscordRouter />} />
             <Route path='/steamkeys/*' element={<SteamKeyManagementRouter />} />
             <Route path='/gamesettings/*' element={<GameSettingsRouter />} />
+            <Route path='/predictions/*' element={<PredictionRouter />} />
 
             <Route path='/mod-support' element={<MCModSupport />} />
             <Route path='/ld-stats' element={<LDStats />} />

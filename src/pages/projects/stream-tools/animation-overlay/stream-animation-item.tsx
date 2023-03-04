@@ -47,7 +47,7 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, animSettin
             <ConfirmationModal
                 show={showConfirmationModal}
                 requestClose={() => setShowConfirmationModal(false)}
-                text={'Are you sure you want to delete this animation? You will lose all configured settings!'}
+                text='Are you sure you want to delete this animation? You will lose all configured settings!'
                 yesText='Yes'
                 onYesClick={() => {
                     setShowConfirmationModal(false);
