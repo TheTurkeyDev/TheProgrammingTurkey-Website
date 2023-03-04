@@ -176,12 +176,24 @@ const picks: { readonly [key: string]: readonly string[] } = {
         'williams',
         'haas',
         'at',
+    ],
+    'Trogdor': [
+        'ferrari',
+        'rb',
+        'merc',
+        'mclaren',
+        'am',
+        'williams',
+        'haas',
+        'alpine',
+        'at',
+        'ar',
     ]
 };
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: repeat(9, auto) 1fr;
+    grid-template-columns: repeat(10, auto) 1fr;
     margin: 8px;
     gap: 16px;
 `;

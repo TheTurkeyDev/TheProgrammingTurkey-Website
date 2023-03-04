@@ -23,7 +23,7 @@ const TeamColor = styled.div`
 export const F1TeamItem = ({ team, points, showTeamName = false }: F1TeamItemProps) => {
     return (
         <ItemWrapper>
-            <Body1>{points}</Body1>
+            <Body1 style={{ color: points === 0 && !showTeamName  ? 'green' : '' }}>{points}</Body1>
             <TeamColor style={{ backgroundColor: team.color }} />
             <img src={team.logo} width={32} height={32} />
             {showTeamName && <Body1>{team.name}</Body1>}
