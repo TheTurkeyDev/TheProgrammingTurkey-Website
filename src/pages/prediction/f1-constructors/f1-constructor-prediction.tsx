@@ -1,4 +1,4 @@
-import { Headline6 } from 'gobble-lib-react';
+import { Headline6, Subtitle1 } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { F1Constructor } from './f1-constructor';
 import { F1TeamItem } from './f1-team-item';
@@ -115,14 +115,50 @@ const picks: { readonly [key: string]: readonly string[] } = {
         'mclaren',
         'ar',
         'williams',
+    ],
+    'Beesha': [
+        'merc',
+        'ferrari',
+        'rb',
+        'am',
+        'alpine',
+        'mclaren',
+        'haas',
+        'ar',
+        'williams',
+        'at',
+    ],
+    'OrdinaryRock': [
+        'ferrari',
+        'rb',
+        'merc',
+        'williams',
+        'am',
+        'ar',
+        'haas',
+        'alpine',
+        'at',
+        'mclaren',
+    ],
+    'JuiceOSour': [
+        'rb',
+        'ferrari',
+        'alpine',
+        'merc',
+        'am',
+        'haas',
+        'mclaren',
+        'ar',
+        'at',
+        'williams',
     ]
 };
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(7, auto) 1fr;
     margin: 8px;
-    gap: 4px;
+    gap: 16px;
 `;
 
 
@@ -137,15 +173,22 @@ export const F1ConstructorPredictions = () => {
         <Wrapper>
             <Headline6>Live</Headline6>
             {
-                Object.keys(calcPoints).map(k => <Headline6>{k} ({calcPoints[k].reduce((prev, curr) => prev + curr, 0)})</Headline6>)
+                Object.keys(calcPoints).map(k => <Headline6 style={{textAlign: 'center'}}>{k}</Headline6>)
             }
+            <div />
+            <Headline6>Points</Headline6>
+            {
+                Object.keys(calcPoints).map(k => <Headline6 style={{textAlign: 'center'}}>{calcPoints[k].reduce((prev, curr) => prev + curr, 0)}  </Headline6>)
+            }
+            <div />
             {
                 Array.from({ length: 10 }, (_, i) => (
                     <>
-                        <F1TeamItem team={teams.find(c => c.id === orderedStandings[i])!} points={liveStandings[orderedStandings[i]]} />
+                        <F1TeamItem team={teams.find(c => c.id === orderedStandings[i])!} points={liveStandings[orderedStandings[i]]} showTeamName={true} />
                         {
                             Object.keys(picks).map(p => <F1TeamItem team={teams.find(c => c.id === picks[p][i])!} points={calcPoints[p][i]} />)
                         }
+                        <div />
                     </>
                 ))
             }

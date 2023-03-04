@@ -5,12 +5,14 @@ import { F1Constructor } from './f1-constructor';
 type F1TeamItemProps = {
     readonly team: F1Constructor
     readonly points: number
+    readonly showTeamName?: boolean
 }
 
 const ItemWrapper = styled.div`
     display: grid;
-    grid-template-columns: 32px 8px auto 1fr 16px;
+    grid-template-columns: 24px 8px auto 1fr 16px;
     align-items: center;
+    min-width: 100px;
 `;
 
 const TeamColor = styled.div`
@@ -18,13 +20,13 @@ const TeamColor = styled.div`
     height: calc(100% - 6px);
 `;
 
-export const F1TeamItem = ({ team, points }: F1TeamItemProps) => {
+export const F1TeamItem = ({ team, points, showTeamName = false }: F1TeamItemProps) => {
     return (
         <ItemWrapper>
             <Body1>{points}</Body1>
             <TeamColor style={{ backgroundColor: team.color }} />
             <img src={team.logo} width={32} height={32} />
-            <Body1>{team.name}</Body1>
+            {showTeamName && <Body1>{team.name}</Body1>}
         </ItemWrapper>
     );
 };
