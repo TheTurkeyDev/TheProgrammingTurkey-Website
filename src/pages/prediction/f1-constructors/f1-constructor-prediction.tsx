@@ -67,17 +67,17 @@ const teams: readonly F1Constructor[] = [
     }
 ];
 
-const liveStandings: { readonly [key: string]: number } = {
-    rb: 0,
-    ferrari: 0,
-    merc: 0,
-    alpine: 0,
-    mclaren: 0,
-    ar: 0,
-    am: 0,
-    haas: 0,
-    at: 0,
-    williams: 0,
+const liveStandings: { readonly [key: string]: { readonly p: number, readonly tb: number } } = {
+    rb: { p: 43, tb: 0 },
+    ferrari: { p: 12, tb: 0 },
+    merc: { p: 16, tb: 0 },
+    alpine: { p: 2, tb: 0 },
+    mclaren: { p: 0, tb: 0 },
+    ar: { p: 4, tb: 0 },
+    am: { p: 23, tb: 0 },
+    haas: { p: 0, tb: 1 },
+    at: { p: 0, tb: 2 },
+    williams: { p: 1, tb: 0 },
 };
 
 const picks: { readonly [key: string]: readonly string[] } = {
@@ -205,7 +205,7 @@ const PointsWrapper = styled.div`
 `;
 
 
-const orderedStandings = Object.keys(liveStandings).sort((a, b) => liveStandings[b] - liveStandings[a]);
+const orderedStandings = Object.keys(liveStandings).sort((a, b) => liveStandings[b].p === liveStandings[a].p ? liveStandings[b].tb - liveStandings[a].tb  : liveStandings[b].p - liveStandings[a].p);
 const calculatePoints = (team: string, index: number) => Math.abs(index - orderedStandings.indexOf(team));
 
 export const F1ConstructorPredictions = () => {
@@ -234,7 +234,7 @@ export const F1ConstructorPredictions = () => {
             {
                 Array.from({ length: 10 }, (_, i) => (
                     <>
-                        <F1TeamItem team={teams.find(c => c.id === orderedStandings[i])!} points={liveStandings[orderedStandings[i]]} showTeamName={true} />
+                        <F1TeamItem team={teams.find(c => c.id === orderedStandings[i])!} points={liveStandings[orderedStandings[i]].p} showTeamName={true} />
                         {
                             Object.keys(picks).map(p => <F1TeamItem team={teams.find(c => c.id === picks[p][i])!} points={calcPoints[p][i]} />)
                         }
