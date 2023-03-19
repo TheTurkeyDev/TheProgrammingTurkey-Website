@@ -68,15 +68,15 @@ const teams: readonly F1Constructor[] = [
 ];
 
 const liveStandings: { readonly [key: string]: { readonly p: number, readonly tb: number } } = {
-    rb: { p: 43, tb: 0 },
-    ferrari: { p: 12, tb: 0 },
-    merc: { p: 16, tb: 0 },
-    alpine: { p: 2, tb: 0 },
+    rb: { p: 86, tb: 0 },
+    ferrari: { p: 26, tb: 0 },
+    merc: { p: 38, tb: 0 },
+    alpine: { p: 8, tb: 0 },
     mclaren: { p: 0, tb: 0 },
     ar: { p: 4, tb: 0 },
-    am: { p: 23, tb: 0 },
-    haas: { p: 0, tb: 1 },
-    at: { p: 0, tb: 2 },
+    am: { p: 38, tb: 1 },
+    haas: { p: 1, tb: 1 },
+    at: { p: 0, tb: 1 },
     williams: { p: 1, tb: 0 },
 };
 
@@ -205,18 +205,26 @@ const PointsWrapper = styled.div`
 `;
 
 
-const orderedStandings = Object.keys(liveStandings).sort((a, b) => liveStandings[b].p === liveStandings[a].p ? liveStandings[b].tb - liveStandings[a].tb  : liveStandings[b].p - liveStandings[a].p);
+const orderedStandings = Object.keys(liveStandings).sort((a, b) => liveStandings[b].p === liveStandings[a].p ? liveStandings[b].tb - liveStandings[a].tb : liveStandings[b].p - liveStandings[a].p);
 const calculatePoints = (team: string, index: number) => Math.abs(index - orderedStandings.indexOf(team));
 
 export const F1ConstructorPredictions = () => {
 
     const calcPoints = Object.fromEntries(Object.entries(picks).map(([k, v]) => [k, Array.from({ length: 10 }, (_, i) => calculatePoints(v[i], i))]));
 
+    const sortedPicks = Object.keys(picks).sort((a, b) => {
+        const aPoints = calcPoints[a].reduce((p, c) => p + c, 0);
+        const bPoints = calcPoints[b].reduce((p, c) => p + c, 0);
+        return aPoints - bPoints;
+    });
+
+    console.log(sortedPicks);
+
     return (
         <Wrapper>
             <Headline6>Live</Headline6>
             {
-                Object.keys(calcPoints).map(k => <Headline6 style={{ textAlign: 'center' }}>{k}</Headline6>)
+                sortedPicks.map(k => <Headline6 style={{ textAlign: 'center' }}>{k}</Headline6>)
             }
             <div />
             <PointsWrapper>
@@ -228,7 +236,7 @@ export const F1ConstructorPredictions = () => {
                 </IconWithPopOver>
             </PointsWrapper>
             {
-                Object.keys(calcPoints).map(k => <Headline6 style={{ textAlign: 'center' }}>{calcPoints[k].reduce((prev, curr) => prev + curr, 0)}  </Headline6>)
+                sortedPicks.map(k => <Headline6 style={{ textAlign: 'center' }}>{calcPoints[k].reduce((prev, curr) => prev + curr, 0)}  </Headline6>)
             }
             <div />
             {
@@ -236,7 +244,7 @@ export const F1ConstructorPredictions = () => {
                     <>
                         <F1TeamItem team={teams.find(c => c.id === orderedStandings[i])!} points={liveStandings[orderedStandings[i]].p} showTeamName={true} />
                         {
-                            Object.keys(picks).map(p => <F1TeamItem team={teams.find(c => c.id === picks[p][i])!} points={calcPoints[p][i]} />)
+                            sortedPicks.map(p => <F1TeamItem team={teams.find(c => c.id === picks[p][i])!} points={calcPoints[p][i]} />)
                         }
                         <div />
                     </>
