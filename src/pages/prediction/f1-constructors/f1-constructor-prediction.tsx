@@ -68,16 +68,16 @@ const teams: readonly F1Constructor[] = [
 ];
 
 const liveStandings: { readonly [key: string]: { readonly p: number, readonly tb: number } } = {
-    rb: { p: 87, tb: 0 },
+    rb: { p: 123, tb: 0 },
+    am: { p: 65, tb: 0 },
+    merc: { p: 56, tb: 0 },
     ferrari: { p: 26, tb: 0 },
-    merc: { p: 38, tb: 0 },
+    mclaren: { p: 12, tb: 0 },
     alpine: { p: 8, tb: 0 },
-    mclaren: { p: 0, tb: 0 },
-    ar: { p: 4, tb: 0 },
-    am: { p: 38, tb: 1 },
-    haas: { p: 1, tb: 1 },
-    at: { p: 0, tb: 1 },
+    haas: { p: 7, tb: 0 },
+    ar: { p: 6, tb: 0 },
     williams: { p: 1, tb: 0 },
+    at: { p: 1, tb: 1 },
 };
 
 const picks: { readonly [key: string]: readonly string[] } = {
