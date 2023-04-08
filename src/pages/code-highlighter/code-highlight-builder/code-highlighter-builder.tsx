@@ -1,9 +1,10 @@
-import { ButtonRow, ContainedButton, Headline2, OutlinedButton, useQuery } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline2, OutlinedButton, TextToast, useQuery, useToast } from 'gobble-lib-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { postParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
+import { RenderResp } from '../render-response';
 import { AddDirectiveModal } from './code-highlighter-add-directive-modal';
 import { ImportFileModal } from './code-highlighter-import-file-modal';
 import { ImportJsonModal } from './code-highlighter-import-json';
@@ -26,21 +27,18 @@ export type CodeMap = {
     readonly code: string
 }
 
-type RenderResp = {
-    readonly id: string,
-    readonly format: string
-}
-
 export const CodeHighlighterBuilder = () => {
     const navigate = useNavigate();
+    const { pushToast } = useToast();
     const [directives, setDirectives] = useState<readonly Directive[]>([]);
     const [codeFiles, setCodeFiles] = useState<readonly CodeMap[]>([]);
     const [showJsonImport, setShowJsonImport] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showFileInportModal, setShowFileInportModal] = useState(false);
 
-    const [query] = useQuery<RenderResp>(`${getDevAPIBase()}/render/generate`, {
-        requestData: postParams
+    const [query] = useQuery<RenderResp>(`${getDevAPIBase()}/render/generate/CodeHighlight`, {
+        requestData: postParams,
+        shouldThrow: true
     });
 
     const addCode = (name: string, code: string) => {
@@ -49,12 +47,9 @@ export const CodeHighlighterBuilder = () => {
     };
 
     const genJson = () => {
-        query(JSON.stringify({
-            git: 'git@github.com:TheTurkeyDev/YouTube-Video-Gen.git',
-            compositionId: 'CodeHighlight',
-            entry: '/app/temp/src/remotion.tsx',
-            directives
-        })).then(() => navigate('/videogen'));
+        query(JSON.stringify(directives)).then(() => navigate('/videogen')).catch(e => {
+            pushToast(<TextToast text={`Error!: ${e.message}\n${e.error}`} />);
+        });;
     };
 
     const addNewDirective = (type: DirectiveType) => {

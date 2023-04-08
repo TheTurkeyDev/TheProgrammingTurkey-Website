@@ -1,9 +1,12 @@
-import { Accordion, ButtonRow, Headline2, Headline4, Headline5, Input, InputsWrapper, OutlinedButton } from 'gobble-lib-react';
+import { Accordion, ButtonRow, ContainedButton, Headline2, Headline4, Headline5, Input, InputsWrapper, OutlinedButton, TextToast, useQuery, useToast } from 'gobble-lib-react';
 import { createRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ColorPicker } from '../../../components/inputs/color-input';
-import { getVideoGenSiteBase } from '../../../network/network-helper';
+import { postParams } from '../../../network/auth-network';
+import { getDevAPIBase, getVideoGenSiteBase } from '../../../network/network-helper';
 import { clamp } from '../../../util/number-helper';
+import { RenderResp } from '../render-response';
 import { ScoreboardData } from './scoreboard-data';
 import { ScoreboardGenData } from './scoreboard-gen-data';
 import { ScoreboardSegmentData, ScoreboardVideoSegment } from './scoreboard-video-segment';
@@ -63,20 +66,26 @@ const HOME = 0b1;
 const AWAY = 0b10;
 
 export const ScoreboardVideoBuilder = () => {
+    const navigate = useNavigate();
+    const { pushToast } = useToast();
     const iframeRef = createRef<HTMLIFrameElement>();
     const [baseData, setBaseData] = useState<ScoreboardGenData>(defaultBaseData);
     const [homeBaseData, setHomeBaseData] = useState<ScoreboardData>(defaultData);
     const [awayBaseData, setAwayBaseData] = useState<ScoreboardData>(defaultData);
     const [videoSegments, setVideoSegments] = useState<readonly ScoreboardSegmentData[]>([]);
 
-    useEffect(() => {
-        const data: ComponentData = {
-            id: 'HeatScoreboard',
-            props: videoSegments.map(segmentData => {
+    const [query] = useQuery<RenderResp>(`${getDevAPIBase()}/render/generate/HeatScoreboard`, {
+        requestData: postParams,
+        shouldThrow: true
+    });
+
+    const getData = () => {
+        return {
+            width: baseData.width,
+            height: baseData.height,
+            videoSegments: videoSegments.map(segmentData => {
                 const teamBaseData = segmentData.isHome ? homeBaseData : awayBaseData;
                 return {
-                    width: baseData.width,
-                    height: baseData.height,
                     split: segmentData.split ?? teamBaseData.split,
                     primaryText: segmentData.primaryText ?? teamBaseData.primaryText,
                     primaryColor: `#${segmentData.primaryColor ?? teamBaseData.primaryColor}`,
@@ -97,8 +106,20 @@ export const ScoreboardVideoBuilder = () => {
                 };
             })
         };
-        iframeRef.current?.contentWindow?.postMessage(data, '*');
+    };
+
+    useEffect(() => {
+        iframeRef.current?.contentWindow?.postMessage({
+            id: 'HeatScoreboard',
+            props: getData()
+        }, '*');
     }, [iframeRef, homeBaseData, awayBaseData, videoSegments]);
+
+    const genJson = () => {
+        query(JSON.stringify(getData()))
+            .then(() => navigate('/videogen'))
+            .catch(e => pushToast(<TextToast text={`Error!: ${e.message}\n${e.error}`} />));
+    };
 
     const updateBaseValue = (key: string, value: number) => {
         setBaseData(old => ({
@@ -133,6 +154,9 @@ export const ScoreboardVideoBuilder = () => {
     return (
         <Wrapper>
             <Headline2>Scoreboard Builder</Headline2>
+            <ButtonRow>
+                <ContainedButton disabled={videoSegments.length === 0} onClick={() => genJson()}>Render</ContainedButton>
+            </ButtonRow>
             <PreviewWrapper>
                 <Headline5>Preview</Headline5>
                 <iframe src={getVideoGenSiteBase()} ref={iframeRef} style={{ width: baseData.width, height: baseData.height }} />

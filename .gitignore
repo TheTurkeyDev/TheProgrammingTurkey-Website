@@ -2,3 +2,4 @@ package-lock.json
 node_modules/
 dist/bundle.js
 dist/*.js
+dist/bundle.js.LICENSE.txt

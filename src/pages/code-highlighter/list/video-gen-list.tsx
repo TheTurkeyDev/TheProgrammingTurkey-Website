@@ -1,6 +1,7 @@
 import { ButtonRow, ContainedButton, Headline2, Headline6, useFetch } from 'gobble-lib-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { CircleLoadingBar } from '../../../components/circle-loading-bar';
 import { getParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { VideoGenRender } from './video-gen-render-data';
@@ -19,13 +20,22 @@ const ListWrapper = styled.div`
     display: grid;
     gap: 8px;
     grid-template-columns: auto auto auto auto auto;
+    grid-auto-rows: 48px;
+    align-items: center;
 `;
 
 export const VideoGenList = () => {
     const navigate = useNavigate();
-    const [data] = useFetch<readonly VideoGenRender[]>(`${getDevAPIBase()}/render/list`, {
+    const [data, _, { setData }] = useFetch<readonly VideoGenRender[]>(`${getDevAPIBase()}/render/list`, {
         requestData: getParams
     });
+
+    const updateStatus = (updated: VideoGenRender) => {
+        setData(old => [
+            ...(old ?? []).filter(v => v.id !== updated.id),
+            updated
+        ]);
+    };
 
     return (
         <Content>
@@ -40,7 +50,9 @@ export const VideoGenList = () => {
                 <Headline6>Created At</Headline6>
                 <Headline6>Download</Headline6>
                 {
-                    [...(data ?? [])].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()).map(v => <VideoGenVideo key={v.id} video={v} />)
+                    [...(data ?? [])].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()).map(v => (
+                        <VideoGenVideo key={v.id} video={v} updateStatus={updateStatus} />
+                    ))
                 }
             </ListWrapper>
         </Content>

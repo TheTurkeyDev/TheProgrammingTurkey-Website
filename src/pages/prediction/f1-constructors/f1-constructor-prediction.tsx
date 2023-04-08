@@ -76,8 +76,8 @@ const liveStandings: { readonly [key: string]: { readonly p: number, readonly tb
     alpine: { p: 8, tb: 0 },
     haas: { p: 7, tb: 0 },
     ar: { p: 6, tb: 0 },
-    williams: { p: 1, tb: 0 },
     at: { p: 1, tb: 1 },
+    williams: { p: 1, tb: 0 },
 };
 
 const picks: { readonly [key: string]: readonly string[] } = {
