@@ -215,10 +215,15 @@ export const F1ConstructorPredictions = () => {
     const sortedPicks = Object.keys(picks).sort((a, b) => {
         const aPoints = calcPoints[a].reduce((p, c) => p + c, 0);
         const bPoints = calcPoints[b].reduce((p, c) => p + c, 0);
-        return aPoints - bPoints;
-    });
 
-    console.log(sortedPicks);
+        if (aPoints !== bPoints)
+            return aPoints - bPoints;
+
+        const aExact = calcPoints[a].reduce((p, c) => c === 0 ? p + 1 : p, 0);
+        const bExact = calcPoints[b].reduce((p, c) => c === 0 ? p + 1 : p, 0);
+
+        return aExact - bExact;
+    });
 
     return (
         <Wrapper>
