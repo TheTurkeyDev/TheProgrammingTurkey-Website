@@ -222,7 +222,7 @@ export const F1ConstructorPredictions = () => {
         const aExact = calcPoints[a].reduce((p, c) => c === 0 ? p + 1 : p, 0);
         const bExact = calcPoints[b].reduce((p, c) => c === 0 ? p + 1 : p, 0);
 
-        return aExact - bExact;
+        return bExact - aExact;
     });
 
     return (
