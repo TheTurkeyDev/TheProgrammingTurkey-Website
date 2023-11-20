@@ -51,7 +51,7 @@ export const TopNav = () => {
                 </Dropdown>
             </CollapsibleCenterContent>
             <Dropdown>
-                {authState ? <UserAvatar src={avatar} /> : <UserIcon className='fas fa-user-circle' />}
+                {authState ? <UserAvatar src={avatar} alt='Avatar Missing'/> : <UserIcon className='fas fa-user-circle' />}
                 <DropdownContent sideAnchor='right'>
                     {authState ? <DropdownLinkItem to='/user/profile'>Profile</DropdownLinkItem> : <></>}
                     {authState ? <DropdownLinkItem to='/logout'>Logout</DropdownLinkItem> : <LoginButton />}
