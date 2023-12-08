@@ -47,6 +47,8 @@ export const AuthWrapper = ({ children }: WithChildren) => {
                     setAuthChecked(true);
                 }
                 setAuthState(json.loggedin);
+            }).catch(() => {
+                setAuthChecked(true);
             });
         }
         if (!authChecked)
