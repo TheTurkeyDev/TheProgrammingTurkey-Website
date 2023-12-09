@@ -132,11 +132,11 @@ export const CFBMyPicks = () => {
                                 <TeamLogo src={g.homeLogo} style={homeStyles} onClick={() => onTeamClicked(g.id, g.homeId)} />
                                 <TeamLogo src={g.awayLogo} style={awayStyles} onClick={() => onTeamClicked(g.id, g.awayId)} />
                                 <Body1>{g.awayName}</Body1>
-                                <Select value={pickData?.points ?? -1} onChange={e => onPointsChange(g.id, parseInt(e.target.value))} disabled={!homePicked && !awayPicked}>
+                                <Select value={pickData?.points ?? 0} onChange={e => onPointsChange(g.id, parseInt(e.target.value))} disabled={!homePicked && !awayPicked}>
                                     <Option value={0}>N/A</Option>
                                     {
                                         pointChoices
-                                            .filter(v => (v === pickData?.points ?? -1) || !myPicks?.find(mp => mp.points === v))
+                                            .filter(v => (v === pickData?.points ?? 0) || !myPicks?.find(mp => mp.points === v))
                                             .map(p => <Option key={p}>{p}</Option>)
                                     }
                                 </Select>
