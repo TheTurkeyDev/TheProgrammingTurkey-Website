@@ -4,7 +4,7 @@ import { getDevAPIBase } from '../../../../network/network-helper';
 import { getParams, postParams } from '../../../../network/auth-network';
 import { GameData } from '../college-football-bowls-prediction-game-data';
 import styled from 'styled-components';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { PicksData } from '../college-football-bowls-prediction-picks-data';
 
 const PageWrapper = styled.div`
@@ -18,10 +18,12 @@ const GamesList = styled.div`
     max-width: 500px;
     margin-inline: auto;
     display: grid;
-    grid-template-columns: 96px 96px min-content;
+    grid-template-columns: 96px 64px 64px 96px min-content;
     align-items: center;
     justify-items: center;
-    gap: 16px;
+    text-align: center;
+    column-gap: 16px;
+    row-gap: 4px;
 `;
 
 const TeamWrapper = styled.div`
@@ -32,8 +34,8 @@ const TeamWrapper = styled.div`
 `;
 
 const TeamLogo = styled.img`
-    width: 96px;
-    height: 96px;
+    width: 64px;
+    height: 64px;
 
     &:hover {
         cursor: pointer;
@@ -114,8 +116,10 @@ export const CFBMyPicks = () => {
                 <ContainedButton loading={saving} onClick={onSave}>Save</ContainedButton>
             </ButtonRow>
             <GamesList>
+                <div />
                 <Headline5>Home</Headline5>
                 <Headline5>Away</Headline5>
+                <div />
                 <Headline5>Points</Headline5>
                 {
                     games?.map(g => {
@@ -127,14 +131,10 @@ export const CFBMyPicks = () => {
 
                         return (
                             <Fragment key={g.id}>
-                                <TeamWrapper>
-                                    <TeamLogo src={g.homeLogo} style={homeStyles} onClick={() => onTeamClicked(g.id, g.homeId)} />
-                                    <Body1>{g.homeName}</Body1>
-                                </TeamWrapper>
-                                <TeamWrapper>
-                                    <TeamLogo src={g.awayLogo} style={awayStyles} onClick={() => onTeamClicked(g.id, g.awayId)} />
-                                    <Body1>{g.awayName}</Body1>
-                                </TeamWrapper>
+                                <Body1>{g.homeName}</Body1>
+                                <TeamLogo src={g.homeLogo} style={homeStyles} onClick={() => onTeamClicked(g.id, g.homeId)} />
+                                <TeamLogo src={g.awayLogo} style={awayStyles} onClick={() => onTeamClicked(g.id, g.awayId)} />
+                                <Body1>{g.awayName}</Body1>
                                 <Select value={pickData?.points ?? -1} onChange={e => onPointsChange(g.id, parseInt(e.target.value))} disabled={!homePicked && !awayPicked}>
                                     <Option value={0}>N/A</Option>
                                     {
