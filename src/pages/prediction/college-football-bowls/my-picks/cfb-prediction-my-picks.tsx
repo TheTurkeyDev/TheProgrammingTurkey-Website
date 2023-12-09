@@ -1,4 +1,4 @@
-import { Body1, ButtonRow, ContainedButton, Headline2, Headline5, Option, OutlinedButton, Select, useFetch, useQuery } from 'gobble-lib-react';
+import { Body1, ButtonRow, ContainedButton, Headline2, Headline5, Option, OutlinedButton, Select, TextToast, useFetch, useQuery, useToast } from 'gobble-lib-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDevAPIBase } from '../../../../network/network-helper';
 import { getParams, postParams } from '../../../../network/auth-network';
@@ -26,13 +26,6 @@ const GamesList = styled.div`
     row-gap: 4px;
 `;
 
-const TeamWrapper = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
-`;
-
 const TeamLogo = styled.img`
     width: 64px;
     height: 64px;
@@ -46,6 +39,7 @@ const TeamLogo = styled.img`
 export const CFBMyPicks = () => {
     const { groupId } = useParams();
     const navigate = useNavigate();
+    const { pushToast } = useToast();
 
     const [games, loadingGames] = useFetch<readonly GameData[]>(`${getDevAPIBase()}/predictions/fbs-bowl/games`, {
         requestData: getParams
@@ -55,7 +49,8 @@ export const CFBMyPicks = () => {
     });
 
     const [savePicks, saving] = useQuery<readonly PicksData[]>(`${getDevAPIBase()}/predictions/fbs-bowl/group/${groupId}/my-picks`, {
-        requestData: postParams
+        requestData: postParams,
+        shouldThrow: true,
     });
 
     const [dirty, setDirty] = useState(false);
@@ -95,12 +90,14 @@ export const CFBMyPicks = () => {
     };
 
     const onSave = () => {
-        console.log('here!', myPicks);
         if (!myPicks)
             return;
         savePicks(JSON.stringify(myPicks)).then(resp => {
             setData(resp ?? []);
             setDirty(false);
+            pushToast(<TextToast text='Picks Saved!' />);
+        }).catch(e => {
+            pushToast(<TextToast text={e.message} />);
         });
     };
 
