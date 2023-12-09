@@ -1,5 +1,6 @@
 import { Body1, Headline5 } from 'gobble-lib-react';
 import styled from 'styled-components';
+import { UserPicksData } from './college-football-bowls-prediction-user-picks-data';
 
 const UserName = styled.div`
     padding-inline: 4px;
