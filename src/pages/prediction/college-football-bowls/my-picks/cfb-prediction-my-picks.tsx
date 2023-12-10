@@ -64,7 +64,7 @@ export const CFBMyPicks = () => {
                     picksId: -1,
                     gameId,
                     pick: teamId,
-                    points: -1
+                    points: 0
                 }),
                 pick: teamId
             }
@@ -81,7 +81,7 @@ export const CFBMyPicks = () => {
                     picksId: -1,
                     gameId,
                     pick: games?.find(g => g.id === gameId)?.homeId!,
-                    points: -1
+                    points: 0
                 }),
                 points
             }
