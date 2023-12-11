@@ -1,5 +1,6 @@
 export type GameData = {
     readonly id: number
+    readonly gameTime: string
     readonly winnerId: number
     readonly homeId: number
     readonly homeName: string

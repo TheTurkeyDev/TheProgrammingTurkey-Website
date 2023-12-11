@@ -12,6 +12,12 @@ const PageContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
+    gap: 8px;
+`;
+
+const GamesTableScrollWrapper = styled.div`
+    width: 100%;
+    overflow-x: auto;
 `;
 
 const GamesTable = styled.div`
@@ -27,6 +33,7 @@ const TimeWrapper = styled.div`
     justify-items: center;
     height: fit-content;
     align-self: center;
+    width: max-content;
 `;
 
 const GameWrapper = styled.div`
@@ -77,46 +84,49 @@ export const CollegeFootballBowlsPrediction = () => {
         <PageContainer>
             <Headline2>FBS Bowls Predictions</Headline2>
             <ContainedButton onClick={() => navigate('my-picks')}>Edit My Picks</ContainedButton>
-            <GamesTable style={{ gridTemplateColumns: `repeat(${userPicks.length + 2}, auto) 1fr` }}>
-                {HeaderLine('', userPicks, false, k => k.userName)}
-                {HeaderLine('Points', userPicks, false, k => k.points ?? '')}
-                {HeaderLine('Max Points', userPicks, true, k => k.maxPoints ?? '')}
-                {HeaderLine('Correct', userPicks, true, k => k.correct ?? '')}
-                {
-                    games?.map(g => {
-                        const homeWon = !!g.winnerId && g.winnerId === g.homeId;
-                        const awayWon = !!g.winnerId && g.winnerId === g.awayId;
-                        const homeStyles = { filter: awayWon ? 'grayscale(0.75)' : '', opacity: awayWon ? '0.5' : '1' };
-                        const awayStyles = { filter: homeWon ? 'grayscale(0.75)' : '', opacity: homeWon ? '0.5' : '1' };
-                        return (
-                            <Fragment key={g.id}>
-                                <TimeWrapper>
-                                    <Body1>Date</Body1>
-                                    <Body1>Time</Body1>
-                                </TimeWrapper>
-                                <GameWrapper>
-                                    <TeamLogo src={g.homeLogo} style={homeStyles} />
-                                    <VerticalLine />
-                                    <TeamLogo src={g.awayLogo} style={awayStyles} />
-                                </GameWrapper>
-                                {
-                                    userPicks.map((upd, i) => {
-                                        const userGamePick = upd.picks.find(up => up.gameId === g.id);
-                                        const isHomePick = g.homeId === userGamePick?.pick;
-                                        const logo = isHomePick ? g.homeLogo : g.awayLogo;
-                                        return (
-                                            <PickWrapper key={upd.userId} style={{ backgroundColor: i % 2 === 0 ? '#5d76d933' : '' }}>
-                                                {userGamePick ? <TeamLogo src={logo} style={isHomePick ? homeStyles : awayStyles} /> : <Body1>N/A</Body1>}
-                                                <PointsText style={{ color: (homeWon && isHomePick) || (awayWon && !isHomePick) ? 'green' : ((homeWon && !isHomePick) || (awayWon && isHomePick) ? 'red' : '') }}>{userGamePick?.points}</PointsText>
-                                            </PickWrapper>);
-                                    })
-                                }
-                                <div />
-                            </Fragment>
-                        );
-                    })
-                }
-            </GamesTable>
+            <GamesTableScrollWrapper>
+                <GamesTable style={{ gridTemplateColumns: `repeat(${userPicks.length + 2}, min-content) 1fr` }}>
+                    {HeaderLine('', userPicks, false, k => k.userName)}
+                    {HeaderLine('Points', userPicks, false, k => k.points ?? '')}
+                    {HeaderLine('Max Points', userPicks, true, k => k.maxPoints ?? '')}
+                    {HeaderLine('Correct', userPicks, true, k => k.correct ?? '')}
+                    {
+                        games?.map(g => {
+                            const homeWon = !!g.winnerId && g.winnerId === g.homeId;
+                            const awayWon = !!g.winnerId && g.winnerId === g.awayId;
+                            const homeStyles = { filter: awayWon ? 'grayscale(0.75)' : '', opacity: awayWon ? '0.5' : '1' };
+                            const awayStyles = { filter: homeWon ? 'grayscale(0.75)' : '', opacity: homeWon ? '0.5' : '1' };
+                            const dateTime = new Date(g.gameTime);
+                            return (
+                                <Fragment key={g.id}>
+                                    <TimeWrapper>
+                                        <Body1>{dateTime.toLocaleDateString('en-US', { day: 'numeric', month: 'short' })}</Body1>
+                                        <Body1>{dateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hourCycle: 'h12' })}</Body1>
+                                    </TimeWrapper>
+                                    <GameWrapper>
+                                        <TeamLogo src={g.homeLogo} style={homeStyles} />
+                                        <VerticalLine />
+                                        <TeamLogo src={g.awayLogo} style={awayStyles} />
+                                    </GameWrapper>
+                                    {
+                                        userPicks.map((upd, i) => {
+                                            const userGamePick = upd.picks.find(up => up.gameId === g.id);
+                                            const isHomePick = g.homeId === userGamePick?.pick;
+                                            const logo = isHomePick ? g.homeLogo : g.awayLogo;
+                                            return (
+                                                <PickWrapper key={upd.userId} style={{ backgroundColor: i % 2 === 0 ? '#5d76d933' : '' }}>
+                                                    {userGamePick ? <TeamLogo src={logo} style={isHomePick ? homeStyles : awayStyles} /> : <Body1>N/A</Body1>}
+                                                    <PointsText style={{ color: (homeWon && isHomePick) || (awayWon && !isHomePick) ? 'green' : ((homeWon && !isHomePick) || (awayWon && isHomePick) ? 'red' : '') }}>{userGamePick?.points}</PointsText>
+                                                </PickWrapper>);
+                                        })
+                                    }
+                                    <div />
+                                </Fragment>
+                            );
+                        })
+                    }
+                </GamesTable>
+            </ GamesTableScrollWrapper>
         </PageContainer>
     );
 };
