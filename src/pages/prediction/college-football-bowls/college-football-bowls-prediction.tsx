@@ -78,7 +78,13 @@ export const CollegeFootballBowlsPrediction = () => {
         requestData: getParams
     });
 
-    const userPicks = groupPicks?.userPicks ?? [];
+    const userPicks = [...(groupPicks?.userPicks ?? [])].sort((a, b) => {
+        if (a.points !== b.points)
+            return b.points - a.points;
+        if (a.correct !== b.correct)
+            return b.correct - a.correct;
+        return 1;
+    });
 
     return (
         <PageContainer>
