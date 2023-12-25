@@ -37,14 +37,14 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "gobble-lib-react": "^1.0.105",
+    "gobble-lib-react": "^1.0.109",
     "chartjs-react": "^4.1.0",
     "multiselect-react-dropdown": "^2.0.25",
     "promise": "^8.3.0",
     "react": "^18.2.0",
     "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.0",
+    "react-router-dom": "^6.21.1",
     "styled-components": "^5.3.6"
   }
 }
