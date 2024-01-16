@@ -1,7 +1,7 @@
-import { Accordion, ButtonRow, ContainedButton, Headline2, Headline4, Headline5, Input, InputsWrapper, OutlinedButton, TextToast, useQuery, useToast } from 'gobble-lib-react';
+import { Accordion, BaseTheme, ButtonRow, ContainedButton, Headline2, Headline4, Icon, Input, InputsWrapper, OutlinedButton, TextToast, useQuery, useToast } from 'gobble-lib-react';
 import { createRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { ThemeProps } from 'styled-components';
 import { ColorPicker } from '../../../components/inputs/color-input';
 import { postParams } from '../../../network/auth-network';
 import { getDevAPIBase, getVideoGenSiteBase } from '../../../network/network-helper';
@@ -10,11 +10,6 @@ import { RenderResp } from '../render-response';
 import { ScoreboardData } from './scoreboard-data';
 import { ScoreboardGenData } from './scoreboard-gen-data';
 import { ScoreboardSegmentData, ScoreboardVideoSegment } from './scoreboard-video-segment';
-
-type ComponentData = {
-    readonly id: string,
-    readonly props: unknown
-}
 
 const Wrapper = styled.div`
     display: grid;
@@ -33,11 +28,37 @@ const BaseInfoWrapper = styled.div`
     }
 `;
 
-const PreviewWrapper = styled.div`
+const CenterWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
 `;
+
+const SegmentsWrapper = styled.div`
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+`;
+
+const AddCard = styled.div`
+    width: 200px;
+    height: 200px;
+    background: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.color};
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    border-radius: 8px;
+
+    &:hover{
+        background: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.color}88;
+        cursor: pointer;
+    }
+
+    & > i {
+        font-size: 32px;
+    }
+`;
+
 const defaultBaseData = {
     width: 400,
     height: 256,
@@ -157,10 +178,10 @@ export const ScoreboardVideoBuilder = () => {
             <ButtonRow>
                 <ContainedButton disabled={videoSegments.length === 0} onClick={() => genJson()}>Render</ContainedButton>
             </ButtonRow>
-            <PreviewWrapper>
-                <Headline5>Preview</Headline5>
+            <CenterWrapper>
+                <Headline4>Preview</Headline4>
                 <iframe src={getVideoGenSiteBase()} ref={iframeRef} style={{ width: baseData.width, height: baseData.height }} />
-            </PreviewWrapper>
+            </CenterWrapper>
             <Accordion header='Base Info' defaultShow={true} style={{ width: '100%' }}>
                 <BaseInfoWrapper>
                     <InputsWrapper fullWidth={true}>
@@ -212,19 +233,19 @@ export const ScoreboardVideoBuilder = () => {
                     </InputsWrapper>
                 </BaseInfoWrapper>
             </Accordion>
-            <ButtonRow>
-                <OutlinedButton onClick={() => setVideoSegments(old => [...old, { isHome: true, primaryText: [], secondaryText: [] }])}>Add Home Segment</OutlinedButton>
-                <OutlinedButton onClick={() => setVideoSegments(old => [...old, { isHome: false, primaryText: [], secondaryText: [] }])}>Add Away Segment</OutlinedButton>
-            </ButtonRow>
-            {
-                videoSegments.map((segmentData, i) => {
-                    return <ScoreboardVideoSegment key={i} segmentData={segmentData} setSegmentData={data => setSegmentData(data, i)} />;
-                }, [videoSegments])
-            }
-            <ButtonRow>
-                <OutlinedButton onClick={() => setVideoSegments(old => [...old, { isHome: true, primaryText: [], secondaryText: [] }])}>Add Home Segment</OutlinedButton>
-                <OutlinedButton onClick={() => setVideoSegments(old => [...old, { isHome: false, primaryText: [], secondaryText: [] }])}>Add Away Segment</OutlinedButton>
-            </ButtonRow>
+            <CenterWrapper>
+                <Headline4>Segments</Headline4>
+            </CenterWrapper>
+            <SegmentsWrapper>
+                {
+                    videoSegments.map((segmentData, i) => {
+                        return <ScoreboardVideoSegment key={i} segmentData={segmentData} setSegmentData={data => setSegmentData(data, i)} />;
+                    }, [videoSegments])
+                }
+                <AddCard>
+                    <Icon className='fas fa-plus' />
+                </AddCard>
+            </SegmentsWrapper>
         </Wrapper>
     );
 };

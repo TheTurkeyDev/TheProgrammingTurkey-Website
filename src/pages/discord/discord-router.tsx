@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import { authWrap } from '../../router';
-import { DiscordRolesManagement } from './roles-management/discord-roles-mangement';
+import { DiscordServerAvatar } from './server-avatar/discord-server-avatar';
 
 export const DiscordRouter = () => (
     <Routes>
-        <Route path='/' element={authWrap(<DiscordRolesManagement />, 'discordrolemanagement')} />
+        <Route path='/serveravatar' element={authWrap(<DiscordServerAvatar />, 'discordserveravatar')} />
     </Routes>
 );
 
