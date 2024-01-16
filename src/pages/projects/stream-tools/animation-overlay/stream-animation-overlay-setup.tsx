@@ -51,26 +51,21 @@ export const AnimatedStreamOverlaySetup = () => {
         async function loadData() {
             setLoading(true);
 
-            const promise1 = StreamAnimAPI.getAllAnimations().then(json => {
-                if (json.success)
-                    setAnimations(json.data);
-            });
+            const animJson = await StreamAnimAPI.getAllAnimations();
+            if (animJson.success)
+                setAnimations(animJson.data);
 
-            const promise2 = StreamAnimAPI.getUserData().then(json => {
-                if (json.success) {
-                    const data = json.data;
-                    setConnectedToMJRBot(data.connected);
-                    if (!data.connected)
-                        return;
-                    setToken(data.token);
-                    setchannelRewards(data.channel_points);
-                    setAnimationUserData(data.animation_user_data ?? {});
-                }
-            });
-
-            Promise.all([promise1, promise2]).then(() => {
-                setLoading(false);
-            });
+            const udJson = await StreamAnimAPI.getUserData();
+            if (udJson.success) {
+                const data = udJson.data;
+                setConnectedToMJRBot(data.connected);
+                if (!data.connected)
+                    return;
+                setToken(data.token);
+                setchannelRewards(data.channel_points);
+                setAnimationUserData(data.animation_user_data ?? {});
+            }
+            setLoading(false);
         }
         if (authState)
             loadData();
