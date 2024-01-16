@@ -32,7 +32,6 @@ import { SlimeRancherIntegration } from '../mods/slime-rancher-integration';
 
 import { ProjectStatusEdit } from '../admin/project-status-edit';
 import { FPDStats } from './fpdstats';
-import { StreamTimer } from './stream-tools/stream-timer/stream-timer';
 import { StreamAnimationsOverlay } from './stream-tools/animation-overlay/stream-animations-overlay';
 import { YouTubeSubCount } from './stream-tools/yt-sub-count/youtube-sub-count';
 import { TwitchGamesProject } from '../twitch-games/twitch-games-info';
@@ -69,7 +68,6 @@ export const ProjectsRouter = () => {
             <Route path='/slime-rancher-integration' element={<SlimeRancherIntegration />} />
             <Route path='/statusedit' element={authWrap(<ProjectStatusEdit />, 'projects.editstatus')} />
             <Route path='/fpdstats' element={<FPDStats />} />
-            <Route path='/streamtimer' element={<StreamTimer />} />
             <Route path='/streamanimationsoverlay' element={<StreamAnimationsOverlay />} />
             <Route path='/yt-sub-count' element={<YouTubeSubCount />} />
             <Route path='/twitch-games' element={<TwitchGamesProject />} />
