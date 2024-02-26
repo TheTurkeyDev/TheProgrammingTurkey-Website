@@ -9,7 +9,6 @@
     "lint": "eslint ./src/**/*.{js,jsx} --quiet",
     "lint-fix": "eslint --fix ./src/**/*.{js,jsx}"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
