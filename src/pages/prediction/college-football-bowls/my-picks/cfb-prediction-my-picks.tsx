@@ -136,7 +136,7 @@ export const CFBMyPicks = () => {
                                     <Option value={0}>N/A</Option>
                                     {
                                         pointChoices
-                                            .filter(v => (v === pickData?.points ?? 0) || !myPicks?.find(mp => mp.points === v))
+                                            .filter(v => (v === (pickData?.points ?? 0)) || !myPicks?.find(mp => mp.points === v))
                                             .map(p => <Option key={p}>{p}</Option>)
                                     }
                                 </Select>

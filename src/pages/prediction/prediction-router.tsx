@@ -6,7 +6,7 @@ import { authWrap } from '../../router';
 
 export const PredictionRouter = () => (
     <Routes>
-        <Route path='/f1constructor' element={<F1ConstructorPredictions />} />
+        <Route path='/f1/:year/constructor' element={<F1ConstructorPredictions />} />
         <Route path='/fbs-bowls-prediction/:groupId' element={authWrap(<CollegeFootballBowlsPrediction />)} />
         <Route path='/fbs-bowls-prediction/:groupId/my-picks' element={authWrap(<CFBMyPicks />)} />
     </Routes>
