@@ -11,7 +11,7 @@ import { F1ConstructorPicks } from './f1-constructor-picks';
 const ResultsTable = styled.div`
     width: min-content;
     display: grid;
-    grid-template-columns: auto auto 64px repeat(10, 48px);
+    grid-template-columns: auto auto 64px repeat(10, 64px);
     gap: 8px;
     padding-left: 16px;
 `;
@@ -104,8 +104,9 @@ export const F1ConstructorPredictions = () => {
                         const team = teams?.find(c => c.id === t.constId);
                         return (
                             <ConstructorWrapper key={t.constId}>
-                                <img width={48} src={team?.logo} />
-                                <span>{t.points}</span>
+                                <img width={64} src={team?.logo} />
+                                <Body1 style={{ fontSize: (team?.nameShort.length ?? 0) < 12 ? '' : '10px' }}>{team?.nameShort}</Body1>
+                                <Body1 style={{ fontSize: '28px' }}>{t.points}</Body1>
                             </ ConstructorWrapper>
                         );
                     })
@@ -120,7 +121,7 @@ export const F1ConstructorPredictions = () => {
                                 {
                                     Array.from({ length: 10 }, (_, i) => (
                                         <PickWrapper key={`${p}-${i}`}>
-                                            <img width={48} src={teams?.find(c => c.id === p.picks[i])?.logo} />
+                                            <img width={64} src={teams?.find(c => c.id === p.picks[i])?.logo} />
                                             <PointWrapper>
                                                 <Caption>
                                                     {calcPoints[p.userId][i]}
