@@ -1,17 +1,18 @@
 import { Body1, Caption, Headline2, Loading, useFetch } from 'gobble-lib-react';
 import styled from 'styled-components';
-import { F1Constructor } from './f1-constructor';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { useParams } from 'react-router-dom';
 import { getGetAuthParams } from '../../../network/auth-network';
 import { Fragment, useEffect, useState } from 'react';
-import { F1ConstructorStanding } from './f1-constructor-standing';
-import { F1ConstructorPicks } from './f1-constructor-picks';
+import { F1Driver } from './f1-driver';
+import { F1DriverStanding } from './f1-driver-standing';
+import { F1DriverPicks } from './f1-driver-picks';
+import { F1DriverItem } from './f1-driver-item';
 
 const ResultsTable = styled.div`
     width: min-content;
     display: grid;
-    grid-template-columns: auto auto 64px repeat(10, 48px);
+    grid-template-columns: auto auto 64px repeat(20, 64px);
     gap: 8px;
     padding-left: 16px;
 `;
@@ -44,15 +45,15 @@ const LineText = styled(Body1)`
     align-self: center;
 `;
 
-export const F1ConstructorPredictions = () => {
+export const F1DriverPredictions = () => {
     const { year } = useParams();
-    const [teams, loadingTeams] = useFetch<readonly F1Constructor[]>(`${getDevAPIBase()}/predictions/f1/${year}/constructor/constructors`, { requestData: getGetAuthParams(), skip: !year });
-    const [liveStandings, loadingStandings] = useFetch<readonly F1ConstructorStanding[]>(`${getDevAPIBase()}/predictions/f1/${year}/constructor/standings`, { requestData: getGetAuthParams(), skip: !year });
-    const [picks, loadingPicks] = useFetch<readonly F1ConstructorPicks[]>(`${getDevAPIBase()}/predictions/f1/${year}/constructor/picks`, { requestData: getGetAuthParams(), skip: !year });
+    const [drivers, loadingTeams] = useFetch<readonly F1Driver[]>(`${getDevAPIBase()}/predictions/f1/${year}/driver/drivers`, { requestData: getGetAuthParams(), skip: !year });
+    const [liveStandings, loadingStandings] = useFetch<readonly F1DriverStanding[]>(`${getDevAPIBase()}/predictions/f1/${year}/driver/standings`, { requestData: getGetAuthParams(), skip: !year });
+    const [picks, loadingPicks] = useFetch<readonly F1DriverPicks[]>(`${getDevAPIBase()}/predictions/f1/${year}/driver/picks`, { requestData: getGetAuthParams(), skip: !year });
 
-    const [orderedStandings, setOrderedStandings] = useState<readonly F1ConstructorStanding[]>([]);
+    const [orderedStandings, setOrderedStandings] = useState<readonly F1DriverStanding[]>([]);
     const [calcPoints, setCalcPoints] = useState<{ readonly [k: string]: readonly number[] }>({});
-    const [sortedPicks, setSortedPicks] = useState<readonly F1ConstructorPicks[]>([]);
+    const [sortedPicks, setSortedPicks] = useState<readonly F1DriverPicks[]>([]);
 
     useEffect(() => {
         if (!liveStandings) return;
@@ -65,7 +66,7 @@ export const F1ConstructorPredictions = () => {
 
         const cp = [...picks].reduce((prev, pick) => ({
             ...prev,
-            [pick.userId]: Array.from({ length: 10 }, (_, i) => Math.abs(i - orderedStandings.findIndex(t => t.constId === pick.picks[i])))
+            [pick.userId]: Array.from({ length: 20 }, (_, i) => Math.abs(i - orderedStandings.findIndex(t => t.driverId === pick.picks[i])))
         }), {} as { readonly [k: string]: readonly number[] });
 
         setCalcPoints(cp);
@@ -101,10 +102,10 @@ export const F1ConstructorPredictions = () => {
                 </span>
                 {
                     orderedStandings.map(t => {
-                        const team = teams?.find(c => c.id === t.constId);
+                        const driver = drivers?.find(c => c.id === t.driverId)!;
                         return (
-                            <ConstructorWrapper key={t.constId}>
-                                <img width={48} src={team?.logo} />
+                            <ConstructorWrapper key={t.driverId}>
+                                <F1DriverItem driver={driver} />
                                 <span>{t.points}</span>
                             </ ConstructorWrapper>
                         );
@@ -118,9 +119,9 @@ export const F1ConstructorPredictions = () => {
                                 <LineText>{p.userId}</LineText>
                                 <LineText style={{ justifySelf: 'center' }}>{calcPoints[p.userId].reduce((prev, curr) => prev + curr, 0)}</LineText>
                                 {
-                                    Array.from({ length: 10 }, (_, i) => (
+                                    Array.from({ length: 20 }, (_, i) => (
                                         <PickWrapper key={`${p}-${i}`}>
-                                            <img width={48} src={teams?.find(c => c.id === p.picks[i])?.logo} />
+                                            <img width={64} src={drivers?.find(c => c.id === p.picks[i])?.image} />
                                             <PointWrapper>
                                                 <Caption>
                                                     {calcPoints[p.userId][i]}
