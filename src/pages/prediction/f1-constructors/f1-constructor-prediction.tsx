@@ -12,8 +12,9 @@ const ResultsTable = styled.div`
     width: min-content;
     display: grid;
     grid-template-columns: auto auto 64px repeat(10, 64px);
-    gap: 8px;
+    column-gap: 8px;
     padding-left: 16px;
+    margin-inline: auto;
 `;
 
 const ConstructorWrapper = styled.div`
