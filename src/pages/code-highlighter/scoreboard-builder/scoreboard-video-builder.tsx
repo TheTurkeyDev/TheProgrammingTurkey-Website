@@ -1,7 +1,7 @@
-import { Accordion, BaseTheme, ButtonRow, ContainedButton, Headline2, Headline4, Icon, Input, InputsWrapper, OutlinedButton, TextToast, useQuery, useToast } from 'gobble-lib-react';
+import { Accordion, ButtonRow, ContainedButton, Headline2, Headline4, Icon, Input, InputsWrapper, TextToast, useQuery, useToast } from 'gobble-lib-react';
 import { createRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled, { ThemeProps } from 'styled-components';
+import styled from 'styled-components';
 import { ColorPicker } from '../../../components/inputs/color-input';
 import { postParams } from '../../../network/auth-network';
 import { getDevAPIBase, getVideoGenSiteBase } from '../../../network/network-helper';
@@ -43,14 +43,14 @@ const SegmentsWrapper = styled.div`
 const AddCard = styled.div`
     width: 200px;
     height: 200px;
-    background: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.color};
+    background: ${({ theme }) => theme.surface.color};
     display: grid;
     align-items: center;
     justify-items: center;
     border-radius: 8px;
 
     &:hover{
-        background: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.color}88;
+        background: ${({ theme }) => theme.surface.color}88;
         cursor: pointer;
     }
 

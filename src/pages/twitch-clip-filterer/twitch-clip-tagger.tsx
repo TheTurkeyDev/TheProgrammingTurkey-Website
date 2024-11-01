@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { BaseTheme, ContainedButton, Input, Label, LinkButton, TextToast, ToggleSwitch, useToast, useUrlParams } from 'gobble-lib-react';
-import styled, { ThemeProps } from 'styled-components';
+import { ContainedButton, Input, Label, LinkButton, TextToast, ToggleSwitch, useToast, useUrlParams } from 'gobble-lib-react';
+import styled from 'styled-components';
 import Multiselect from 'multiselect-react-dropdown';
 import { useAuth } from '../../contexts/auth-context';
 import * as clipAPI from '../../network/twitch-clips-network';
@@ -45,7 +45,7 @@ type TagProps = {
 }
 const Tag = styled(ContainedButton) <TagProps>`
     background-color: ${({ color }) => color};
-    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.on};
+    color: ${({ theme }) => theme.surface.on};
 `;
 
 const BottomInput = styled.div`
@@ -92,8 +92,7 @@ export const TwitchClipTagger = () => {
     useEffect(() => {
         if (indexChanged && clips.length > 0 && clipIndex > -1) {
             clipAPI.getClipTags(clips[clipIndex].id).then(json => {
-                if (json.success)
-                    setClipTags(json.data);
+                setClipTags(json);
             });
         }
     }, [clips, clipIndex]);
@@ -101,38 +100,29 @@ export const TwitchClipTagger = () => {
     const nextClip = (clear = false) => {
         setLoading(true);
         clipAPI.getNextClip(channelId, onlyUntaggedClips, allowedTags.map(ft => ft.id), disallowedTags.map(ft => ft.id), clipIndex === -1 || clear ? '' : clips[clipIndex].id).then(json => {
-            if (json.success && json.data) {
-                if (clear)
-                    setClipIndex(0);
-                setClips(clear ? [json.data] : [...clips, json.data]);
-                if (!clear)
-                    setClipIndex(old => old + 1);
-            }
-            else {
-                pushToast(<TextToast text='Failed to load clip!' />);
-            }
+            if (clear)
+                setClipIndex(0);
+            setClips(clear ? [json] : [...clips, json]);
+            if (!clear)
+                setClipIndex(old => old + 1);
             setLoading(false);
         });
     };
 
     const loadTags = () => {
-        clipAPI.getTags(channelId).then(json => {
-            if (json.success)
-                setTags(json.data);
-        });
+        clipAPI.getTags(channelId).then(setTags);
     };
 
     const updateClipTag = (tagId: number) => {
         if (clipTags.includes(tagId)) {
-            clipAPI.removeTagFromClip(clips[clipIndex].id, [tagId]).then(json => {
-                if (json.success)
+            clipAPI.removeTagFromClip(clips[clipIndex].id, tagId).then(success => {
+                if (success)
                     setClipTags(tags => tags.filter(t => t !== tagId));
             });
         }
         else {
-            clipAPI.addTagsToClip(clips[clipIndex].id, [tagId]).then(json => {
-                if (json.success)
-                    setClipTags(tags => [...tags, tagId]);
+            clipAPI.addTagsToClip(clips[clipIndex].id, [tagId]).then(() => {
+                setClipTags(tags => [...tags, tagId]);
             });
         }
     };

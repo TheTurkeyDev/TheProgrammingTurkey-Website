@@ -39,9 +39,8 @@ export const TwitchBattleshipSetup = () => {
 
     useEffect(() => {
         async function loadDisplay() {
-            api.getTwitchGameSettings('battleship', token).then(json => {
-                if (json.success) {
-                    const data = json.data;
+            api.getTwitchGameSettings('battleship', token).then(data => {
+                if (!!data) {
                     setTwitchWins(data.twitch_wins);
                     setCpuWins(data.cpu_wins);
                     setGamePlayType(data.game_play_type);
@@ -66,9 +65,7 @@ export const TwitchBattleshipSetup = () => {
                 text_color: textColor,
                 start_delay: startDelay,
             })
-            .then(json => {
-                pushToast(<TextToast text={json.success ? 'Settings Saved!' : json.message} />);
-            });
+            .then(rsp => pushToast(<TextToast text={rsp.message} />));
     };
 
     const regenToken = () => {

@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import * as authAPI from '../../../network/auth-network';
 import { NewPermissionModal } from '../../../modals/admin/new-permission-modal';
 import styled from 'styled-components';
-import { ContainedButton, Input, Table, TextToast, TH, useToast } from 'gobble-lib-react';
+import { ContainedButton, Input, Table, TextToast, TH, useQuery, useToast } from 'gobble-lib-react';
 import { Permission } from '../../../types/permission';
 import { PermissionManagementItem } from './permission-management-item';
+import { deleteParams, getParams } from '../../../network/auth-network';
+import { getDevAPIBase } from '../../../network/network-helper';
+import { BasicMessageResponse } from '../../../types/rest-response-wrapper';
 
 const PageWrapper = styled.div`
     margin: 16px;
@@ -22,23 +24,24 @@ const HeaderInputsWrapper = styled.div`
 export const PermissionManagement = () => {
     const { pushToast } = useToast();
 
-    const [permissionList, setPermissionList] = useState<readonly Permission[]>([]);
+    const [getPermissions] = useQuery<readonly Permission[]>(`${getDevAPIBase()}/admin/permissions`, { requestData: getParams });
+    const [deletePermissions] = useQuery<BasicMessageResponse>(`${getDevAPIBase()}/admin/permissions`, { requestData: deleteParams });
 
-    const [updatePermissions, setUpdatePersmissions] = useState(false);
+    const [permissionList, setPermissionList] = useState<readonly Permission[]>([]);
     const [filter, setFilter] = useState('');
     const [showNewPermModal, setShowNewPermModal] = useState(false);
 
+    const updatePermissionList = () => getPermissions(undefined, '', `filter=${filter}`).then(resp => setPermissionList(resp ?? []));
+
     useEffect(() => {
-        authAPI.getAllPermissions(filter).then(json => {
-            setPermissionList(json);
-        });
-    }, [updatePermissions]);
+        updatePermissionList();
+    }, [filter]);
 
     const deletePerm = (perm: Permission) => {
-        authAPI.deletePermission(perm.permission).then(json => {
-            if (json.message)
+        deletePermissions(undefined, perm.permission).then(json => {
+            if (json?.message)
                 pushToast(<TextToast text={json.message} />);
-            setUpdatePersmissions(old => !old);
+            updatePermissionList();
         });
     };
 
@@ -67,7 +70,7 @@ export const PermissionManagement = () => {
                     }
                 </tbody>
             </Table>
-            <NewPermissionModal show={showNewPermModal} requestClose={() => setShowNewPermModal(false)} update={() => setUpdatePersmissions(old => !old)} />
+            <NewPermissionModal show={showNewPermModal} requestClose={() => setShowNewPermModal(false)} update={() => updatePermissionList()} />
         </PageWrapper>
     );
 };

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import * as authAPI from '../../../network/auth-network';
-import { ContainedButton, Input, Table, TD, TH } from 'gobble-lib-react';
+import { ContainedButton, Input, Table, TH, useQuery } from 'gobble-lib-react';
 import { UserAndPlatform } from '../../../types/user-and-platform';
 import { UserManagementUserItem } from './user-management-user-item';
+import { getDevAPIBase } from '../../../network/network-helper';
+import { getParams } from '../../../network/auth-network';
 
 const PageWrapper = styled.div`
     display: grid;
@@ -20,21 +21,23 @@ const FiltersWrapper = styled.div`
 `;
 
 export const UserManagement = () => {
-    const [userList, setUserList] = useState<readonly UserAndPlatform[]>([]);
 
-    const [updateUsers, setUpdateUsers] = useState(false);
+    const [getAllUsers] = useQuery<readonly UserAndPlatform[]>(`${getDevAPIBase()}/admin/users`, { requestData: getParams });
+
+    const [userList, setUserList] = useState<readonly UserAndPlatform[]>([]);
     const [usernameFilter, setUsernameFilter] = useState('');
 
-    useEffect(() => {
-        authAPI.getAllUsers(usernameFilter, ['twitch', 'discord', 'github']).then(json => {
-            setUserList(json);
-        });
-    }, [updateUsers]);
+    const updateUsers = () => {
+        getAllUsers(undefined, '', `filter=${usernameFilter}&platforms=${['twitch', 'discord', 'github'].join(',')}`)
+            .then(resp => setUserList(resp ?? []));
+    };
+
+    useEffect(() => updateUsers(), []);
 
     return (
         <PageWrapper>
             <FiltersWrapper>
-                <ContainedButton onClick={() => setUpdateUsers(old => !old)}>
+                <ContainedButton onClick={updateUsers}>
                     Update
                 </ContainedButton>
                 <Input type='text' name='username' label='Username' value={usernameFilter} onChange={e => setUsernameFilter(e.target.value)} />

@@ -1,9 +1,9 @@
-import { Body1, Headline3 } from 'gobble-lib-react';
-import { useState, useEffect } from 'react';
+import { Body1, Headline3, useFetch } from 'gobble-lib-react';
 import styled from 'styled-components';
-import * as authAPI from '../../../network/auth-network';
 import { ProcessHealth } from '../../../types/process-health';
 import { ProcessEntry } from './process-entry';
+import { getDevAPIBase } from '../../../network/network-helper';
+import { getParams } from '../../../network/auth-network';
 
 const ProcessManagerWrapper = styled.div`
     text-align: center;
@@ -17,14 +17,7 @@ const ProcessWrapper = styled.div`
 `;
 
 export const ProcessManagement = () => {
-    const [processes, setProcesses] = useState<readonly ProcessHealth[]>([]);
-
-    useEffect(() => {
-        async function getInfo() {
-            authAPI.getAllProcessHealth().then(setProcesses);
-        }
-        getInfo();
-    }, []);
+    const [processes] = useFetch<readonly ProcessHealth[]>(`${getDevAPIBase()}/admin/processes`, { requestData: getParams });
 
     return (
         <ProcessManagerWrapper>
@@ -34,7 +27,7 @@ export const ProcessManagement = () => {
                 <Body1>Process ID</Body1>
                 <Body1>Last Execution</Body1>
                 <Body1>Status</Body1>
-                {processes.map(process => <ProcessEntry key={process.process_id} process={process} />)}
+                {processes?.map(process => <ProcessEntry key={process.process_id} process={process} />)}
             </ProcessWrapper>
         </ProcessManagerWrapper>
     );

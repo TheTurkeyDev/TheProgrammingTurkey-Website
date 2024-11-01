@@ -12,14 +12,14 @@ type SteamKeyManageListItemProps = {
 
 export const SteamKeyManageListItem = ({ steamKey, listId, deleteSteamKey }: SteamKeyManageListItemProps) => {
 
-    const [deleteKey] = useQuery<readonly string[]>(`${getDevAPIBase()}/steamkeys/list/${listId}/deleteKeys`, {
+    const [deleteKey] = useQuery<readonly string[]>(`${getDevAPIBase()}/steamkeys/list/${listId}/keys`, {
         requestData: deleteParams
     });
 
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
     const confirmDeleteSteamKey = () => {
-        deleteKey(undefined, '', `key=${steamKey.key}`).then(deleted => {
+        deleteKey(undefined, steamKey.key).then(deleted => {
             deleteSteamKey(steamKey, deleted ?? []);
             setShowDeleteConfirm(false);
         });

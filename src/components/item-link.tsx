@@ -1,9 +1,9 @@
-import { BaseTheme, Headline6, LinkButton } from 'gobble-lib-react';
-import styled, { ThemeProps } from 'styled-components';
+import { Headline6, LinkButton } from 'gobble-lib-react';
+import styled from 'styled-components';
 import { ItemLinkType } from './item-link-type';
 
 const ItemWrapper = styled.div`
-    background: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.color};
+    background: ${({ theme }) => theme.surface.color};
     width: 200px;
     height: 200px;
     border-radius: 10px;
@@ -17,7 +17,7 @@ const ItemWrapper = styled.div`
 const ProjectLinkTitle = styled.div`
     z-index: 1;
     position: relative;
-    background: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.color};
+    background: ${({ theme }) => theme.surface.color};
     min-height: 75px;
     bottom: 0px;
     opacity: 1;
@@ -37,7 +37,7 @@ const ProjectLinkTitle = styled.div`
 const IconWrapper = styled.i`
     margin-top: 8px;
     font-size: 128px;
-    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.on};
+    color: ${({ theme }) => theme.surface.on};
 `;
 
 const ImageWrapper = styled.img`

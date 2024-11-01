@@ -1,7 +1,8 @@
-import { ButtonRow, ContainedButton, Input, Modal, OutlinedButton, TextArea, ToggleSwitch } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Input, Modal, OutlinedButton, TextArea, ToggleSwitch, useQuery } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { createReward } from '../../network/chance-cubes-network';
+import { getDevAPIBase } from '../../network/network-helper';
+import { postParams } from '../../network/auth-network';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -16,20 +17,21 @@ type ChanceCubesRewardCreateModalProps = {
 }
 export const ChanceCubesRewardCreateModal = ({ show, requestClose }: ChanceCubesRewardCreateModalProps) => {
 
+    const [createReward] = useQuery(`${getDevAPIBase()}/chancecubes/rewards`, { requestData: postParams });
+
     const [rewardName, setRewardName] = useState('');
     const [isGCCReward, setIsGCCReward] = useState(false);
     const [chanceValue, setChanceValue] = useState(0);
     const [description, setDescription] = useState('');
 
     const create = () => {
-        createReward(rewardName, chanceValue, isGCCReward).then(json => {
-            if (json.success) {
-                requestClose();
-            }
-            else {
-                console.log(json.message);
-            }
-        });
+        createReward(JSON.stringify({
+            name: rewardName,
+            chance: chanceValue,
+            giantCubeReward: isGCCReward
+        }))
+            .then(() => requestClose())
+            .catch(e => console.log(e.message));
     };
 
     return (

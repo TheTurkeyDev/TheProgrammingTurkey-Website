@@ -1,5 +1,5 @@
-import { Anchor, BaseTheme, Body1, Card, CardContent, CardHeader, Headline3, Headline5, Input } from 'gobble-lib-react';
-import styled, { ThemeProps } from 'styled-components';
+import { Anchor, Body1, Card, CardContent, CardHeader, Headline3, Headline5 } from 'gobble-lib-react';
+import styled from 'styled-components';
 import { LinkGroup } from '../components/link-group';
 import { StrikeThrough } from '../styles/common-styles';
 
@@ -58,7 +58,7 @@ const CardContent2 = styled.div`
 
 const CardFooter = styled.div`
     padding-top: 8px;
-    border-top: 1px solid ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.on};
+    border-top: 1px solid ${({ theme }) => theme.surface.on};
 `;
 
 const ListItemWrapper = styled.li`

@@ -36,7 +36,7 @@ export const UserManageModal = ({ show, requestClose, userId }: UserManageModalP
     const [showPermModal, setShowPermModal] = useState(false);
 
 
-    const [data, fetching, { setData }] = useFetch<UserData>(`${getDevAPIBase()}/admin/getuser?user=${userId}`, {
+    const [data, fetching, { setData }] = useFetch<UserData>(`${getDevAPIBase()}/admin/users/${userId}`, {
         requestData: authAPI.getParams
     });
 

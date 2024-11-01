@@ -1,6 +1,6 @@
-import { BaseTheme, Body1, ContainedButton, Loading, useUrlParams } from 'gobble-lib-react';
+import { Body1, ContainedButton, Loading, useUrlParams } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
-import styled, { ThemeProps } from 'styled-components';
+import styled from 'styled-components';
 import { useAuth } from '../../../contexts/auth-context';
 import { ChanceCubesRewardCreateModal } from '../../../modals/chance-cubes/chance-cubes-reward-create-modal';
 import { getChanceCubesRewardStatus } from '../../../network/chance-cubes-network';
@@ -40,7 +40,7 @@ const RewardStatusWrapper = styled.div`
 `;
 
 const GCCRewardText = styled.div`
- color: ${({ theme }: ThemeProps<BaseTheme>) => theme.secondary.color};
+    color: ${({ theme }) => theme.secondary.color};
 `;
 
 const StatusChipsWrapper = styled.div`

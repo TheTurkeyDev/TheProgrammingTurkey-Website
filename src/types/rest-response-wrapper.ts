@@ -3,3 +3,7 @@ export type RestResponseWrapper<T> = {
     readonly data: T
     readonly message?: string
 }
+
+export type BasicMessageResponse = {
+    readonly message: string
+}

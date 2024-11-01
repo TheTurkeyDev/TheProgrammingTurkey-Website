@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 `;
 
 export const SteamKeysClaimed = () => {
-    const [data, fetching, { error }] = useFetch<readonly SteamKeyList[]>(`${getDevAPIBase()}/steamkeys/getclaimedkeys`, {
+    const [data, fetching, { error }] = useFetch<readonly SteamKeyList[]>(`${getDevAPIBase()}/steamkeys/claimedkeys`, {
         requestData: getParams
     });
 

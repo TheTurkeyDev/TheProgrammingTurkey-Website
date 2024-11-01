@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 
 export const SteamKeyClaim = () => {
     const { id } = useParams();
-    const [data, fetching, { error }] = useFetch<SteamKeyClaimGroup>(`${getDevAPIBase()}/steamkeys/getKeys/${id}`, {
+    const [data, fetching, { error }] = useFetch<SteamKeyClaimGroup>(`${getDevAPIBase()}/steamkeys/claimgroups/${id}/keys`, {
         requestData: getParams
     });
 

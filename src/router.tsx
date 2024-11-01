@@ -15,7 +15,7 @@ import { Loading, NotFound } from 'gobble-lib-react';
 import { lazy, Suspense } from 'react';
 import { PrivacyPolicy } from './pages/legal/privacy-policy';
 import { TermsOfService } from './pages/legal/tos';
-import { F1ConstructorPredictions } from './pages/prediction/f1-constructors/f1-constructor-prediction';
+import { ChatMerge } from './pages/chat-merge/chat-merge';
 
 const ChanceCubesRouter = lazy(() => import(/* webpackChunkName: "Chance Cubes" */ './pages/chance-cubes/chance-cubes-router'));
 const ProjectsRouter = lazy(() => import(/* webpackChunkName: "Projects" */ './pages/projects/projects-router'));
@@ -52,6 +52,7 @@ export const Routing = () => (
             <Route path='/mod-support' element={<MCModSupport />} />
             <Route path='/ld-stats' element={<LDStats />} />
             <Route path='/stream-led-control' element={<StreamLEDControl />} />
+            <Route path='/chat-merge' element={<ChatMerge />} />
             <Route path='/info' element={<Info />} />
             <Route path='/support' element={<Support />} />
             <Route path='/mjrbotfaq' element={<MJRBotFAQ />} />

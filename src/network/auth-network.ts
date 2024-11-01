@@ -18,6 +18,7 @@ const paramsForType = (method: string) => ({ method, ...baseParams });
 export const getParams: RequestInit = paramsForType('GET');
 export const postParams: RequestInit = paramsForType('POST');
 export const deleteParams: RequestInit = paramsForType('DELETE');
+export const patchParams: RequestInit = paramsForType('PATCH');
 
 export function getGetAuthParams(): RequestInit {
     return {
@@ -34,6 +35,19 @@ export function getGetAuthParams(): RequestInit {
 export function getPostAuthParams(body?: any): RequestInit {
     return {
         method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
+        },
+        body: JSON.stringify(body)
+    };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getPatchAuthParams(body?: any): RequestInit {
+    return {
+        method: 'PATCH',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
@@ -106,7 +120,7 @@ export async function getUserInfo() {
 }
 
 export async function getUserConnectedAccounts(): Promise<readonly UserConnection[]> {
-    return await fetch(getDevAPIBase() + '/user/connectedaccounts', getGetAuthParams()).then(resp => {
+    return await fetch(getDevAPIBase() + '/user/platforms', getGetAuthParams()).then(resp => {
         return resp.json();
     });
 }
@@ -119,21 +133,8 @@ export async function getUserProfileApps(adminApps: boolean) {
     });
 }
 
-export async function getAllUsers(usernameFilter: string, platforms: readonly string[]): Promise<readonly UserAndPlatform[]> {
-    return await fetch(`${getDevAPIBase()}/admin/getusers`, getPostAuthParams({
-        name_filter: usernameFilter,
-        platforms
-    })).then(resp => {
-        if (resp.status === 200)
-            return resp.json();
-        return [];
-    });
-}
-
 export async function getAllPermissions(filter: string): Promise<readonly Permission[]> {
-    return await fetch(`${getDevAPIBase()}/admin/getpermissions`, getPostAuthParams({
-        filter
-    })).then(resp => {
+    return await fetch(`${getDevAPIBase()}/admin/permissions?filter=${filter}`, getGetAuthParams()).then(resp => {
         if (resp.status === 200)
             return resp.json();
         return [];
@@ -141,7 +142,7 @@ export async function getAllPermissions(filter: string): Promise<readonly Permis
 }
 
 export async function giveUserPermission(userId: string, permission: string) {
-    return await fetch(`${getDevAPIBase()}/admin/giveuserpermission`, getPostAuthParams({
+    return await fetch(`${getDevAPIBase()}/admin/users/${userId}/permissions/${permission}`, getPostAuthParams({
         user_id: userId,
         permission: permission
     })).then(resp => {
@@ -150,16 +151,13 @@ export async function giveUserPermission(userId: string, permission: string) {
 }
 
 export async function removeUserPermission(userId: string, permission: string) {
-    return await fetch(`${getDevAPIBase()}/admin/removeuserpermission`, getPostAuthParams({
-        user_id: userId,
-        permission: permission
-    })).then(resp => {
+    return await fetch(`${getDevAPIBase()}/admin/users/${userId}/permissions/${permission}`, deleteParams).then(resp => {
         return resp.json();
     });
 }
 
 export async function createPermission(permissionId: string, description: string) {
-    return await fetch(`${getDevAPIBase()}/admin/createpermissions`, getPostAuthParams({
+    return await fetch(`${getDevAPIBase()}/admin/permissions`, getPostAuthParams({
         permission: permissionId,
         description: description
     })).then(resp => {
@@ -167,36 +165,12 @@ export async function createPermission(permissionId: string, description: string
     });
 }
 
-export async function deletePermission(permission: string) {
-    return await fetch(`${getDevAPIBase()}/admin/deletepermission`, getPostAuthParams({
-        permission_id: permission
-    })).then(resp => {
-        return resp.json();
-    });
-}
-
 export async function setProjectStatus(project: string, version: string, status: string) {
-    return await fetch(`${getDevAPIBase()}/admin/setprojectstatus`, getPostAuthParams({
+    return await fetch(`${getDevAPIBase()}/admin/projectstatus`, getPostAuthParams({
         mod_name: project,
         version: version,
         status: status
     })).then(resp => resp.json());
-}
-
-export async function getAllProcessHealth(): Promise<readonly ProcessHealth[]> {
-    return await fetch(`${getDevAPIBase()}/admin/processhealth`, getGetAuthParams()).then(resp => {
-        if (resp.status === 200)
-            return resp.json();
-        return [];
-    });
-}
-
-export async function startStopProcess(process: ProcessHealth) {
-    return await fetch(`${getDevAPIBase()}/admin/${process.state === 'RUNNING' ? 'stop' : 'start'}process`, getPostAuthParams({
-        process_id: process.process_id
-    })).then(resp => {
-        return resp.json();
-    });
 }
 
 export async function getToken(forId: string) {

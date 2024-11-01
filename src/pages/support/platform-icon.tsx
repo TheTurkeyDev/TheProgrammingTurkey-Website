@@ -1,5 +1,5 @@
-import { BaseTheme, TextHoverCss } from 'gobble-lib-react';
-import styled, { ThemeProps } from 'styled-components';
+import { TextHoverCss } from 'gobble-lib-react';
+import styled from 'styled-components';
 
 const PlatformLink = styled.a`
     &:hover {
@@ -9,7 +9,7 @@ const PlatformLink = styled.a`
 
 const PlatformI = styled.i`
     font-size: 64px;
-    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
+    color: ${({ theme }) => theme.background.on};
 
     ${TextHoverCss}
 `;

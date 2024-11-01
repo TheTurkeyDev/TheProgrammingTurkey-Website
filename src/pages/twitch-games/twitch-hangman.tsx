@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/auth-context';
 import * as api from '../../network/twitch-games-network';
-import { getAppsSiteBase } from '../../network/network-helper';
+import { getAppsSiteBase, getDevAPIBase } from '../../network/network-helper';
 import { SecretURL } from '../../components/secret-url';
-import { ButtonRow, ContainedButton, Headline2, Headline4, HorizontalRule, Input, InputsWrapper, TextToast, useToast } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline2, Headline4, HorizontalRule, InputsWrapper, Loading, TextToast, useFetch, useToast } from 'gobble-lib-react';
 import { ContentWrapper } from '../../components/setup-page-content';
 import { ColorPicker } from '../../components/inputs/color-input';
+import { UserConnection } from '../../types/user-connection';
 
 export const TwitchHangmanSetup = () => {
     const gameName = 'hangman';
     const { authState, authChecked } = useAuth();
     const { pushToast } = useToast();
+
+    const [platformInfo, loading] = useFetch<UserConnection>(`${getDevAPIBase()}/user/platforms/twitch`);
 
     const [token, setToken] = useState('');
 
@@ -32,9 +35,8 @@ export const TwitchHangmanSetup = () => {
         if (!authState || !token)
             return;
 
-        api.getTwitchGameSettings(gameName, token).then(json => {
-            if (json.success) {
-                const data = json.data;
+        api.getTwitchGameSettings(gameName, token).then(data => {
+            if (!!data) {
                 setBGColor(data.bg_color);
                 setWordColor(data.word_color);
                 setCorrectLetterColor(data.correct_letter_color);
@@ -49,9 +51,7 @@ export const TwitchHangmanSetup = () => {
             word_color: wordColor,
             correct_letter_color: correctLetterColor,
             wrong_letter_color: wrongLetterColor,
-        }).then(json => {
-            pushToast(<TextToast text={json.success ? 'Settings Saved!' : json.message} />);
-        });
+        }).then(rsp => pushToast(<TextToast text={rsp.message} />));
     };
 
     const regenToken = () => {
@@ -60,7 +60,10 @@ export const TwitchHangmanSetup = () => {
         });
     };
 
-    const hangmanURL = `${getAppsSiteBase()}/twitch/hangman?token=${token}`;
+    if (loading)
+        return <Loading />;
+
+    const hangmanURL = `${getAppsSiteBase()}/twitch/hangman?token=${token}&channel=${platformInfo?.platform_id}&reward_id=&bgcolor=${bgColor}&normcol=${wordColor}&corcol=${correctLetterColor}&wrongcol=${wrongLetterColor}`;
 
     return (
         <ContentWrapper>

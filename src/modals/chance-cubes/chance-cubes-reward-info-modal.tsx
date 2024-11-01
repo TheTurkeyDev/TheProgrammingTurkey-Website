@@ -1,9 +1,9 @@
-import { BaseTheme, Modal } from 'gobble-lib-react';
-import { useEffect, useState } from 'react';
-import styled, { ThemeProps } from 'styled-components';
-import { getRewardSettings } from '../../network/chance-cubes-network';
+import { Modal, useFetch } from 'gobble-lib-react';
+import styled from 'styled-components';
 import { ChanceCubesRewardSetting } from '../../types/chance-cubes/chance-cubes-reward-setting';
 import { CCVersionedRewardData } from '../../types/chance-cubes/chance-cubes-versioned-reward';
+import { getDevAPIBase } from '../../network/network-helper';
+import { getParams } from '../../network/auth-network';
 
 
 const ChanceValueWrapper = styled.div`
@@ -15,7 +15,7 @@ const ChanceValueWrapper = styled.div`
 `;
 
 const RewardSettingsWrapper = styled.table`
-    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
+    color: ${({ theme }) => theme.background.on};
 `;
 
 type ChanceCubesRewardInfoModalProps = {
@@ -26,16 +26,9 @@ type ChanceCubesRewardInfoModalProps = {
 }
 
 export const ChanceCubesRewardInfoModal = ({ show, requestClose, name, data }: ChanceCubesRewardInfoModalProps) => {
-    const [settings, setSettings] = useState<readonly ChanceCubesRewardSetting[]>([]);
 
-    useEffect(() => {
-        if (!show)
-            return;
-        getRewardSettings(name).then(json => {
-            if (json.success)
-                setSettings(json.data);
-        });
-    }, [show]);
+    const [settings, loading] = useFetch<readonly ChanceCubesRewardSetting[]>(`${getDevAPIBase()}/chancecubes/rewards/${name}/settings`, { requestData: getParams });
+
     return (
         <Modal show={show} requestClose={requestClose}>
             <h2>
@@ -71,7 +64,7 @@ export const ChanceCubesRewardInfoModal = ({ show, requestClose, name, data }: C
                 </thead>
                 <tbody>
                     {
-                        settings.map(setting => (
+                        settings?.map(setting => (
                             <tr key={setting.setting}>
                                 <td>{setting.setting}</td>
                                 <td>{setting.type}</td>

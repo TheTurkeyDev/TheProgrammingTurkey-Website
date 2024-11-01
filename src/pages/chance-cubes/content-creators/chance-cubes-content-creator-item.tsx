@@ -1,9 +1,11 @@
-import { ConfirmationModal, Icon, TD } from 'gobble-lib-react';
+import { ConfirmationModal, Icon, TD, useQuery } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ChanceCubesContentCreatorModal } from '../../../modals/chance-cubes/chance-cubes-content-creator-modal';
-import { userListDeleteUser } from '../../../network/chance-cubes-network';
 import { CCContentCreator } from '../../../types/chance-cubes/chance-cubes-content-creator';
+import { BasicMessageResponse } from '../../../types/rest-response-wrapper';
+import { getDevAPIBase } from '../../../network/network-helper';
+import { deleteParams } from '../../../network/auth-network';
 
 const IconsWrapper = styled.div`
     display: grid;
@@ -16,6 +18,9 @@ type ChanceCubesContentCreatorItemProps = {
 }
 
 export const ChanceCubesContentCreatorItem = ({ user }: ChanceCubesContentCreatorItemProps) => {
+
+    const [deleteUser] = useQuery<BasicMessageResponse>(`${getDevAPIBase()}/chancecubes/userlist`, { requestData: deleteParams });
+
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -36,11 +41,11 @@ export const ChanceCubesContentCreatorItem = ({ user }: ChanceCubesContentCreato
             <ChanceCubesContentCreatorModal show={showModal} requestClose={() => setShowModal(false)} user={user} />
             <ConfirmationModal
                 show={showDeleteModal}
-                text={'Are you sure you want to delete this user?'}
+                text='Are you sure you want to delete this user?'
                 yesText='Yes'
                 onYesClick={() => {
                     setShowDeleteModal(false);
-                    userListDeleteUser(user.UUID);
+                    deleteUser(undefined, user.UUID);
                 }}
                 noText='No'
                 onNoClick={() => setShowDeleteModal(false)} />

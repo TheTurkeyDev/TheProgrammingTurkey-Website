@@ -15,13 +15,15 @@ export async function regenToken(game: string) {
 
 export async function getTwitchGameSettings(game: string, token: string) {
     return await fetch(`${getDevAPIBase()}/twitchgames/${game}/settings?token=${token}`, authAPI.getGetAuthParams()).then(resp => {
-        return resp.json();
+        if (resp.ok)
+            return resp.json();
+        return undefined;
     });
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function saveTwitchGameSettings(game: string, token: string, settingsJson: any) {
-    return await fetch(`${getDevAPIBase()}/twitchgames/${game}/savesettings?token=${token}`, authAPI.getPostAuthParams(settingsJson)).then(resp => {
+    return await fetch(`${getDevAPIBase()}/twitchgames/${game}/settings?token=${token}`, authAPI.getPostAuthParams(settingsJson)).then(resp => {
         return resp.json();
     });
 }

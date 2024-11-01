@@ -4,11 +4,14 @@ import { Multiselect } from 'multiselect-react-dropdown';
 import * as clipAPI from '../../network/twitch-clips-network';
 import styled from 'styled-components';
 import { TwitchClipTagEditorModal } from './twitch-clip-tag-editor-modal';
-import { Anchor, ContainedButton, InputsWrapper, Label, Option, OutlinedButton, Select, Table, TD, TextToast, TH, useToast } from 'gobble-lib-react';
+import { Anchor, ContainedButton, InputsWrapper, Label, Option, OutlinedButton, Select, Table, TD, TextToast, TH, useFetch, useQuery, useToast } from 'gobble-lib-react';
 import { TwitchClipTag } from '../../types/twitch-clip-filter/twitch-clip-tag';
 import { ManagingChannel } from '../../types/twitch-clip-filter/managing-channel';
 import { TwitchClip } from '../../types/twitch-clip-filter/twitch-clip';
 import { useNavigate } from 'react-router-dom';
+import { getParams, postParams } from '../../network/auth-network';
+import { getDevAPIBase } from '../../network/network-helper';
+import { BasicMessageResponse } from '../../types/rest-response-wrapper';
 
 const PageWrapper = styled.div`
     display: grid;
@@ -96,11 +99,12 @@ const TagWrapper = styled.div`
 
 export const TwitchClipsList = () => {
     const { pushToast } = useToast();
-
     const navigate = useNavigate();
 
+    const [channels] = useFetch<readonly ManagingChannel[]>(`${getDevAPIBase()}/twitchclipfilter/managingchannels`, { requestData: getParams });
+    const [pullTwitchClips] = useQuery<BasicMessageResponse>(`${getDevAPIBase()}/channels`, { requestData: postParams });
+
     const [selectedChannel, setSlectedChannel] = useState(-1);
-    const [channels, setChannels] = useState<readonly ManagingChannel[]>([]);
     const [clips, setClips] = useState<readonly TwitchClip[]>([]);
     const [selectedClips, setSelectedClips] = useState<readonly string[]>([]);
     const [page, setPage] = useState(0);
@@ -112,15 +116,8 @@ export const TwitchClipsList = () => {
 
     useEffect(() => {
         if (selectedChannel !== -1) {
-            clipAPI.getTags(selectedChannel).then(json => {
-                if (json.success)
-                    setTags(json.data);
-            });
+            clipAPI.getTags(selectedChannel).then(setTags);
         }
-        clipAPI.getManagingChannels().then(json => {
-            if (json.success)
-                setChannels(json.data);
-        });
     }, []);
 
     useEffect(() => {
@@ -128,10 +125,7 @@ export const TwitchClipsList = () => {
         setPage(0);
         setUpdate(true);
         if (selectedChannel !== -1) {
-            clipAPI.getTags(selectedChannel).then(json => {
-                if (json.success)
-                    setTags(json.data);
-            });
+            clipAPI.getTags(selectedChannel).then(setTags);
         }
     }, [allowedTags, disallowedTags, selectedChannel]);
 
@@ -140,15 +134,14 @@ export const TwitchClipsList = () => {
             return;
 
         clipAPI.getClips(selectedChannel, page, 25, allowedTags.map(ft => ft.id), disallowedTags.map(ft => ft.id)).then(json => {
-            if (json.success)
-                setClips(clips => [...clips, ...json.data]);
+            setClips(clips => [...clips, ...json]);
         });
         setUpdate(false);
     }, [page, allowedTags, disallowedTags, update, selectedChannel]);
 
     const pullClips = () => {
-        clipAPI.pullTwitchClips(selectedChannel).then(json => {
-            pushToast(<TextToast text={json.message} />);
+        pullTwitchClips(undefined, `${selectedChannel}/loadClips`).then(json => {
+            pushToast(<TextToast text={json?.message ?? 'ERROR'} />);
         });
     };
 
@@ -158,8 +151,8 @@ export const TwitchClipsList = () => {
     };
 
     const removeTag = (clipId: string, tag: number) => {
-        clipAPI.removeTagFromClip(clipId, [tag]).then(json => {
-            if (json.success) {
+        clipAPI.removeTagFromClip(clipId, tag).then(success => {
+            if (success) {
                 setClips(clips => [...clips.map(clip => {
                     if (clip.id === clipId) {
                         return {
@@ -185,7 +178,7 @@ export const TwitchClipsList = () => {
                 <Select label='Channel:' value={selectedChannel} onChange={e => setSlectedChannel(parseInt(e.target.value))}>
                     <Option value={-1}>Choose A Stream</Option>
                     {
-                        channels.map(c => <Option key={c.id} value={c.id}>{c.name}</Option>)
+                        channels?.map(c => <Option key={c.id} value={c.id}>{c.name}</Option>)
                     }
                 </Select>
             </InputsWrapper>

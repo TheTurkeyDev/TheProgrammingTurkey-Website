@@ -1,10 +1,11 @@
-import { BaseTheme, ContainedButton, Input, Modal, Option, Select, TextArea, ToggleSwitch } from 'gobble-lib-react';
+import { ContainedButton, Input, Modal, Option, Select, TextArea, ToggleSwitch, useFetch, useQuery } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
-import styled, { ThemeProps } from 'styled-components';
-import { getRewardSettings, saveReward } from '../../network/chance-cubes-network';
+import styled from 'styled-components';
 import { gameVersions, statusInfo } from '../../pages/chance-cubes/reward-status/chance-cubes-rewards-status';
 import { ChanceCubesRewardSetting } from '../../types/chance-cubes/chance-cubes-reward-setting';
 import { CCVersionedRewardData } from '../../types/chance-cubes/chance-cubes-versioned-reward';
+import { getDevAPIBase } from '../../network/network-helper';
+import { getParams, patchParams } from '../../network/auth-network';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -25,7 +26,7 @@ const InputsWrapper = styled.div`
 `;
 
 const RewardSettingsWrapper = styled.table`
-    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
+    color: ${({ theme }) => theme.background.on};
 `;
 
 type ChanceCubesRewardEditModalProps = {
@@ -35,7 +36,10 @@ type ChanceCubesRewardEditModalProps = {
     readonly data: CCVersionedRewardData
 }
 export const ChanceCubesRewardEditModal = ({ show, requestClose, name, data }: ChanceCubesRewardEditModalProps) => {
-    const [settings, setSettings] = useState<readonly ChanceCubesRewardSetting[]>([]);
+
+    const [saveReward] = useQuery(`${getDevAPIBase()}/chancecubes/rewards`, { requestData: patchParams });
+
+    const [settings, loading] = useFetch<readonly ChanceCubesRewardSetting[]>(`${getDevAPIBase()}/chancecubes/rewards/${name}/settings`, { requestData: getParams });
 
     const [mcVersion, setMcVersion] = useState('1.7.10');
     const [versionStatus, setVersionStatus] = useState(data.versions['1.7.10']);
@@ -44,15 +48,6 @@ export const ChanceCubesRewardEditModal = ({ show, requestClose, name, data }: C
     const [chanceValue, setChanceValue] = useState(data.chance);
     const [description, setDescription] = useState('');
     const [allVersionsStatus, setAllVersionsStatus] = useState(data.versions);
-
-    useEffect(() => {
-        if (!show)
-            return;
-        getRewardSettings(name).then(json => {
-            if (json.success)
-                setSettings(json.data);
-        });
-    }, [show]);
 
     useEffect(() => {
         setVersionStatus(allVersionsStatus[mcVersion] ?? 0);
@@ -67,17 +62,19 @@ export const ChanceCubesRewardEditModal = ({ show, requestClose, name, data }: C
     };
 
     const save = () => {
-        saveReward(name, chanceValue, isGCCReward, gameVersions.map(v => ({
-            game_version: v,
-            status: allVersionsStatus[v] ?? 0
-        }))).then(json => {
-            if (json.success) {
-                requestClose();
-            }
-            else {
-                console.log(json.message);
-            }
-        });
+        saveReward(JSON.stringify({
+            name,
+            chance: chanceValue,
+            giantCubeReward: isGCCReward
+        }), name)
+            .then(() => saveReward(JSON.stringify(gameVersions.map(v => ({
+                gameVersion: v,
+                rewardName: name,
+                status: allVersionsStatus[v] ?? 0
+            }))), `${name}/status`))
+            .then(() => requestClose())
+            .catch(e => console.log(e.message));
+
     };
 
     return (
@@ -111,7 +108,7 @@ export const ChanceCubesRewardEditModal = ({ show, requestClose, name, data }: C
                     </thead>
                     <tbody>
                         {
-                            settings.map(setting => (
+                            settings?.map(setting => (
                                 <tr key={setting.setting}>
                                     <td>{setting.setting}</td>
                                     <td>{setting.type}</td>

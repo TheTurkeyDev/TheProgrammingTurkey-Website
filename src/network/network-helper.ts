@@ -1,13 +1,13 @@
 export function getDevAPIBase() {
-    return isDevEnv() ? 'http://localhost:8082/api' : 'https://api.theturkey.dev';
+    return isDevEnv() ? 'http://localhost:8080/api' : 'https://api.theturkey.dev';
 }
 
 export function getSiteURLBase() {
-    return isDevEnv() ? 'http://localhost:8082' : 'https://theturkey.dev';
+    return isDevEnv() ? 'http://localhost:8080' : 'https://theturkey.dev';
 }
 
 export function getYTSiteURLBase() {
-    return isDevEnv() ? 'http://localhost:8082' : 'https://theturkey.dev';
+    return isDevEnv() ? 'http://localhost:8080' : 'https://theturkey.dev';
 }
 
 export function getAppsSiteBase() {

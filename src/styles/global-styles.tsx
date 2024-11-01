@@ -1,5 +1,4 @@
-import { BaseTheme } from 'gobble-lib-react';
-import { createGlobalStyle, ThemeProps } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
     html, body, #root {
@@ -8,8 +7,8 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        background: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.color};
-        color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
+        background: ${({ theme }) => theme.background.color};
+        color: ${({ theme }) => theme.background.on};
         transition: .25s;
     }
 `;

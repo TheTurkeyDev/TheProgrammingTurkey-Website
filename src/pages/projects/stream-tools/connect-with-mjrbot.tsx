@@ -1,13 +1,13 @@
-import { Anchor, BaseTheme, Body1, ContainedButton, Headline5, Subtitle1 } from 'gobble-lib-react';
+import { Anchor, Body1, ContainedButton, Headline5, Subtitle1 } from 'gobble-lib-react';
 import { useState } from 'react';
-import styled, { ThemeProps } from 'styled-components';
+import styled from 'styled-components';
 import { LoadingModal } from '../../../modals/loading-modal';
 import { getSiteURLBase } from '../../../network/network-helper';
 
 const ContentWrapper = styled.div`
     display: grid;
     width: 700px;
-    background: ${({ theme }: ThemeProps<BaseTheme>) => theme.surface.color};
+    background: ${({ theme }) => theme.surface.color};
     border-radius: 15px;
     padding: 16px;
     gap: 8px;

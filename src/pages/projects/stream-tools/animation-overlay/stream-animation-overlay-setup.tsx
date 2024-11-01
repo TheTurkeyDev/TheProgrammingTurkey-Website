@@ -51,19 +51,17 @@ export const AnimatedStreamOverlaySetup = () => {
         async function loadData() {
             setLoading(true);
 
-            const animJson = await StreamAnimAPI.getAllAnimations();
-            if (animJson.success)
-                setAnimations(animJson.data);
+            const anims = await StreamAnimAPI.getAllAnimations();
+            setAnimations(anims);
 
             const udJson = await StreamAnimAPI.getUserData();
-            if (udJson.success) {
-                const data = udJson.data;
-                setConnectedToMJRBot(data.connected);
-                if (!data.connected)
+            if (!!udJson) {
+                setConnectedToMJRBot(udJson.connected);
+                if (!udJson.connected)
                     return;
-                setToken(data.token);
-                setchannelRewards(data.channel_points);
-                setAnimationUserData(data.animation_user_data ?? {});
+                setToken(udJson.token);
+                setchannelRewards(udJson.channel_points);
+                setAnimationUserData(udJson.animation_user_data ?? {});
             }
             setLoading(false);
         }

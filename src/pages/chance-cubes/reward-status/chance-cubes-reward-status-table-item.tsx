@@ -1,9 +1,9 @@
-import styled, { ThemedStyledProps, ThemeProps } from 'styled-components';
+import styled from 'styled-components';
 import { ChanceCubesRewardInfoModal } from '../../../modals/chance-cubes/chance-cubes-reward-info-modal';
 import { ChanceCubesRewardEditModal } from '../../../modals/chance-cubes/chance-cubes-reward-edit-modal';
 import { ChanceCubesRewardStatusCell } from './chance-cubes-reward-status-row';
 import { gameVersions } from './chance-cubes-rewards-status';
-import { BaseTheme, Icon, TD, TextToast, useToast } from 'gobble-lib-react';
+import { Icon, TD, TextToast, useToast } from 'gobble-lib-react';
 import { CCVersionedRewardData } from '../../../types/chance-cubes/chance-cubes-versioned-reward';
 import { ChanceCubesRewardNote } from '../../../types/chance-cubes/chance-cubes-reward-note';
 import { useState } from 'react';
@@ -12,19 +12,19 @@ const IconsWrapper = styled(TD)`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
-    color: ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
+    color: ${({ theme }) => theme.background.on};
 `;
 
 type WrapperProps = {
     readonly isGCCR: boolean
 }
 
-const RewardNameWrapper = styled(TD)`
-    color: ${({ isGCCR, theme }: ThemedStyledProps<WrapperProps, BaseTheme>) => isGCCR ? theme.secondary.color : theme.surface.on};
+const RewardNameWrapper = styled(TD) <WrapperProps>`
+    color: ${({ isGCCR, theme }) => isGCCR ? theme.secondary.color : theme.surface.on};
 `;
 
-const ChanceValueWrapper = styled(TD)`
-    color: ${({ isGCCR, theme }: ThemedStyledProps<WrapperProps, BaseTheme>) => isGCCR ? theme.secondary.color : theme.surface.on};
+const ChanceValueWrapper = styled(TD) <WrapperProps>`
+    color: ${({ isGCCR, theme }) => isGCCR ? theme.secondary.color : theme.surface.on};
     text-align: center;
 `;
 
@@ -65,8 +65,8 @@ export const ChanceCubesRewardStatusTableItem = ({ reward, rewardData, highlight
                     );
                 })
             }
-            <ChanceCubesRewardEditModal show={showRewardEditOverlay} requestClose={() => setShowRewardEditOverlay(false)} name={reward} data={rewardData} />
-            <ChanceCubesRewardInfoModal show={showRewardOverlay} requestClose={() => setShowRewardOverlay(false)} name={reward} data={rewardData} />
+            {showRewardEditOverlay && <ChanceCubesRewardEditModal show={showRewardEditOverlay} requestClose={() => setShowRewardEditOverlay(false)} name={reward} data={rewardData} />}
+            {showRewardOverlay && <ChanceCubesRewardInfoModal show={showRewardOverlay} requestClose={() => setShowRewardOverlay(false)} name={reward} data={rewardData} />}
         </tr>
     );
 };

@@ -1,8 +1,9 @@
-import { ButtonRow, ContainedButton, Input, InputsWrapper, Modal, OutlinedButton, TextToast, useToast } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Input, InputsWrapper, Modal, OutlinedButton, TextToast, useQuery, useToast } from 'gobble-lib-react';
 import { useState } from 'react';
-import styled from 'styled-components';
-import { userListUpdateUser, userListAddUser } from '../../network/chance-cubes-network';
 import { CCContentCreator } from '../../types/chance-cubes/chance-cubes-content-creator';
+import { getDevAPIBase } from '../../network/network-helper';
+import { postParams } from '../../network/auth-network';
+import { BasicMessageResponse } from '../../types/rest-response-wrapper';
 
 type ChanceCubesContentCreatorOverlayProps = {
     readonly show: boolean
@@ -12,6 +13,8 @@ type ChanceCubesContentCreatorOverlayProps = {
 export const ChanceCubesContentCreatorModal = ({ show, requestClose, user }: ChanceCubesContentCreatorOverlayProps) => {
     const { pushToast } = useToast();
 
+    const [upsertUser] = useQuery<BasicMessageResponse>(`${getDevAPIBase()}/chancecubes/userlist`, { requestData: postParams });
+
     const isNewUser = !user;
 
     const [uuid, setUUID] = useState(user?.UUID ?? '');
@@ -20,17 +23,10 @@ export const ChanceCubesContentCreatorModal = ({ show, requestClose, user }: Cha
     const [twitch, setTwtich] = useState(user?.Twitch ?? '');
 
     const submitInfo = () => {
-        if (isNewUser) {
-            userListAddUser({ UUID: uuid, Name: userName, Type: type, Twitch: twitch }).then(resp => {
-                pushToast(<TextToast text={resp.message} />);
-            });
-        }
-        else {
-            userListUpdateUser({ UUID: uuid, Name: userName, Type: type, Twitch: twitch }).then(resp => {
-                pushToast(<TextToast text={resp.message} />);
-            });
-        }
-        requestClose();
+        upsertUser(JSON.stringify({ UUID: uuid, Name: userName, Type: type, Twitch: twitch }), isNewUser ? '' : uuid).then(resp => {
+            pushToast(<TextToast text={resp?.message ?? 'ERR'} />);
+            requestClose();
+        });
     };
 
     return (

@@ -1,5 +1,5 @@
-import { BaseTheme, Elevation, Opacity } from 'gobble-lib-react';
-import styled, { ThemeProps } from 'styled-components';
+import { Elevation, Opacity } from 'gobble-lib-react';
+import styled from 'styled-components';
 import { PlatformLoginType } from '../../types/platform-login';
 
 const BadgeWrapper = styled.a`
@@ -11,7 +11,7 @@ const BadgeWrapper = styled.a`
     padding: 2px 0 2px 16px;
     color: #ffffff;
     background-color: ${({ color }) => color};
-    border: 1px solid ${({ theme }: ThemeProps<BaseTheme>) => theme.background.on};
+    border: 1px solid ${({ theme }) => theme.background.on};
     border-radius: 5px;
     box-shadow: ${Elevation.medium};
 
