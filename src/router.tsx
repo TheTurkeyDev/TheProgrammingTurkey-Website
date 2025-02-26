@@ -16,13 +16,14 @@ import { lazy, Suspense } from 'react';
 import { PrivacyPolicy } from './pages/legal/privacy-policy';
 import { TermsOfService } from './pages/legal/tos';
 import { ChatMerge } from './pages/chat-merge/chat-merge';
+import { TwitchClipShoutout } from './pages/projects/stream-tools/twitch-clip-shoutout/twitch-clip-shoutout';
+import { BotLogin } from './pages/auth/login-bot';
 
 const ChanceCubesRouter = lazy(() => import(/* webpackChunkName: "Chance Cubes" */ './pages/chance-cubes/chance-cubes-router'));
 const ProjectsRouter = lazy(() => import(/* webpackChunkName: "Projects" */ './pages/projects/projects-router'));
 const TwitchGamesRouter = lazy(() => import(/* webpackChunkName: "Twitch Games" */ './pages/twitch-games/twitch-games-router'));
 const UserRouter = lazy(() => import(/* webpackChunkName: "User" */ './pages/user/user-router'));
 const AdminRouter = lazy(() => import(/* webpackChunkName: "Admin" */ './pages/admin/admin-router'));
-const TwitchClipFiltererRouter = lazy(() => import(/* webpackChunkName: "Twitch Clip Filterer" */ './pages/twitch-clip-filterer/twitch-clip-router'));
 const SuggestionsRouter = lazy(() => import(/* webpackChunkName: "Suggestions" */ './pages/suggestions/suggestions-router'));
 const VideoGenRouter = lazy(() => import(/* webpackChunkName: "Video Generator" */ './pages/code-highlighter/video-gen-router'));
 const DiscordRouter = lazy(() => import(/* webpackChunkName: "Discord" */ './pages/discord/discord-router'));
@@ -41,7 +42,6 @@ export const Routing = () => (
             <Route path='/twitchgames/*' element={<TwitchGamesRouter />} />
             <Route path='/user/*' element={<UserRouter />} />
             <Route path='/admin/*' element={<AdminRouter />} />
-            <Route path='/twitchclipfilterer/*' element={<TwitchClipFiltererRouter />} />
             <Route path='/suggestions/*' element={<SuggestionsRouter />} />
             <Route path='/videogen/*' element={<VideoGenRouter />} />
             <Route path='/discord/*' element={<DiscordRouter />} />
@@ -53,10 +53,12 @@ export const Routing = () => (
             <Route path='/ld-stats' element={<LDStats />} />
             <Route path='/stream-led-control' element={<StreamLEDControl />} />
             <Route path='/chat-merge' element={<ChatMerge />} />
+            <Route path='/twitch-clip-shoutout' element={<TwitchClipShoutout />} />
             <Route path='/info' element={<Info />} />
             <Route path='/support' element={<Support />} />
             <Route path='/mjrbotfaq' element={<MJRBotFAQ />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/botlogin' element={<BotLogin />} />
             <Route path='/logout' element={<Logout />} />
             <Route path='/loginresp/:platform' element={<LoginResponse />} />
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />

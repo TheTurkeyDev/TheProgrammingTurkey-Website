@@ -1,6 +1,7 @@
 export type UserConnection = {
-    readonly user_id: string
+    readonly userId: string
     readonly platform: string
-    readonly platform_id: string
-    readonly platform_display_name: string
+    readonly platformId: string
+    readonly platformURLId : string
+    readonly platformDisplayName: string
 }

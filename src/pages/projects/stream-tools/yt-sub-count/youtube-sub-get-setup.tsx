@@ -40,9 +40,7 @@ export const YouTubeSubGetSetup = () => {
             return;
 
         authAPI.getYTSubsDisplaySettings(token).then(json => {
-            if (json.success) {
-                setDisplaySettings(json.data);
-            }
+            setDisplaySettings(json);
         });
     }, [token]);
 
@@ -80,7 +78,7 @@ export const YouTubeSubGetSetup = () => {
 
     const saveDisplaySettings = () => {
         authAPI.saveYTSubsDisplaySettings(token, displaySettings!).then(json => {
-            pushToast(<TextToast text={json.success ? 'Settings Saved!' : json.message} />);
+            pushToast(<TextToast text='Settings Saved!' />);
         });
     };
 

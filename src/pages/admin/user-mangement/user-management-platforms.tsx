@@ -25,10 +25,10 @@ export const UserManagementPlatforms = ({ platfroms }: UserManagementPlatformsPr
                     <IconWithPopOver key={userPlatform.platform} direction='right' icon={`fab fa-${userPlatform.platform.toLowerCase()}`}>
                         <PlatformInfoWrapper>
                             <span>
-                                {userPlatform.platform_id}
+                                {userPlatform.platformId}
                             </span>
                             <span>
-                                {userPlatform.platform_display_name}
+                                {userPlatform.platformDisplayName}
                             </span>
                         </PlatformInfoWrapper>
                     </IconWithPopOver>

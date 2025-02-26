@@ -53,8 +53,8 @@ export const UserManagement = () => {
                 </thead>
                 <tbody>
                     {[...userList]
-                        .sort((a, b) => new Date(b.user_info.created_at).getTime() - new Date(a.user_info.created_at).getTime())
-                        .map(user => <UserManagementUserItem key={user.user_info.user_id} user={user} />)}
+                        .sort((a, b) => new Date(b.user_info.createdAt).getTime() - new Date(a.user_info.createdAt).getTime())
+                        .map(user => <UserManagementUserItem key={user.user_info.userId} user={user} />)}
                 </tbody>
             </Table>
         </PageWrapper>

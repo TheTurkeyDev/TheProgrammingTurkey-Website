@@ -63,7 +63,7 @@ export const TwitchHangmanSetup = () => {
     if (loading)
         return <Loading />;
 
-    const hangmanURL = `${getAppsSiteBase()}/twitch/hangman?token=${token}&channel=${platformInfo?.platform_id}&reward_id=&bgcolor=${bgColor}&normcol=${wordColor}&corcol=${correctLetterColor}&wrongcol=${wrongLetterColor}`;
+    const hangmanURL = `${getAppsSiteBase()}/twitch/hangman?token=${token}&channel=${platformInfo?.platformId}&reward_id=&bgcolor=${bgColor}&normcol=${wordColor}&corcol=${correctLetterColor}&wrongcol=${wrongLetterColor}`;
 
     return (
         <ContentWrapper>

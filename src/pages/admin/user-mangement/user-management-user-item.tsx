@@ -25,12 +25,12 @@ export const UserManagementUserItem = ({ user }: UserManagementUserItemProps) =>
                 </TD>
                 <TD>
                     <img src={user.user_info.avatar} width={32} height={32} />
-                    {user.user_info.display_name}
+                    {user.user_info.displayName}
                 </TD>
-                <TD>{user.user_info.user_id}</TD>
-                <TD>{user.user_info.created_at}</TD>
+                <TD>{user.user_info.userId}</TD>
+                <TD>{user.user_info.createdAt}</TD>
             </TR>
-            {showModal && <UserManageModal show={showModal} requestClose={() => setShowModal(false)} userId={user.user_info.user_id} />}
+            {showModal && <UserManageModal show={showModal} requestClose={() => setShowModal(false)} userId={user.user_info.userId} />}
         </>
     );
 };

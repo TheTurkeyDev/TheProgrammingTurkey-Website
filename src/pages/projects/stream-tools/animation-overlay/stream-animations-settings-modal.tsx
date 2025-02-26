@@ -1,13 +1,12 @@
 import { ContainedButton, Input, Loading, Modal, Select } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { LoadingModal } from '../../../../modals/loading-modal';
 import * as API from '../../../../network/stream-animations-network';
 import { Mapped } from '../../../../types/mapped';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { StreamAnimationSettingDef } from '../../../../types/stream-animations/stream-animation-settings-def';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
-import { StreamAnimationUserData, UserAnimationSettings } from './mapped-stream-animation-user-data';
+import { UserAnimationSettings } from './mapped-stream-animation-user-data';
 
 const ContentWrapper = styled.div`
     display: grid;

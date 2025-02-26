@@ -15,11 +15,15 @@ export function getAppsSiteBase() {
 }
 
 export function getStreamAnimationsOverlaySiteBase() {
-    return isDevEnv() ? 'http://localhost:8085/' : 'https://apps.theturkey.dev/streamanimations';
+    return isDevEnv() ? 'http://localhost:8085' : 'https://apps.theturkey.dev/streamanimations';
+}
+
+export function getTwitchOverlaySiteBase() {
+    return isDevEnv() ? 'http://localhost:8085' : 'https://apps.theturkey.dev/twitch';
 }
 
 export function getVideoGenSiteBase() {
-    return isDevEnv() ? 'http://localhost:8084/' : 'https://videogen.theturkey.dev';
+    return isDevEnv() ? 'http://localhost:8084' : 'https://videogen.theturkey.dev';
 }
 
 function isDevEnv() {

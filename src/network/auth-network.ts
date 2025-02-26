@@ -191,7 +191,7 @@ export async function getYTSubs(token: string) {
     });
 }
 
-export async function getYTSubsDisplaySettings(token: string): Promise<RestResponseWrapper<YouTubeDisplaySettings>> {
+export async function getYTSubsDisplaySettings(token: string): Promise<YouTubeDisplaySettings> {
     return await fetch(`${getDevAPIBase()}/proc/ytsubsdisplaysettings?token=${token}`, getGetAuthParams()).then(resp => {
         return resp.json();
     });

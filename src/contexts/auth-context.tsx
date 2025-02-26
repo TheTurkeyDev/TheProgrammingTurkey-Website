@@ -1,17 +1,20 @@
-import { WithChildren } from 'gobble-lib-react';
+import { useQuery, WithChildren } from 'gobble-lib-react';
 import { useState, useEffect, createContext, useContext } from 'react';
-import * as authAPI from '../network/auth-network';
+import { getDevAPIBase } from '../network/network-helper';
+import { getParams, postParams } from '../network/auth-network';
+import { Platform } from '../types/platform';
+import { User } from '../types/user';
 
 type AuthContextType = {
     readonly authChecked: boolean
+    readonly platforms: readonly Platform[]
     readonly permissions: readonly string[]
     readonly userName: string
     readonly userID: string
     readonly avatar: string
     readonly authState: boolean
     readonly logout: () => void
-    readonly login: () => void
-    readonly checkAuth: () => void
+    readonly reloadUser: () => void
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -24,70 +27,53 @@ export const useAuth = () => {
 };
 
 export const AuthWrapper = ({ children }: WithChildren) => {
+
+    const [userInfoQuery] = useQuery<User>(`${getDevAPIBase()}/user/info`, { requestData: getParams });
+    const [logoutQuery] = useQuery(`${getDevAPIBase()}/auth/logout`, { requestData: postParams });
+
     const [authChecked, setAuthChecked] = useState(false);
     const [authState, setAuthState] = useState(false);
     const [userName, setUserName] = useState('');
     const [userID, setUserID] = useState('');
     const [userAvatar, setUserAvatar] = useState('');
-    const [permissions, setPermissions] = useState([]);
+    const [permissions, setPermissions] = useState<readonly string[]>([]);
+    const [platforms, setPlatforms] = useState<readonly Platform[]>([]);
+
+    const setUserData = (userInfo: User) => {
+        setUserName(userInfo.displayName);
+        setUserID(userInfo.userID);
+        setUserAvatar(userInfo.avatar);
+        setPermissions(userInfo.permissions);
+        setPlatforms(userInfo.platforms);
+        setAuthState(true);
+    };
 
     useEffect(() => {
-        async function checkLogin() {
-            authAPI.isLoggedIn().then(json => {
-                if (json.loggedin) {
-                    setUserName(json.username);
-                    setUserID(json.user_id);
-                    setUserAvatar(json.avatar);
-                    authAPI.getUserPerms().then(json => {
-                        setPermissions(json);
-                        setAuthChecked(true);
-                    });
-                }
-                else {
-                    setAuthChecked(true);
-                }
-                setAuthState(json.loggedin);
-            }).catch(() => {
-                setAuthChecked(true);
-            });
-        }
-        if (!authChecked)
-            checkLogin();
+        if (authChecked)
+            return;
+        userInfoQuery().then(userInfo => {
+            if (!!userInfo)
+                setUserData(userInfo);
+            setAuthChecked(true);
+        });
     }, [authChecked]);
 
-    const login = () => {
-        authAPI.getUserInfo().then(json => {
-            if (json.user_id) {
-                setUserName(json.display_name);
-                setUserID(json.user_id);
-                authAPI.getUserPerms().then(json => {
-                    setPermissions(json);
-                    setAuthState(true);
-                });
-            }
-            else {
-                logout();
-            }
-        });
-    };
-
     const logout = () => {
-        authAPI.logout().then(json => {
-            if (json.success) {
-                setUserName('');
-                setUserID('-1');
-                setUserAvatar('');
-                setAuthState(false);
-            }
+        logoutQuery().then(() => {
+            setUserName('');
+            setUserID('-1');
+            setUserAvatar('');
+            setPermissions([]);
+            setAuthState(false);
         });
     };
 
-    const checkAuth = () => {
+    const reloadUser = () => {
         setAuthChecked(false);
     };
 
     return (
-        <AuthContext.Provider value={{ authChecked, permissions, userName, userID, avatar: userAvatar, authState, logout, login, checkAuth }}>
+        <AuthContext.Provider value={{ authChecked, permissions, platforms, userName, userID, avatar: userAvatar, authState, logout, reloadUser }}>
             {children}
         </AuthContext.Provider>
     );

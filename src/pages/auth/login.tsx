@@ -1,6 +1,6 @@
 import { Headline3, useUrlParams } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../../contexts/auth-context';
 import * as authAPI from '../../network/auth-network';
