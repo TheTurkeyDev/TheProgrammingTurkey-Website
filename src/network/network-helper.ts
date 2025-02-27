@@ -19,7 +19,7 @@ export function getStreamAnimationsOverlaySiteBase() {
 }
 
 export function getTwitchOverlaySiteBase() {
-    return isDevEnv() ? 'http://localhost:8085' : 'https://apps.theturkey.dev/twitch';
+    return isDevEnv() ? 'http://localhost:8085' : 'https://apps.theturkey.dev/overlay';
 }
 
 export function getVideoGenSiteBase() {

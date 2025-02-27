@@ -1,6 +1,7 @@
 import { Anchor, Body1, LinkButton } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { LinkType } from '../types/link-type';
+import { JSX } from 'react';
 
 const ProjectLinksWrapper = styled.div`
     display: grid;

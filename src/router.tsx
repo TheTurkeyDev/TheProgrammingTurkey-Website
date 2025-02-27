@@ -12,7 +12,7 @@ import { Logout } from './pages/auth/logout';
 import { AuthRoute } from './util/auth-route';
 import { MJRBotFAQ } from './pages/mjr-bot-faq';
 import { Loading, NotFound } from 'gobble-lib-react';
-import { lazy, Suspense } from 'react';
+import { JSX, lazy, Suspense } from 'react';
 import { PrivacyPolicy } from './pages/legal/privacy-policy';
 import { TermsOfService } from './pages/legal/tos';
 import { ChatMerge } from './pages/chat-merge/chat-merge';
