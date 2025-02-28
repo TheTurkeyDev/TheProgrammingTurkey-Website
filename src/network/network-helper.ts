@@ -6,20 +6,12 @@ export function getSiteURLBase() {
     return isDevEnv() ? 'http://localhost:8080' : 'https://theturkey.dev';
 }
 
-export function getYTSiteURLBase() {
-    return isDevEnv() ? 'http://localhost:8080' : 'https://theturkey.dev';
-}
-
 export function getAppsSiteBase() {
     return isDevEnv() ? 'http://localhost:8085' : 'https://apps.theturkey.dev';
 }
 
-export function getStreamAnimationsOverlaySiteBase() {
-    return isDevEnv() ? 'http://localhost:8085' : 'https://apps.theturkey.dev/streamanimations';
-}
-
 export function getTwitchOverlaySiteBase() {
-    return isDevEnv() ? 'http://localhost:8085' : 'https://apps.theturkey.dev/overlay';
+    return isDevEnv() ? 'http://localhost:8085/overlay' : 'https://apps.theturkey.dev/overlay';
 }
 
 export function getVideoGenSiteBase() {
