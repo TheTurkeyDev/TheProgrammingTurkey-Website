@@ -1,5 +1,4 @@
 import { StreamAnimationUserData } from '../pages/projects/stream-tools/animation-overlay/mapped-stream-animation-user-data';
-import { RestResponseWrapper } from '../types/rest-response-wrapper';
 import { StreamAnimation } from '../types/stream-animations/stream-animation';
 import { StreamAnimationSettingDef } from '../types/stream-animations/stream-animation-settings-def';
 import { StreamAnimData } from '../types/stream-animations/user-data';

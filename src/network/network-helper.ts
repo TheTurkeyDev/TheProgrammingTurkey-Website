@@ -11,7 +11,7 @@ export function getYTSiteURLBase() {
 }
 
 export function getAppsSiteBase() {
-    return isDevEnv() ? 'https://app.test.local' : 'https://apps.theturkey.dev';
+    return isDevEnv() ? 'http://localhost:8085' : 'https://apps.theturkey.dev';
 }
 
 export function getStreamAnimationsOverlaySiteBase() {

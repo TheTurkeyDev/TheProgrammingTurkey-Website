@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../../../contexts/auth-context';
-import { getAppsSiteBase, getSiteURLBase } from '../../../../network/network-helper';
+import { getAppsSiteBase, getSiteURLBase, getStreamAnimationsOverlaySiteBase } from '../../../../network/network-helper';
 import * as StreamAnimAPI from '../../../../network/stream-animations-network';
 import { ConnectWithMJRBot } from '../connect-with-mjrbot';
 import { StreamAnimationItem } from './stream-animation-item';
@@ -129,7 +129,7 @@ export const AnimatedStreamOverlaySetup = () => {
     };
 
 
-    const appUrl = `${getAppsSiteBase()}/streamanimations?token=${token}`;
+    const appUrl = `${getStreamAnimationsOverlaySiteBase()}/overlay/streamanimations/${token}`;
 
     if (loading)
         return <Loading />;

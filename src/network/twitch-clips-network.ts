@@ -1,4 +1,3 @@
-import { RestResponseWrapper } from '../types/rest-response-wrapper';
 import { TwitchClip } from '../types/twitch-clip-filter/twitch-clip';
 import { TwitchClipTag } from '../types/twitch-clip-filter/twitch-clip-tag';
 import * as authAPI from './auth-network';

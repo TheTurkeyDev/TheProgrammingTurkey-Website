@@ -1,11 +1,8 @@
 import { getDevAPIBase } from './network-helper';
 import { PlatformLoginType } from '../types/platform-login';
-import { UserAndPlatform } from '../types/user-and-platform';
 import { Permission } from '../types/permission';
-import { ProcessHealth } from '../types/process-health';
 import { UserConnection } from '../types/user-connection';
 import { YouTubeDisplaySettings } from '../pages/projects/stream-tools/yt-sub-count/youtube-display-settings';
-import { RestResponseWrapper } from '../types/rest-response-wrapper';
 
 const baseParams: RequestInit = {
     credentials: 'include',
@@ -14,6 +11,7 @@ const baseParams: RequestInit = {
         'Cache-Control': 'no-store'
     }
 };
+
 const paramsForType = (method: string) => ({ method, ...baseParams });
 export const getParams: RequestInit = paramsForType('GET');
 export const postParams: RequestInit = paramsForType('POST');
