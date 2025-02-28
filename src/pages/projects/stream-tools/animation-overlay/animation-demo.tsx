@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { getStreamAnimationsOverlaySiteBase } from '../../../../network/network-helper';
+import { getTwitchOverlaySiteBase } from '../../../../network/network-helper';
 
 
 const ContainedListItemWrapper = styled.div`
@@ -54,7 +54,7 @@ export const AnimationDemo = ({ name, id }: AnimationDemoProps) => {
             {
                 expanded &&
                 <IFrameWrap>
-                    <IFrameCustom src={`${getStreamAnimationsOverlaySiteBase()}?forceShow=${id}`} height='1080' width='1920' title={`${name} Demo`} />
+                    <IFrameCustom src={`${getTwitchOverlaySiteBase()}/streamanimations/test?forceShow=${id}`} height='1080' width='1920' title={`${name} Demo`} />
                 </IFrameWrap>
             }
         </ContainedListItemWrapper>

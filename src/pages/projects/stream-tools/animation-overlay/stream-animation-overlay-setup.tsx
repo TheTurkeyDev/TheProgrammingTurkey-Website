@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../../../contexts/auth-context';
-import { getAppsSiteBase, getSiteURLBase, getStreamAnimationsOverlaySiteBase, getTwitchOverlaySiteBase } from '../../../../network/network-helper';
+import { getSiteURLBase, getTwitchOverlaySiteBase } from '../../../../network/network-helper';
 import * as StreamAnimAPI from '../../../../network/stream-animations-network';
 import { ConnectWithMJRBot } from '../connect-with-mjrbot';
 import { StreamAnimationItem } from './stream-animation-item';
