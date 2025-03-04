@@ -55,6 +55,8 @@ export const TwitchClipShoutout = () => {
                 <ToggleSwitch label='Enabled' checked={settings.enabled} onClick={() => setData({ ...settings, enabled: !settings.enabled })} />
                 <Select label='Restrict To' value={settings.usageControl} onChange={e => setData({ ...settings, usageControl: parseInt(e.target.value) })}>
                     <Option value={TwitchChatRoleLevel.STREAMER}>Streamer</Option>
+                    <Option value={TwitchChatRoleLevel.MOD}>Moderator</Option>
+                    <Option value={TwitchChatRoleLevel.VIP}>VIP</Option>
                     <Option value={TwitchChatRoleLevel.EVERYONE}>Everyone</Option>
                 </Select>
                 <Input label='Min Length' type='number' value={settings.minLength} min={0} max={60} step={1} onChange={e => setData({ ...settings, minLength: Math.min(settings.maxLength, parseInt(e.target.value)), maxLength: Math.max(settings.maxLength, parseInt(e.target.value)) })} />
