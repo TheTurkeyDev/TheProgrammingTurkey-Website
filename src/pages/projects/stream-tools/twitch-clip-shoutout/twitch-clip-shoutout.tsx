@@ -1,4 +1,4 @@
-import { Body1, ButtonRow, ContainedButton, Headline3, HorizontalRule, InputsWrapper, Loading, Option, OutlinedButton, Select, ToggleSwitch, useFetch, useQuery } from 'gobble-lib-react';
+import { Body1, ButtonRow, ContainedButton, Headline3, HorizontalRule, Input, InputsWrapper, Loading, Option, OutlinedButton, Select, ToggleSwitch, useFetch, useQuery } from 'gobble-lib-react';
 import { getDevAPIBase, getTwitchOverlaySiteBase } from '../../../../network/network-helper';
 import { getGetAuthParams, getPostAuthParams } from '../../../../network/auth-network';
 import { TwitchClipShoutoutSettings } from './twitch-clip-shoutout-settings';
@@ -57,6 +57,8 @@ export const TwitchClipShoutout = () => {
                     <Option value={TwitchChatRoleLevel.STREAMER}>Streamer</Option>
                     <Option value={TwitchChatRoleLevel.EVERYONE}>Everyone</Option>
                 </Select>
+                <Input label='Min Length' type='number' value={settings.minLength} min={0} max={60} step={1} onChange={e => setData({ ...settings, minLength: Math.min(settings.maxLength, parseInt(e.target.value)), maxLength: Math.max(settings.maxLength, parseInt(e.target.value)) })} />
+                <Input label='Max Length' type='number' value={settings.maxLength} min={0} max={60} step={1} onChange={e => setData({ ...settings, minLength: Math.min(settings.minLength, parseInt(e.target.value)), maxLength: Math.max(settings.minLength, parseInt(e.target.value)) })} />
             </InputsWrapper>
             <ButtonRow>
                 <ContainedButton disabled={!isDirty} onClick={saveSettingsToDB}>Save</ContainedButton>

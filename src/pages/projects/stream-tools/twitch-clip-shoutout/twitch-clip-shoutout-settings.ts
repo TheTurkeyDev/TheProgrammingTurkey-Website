@@ -6,4 +6,6 @@ export type TwitchClipShoutoutSettings = {
     readonly hasScopes: boolean
     readonly token: string | null
     readonly usageControl: TwitchChatRoleLevel
+    readonly minLength: number
+    readonly maxLength: number
 }
