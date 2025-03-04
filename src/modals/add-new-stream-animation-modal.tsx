@@ -5,7 +5,7 @@ import { StreamAnimation } from '../types/stream-animations/stream-animation';
 
 const SelectionWrapper = styled.div`
     display: grid;
-    grid-template-columns: auto auto 1fr;
+    grid-template-columns: auto 1fr;
     gap: 8px;
     align-items: center;
 `;
@@ -30,7 +30,6 @@ export const AddNewStreamAnimationModal = ({ show, requestClose, animations, add
                     <Fragment key={anim.id}>
                         <ContainedButton onClick={() => { handleClick(anim); }}>Add</ContainedButton>
                         <Body2>{anim.display}</Body2>
-                        <Body2>TODO:</Body2>
                     </Fragment>
                 ))}
             </SelectionWrapper>

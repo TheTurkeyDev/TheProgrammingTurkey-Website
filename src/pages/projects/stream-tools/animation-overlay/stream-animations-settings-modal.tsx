@@ -6,7 +6,7 @@ import { Mapped } from '../../../../types/mapped';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { StreamAnimationSettingDef } from '../../../../types/stream-animations/stream-animation-settings-def';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
-import { UserAnimationSettings } from './mapped-stream-animation-user-data';
+import { UserAnimationSetting } from './mapped-stream-animation-user-data';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -40,7 +40,7 @@ type StreamAnimationSettingsModalProps = {
     readonly show: boolean
     readonly requestClose: () => void
     readonly animation: StreamAnimation
-    readonly animSettings: UserAnimationSettings
+    readonly animSettings: Mapped
     readonly channelPointRewards: readonly TwitchChannelPointReward[]
     readonly save: (values: Mapped) => void
 }
@@ -54,9 +54,9 @@ export const StreamAnimationSettingsModal = ({ show, requestClose, animation, an
             setValues(settings.reduce((prev, curr) => {
                 return {
                     ...prev,
-                    [curr.id]: (animSettings as Mapped)[curr.id]?.value ?? curr.default_val
+                    [curr.id]: animSettings[curr.id]?.value ?? curr.default_val
                 };
-            }, {} as UserAnimationSettings));
+            }, {} as UserAnimationSetting));
             setSettingsDefs(settings);
         });
     }, []);
@@ -75,7 +75,7 @@ export const StreamAnimationSettingsModal = ({ show, requestClose, animation, an
                         <h2>{animation.display}</h2>
                         <SettingsWrapper>
                             <Select label='Channel Point' value={values.channel_point} onChange={e => updateValue('channel_point', e.target.value)}>
-                                <option value=''>N/A</option>
+                                <option value={undefined}>N/A</option>
                                 {
                                     channelPointRewards.map(reward => (
                                         <option key={reward.id} value={reward.id}>

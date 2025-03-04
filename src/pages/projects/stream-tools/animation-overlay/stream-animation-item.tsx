@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { StreamAnimationSettingsModal } from './stream-animations-settings-modal';
-import * as API from '../../../../network/stream-animations-network';
-import { Body1, ConfirmationModal, Icon, TextToast, useToast } from 'gobble-lib-react';
+import { Body1, ConfirmationModal, Icon, TextToast, useQuery, useToast } from 'gobble-lib-react';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
 import { useState } from 'react';
 import { Mapped } from '../../../../types/mapped';
-import { UserAnimationSettings } from './mapped-stream-animation-user-data';
+import { getDevAPIBase } from '../../../../network/network-helper';
+import { postParams } from '../../../../network/auth-network';
 
 const ActionsWrapper = styled.div`
     display: grid;
@@ -17,7 +17,7 @@ const ActionsWrapper = styled.div`
 type StreamAnimationItemProps = {
     readonly animation: StreamAnimation
     readonly channelPointRewards: readonly TwitchChannelPointReward[]
-    readonly animSettings: UserAnimationSettings
+    readonly animSettings: Mapped
     readonly save: (id: string, data: Mapped) => void
     readonly remove: () => void
 }
@@ -27,11 +27,15 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, animSettin
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
+    const [testAnimation] = useQuery(`${getDevAPIBase()}/stream-animations/test/${animation.id}`, { requestData: postParams, shouldThrow: true });
+
     const test = () => {
-        API.testAnimation(animation.id).then(() => {
-            pushToast(<TextToast text='Animation test triggered!' />);
-        });
+        testAnimation()
+            .then(() => pushToast(<TextToast text='Animation test triggered!' />))
+            .catch(e => pushToast(<TextToast text={`Failed! ${e.message}`} />));
     };
+
+    const channelPointId = animSettings['channel_point'];
 
     return (
         <>
@@ -42,7 +46,7 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, animSettin
             </ActionsWrapper>
             <Body1>{animation.display}</Body1>
             <Body1>//Coming soon!</Body1>
-            <Body1>Channel Point</Body1>
+            <Body1>{channelPointRewards.find(cpr => cpr.id === channelPointId)?.title ?? '=== NOT SET ==='}</Body1>
             {showSettingsModal && <StreamAnimationSettingsModal show={showSettingsModal} requestClose={() => setShowSettingsModal(false)} animation={animation} animSettings={animSettings} channelPointRewards={channelPointRewards} save={data => save(animation.id, data)} />}
             <ConfirmationModal
                 show={showConfirmationModal}

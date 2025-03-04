@@ -53,7 +53,7 @@ export const Routing = () => (
             <Route path='/ld-stats' element={<LDStats />} />
             <Route path='/stream-led-control' element={<StreamLEDControl />} />
             <Route path='/chat-merge' element={<ChatMerge />} />
-            <Route path='/twitch-clip-shoutout' element={<TwitchClipShoutout />} />
+            <Route path='/twitch-clip-shoutout' element={authWrap(<TwitchClipShoutout />)} />
             <Route path='/info' element={<Info />} />
             <Route path='/support' element={<Support />} />
             <Route path='/mjrbotfaq' element={<MJRBotFAQ />} />

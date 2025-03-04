@@ -1,8 +1,7 @@
-import { Body1, ButtonRow, ContainedButton, Headline3, HorizontalRule, InputsWrapper, Loading, Option, OutlinedButton, Select, useFetch, useQuery } from 'gobble-lib-react';
+import { Body1, ButtonRow, ContainedButton, Headline3, HorizontalRule, InputsWrapper, Loading, Option, OutlinedButton, Select, ToggleSwitch, useFetch, useQuery } from 'gobble-lib-react';
 import { getDevAPIBase, getTwitchOverlaySiteBase } from '../../../../network/network-helper';
 import { getGetAuthParams, getPostAuthParams } from '../../../../network/auth-network';
 import { TwitchClipShoutoutSettings } from './twitch-clip-shoutout-settings';
-import { TwitchClipShoutoutEnable } from './twitch-clip-shoutout-enable';
 import { styled } from 'styled-components';
 import { SecretURL } from '../../../../components/secret-url';
 import { TwitchChatRoleLevel } from './twitch-chat-role-level';
@@ -18,21 +17,24 @@ const CenterBody = styled.div`
 `;
 
 export const TwitchClipShoutout = () => {
-    const [settings, loading, { refetch, setData, isDirty, resetData }] = useFetch<TwitchClipShoutoutSettings>(`${getDevAPIBase()}/twitchclipshoutout`, { requestData: getGetAuthParams() });
-    const [saveSettings] = useQuery<{ readonly token: string }>(`${getDevAPIBase()}/twitchclipshoutout`, { requestData: getPostAuthParams(), shouldThrow: true });
-    const [regenToken] = useQuery<{ readonly token: string }>(`${getDevAPIBase()}/twitchclipshoutout/regentoken`, { requestData: getPostAuthParams() });
+    const [settings, loading, { refetch, setData, isDirty, resetData, error }] = useFetch<TwitchClipShoutoutSettings>(`${getDevAPIBase()}/twitch-clip-shoutout`, { requestData: getGetAuthParams() });
+    const [saveSettings] = useQuery<{ readonly token: string }>(`${getDevAPIBase()}/twitch-clip-shoutout`, { requestData: getPostAuthParams(), shouldThrow: true });
+    const [regenToken] = useQuery<{ readonly token: string }>(`${getDevAPIBase()}/twitch-clip-shoutout/regentoken`, { requestData: getPostAuthParams() });
 
-    if (loading || !settings)
+    if (loading)
         return <Loading />;
+
+    if (error)
+        return <Body1>ERROR: {error}</Body1>;
+
+    if (!settings)
+        return <Body1>Response missing?</Body1>;
 
     if (!settings.hasTwitchAccount)
         return <Body1>You need a Twitch account to use this app!</Body1>;
 
     if (!settings.hasScopes)
         return <Body1>This app requires additional Twitch scopes... Contact Turkey</Body1>;
-
-    if (!settings.enabled)
-        return <TwitchClipShoutoutEnable reload={refetch} />;
 
     const onRegenClick = () => {
         regenToken().then(() => refetch());
@@ -50,6 +52,7 @@ export const TwitchClipShoutout = () => {
             <SecretURL url={appURL} regen={onRegenClick} />
             <HorizontalRule />
             <InputsWrapper>
+                <ToggleSwitch label='Enabled' checked={settings.enabled} onClick={() => setData({ ...settings, enabled: !settings.enabled })} />
                 <Select label='Restrict To' value={settings.usageControl} onChange={e => setData({ ...settings, usageControl: parseInt(e.target.value) })}>
                     <Option value={TwitchChatRoleLevel.STREAMER}>Streamer</Option>
                     <Option value={TwitchChatRoleLevel.EVERYONE}>Everyone</Option>
