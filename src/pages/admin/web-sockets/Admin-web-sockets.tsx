@@ -13,7 +13,10 @@ export const AdminWebSockets = () => {
     const [users, setUsers] = useState<readonly UserInfo[]>([]);
 
     useEffect(() => {
-        getUsers(undefined, undefined, `userIds=${connections?.map(c => c.userID).join(',')}`)
+        if (!connections)
+            return;
+
+        getUsers(undefined, undefined, `userIds=${connections.map(c => c.userID).join(',')}`)
             .then(resp => resp && setUsers(resp));
     }, [connections]);
 
