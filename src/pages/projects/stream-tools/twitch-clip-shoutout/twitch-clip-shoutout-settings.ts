@@ -8,4 +8,6 @@ export type TwitchClipShoutoutSettings = {
     readonly usageControl: TwitchChatRoleLevel
     readonly minLength: number
     readonly maxLength: number
+    readonly fetchMessage: string
+    readonly animationDirection: number
 }
