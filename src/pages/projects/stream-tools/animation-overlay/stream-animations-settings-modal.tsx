@@ -1,12 +1,12 @@
-import { ContainedButton, Input, Loading, Modal, Select } from 'gobble-lib-react';
+import { ContainedButton, Input, Loading, Modal, Option, Select, useFetch } from 'gobble-lib-react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import * as API from '../../../../network/stream-animations-network';
 import { Mapped } from '../../../../types/mapped';
 import { StreamAnimation } from '../../../../types/stream-animations/stream-animation';
 import { StreamAnimationSettingDef } from '../../../../types/stream-animations/stream-animation-settings-def';
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
 import { UserAnimationSetting } from './mapped-stream-animation-user-data';
+import { getDevAPIBase } from '../../../../network/network-helper';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -46,26 +46,29 @@ type StreamAnimationSettingsModalProps = {
 }
 
 export const StreamAnimationSettingsModal = ({ show, requestClose, animation, animSettings, channelPointRewards, save }: StreamAnimationSettingsModalProps) => {
-    const [settingsDefs, setSettingsDefs] = useState<readonly StreamAnimationSettingDef[]>([]);
     const [values, setValues] = useState<Mapped>();
 
+    const [settingsDefs] = useFetch<readonly StreamAnimationSettingDef[]>(`${getDevAPIBase()}/stream-animations/user-data/${animation.id}/default-settings`);
+
     useEffect(() => {
-        API.getSettingDef(animation.id).then(settings => {
-            setValues(settings.reduce((prev, curr) => {
-                return {
-                    ...prev,
-                    [curr.id]: animSettings[curr.id]?.value ?? curr.default_val
-                };
-            }, {} as UserAnimationSetting));
-            setSettingsDefs(settings);
-        });
-    }, []);
+        if (!settingsDefs)
+            return;
+
+        setValues(settingsDefs.reduce((prev, curr) => {
+            return {
+                ...prev,
+                [curr.id]: animSettings[curr.id]?.value ?? curr.default_val
+            };
+        }, {} as UserAnimationSetting));
+    }, [settingsDefs]);
 
     const updateValue = (id: string, val: string) => {
         setValues(old => {
             return { ...old!, [id]: val };
         });
     };
+
+    console.log(values, channelPointRewards, animSettings);
 
     return (
         <Modal show={show} requestClose={requestClose}>
@@ -75,17 +78,17 @@ export const StreamAnimationSettingsModal = ({ show, requestClose, animation, an
                         <h2>{animation.display}</h2>
                         <SettingsWrapper>
                             <Select label='Channel Point' value={values.channel_point} onChange={e => updateValue('channel_point', e.target.value)}>
-                                <option value={undefined}>N/A</option>
+                                <Option value={undefined}>N/A</Option>
                                 {
                                     channelPointRewards.map(reward => (
-                                        <option key={reward.id} value={reward.id}>
+                                        <Option key={reward.id} value={reward.id}>
                                             {reward.title}
-                                        </option>
+                                        </Option>
                                     ))
                                 }
                             </Select>
                             {
-                                settingsDefs.filter(def => def.id !== 'channel_point').map(def =>
+                                settingsDefs?.filter(def => def.id !== 'channel_point').map(def =>
                                     getInputForSetting(def, values[def.id], val => updateValue(def.id, val))
                                 )
                             }
