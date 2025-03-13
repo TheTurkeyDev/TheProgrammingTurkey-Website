@@ -7,6 +7,7 @@ import { SecretURL } from '../../../../components/secret-url';
 import { TwitchChatRoleLevel } from './twitch-chat-role-level';
 import { IconWithPopOver } from '../../../../components/pop-over';
 import { useState } from 'react';
+import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
 
 const CenterBody = styled.div`
     display: flex;
@@ -25,13 +26,14 @@ const InfoWrapper = styled.div`
 
 export const TwitchClipShoutout = () => {
     const [settings, loading, { refetch, setData, isDirty, resetData, error }] = useFetch<TwitchClipShoutoutSettings>(`${getDevAPIBase()}/twitch-clip-shoutout`, { requestData: getGetAuthParams() });
+    const [channelPointRewards, loadingCPR] = useFetch<readonly TwitchChannelPointReward[]>(`${getDevAPIBase()}/twitch-clip-shoutout/channel-points`, { requestData: getGetAuthParams() });
     const [saveSettings] = useQuery<{ readonly token: string }>(`${getDevAPIBase()}/twitch-clip-shoutout`, { requestData: getPostAuthParams(), shouldThrow: true });
     const [regenToken] = useQuery<{ readonly token: string }>(`${getDevAPIBase()}/twitch-clip-shoutout/regentoken`, { requestData: getPostAuthParams() });
     const [testShoutout] = useQuery(`${getDevAPIBase()}/twitch-clip-shoutout/test`, { requestData: getPostAuthParams() });
 
     const [testChannelName, setTestChannelName] = useState('');
 
-    if (loading)
+    if (loading || loadingCPR)
         return <Loading />;
 
     if (error)
@@ -88,6 +90,14 @@ export const TwitchClipShoutout = () => {
                     <Option value={1}>Right</Option>
                     <Option value={2}>Bottom</Option>
                     <Option value={3}>Left</Option>
+                </Select>
+                <Select label='Channel Point Trigger' value={settings.channelPointId} onChange={e => setData({ ...settings, channelPointId: e.target.value })}>
+                    <Option value={undefined}>=== No Channel Point Trigger ===</Option>
+                    {
+                        (channelPointRewards ?? []).map(cpr => (
+                            <Option key={cpr.id} value={cpr.id}>{cpr.title}</Option>
+                        ))
+                    }
                 </Select>
             </InputsWrapper>
             <ButtonRow>

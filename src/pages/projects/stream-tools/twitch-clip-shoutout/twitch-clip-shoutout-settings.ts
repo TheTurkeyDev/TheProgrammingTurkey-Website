@@ -10,4 +10,5 @@ export type TwitchClipShoutoutSettings = {
     readonly maxLength: number
     readonly fetchMessage: string
     readonly animationDirection: number
+    readonly channelPointId: string
 }

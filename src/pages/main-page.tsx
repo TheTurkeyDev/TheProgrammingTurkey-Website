@@ -50,23 +50,9 @@ const StyledCardHeader = styled(CardHeader)`
     justify-items: center;
 `;
 
-const CardContent2 = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
-`;
-
-const CardFooter = styled.div`
-    padding-top: 8px;
-    border-top: 1px solid ${({ theme }) => theme.surface.on};
-`;
-
-const ListItemWrapper = styled.li`
-
-`;
-
-const ListWrapper = styled.ul`
-    width: fit-content;
+const StyledCardContent = styled(CardContent)`
+    display: flex;
+    flex-direction: column;
 `;
 
 export const MainPage = () => {
@@ -74,65 +60,40 @@ export const MainPage = () => {
         <ContentWrapper>
             <Card>
                 <StyledCardHeader>
-                    <Headline3>Whats Going on Here?</Headline3>
+                    <Headline3>Welcome to my website!</Headline3>
                 </StyledCardHeader>
-                <CardContent>
+                <StyledCardContent>
                     <Body1>
-                        I'm currently in the middle of revamping my website!
-                        It was previously written with a very bad mix of php
-                        and html with w3css for css organization. Let's just
-                        say it wasn't all that great and a bit of a
-                        nightmare to work with and update. Now I am redoing
-                        it all with React <StrikeThrough>and bootstrap</StrikeThrough>! Why React? Well I'm
-                        learning it to work with it on another project, so
-                        I'm using it here to aid in my testing and learning.
-                        The source code for my website is actually available
-                        to everyone <Anchor href='https://github.com/TheTurkeyDev/TheProgrammingTurkey-Website' openInNewTab={true}>
-                            on my Github page!
-                        </Anchor> Not all pages and links are currently available and
-                        over time I will slowly be adding everything back.
-                        Please be patient with me!
+                        What's this for? Basically for any and all of my random projects. There's lots here, but a lot of it can be limited to testing and/ or select users. Login with one of the platforms and then go to your profile to see what's publicly available. Maybe I'll make more things public over time.
+                        The source code for my website is actually available to everyone <Anchor href='https://github.com/TheTurkeyDev/TheProgrammingTurkey-Website' openInNewTab={true}>on my Github page!</Anchor> It's an amalgamation of code from over 10+ years of learning to program, so expect a lot of quirks.
                     </Body1>
-                </CardContent>
-            </Card>
-            <Card>
-                <StyledCardHeader>
-                    <Headline3>Website To-Do List</Headline3>
-                </StyledCardHeader>
-                <CardContent2>
-                    <ListWrapper>
-                        <ListItemWrapper>
-                            Game/ Project Pages
-                        </ListItemWrapper>
-                        <ListItemWrapper>
-                            Twitch View
-                        </ListItemWrapper>
-                        <ListItemWrapper>
-                            Test Section
-                        </ListItemWrapper>
-                    </ListWrapper>
-                </CardContent2>
-            </Card>
-            <Card>
-                <StyledCardHeader>
-                    <Headline3>Ludum Dare 50!</Headline3>
-                    <Headline5>That's a wrap!</Headline5>
-                </StyledCardHeader>
-                <CardContent>
+                </StyledCardContent>
+                <StyledCardContent>
+                    <Headline5>
+                        Short code history:
+                    </Headline5>
                     <Body1>
-                        Well another Ludum Dare has come and passed. Check
-                        out the links below for the game, main Ludum Dare
-                        page, and stats about past Ludum Dare game
-                        placements
+                        - This site started out with vanilla HTML & CSS
                     </Body1>
-                </CardContent>
-                <CardFooter>
-                    <LinkGroup links={[
-                        { to: '/projects/LD50', text: 'Game' },
-                        { href: 'https://ldjam.com', text: 'Ludum Dare' },
-                        { to: '/ld-stats', text: 'Stats' }
-                    ]} />
-                </CardFooter>
+                    <Body1>
+                        - Switched to use PHP
+                    </Body1>
+                    <Body1>
+                        - Switched from vanilla CSS to Bootstrap
+                    </Body1>
+                    <Body1>
+                        - Migrated from PHP to React using JavaScript
+                    </Body1>
+                    <Body1>
+                        - Replacing Bootstrap for Styled Components
+                    </Body1>
+                    <Body1>
+                        - Switched from Javascript to Typescript
+                    </Body1>
+                    <Body1>
+                        - Moved to putting everything in a Docker container
+                    </Body1>
+                </StyledCardContent>
             </Card>
         </ContentWrapper >
     );
