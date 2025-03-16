@@ -1,7 +1,5 @@
 import { getDevAPIBase } from './network-helper';
-import { PlatformLoginType } from '../types/platform-login';
 import { Permission } from '../types/permission';
-import { UserConnection } from '../types/user-connection';
 import { YouTubeDisplaySettings } from '../pages/projects/stream-tools/yt-sub-count/youtube-display-settings';
 
 const baseParams: RequestInit = {
@@ -55,70 +53,9 @@ export function getPatchAuthParams(body?: any): RequestInit {
     };
 }
 
-export async function getLogins(returnurl: string): Promise<readonly PlatformLoginType[]> {
-    return await fetch(`${getDevAPIBase()}/auth/platformlogins?returnurl=${returnurl}`, getParams).then(resp => {
-        if (resp.status === 200)
-            return resp.json();
-        return [];
-    });
-}
-
-export async function getPlatformLinks(returnurl: string): Promise<readonly PlatformLoginType[]> {
-    return await fetch(`${getDevAPIBase()}/auth/platformlinks?returnurl=${returnurl}`, getParams).then(resp => {
-        if (resp.status === 200)
-            return resp.json();
-        return [];
-    });
-}
-
-export async function loginWithPlatform(platform: string, code: string, action: string) {
-    return await fetch(`${getDevAPIBase()}/auth/${platform}/token?code=${code}&action=${action}`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(resp => {
-        if (resp.status === 200)
-            return resp.json();
-        return { success: false, message: 'something dun broke' };
-    });
-}
-
-export async function logout() {
-    return await fetch(getDevAPIBase() + '/auth/logout', getPostAuthParams()).then(resp => {
-        return resp.json();
-    });
-}
-
-export async function isLoggedIn() {
-    return await fetch(getDevAPIBase() + '/auth/loggedin', getGetAuthParams()).then(resp => {
-        return resp.json();
-    });
-}
 
 export async function confirmMerge(platform: string) {
     return await fetch(getDevAPIBase() + '/auth/confirmmerge', getPostAuthParams({ platform: platform })).then(resp => {
-        return resp.json();
-    });
-}
-
-export async function getUserPerms() {
-    return await fetch(getDevAPIBase() + '/user/perms', getGetAuthParams()).then(resp => {
-        if (resp.status === 200)
-            return resp.json();
-        return [];
-    });
-}
-
-export async function getUserInfo() {
-    return await fetch(getDevAPIBase() + '/user/info', getGetAuthParams()).then(resp => {
-        return resp.json();
-    });
-}
-
-export async function getUserConnectedAccounts(): Promise<readonly UserConnection[]> {
-    return await fetch(getDevAPIBase() + '/user/platforms', getGetAuthParams()).then(resp => {
         return resp.json();
     });
 }

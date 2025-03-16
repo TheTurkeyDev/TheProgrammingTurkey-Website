@@ -1,6 +1,7 @@
-import { Elevation, Opacity } from 'gobble-lib-react';
+import { Elevation, Opacity, useQuery, useUrlParams } from 'gobble-lib-react';
 import styled from 'styled-components';
-import { PlatformLoginType } from '../../types/platform-login';
+import { PlatformLogin } from './platform-login';
+import { getDevAPIBase, getSiteURLBase } from '../../network/network-helper';
 
 const BadgeWrapper = styled.a`
     width: 200px;
@@ -34,9 +35,22 @@ const PlatformText = styled.span`
     font-size: 26px;
 `;
 
-export function LoginPlatform({ platform, color, icon, url }: PlatformLoginType) {
+type LoginURL = {
+    readonly url: string
+}
+
+export function LoginPlatform({ platform, color, icon }: PlatformLogin) {
+    const params = useUrlParams();
+
+    const [getLoginURL] = useQuery<LoginURL>(`${getDevAPIBase()}/auth/platformlogins`);
+
+    const login = () => {
+        getLoginURL(undefined, platform, `returnurl=${params.from ?? getSiteURLBase()}`)
+            .then(resp => { if (!!resp) location.href = resp.url; });
+    };
+
     return (
-        <BadgeWrapper color={color} href={url}>
+        <BadgeWrapper color={color} onClick={login}>
             <PlatformIcon className={icon} />
             <PlatformText>{platform}</PlatformText>
         </BadgeWrapper>

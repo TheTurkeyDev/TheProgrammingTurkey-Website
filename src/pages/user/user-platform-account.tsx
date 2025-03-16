@@ -1,4 +1,4 @@
-import { Body1 } from 'gobble-lib-react';
+import { Body1, ContainedButton, OutlinedButton } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { UserConnection } from '../../types/user-connection';
 
@@ -18,7 +18,7 @@ const PlatformName = styled(Body1)`
     font-size: 24px;
 `;
 
-const LinkPlatformButton = styled.i`
+const LinkPlatformButton = styled(OutlinedButton)`
     font-size: 24px;
 `;
 
@@ -32,14 +32,22 @@ type UserPlatformAccountProps = {
 }
 export const UserPlatformAccount = ({ disabled = false, accounts, platform_name, icon, color, onClick }: UserPlatformAccountProps) => {
     const connected = accounts.filter(a => a.platform === platform_name.toUpperCase()).length > 0;
+    const hasButton = disabled || connected;
 
     return (
         <PlatformAccountWrapper>
             <PlatformIcon className={icon} color={color} />
             <PlatformName>{platform_name}</PlatformName>
-            <LinkPlatformButton onClick={() => disabled && onClick()}>
-                {disabled ? 'Coming Soon!' : (connected ? 'Connected!' : 'Connect')}
-            </LinkPlatformButton>
+            {
+                hasButton
+                    ? <Body1> {disabled ? 'Coming Soon!' : 'Connected!'}</Body1>
+                    : (
+                        <LinkPlatformButton onClick={onClick}>
+                            Connect
+                        </LinkPlatformButton>
+                    )
+            }
+
         </PlatformAccountWrapper>
     );
 };

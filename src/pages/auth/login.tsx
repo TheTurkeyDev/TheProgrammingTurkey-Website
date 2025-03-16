@@ -1,12 +1,10 @@
-import { Headline3, useUrlParams } from 'gobble-lib-react';
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Headline3, useFetch } from 'gobble-lib-react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../../contexts/auth-context';
-import * as authAPI from '../../network/auth-network';
-import { getSiteURLBase } from '../../network/network-helper';
-import { PlatformLoginType } from '../../types/platform-login';
+import { getDevAPIBase } from '../../network/network-helper';
 import { LoginPlatform } from './login-platform';
+import { PlatformLogin } from './platform-login';
 
 const LoginPlatformsWrapper = styled.div`
     display: grid;
@@ -19,30 +17,28 @@ const LoginPlatformsWrapper = styled.div`
 
 export const Login = () => {
     const { authState } = useAuth();
-    const { from } = useUrlParams();
+    const navigate = useNavigate();
 
-    const [logins, setLogins] = useState<readonly PlatformLoginType[]>([]);
+    const [logins] = useFetch<readonly PlatformLogin[]>(`${getDevAPIBase()}/auth/platformlogins`);
 
-    useEffect(() => {
-        authAPI.getLogins(from ?? getSiteURLBase()).then(logins => setLogins(logins));
-    }, []);
+    if (authState) {
+        navigate('/');
+        return <></>;
+    }
 
-    return authState ?
-        <Navigate to={from ?? '/'} /> :
-        (
-            <LoginPlatformsWrapper>
-                <Headline3>Login with a method below:</Headline3>
-                {
-                    logins.map(login => (
-                        <LoginPlatform
-                            key={login.platform}
-                            url={login.url}
-                            platform={login.platform}
-                            color={login.color}
-                            icon={login.icon}
-                        />
-                    ))
-                }
-            </LoginPlatformsWrapper>
-        );
+    return (
+        <LoginPlatformsWrapper>
+            <Headline3>Login with a method below:</Headline3>
+            {
+                logins?.map(login => (
+                    <LoginPlatform
+                        key={login.platform}
+                        platform={login.platform}
+                        color={login.color}
+                        icon={login.icon}
+                    />
+                ))
+            }
+        </LoginPlatformsWrapper>
+    );
 };
