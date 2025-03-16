@@ -18,6 +18,7 @@ import { TermsOfService } from './pages/legal/tos';
 import { ChatMerge } from './pages/chat-merge/chat-merge';
 import { TwitchClipShoutout } from './pages/projects/stream-tools/twitch-clip-shoutout/twitch-clip-shoutout';
 import { BotLogin } from './pages/auth/login-bot';
+import { YahooFantasyPage } from './pages/yahoo-fantasy/yahoo-fantasy-page';
 
 const ChanceCubesRouter = lazy(() => import(/* webpackChunkName: "Chance Cubes" */ './pages/chance-cubes/chance-cubes-router'));
 const ProjectsRouter = lazy(() => import(/* webpackChunkName: "Projects" */ './pages/projects/projects-router'));
@@ -30,6 +31,7 @@ const DiscordRouter = lazy(() => import(/* webpackChunkName: "Discord" */ './pag
 const SteamKeyManagementRouter = lazy(() => import(/* webpackChunkName: "Steam Keys" */ './pages/steam-key-mangement/steam-key-management-router'));
 const GameSettingsRouter = lazy(() => import(/* webpackChunkName: "Game Settings" */ './pages/game-settings/game-settings-router'));
 const PredictionRouter = lazy(() => import(/* webpackChunkName: "Predictions" */ './pages/prediction/prediction-router'));
+const YahooRouter = lazy(() => import(/* webpackChunkName: "Yahoo Fantasy" */ './pages/yahoo-fantasy/yahoo-router'));
 
 export const authWrap = (element: JSX.Element, perm?: string) => <AuthRoute perm={perm}>{element}</AuthRoute>;
 
@@ -48,6 +50,7 @@ export const Routing = () => (
             <Route path='/steamkeys/*' element={<SteamKeyManagementRouter />} />
             <Route path='/gamesettings/*' element={<GameSettingsRouter />} />
             <Route path='/predictions/*' element={<PredictionRouter />} />
+            <Route path='/yahoo-fantasy/*' element={authWrap(<YahooRouter />)} />
 
             <Route path='/mod-support' element={<MCModSupport />} />
             <Route path='/ld-stats' element={<LDStats />} />
