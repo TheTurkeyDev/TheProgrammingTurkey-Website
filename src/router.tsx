@@ -18,7 +18,6 @@ import { TermsOfService } from './pages/legal/tos';
 import { ChatMerge } from './pages/chat-merge/chat-merge';
 import { TwitchClipShoutout } from './pages/projects/stream-tools/twitch-clip-shoutout/twitch-clip-shoutout';
 import { BotLogin } from './pages/auth/login-bot';
-import { YahooFantasyPage } from './pages/yahoo-fantasy/yahoo-fantasy-page';
 
 const ChanceCubesRouter = lazy(() => import(/* webpackChunkName: "Chance Cubes" */ './pages/chance-cubes/chance-cubes-router'));
 const ProjectsRouter = lazy(() => import(/* webpackChunkName: "Projects" */ './pages/projects/projects-router'));
