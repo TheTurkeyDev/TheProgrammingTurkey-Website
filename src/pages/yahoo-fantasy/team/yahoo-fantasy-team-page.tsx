@@ -5,6 +5,7 @@ import { YahooFantasyTeam } from '../rest/yahoo-fantasy-team';
 import { YahooFantasyTeamPageHeader } from './yahoo-fantasy-team-page-header';
 import { styled } from 'styled-components';
 import { YahooFantasyTeamRosterGrid } from './yahoo-fantasy-team-roster-grid';
+import { getParams } from '../../../network/auth-network';
 
 const PageContent = styled.div`
     display: flex;
@@ -15,7 +16,7 @@ const PageContent = styled.div`
 export const YahooFantasyTeamPage = () => {
 
     const { gameId, leagueId, teamId } = useParams();
-    const [team, loading] = useFetch<YahooFantasyTeam>(`${getDevAPIBase()}/yahoo/game/${gameId}/league/${leagueId}/team/${teamId}`);
+    const [team, loading] = useFetch<YahooFantasyTeam>(`${getDevAPIBase()}/yahoo/game/${gameId}/league/${leagueId}/team/${teamId}`, { requestData: getParams });
 
     if (loading)
         return <Loading />;

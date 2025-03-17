@@ -39,7 +39,6 @@ export const LoginResponse = () => {
             return;
 
         loginWithPlatform(undefined, undefined, `code=${code}&action=${stateParsed.action}`).then(json => {
-
             if (stateParsed.action === 'link') {
                 const resp = json as LoginResponseType;
                 if (resp.alreadyLinked) {
@@ -48,6 +47,8 @@ export const LoginResponse = () => {
                 }
                 else {
                     setMessage(json.message);
+                    reloadUser();
+                    location.href = stateParsed.redir_url;
                 }
             }
             else {

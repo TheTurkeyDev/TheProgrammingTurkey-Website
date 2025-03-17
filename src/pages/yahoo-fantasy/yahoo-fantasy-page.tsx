@@ -3,6 +3,7 @@ import { getDevAPIBase } from '../../network/network-helper';
 import styled from 'styled-components';
 import { YahooFantasyFullUser } from './rest/yahoo-fantasy-full-user';
 import { useNavigate } from 'react-router-dom';
+import { getParams } from '../../network/auth-network';
 
 const PageContent = styled.div`
     margin: 16px;
@@ -14,7 +15,7 @@ const PageContent = styled.div`
 export const YahooFantasyPage = () => {
 
     const navigate = useNavigate();
-    const [user] = useFetch<YahooFantasyFullUser>(`${getDevAPIBase()}/yahoo/me`);
+    const [user] = useFetch<YahooFantasyFullUser>(`${getDevAPIBase()}/yahoo/me`, { requestData: getParams });
 
     return (
         <PageContent>
