@@ -36,6 +36,7 @@ import { StreamAnimationsOverlay } from './stream-tools/animation-overlay/stream
 import { YouTubeSubCount } from './stream-tools/yt-sub-count/youtube-sub-count';
 import { TwitchGamesProject } from '../twitch-games/twitch-games-info';
 import { authWrap } from '../../router';
+import { TwitchClipShoutoutProjectPage } from './stream-tools/twitch-clip-shoutout/twitch-clip-shoutout-project-page';
 
 export const ProjectsRouter = () => {
     return (
@@ -71,6 +72,7 @@ export const ProjectsRouter = () => {
             <Route path='/streamanimationsoverlay' element={<StreamAnimationsOverlay />} />
             <Route path='/yt-sub-count' element={<YouTubeSubCount />} />
             <Route path='/twitch-games' element={<TwitchGamesProject />} />
+            <Route path='/twitch-clip-shoutout' element={<TwitchClipShoutoutProjectPage />} />
         </Routes>
     );
 };
