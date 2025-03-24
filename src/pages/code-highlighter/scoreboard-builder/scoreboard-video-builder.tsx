@@ -184,12 +184,12 @@ export const ScoreboardVideoBuilder = () => {
             </CenterWrapper>
             <Accordion header='Base Info' defaultShow={true} style={{ width: '100%' }}>
                 <BaseInfoWrapper>
-                    <InputsWrapper fullWidth={true}>
+                    <InputsWrapper $fullWidth={true}>
                         <Input label='Width' type='number' value={baseData.width} onChange={e => updateBaseValue('width', clamp(0, 1920, parseInt(e.target.value)))} />
                         <Input label='Height' type='number' value={baseData.height} onChange={e => updateBaseValue('height', clamp(0, 1080, parseInt(e.target.value)))} />
                         <Input label='Split' type='number' value={homeBaseData.split} onChange={e => updateValue('split', clamp(0, 100, parseInt(e.target.value)))} />
                     </InputsWrapper>
-                    <InputsWrapper fullWidth={true}>
+                    <InputsWrapper $fullWidth={true}>
                         <Input label='Text Show Length' type='number' value={homeBaseData.textShowLength} onChange={e => updateValue('textShowLength', clamp(0, 1000, parseInt(e.target.value)))} />
                         <Input label='Animation Duration' type='number' value={homeBaseData.animationDuration} onChange={e => updateValue('animationDuration', clamp(0, 1000, parseInt(e.target.value)))} />
                         <Input label='Primary Animation Offset' type='number' value={homeBaseData.primaryAmimOffset} onChange={e => updateValue('primaryAmimOffset', clamp(0, 1000, parseInt(e.target.value)))} />
@@ -199,14 +199,14 @@ export const ScoreboardVideoBuilder = () => {
             </Accordion>
             <Accordion header='Home Team Info' defaultShow={false} style={{ width: '100%' }}>
                 <BaseInfoWrapper>
-                    <InputsWrapper fullWidth={true}>
+                    <InputsWrapper $fullWidth={true}>
                         <ColorPicker label='Primary Color' showHexInput={true} color={homeBaseData.primaryColor} onChange={e => updateValue('primaryColor', e, HOME)} />
                         <ColorPicker label='Primary Text Color' showHexInput={true} color={homeBaseData.primaryFontColor} onChange={e => updateValue('secondaryColor', e, HOME)} />
                         <Input label='Primary Text Size' type='number' value={homeBaseData.primaryFontSize} onChange={e => updateValue('primaryFontSize', clamp(0, 1000, parseInt(e.target.value)), HOME)} />
                         <Input label='Primary Outline Width' type='number' value={homeBaseData.primaryOutlineWidth} onChange={e => updateValue('primaryOutlineWidth', clamp(0, 100, parseInt(e.target.value)), HOME)} />
                         <ColorPicker label='Primary Outline Color' showHexInput={true} color={homeBaseData.primaryOutlineColor} onChange={e => updateValue('primaryOutlineColor', e, HOME)} />
                     </InputsWrapper>
-                    <InputsWrapper fullWidth={true}>
+                    <InputsWrapper $fullWidth={true}>
                         <ColorPicker label='Secondary Color' showHexInput={true} color={homeBaseData.secondaryColor} onChange={e => updateValue('secondaryColor', e, HOME)} />
                         <ColorPicker label='Secondary Text Color' showHexInput={true} color={homeBaseData.secondaryFontColor} onChange={e => updateValue('secondaryColor', e, HOME)} />
                         <Input label='Secondary Text Size' type='number' value={homeBaseData.secondaryFontSize} onChange={e => updateValue('secondaryFontSize', clamp(0, 1000, parseInt(e.target.value)), HOME)} />
@@ -217,14 +217,14 @@ export const ScoreboardVideoBuilder = () => {
             </Accordion>
             <Accordion header='Away Team Info' defaultShow={false} style={{ width: '100%' }}>
                 <BaseInfoWrapper>
-                    <InputsWrapper fullWidth={true}>
+                    <InputsWrapper $fullWidth={true}>
                         <ColorPicker label='Primary Color' showHexInput={true} color={awayBaseData.primaryColor} onChange={e => updateValue('primaryColor', e, AWAY)} />
                         <ColorPicker label='Primary Text Color' showHexInput={true} color={awayBaseData.primaryFontColor} onChange={e => updateValue('secondaryColor', e, AWAY)} />
                         <Input label='Primary Text Size' type='number' value={awayBaseData.primaryFontSize} onChange={e => updateValue('primaryFontSize', clamp(0, 1000, parseInt(e.target.value)), AWAY)} />
                         <Input label='Primary Outline Width' type='number' value={awayBaseData.primaryOutlineWidth} onChange={e => updateValue('primaryOutlineWidth', clamp(0, 100, parseInt(e.target.value)), AWAY)} />
                         <ColorPicker label='Primary Outline Color' showHexInput={true} color={awayBaseData.primaryOutlineColor} onChange={e => updateValue('primaryOutlineColor', e, AWAY)} />
                     </InputsWrapper>
-                    <InputsWrapper fullWidth={true}>
+                    <InputsWrapper $fullWidth={true}>
                         <ColorPicker label='Secondary Color' showHexInput={true} color={awayBaseData.secondaryColor} onChange={e => updateValue('secondaryColor', e, AWAY)} />
                         <ColorPicker label='Secondary Text Color' showHexInput={true} color={awayBaseData.secondaryFontColor} onChange={e => updateValue('secondaryColor', e, AWAY)} />
                         <Input label='Secondary Text Size' type='number' value={awayBaseData.secondaryFontSize} onChange={e => updateValue('secondaryFontSize', clamp(0, 1000, parseInt(e.target.value)), AWAY)} />

@@ -82,7 +82,7 @@ export const MainPage = () => {
                         - Switched from vanilla CSS to Bootstrap
                     </Body1>
                     <Body1>
-                        - Migrated from PHP to React using JavaScript
+                        - Migrated from PHP to React using JavaScript (Backend specific logic was ported to Java)
                     </Body1>
                     <Body1>
                         - Replacing Bootstrap for Styled Components

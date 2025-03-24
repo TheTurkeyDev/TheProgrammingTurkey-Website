@@ -1,7 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-
 import { Projects } from './projects';
-
 import { LD49 } from '../game-jam/ld-49';
 import { LD48 } from '../game-jam/ld-48';
 import { LD47 } from '../game-jam/ld-47';
@@ -19,17 +17,14 @@ import { LD28 } from '../game-jam/ld-28';
 import { LD27 } from '../game-jam/ld-27';
 import { LD50 } from '../game-jam/ld-50';
 import { GMTK2022 } from '../game-jam/gmtk-2022';
-
 import { PizzaMan } from './pizza-man';
 import { GGServer } from './gg-server';
 import { TurkeyBot } from './turkey-bot';
-
 import { ChanceCubesMC } from '../chance-cubes/chance-cubes';
 import { HeadCrumbs } from '../mods/head-crumbs';
 import { WitherCrumbs } from '../mods/wither-crumbs';
 import { RaftIntegration } from '../mods/raft-integration';
 import { SlimeRancherIntegration } from '../mods/slime-rancher-integration';
-
 import { ProjectStatusEdit } from '../admin/project-status-edit';
 import { FPDStats } from './fpdstats';
 import { StreamAnimationsOverlay } from './stream-tools/animation-overlay/stream-animations-overlay';
@@ -37,6 +32,7 @@ import { YouTubeSubCount } from './stream-tools/yt-sub-count/youtube-sub-count';
 import { TwitchGamesProject } from '../twitch-games/twitch-games-info';
 import { authWrap } from '../../router';
 import { TwitchClipShoutoutProjectPage } from './stream-tools/twitch-clip-shoutout/twitch-clip-shoutout-project-page';
+import { SportStreamWidgets } from './stream-tools/sport-stream-widgets/sport-stream-widgets';
 
 export const ProjectsRouter = () => {
     return (
@@ -73,6 +69,7 @@ export const ProjectsRouter = () => {
             <Route path='/yt-sub-count' element={<YouTubeSubCount />} />
             <Route path='/twitch-games' element={<TwitchGamesProject />} />
             <Route path='/twitch-clip-shoutout' element={<TwitchClipShoutoutProjectPage />} />
+            <Route path='/sport-stream-widgets' element={<SportStreamWidgets />} />
         </Routes>
     );
 };

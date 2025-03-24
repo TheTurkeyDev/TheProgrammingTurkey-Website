@@ -1,7 +1,8 @@
-import { CollapsibleCenterContent, CollapsedNavbar, Dropdown, DropdownContent, DropdownLinkItem, NavLink, NavText, SiteName, TextButton, useThemeContext, Icon, NavBar } from 'gobble-lib-react';
+import { CollapsibleCenterContent, CollapsedNavbar, Dropdown, DropdownContent, DropdownLinkItem, NavLink, NavText, SiteName, TextButton, useThemeContext, Icon, NavBar, CollapsedNavLink } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { useAuth } from '../../contexts/auth-context';
 import { LoginButton } from './login-button';
+import { useState } from 'react';
 
 const UserIcon = styled(Icon)`
     font-size: 32px;
@@ -25,13 +26,19 @@ export const TopNav = () => {
     const { authState, avatar } = useAuth();
     const { theme, setTheme } = useThemeContext();
 
+    const [expanded, setExpanded] = useState(false);
+
     return (
         <NavBar>
-            <CollapsedNavbar icon='fas fa-bars'>
-                <NavLink link='/'>Home</NavLink>
-                <NavLink link='/projects'>Projects</NavLink>
-                <NavLink link='https://trky.dev/blog'>Blog</NavLink>
-                <NavLink link='/support'>Support Me</NavLink>
+            <CollapsedNavbar icon='fas fa-bars' expanded={expanded} toggleExpand={() => setExpanded(old => !old)}>
+                <CollapsedNavLink text='Home' to='/' />
+                <CollapsedNavLink text='Projects' to='/projects' />
+                <CollapsedNavLink text='Blog' to='https://trky.dev/blog' />
+                <CollapsedNavLink text='Support Me' to='/support' />
+                {/* <CollapsedDropDown
+                    text='Other Links'
+                    options={links.reduce((p, c) => ({ ...p, [c.title]: c.link }), {})}
+                    closeNav={() => setExpanded(false)} /> */}
             </CollapsedNavbar>
             <SiteName to='/'>
                 TurkeyDev
@@ -42,7 +49,7 @@ export const TopNav = () => {
                 <NavLink link='https://trky.dev/blog'>Blog</NavLink>
                 <NavLink link='/support'>Support Me</NavLink>
                 <Dropdown>
-                    <NavText> Other Links</NavText>
+                    <NavText>Other Links</NavText>
                     <DropdownContent>
                         {
                             links.map(link => <NavLink key={link.title} link={link.link}>{link.title}</NavLink>)
@@ -51,7 +58,7 @@ export const TopNav = () => {
                 </Dropdown>
             </CollapsibleCenterContent>
             <Dropdown>
-                {authState ? <UserAvatar src={avatar} alt='Avatar Missing'/> : <UserIcon className='fas fa-user-circle' />}
+                {authState ? <UserAvatar src={avatar} alt='Avatar Missing' /> : <UserIcon className='fas fa-user-circle' />}
                 <DropdownContent sideAnchor='right'>
                     {authState ? <DropdownLinkItem to='/user/profile'>Profile</DropdownLinkItem> : <></>}
                     {authState ? <DropdownLinkItem to='/logout'>Logout</DropdownLinkItem> : <LoginButton />}

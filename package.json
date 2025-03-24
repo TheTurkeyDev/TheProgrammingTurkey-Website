@@ -28,7 +28,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "gobble-lib-react": "^2.1.6",
+    "gobble-lib-react": "^3.0.2",
     "chartjs-react": "^4.3.0",
     "react": "^19.0.0",
     "react-colorful": "^5.6.1",

@@ -1,4 +1,4 @@
-import { YahooFantasyPlayer } from './Yahoo-fantasy-player';
+import { YahooFantasyPlayer } from './yahoo-fantasy-player';
 import { YahooFantasyTeamRosterMinimumGames } from './yahoo-fantasy-team-roster-minimum-games';
 
 export type YahooFantasyTeamRoster = {

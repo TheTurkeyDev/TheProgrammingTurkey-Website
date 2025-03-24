@@ -1,6 +1,5 @@
-import { ButtonRow, ContainedButton, Headline2, Headline5, HorizontalRule, Icon, OutlinedButton, SpaceBetween, useFetch, useQuery } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline2, Headline5, HorizontalRule, Icon, Loading, OutlinedButton, SpaceBetween, useFetch, useQuery } from 'gobble-lib-react';
 import styled from 'styled-components';
-import { LoadingIcon } from '../../../components/loading-icon';
 import { useAuth } from '../../../contexts/auth-context';
 import { getParams, postParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
@@ -36,11 +35,11 @@ export const DinkumIntegration = () => {
     });
 
     const update = (index: number, setting: DinkumIntegrationSettings) => {
-        setData(old => [...(old ?? []).slice(0, index), setting, ...(old ?? []).slice(index + 1)]);
+        setData([...(settings ?? []).slice(0, index), setting, ...(settings ?? []).slice(index + 1)]);
     };
 
     const remove = (index: number) => {
-        setData(old => [...(old ?? []).slice(0, index), ...(old ?? []).slice(index + 1)]);
+        setData([...(settings ?? []).slice(0, index), ...(settings ?? []).slice(index + 1)]);
     };
 
 
@@ -62,10 +61,13 @@ export const DinkumIntegration = () => {
             <HorizontalRule />
             <SpaceBetween>
                 <Headline5>Item Adjustments</Headline5>
-                <Icon className='fas fa-plus' onClick={() => setData(old => [...(old ?? []), { itemId: getValidNumber(0), value: 0, description: '' }])} />
+                <Icon className='fas fa-plus' onClick={() => setData([
+                    ...(settings ?? []),
+                    { itemId: getValidNumber(0), value: 0, description: '' }
+                ])} />
             </SpaceBetween>
             {
-                fetching && <LoadingIcon />
+                fetching && <Loading />
             }
             {
                 settings &&

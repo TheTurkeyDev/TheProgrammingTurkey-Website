@@ -12,6 +12,30 @@ const PageContent = styled.div`
     gap: 8px;
 `;
 
+const LeagueTeamWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 2px 1fr;
+    gap: 8px;
+`;
+
+const TeamWrapper = styled.div`
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 8px;
+
+    &:hover {
+        background-color: #88888822;
+        cursor: pointer;
+    }
+`;
+
+const VertLine = styled.div`
+    width: 2px;
+    height: 100%;
+    background-color: ${({ theme }) => theme.background.on};
+`;
+
 export const YahooFantasyPage = () => {
 
     const navigate = useNavigate();
@@ -29,7 +53,17 @@ export const YahooFantasyPage = () => {
                             {
                                 g.leagues.map(l => (
                                     l.teams.map(t => (
-                                        <Body1 onClick={() => navigate(`game/${g.gameId}/league/${l.leagueId}/team/${t.teamId}`)}>{l.name} | {t.name}</Body1>
+                                        <LeagueTeamWrapper>
+                                            <TeamWrapper onClick={() => navigate(`game/${g.gameId}/league/${l.leagueId}/team/${t.teamId}`)}>
+                                                <img src={t.teamLogos[0].url} width={64} />
+                                                <Headline4>{t.name}</Headline4>
+                                            </TeamWrapper>
+                                            <VertLine />
+                                            <TeamWrapper onClick={() => navigate(`game/${g.gameId}/league/${l.leagueId}`)}>
+                                                <img src={l.logoURL} width={64} />
+                                                <Headline4>{l.name}</Headline4>
+                                            </TeamWrapper>
+                                        </LeagueTeamWrapper>
                                     ))
                                 ))
                             }
@@ -49,7 +83,17 @@ export const YahooFantasyPage = () => {
                             {
                                 g.leagues.map(l => (
                                     l.teams.map(t => (
-                                        `${l.name} | ${t.name}`
+                                        <LeagueTeamWrapper>
+                                            <TeamWrapper onClick={() => navigate(`game/${g.gameId}/league/${l.leagueId}/team/${t.teamId}`)}>
+                                                <img src={t.teamLogos[0].url} width={64} />
+                                                <Headline4>{t.name}</Headline4>
+                                            </TeamWrapper>
+                                            <VertLine />
+                                            <TeamWrapper onClick={() => navigate(`game/${g.gameId}/league/${l.leagueId}`)}>
+                                                <img src={l.logoURL} width={64} />
+                                                <Headline4>{l.name}</Headline4>
+                                            </TeamWrapper>
+                                        </LeagueTeamWrapper>
                                     ))
                                 ))
                             }
