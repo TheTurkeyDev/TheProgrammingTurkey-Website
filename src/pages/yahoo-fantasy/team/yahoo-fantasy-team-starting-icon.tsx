@@ -14,7 +14,6 @@ const NotStartingIcon = styled.i`
 `;
 
 export const YahooFantasyTeamStartingIcon = ({ startingStatus }: YahooFantasyTeamStartingIconProps) => {
-    console.log(startingStatus);
     return (
         startingStatus.isStarting ? <StartingIcon className='far fa-check-circle' /> : <NotStartingIcon className='far fa-times-circle' />
     );

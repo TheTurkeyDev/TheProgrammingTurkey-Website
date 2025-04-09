@@ -1,4 +1,5 @@
 import { YahooFantasyLeagueScoreboard } from './yahoo-fantasy-league-scoreboard';
+import { YahooFantasyLeagueSettings } from './yahoo-fantasy-league-settings';
 import { YahooFantasyTeam } from './yahoo-fantasy-team';
 
 export type YahooFantasyLeague = {
@@ -29,7 +30,7 @@ export type YahooFantasyLeague = {
     readonly gameCode: string
     readonly season: string
     readonly teams: readonly YahooFantasyTeam[]
-    // readonly settings: YahooFantasyLeagueSettings
+    readonly settings: YahooFantasyLeagueSettings
     readonly standings: {readonly standings: readonly YahooFantasyTeam[]}
     readonly scoreboard: YahooFantasyLeagueScoreboard
 }

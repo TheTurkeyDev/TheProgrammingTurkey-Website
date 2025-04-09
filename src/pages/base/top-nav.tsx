@@ -1,4 +1,4 @@
-import { CollapsibleCenterContent, CollapsedNavbar, Dropdown, DropdownContent, DropdownLinkItem, NavLink, NavText, SiteName, TextButton, useThemeContext, Icon, NavBar, CollapsedNavLink } from 'gobble-lib-react';
+import { CollapsibleCenterContent, CollapsedNavbar, Dropdown, DropdownContent, DropdownLinkItem, NavLink, NavText, SiteName, TextButton, useThemeContext, Icon, NavBar, CollapsedNavLink, CollapsedDropDown } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { useAuth } from '../../contexts/auth-context';
 import { LoginButton } from './login-button';
@@ -35,10 +35,10 @@ export const TopNav = () => {
                 <CollapsedNavLink text='Projects' to='/projects' />
                 <CollapsedNavLink text='Blog' to='https://trky.dev/blog' />
                 <CollapsedNavLink text='Support Me' to='/support' />
-                {/* <CollapsedDropDown
+                <CollapsedDropDown
                     text='Other Links'
                     options={links.reduce((p, c) => ({ ...p, [c.title]: c.link }), {})}
-                    closeNav={() => setExpanded(false)} /> */}
+                    closeNav={() => setExpanded(false)} />
             </CollapsedNavbar>
             <SiteName to='/'>
                 TurkeyDev
@@ -48,7 +48,7 @@ export const TopNav = () => {
                 <NavLink link='/projects'>Projects</NavLink>
                 <NavLink link='https://trky.dev/blog'>Blog</NavLink>
                 <NavLink link='/support'>Support Me</NavLink>
-                <Dropdown>
+                <Dropdown>  
                     <NavText>Other Links</NavText>
                     <DropdownContent>
                         {

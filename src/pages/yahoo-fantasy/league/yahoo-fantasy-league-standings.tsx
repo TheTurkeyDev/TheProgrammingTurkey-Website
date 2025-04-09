@@ -1,11 +1,11 @@
-import { Body1, Card, CardContent, CardHeader, Headline5, Headline6, HorizontalRule, Opacity, Table, TD, TH } from 'gobble-lib-react';
+import {Card, CardContent, CardHeader, Headline5, HorizontalRule, Opacity, Table, TD, TH } from 'gobble-lib-react';
 import { YahooFantasyTeam } from '../rest/yahoo-fantasy-team';
 import { styled } from 'styled-components';
-import { Fragment } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
 
 const StyledCard = styled(Card)`
     max-width: 900px;
+    width: 100%;
     margin-inline: auto;
 `;
 

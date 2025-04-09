@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const StyledCard = styled(Card)`
     max-width: 900px;
+    width: 100%;
     margin-inline: auto;
 `;
 
@@ -57,11 +58,13 @@ export const YahooFantasyLeagueMatchup = ({ scoreboard }: YahooFantasyLeagueMatc
                 <HorizontalRule />
             </CardHeader>
             <StyledCardContent>
-                {scoreboard.matchups.map(m => {
+                {scoreboard.matchups.map((m, i) => {
                     const tz = m.teams[0];
                     const to = m.teams[1];
+                    const livePP = tz.teamLiveProjectedPoints;
+                    const toLivePP = to.teamLiveProjectedPoints;
                     return (
-                        <MatchupWrapper>
+                        <MatchupWrapper key={i}>
                             <TeamWrapper onClick={() => navigate(`team/${tz.teamId}`)}>
                                 {tz.name}
                             </TeamWrapper>
@@ -69,8 +72,8 @@ export const YahooFantasyLeagueMatchup = ({ scoreboard }: YahooFantasyLeagueMatc
                                 <Body1>
                                     {tz.teamPoints.total}
                                 </Body1>
-                                <Body2 style={{ color: tz.teamProjectedPoints.total > tz.teamLiveProjectedPoints.total ? '#ca1f1f' : 'green' }}>
-                                    {tz.teamLiveProjectedPoints.total}
+                                <Body2 style={{ color: tz.teamProjectedPoints.total > (livePP?.total ?? 0) ? '#ca1f1f' : 'green' }}>
+                                    {livePP?.total}
                                 </Body2>
                             </TeamPointsWrapper>
                             <VSWrapper>
@@ -80,8 +83,8 @@ export const YahooFantasyLeagueMatchup = ({ scoreboard }: YahooFantasyLeagueMatc
                                 <Body1>
                                     {to.teamPoints.total}
                                 </Body1>
-                                <Body2 style={{ color: to.teamProjectedPoints.total > to.teamLiveProjectedPoints.total ? '#ca1f1f' : 'green' }}>
-                                    {to.teamLiveProjectedPoints.total}
+                                <Body2 style={{ color: to.teamProjectedPoints.total > (toLivePP?.total ?? 0) ? '#ca1f1f' : 'green' }}>
+                                    {toLivePP?.total}
                                 </Body2>
                             </TeamPointsWrapper>
                             <TeamWrapper onClick={() => navigate(`team/${to.teamId}`)}>

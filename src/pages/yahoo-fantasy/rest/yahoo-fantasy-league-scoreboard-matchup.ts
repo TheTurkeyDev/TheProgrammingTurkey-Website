@@ -8,6 +8,8 @@ export type YahooFantasyLeagueScoreboardMatchup = {
     readonly status: string
     readonly isPlayoffs: boolean
     readonly isConsolation: boolean
+    readonly isTied: boolean
+    readonly winnerTeamKey: string
     readonly teams: readonly YahooFantasyTeam[]
     readonly statWinners: readonly YahooFantasyLeagueScoreboardMatchupStatWinner[];
 }

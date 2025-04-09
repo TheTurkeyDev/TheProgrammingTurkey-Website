@@ -25,12 +25,16 @@ export type YahooFantasyTeam = {
 	readonly hasDraftGrade: boolean
 	readonly draftGrade: string
 	readonly draftRecapURL: string
+	readonly winProbability: number
+	readonly isMatchupRecapAvailable: boolean
+	readonly matchupRecapURL: string
+	readonly matchupRecapTitle: string
 	readonly managers: YahooFantasyTeamManager
 	readonly roster: YahooFantasyTeamRoster
 	readonly teamStats: YahooFantasyTeamStats
 	readonly teamPoints: YahooFantasyTeamPoints
 	readonly teamStandings: YahooFantasyTeamStandings
-	readonly teamLiveProjectedPoints: YahooFantasyTeamProjectedPoints
+	readonly teamLiveProjectedPoints?: YahooFantasyTeamProjectedPoints
 	readonly teamProjectedPoints: YahooFantasyTeamProjectedPoints
 	readonly teamRemainingGames: YahooFantasyTeamRemainingGames
 }

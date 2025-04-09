@@ -6,6 +6,7 @@ import { getParams } from '../../../network/auth-network';
 import styled from 'styled-components';
 import { YahooFantasyLeagueMatchup } from './yahoo-fantasy-league-machups';
 import { YahooFantasyLeagueStandings } from './yahoo-fantasy-league-standings';
+import { YahooFantasyLeaguePlayoffs } from './yahoo-fantasy-league-playoffs';
 
 const Content = styled.div`
     margin: 8px;
@@ -27,6 +28,9 @@ export const YahooFantasyLeaguePage = () => {
     if (loading || !league)
         return <Loading />;
 
+    const playoffStart = league.settings.playoffStartWeek;
+    const playoffEnd = league.endWeek;
+
     return (
         <Content>
             <Header>
@@ -35,6 +39,7 @@ export const YahooFantasyLeaguePage = () => {
             </Header>
             <YahooFantasyLeagueMatchup scoreboard={league.scoreboard} />
             <YahooFantasyLeagueStandings standings={league.standings.standings} />
+            {league.settings.usesPlayoff && <YahooFantasyLeaguePlayoffs league={league} weeks={Array.from({ length: (playoffEnd - playoffStart) + 1 }, (_, i) => i).map(i => playoffStart + i).join(',')} />}
         </Content>
     );
 };

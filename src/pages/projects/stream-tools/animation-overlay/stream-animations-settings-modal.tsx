@@ -68,8 +68,6 @@ export const StreamAnimationSettingsModal = ({ show, requestClose, animation, an
         });
     };
 
-    console.log(values, channelPointRewards, animSettings);
-
     return (
         <Modal show={show} requestClose={requestClose}>
             {

@@ -107,7 +107,6 @@ export const MCModSupport = () => {
                                         {
                                             versionsSorted.map((v, index) => {
                                                 const supportID = projects[mod][v];
-                                                console.log(supportID, mod, v, support[supportID].bg);
                                                 return (
                                                     <ProjectVersionCell key={`${mod}-${index}`} className='p-1 text-center' color={support[supportID].bg}>
                                                         {
