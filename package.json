@@ -32,7 +32,7 @@
     "react": "^19.1.0",
     "react-colorful": "^5.6.1",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.4.1",
+    "react-router-dom": "^7.5.2",
     "styled-components": "^6.1.16"
   }
 }
