@@ -38,7 +38,7 @@ export const ChatLine = ({ message }: ChatLineProps) => {
         <LineWrapper>
             <NoWrap>{new Date(message.timeStamp).toLocaleTimeString('en-us', { hour: 'numeric', minute: '2-digit' })}</NoWrap>
             {message.platform === Platform.TWITCH ? <TwitchIcon className='fab fa-twitch' /> : (message.platform === Platform.YOUTUBE ? <YouTubeIcon className='fab fa-youtube' /> : <div />)}
-            <NoWrap style={{ color: message.senderColor ? `#${message.senderColor}` : '' }}>{message.sender}</NoWrap>
+            <NoWrap style={{ color: message.senderColor ? message.senderColor : '' }}>{message.sender}</NoWrap>
             <Message>{message.message}</Message>
         </LineWrapper>
     );
