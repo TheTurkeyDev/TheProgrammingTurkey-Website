@@ -10,7 +10,7 @@ type AuthContextType = {
     readonly platforms: readonly Platform[]
     readonly permissions: readonly string[]
     readonly userName: string
-    readonly userID: string
+    readonly userId: string
     readonly avatar: string
     readonly authState: boolean
     readonly logout: () => void
@@ -22,6 +22,7 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 export const useAuth = () => {
     const auth = useContext(AuthContext);
     if (!auth)
+        // eslint-disable-next-line functional/no-throw-statements
         throw new Error('Auth is undefined! Must be used from within a Auth Provider!');
     return auth;
 };
@@ -41,7 +42,7 @@ export const AuthWrapper = ({ children }: WithChildren) => {
 
     const setUserData = (userInfo: User) => {
         setUserName(userInfo.displayName);
-        setUserID(userInfo.userID);
+        setUserID(userInfo.id);
         setUserAvatar(userInfo.avatar);
         setPermissions(userInfo.permissions);
         setPlatforms(userInfo.platforms);
@@ -52,7 +53,7 @@ export const AuthWrapper = ({ children }: WithChildren) => {
         if (authChecked)
             return;
         userInfoQuery().then(userInfo => {
-            if (!!userInfo)
+            if (userInfo)
                 setUserData(userInfo);
             setAuthChecked(true);
         });
@@ -73,7 +74,7 @@ export const AuthWrapper = ({ children }: WithChildren) => {
     };
 
     return (
-        <AuthContext.Provider value={{ authChecked, permissions, platforms, userName, userID, avatar: userAvatar, authState, logout, reloadUser }}>
+        <AuthContext.Provider value={{ authChecked, permissions, platforms, userName, userId: userID, avatar: userAvatar, authState, logout, reloadUser }}>
             {children}
         </AuthContext.Provider>
     );

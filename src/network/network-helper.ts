@@ -18,6 +18,10 @@ export function getVideoGenSiteBase() {
     return isDevEnv() ? 'http://localhost:8084' : 'https://videogen.theturkey.dev';
 }
 
+export function getSocketURLBase() {
+    return isDevEnv() ? 'ws://localhost:23490' : 'wss://ws.theturkey.dev';
+}
+
 function isDevEnv() {
     return process.env.NODE_ENV && process.env.NODE_ENV === 'development';
 }

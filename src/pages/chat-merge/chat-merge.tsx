@@ -1,47 +1,67 @@
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ChatMergeMaker } from './chat-merge-maker';
+import { ChatMessage } from './chat-message';
+import { ChatLine } from './chat-line';
+import { useWebSocket } from '../../hooks/use-websocket';
+import { getDevAPIBase, getSocketURLBase } from '../../network/network-helper';
+import { Loading, useFetch } from 'gobble-lib-react';
+import { getParams } from '../../network/auth-network';
 
 const Wrapper = styled.div`
-    height: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    margin: 8px;
 `;
 
-const getUrlForPlatform = (platform: string, value: string) => {
-    switch (platform.toLowerCase()) {
-        case 'twitch':
-            return `https://www.twitch.tv/embed/${value}/chat?parent=theturkey.dev&parent=localhost`;
-        case 'youtube':
-            return `https://www.youtube.com/live_chat?v=${value}&embed_domain=localhost`;
-        case 'x':
-            return `https://x.com/${value}/chat`;
-        default:
-            return undefined;
-    }
-};
+const Chat = styled.div`
+    height: 100%;
+    overflow-y: auto;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+`;
 
 export const ChatMerge = () => {
+    const [chatMessages, setMessages] = useState<readonly ChatMessage[]>([]);
 
-    const [searchParams] = useSearchParams();
+    const [token, loading] = useFetch<{ readonly token: string }>(`${getDevAPIBase()}/chat-merge/token`, { requestData: getParams });
 
-    if (searchParams.size === 0)
-        return <ChatMergeMaker />;
+    const { sendMessage } = useWebSocket(getSocketURLBase(), e => {
+        const msg = JSON.parse(e.data);
+        processMessage(msg);
+    });
+
+    useEffect(() => {
+        if (!token)
+            return;
+
+        sendMessage(JSON.stringify({
+            action: 'connect',
+            service: 'chat_merge',
+            token: token.token,
+        }));
+
+    }, [token]);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const processMessage = (msg: any) => {
+        if (msg.action === 'init')
+            setMessages(msg.messages);
+        if (msg.action === 'message')
+            setMessages(old => [...old, msg.data as ChatMessage]);
+    };
+
+    if (loading)
+        return <Loading />;
 
     return (
         <Wrapper>
-            {
-                [...searchParams.entries()].map(([p, v]) => {
-
-                    const url = getUrlForPlatform(p, v);
-
-                    if (!url)
-                        return <div key={p} />;
-
-                    return (<iframe key={p} src={url} height='100%' width='100%' />);
-                })
-            }
+            <Chat>
+                {
+                    chatMessages.map(m => <ChatLine message={m} />)
+                }
+            </Chat>
         </Wrapper>
     );
-};
+}; 

@@ -1,7 +1,7 @@
 import { Platform } from './platform';
 
 export type User = {
-    readonly userID: string
+    readonly id: string
     readonly displayName: string
     readonly avatar: string
     readonly permissions: readonly string[]

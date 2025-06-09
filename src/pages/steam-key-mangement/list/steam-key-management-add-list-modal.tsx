@@ -20,7 +20,7 @@ type SteamKeyManagementAddListModalProps = {
     readonly addNewList: (list: SteamKeyList) => void
 }
 export const SteamKeyManagementAddListModal = ({ show, requestClose, addNewList }: SteamKeyManagementAddListModalProps) => {
-    const { userID } = useAuth();
+    const { userId: userID } = useAuth();
     const { pushToast } = useToast();
     const [title, setTitle] = useState('');
 

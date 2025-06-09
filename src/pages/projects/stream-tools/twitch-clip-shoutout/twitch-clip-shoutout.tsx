@@ -49,7 +49,7 @@ export const TwitchClipShoutout = () => {
         return <Body1>This app requires additional Twitch scopes... Contact Turkey</Body1>;
 
     const onRegenClick = () => {
-        regenToken().then(() => refetch());
+        regenToken().then(refetch);
     };
 
     const saveSettingsToDB = () => {

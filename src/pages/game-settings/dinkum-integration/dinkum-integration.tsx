@@ -25,7 +25,7 @@ const ItemsWrapper = styled.div`
 
 export const DinkumIntegration = () => {
 
-    const { userID } = useAuth();
+    const { userId: userID } = useAuth();
     const [settings, fetching, { setData, resetData }] = useFetch<readonly DinkumIntegrationSettings[]>(`${getDevAPIBase()}/gamesettings/dinkum/${userID}/integration`, {
         skip: !userID,
         requestData: getParams
