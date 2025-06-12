@@ -33,7 +33,7 @@ export const SteamKeyManagementList = () => {
     const [showNewList, setShowNewList] = useState(false);
 
     useEffect(() => {
-        if (!!data)
+        if (data)
             setItems(data);
     }, [data]);
 

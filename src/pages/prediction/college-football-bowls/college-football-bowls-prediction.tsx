@@ -71,10 +71,10 @@ export const CollegeFootballBowlsPrediction = () => {
     const { groupId } = useParams();
     const navigate = useNavigate();
 
-    const [games, loading] = useFetch<readonly GameData[]>(`${getDevAPIBase()}/predictions/fbs-bowl/games`, {
+    const [games] = useFetch<readonly GameData[]>(`${getDevAPIBase()}/predictions/fbs-bowl/games`, {
         requestData: getParams
     });
-    const [groupPicks, loadingGP] = useFetch<UserPicksGroup>(`${getDevAPIBase()}/predictions/fbs-bowl/group/${groupId}`, {
+    const [groupPicks] = useFetch<UserPicksGroup>(`${getDevAPIBase()}/predictions/fbs-bowl/group/${groupId}`, {
         requestData: getParams
     });
 

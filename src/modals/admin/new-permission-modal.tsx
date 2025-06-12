@@ -26,12 +26,12 @@ export const NewPermissionModal = ({ show, requestClose, update }: NewPermission
 
     const createPerm = () => {
         if (!permissionID) {
-            pushToast(<TextToast text={'Permission ID not set!'} />);
+            pushToast(<TextToast text='Permission ID not set!' />);
             return;
         }
 
         if (!description) {
-            pushToast(<TextToast text={'Description not set!'} />);
+            pushToast(<TextToast text='Description not set!' />);
             return;
         }
 
@@ -50,8 +50,8 @@ export const NewPermissionModal = ({ show, requestClose, update }: NewPermission
                 <Input type='text' name='id' label='Permission Id' value={permissionID} onChange={e => setPermissionID(e.target.value)} />
                 <Input type='text' name='description' label='Description' value={description} onChange={e => setDescription(e.target.value)} />
                 <ButtonRow>
-                    <OutlinedButton onClick={() => requestClose()}>Cancel</OutlinedButton>
-                    <ContainedButton onClick={() => createPerm()}>Create</ContainedButton>
+                    <OutlinedButton onClick={requestClose}>Cancel</OutlinedButton>
+                    <ContainedButton onClick={createPerm}>Create</ContainedButton>
                 </ButtonRow>
             </ContentWrapper >
         </Modal>

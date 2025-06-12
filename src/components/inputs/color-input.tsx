@@ -1,5 +1,5 @@
 import { Input, useClickOutside } from 'gobble-lib-react';
-import { useCallback, useState, useEffect, createRef } from 'react';
+import { useCallback, useState, createRef } from 'react';
 import { RgbaColor, RgbaColorPicker, RgbColorPicker } from 'react-colorful';
 import styled from 'styled-components';
 
@@ -73,7 +73,7 @@ type ColorPickerProps = {
     readonly onClose?: (hex: string) => void
 }
 
-export const ColorPicker = ({ label, color, alpha = false, showHexInput = false, onChange = () => { }, onClose = () => { } }: ColorPickerProps) => {
+export const ColorPicker = ({ label, color, alpha = false, showHexInput = false, onChange = () => { } }: ColorPickerProps) => {
     const popover = createRef<HTMLDivElement>();
     const [isOpen, toggle] = useState(false);
     const [pickerColor, setPickerColor] = useState<RgbaColor>(hexToRGB(color));

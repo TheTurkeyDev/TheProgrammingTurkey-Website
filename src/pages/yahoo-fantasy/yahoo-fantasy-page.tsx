@@ -1,4 +1,4 @@
-import { Body1, Card, CardContent, CardHeader, Headline3, Headline4, HorizontalRule, useFetch } from 'gobble-lib-react';
+import { Card, CardContent, CardHeader, Headline3, Headline4, HorizontalRule, useFetch } from 'gobble-lib-react';
 import { getDevAPIBase } from '../../network/network-helper';
 import styled from 'styled-components';
 import { YahooFantasyFullUser } from './rest/yahoo-fantasy-full-user';

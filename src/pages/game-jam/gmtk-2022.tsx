@@ -4,7 +4,7 @@ import { ProjectWrapper } from '../../components/project-wrapper';
 export const GMTK2022 = () => {
     return (
         <ProjectWrapper
-            title={'Chance And Skill'}
+            title='Chance And Skill'
             subTittle='For GMTK 2022!'
             links={[
                 { href: 'https://turkeydev.itch.io/gmtk-2022', text: 'Play The Game' },

@@ -48,12 +48,14 @@ export const LoginResponse = () => {
                 else {
                     setMessage(json.message);
                     reloadUser();
+                    // eslint-disable-next-line functional/immutable-data
                     location.href = stateParsed.redir_url;
                 }
             }
             else {
                 setMessage('Logged In!');
                 reloadUser();
+                // eslint-disable-next-line functional/immutable-data
                 location.href = stateParsed.redir_url;
             }
         });

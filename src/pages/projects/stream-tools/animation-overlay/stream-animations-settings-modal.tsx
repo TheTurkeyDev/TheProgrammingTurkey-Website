@@ -21,10 +21,6 @@ const SettingsWrapper = styled.div`
     gap: 8px;
 `;
 
-const Label = styled.span`
-    justify-self: right;
-`;
-
 const clamp = (num: number, min: number, max: number) => Math.min(Math.max(num, min), max);
 
 const getInputForSetting = (def: StreamAnimationSettingDef, value: string, onChange: (val: string) => void) => {

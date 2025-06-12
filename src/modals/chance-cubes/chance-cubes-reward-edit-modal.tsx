@@ -39,7 +39,7 @@ export const ChanceCubesRewardEditModal = ({ show, requestClose, name, data }: C
 
     const [saveReward] = useQuery(`${getDevAPIBase()}/chancecubes/rewards`, { requestData: patchParams });
 
-    const [settings, loading] = useFetch<readonly ChanceCubesRewardSetting[]>(`${getDevAPIBase()}/chancecubes/rewards/${name}/settings`, { requestData: getParams });
+    const [settings] = useFetch<readonly ChanceCubesRewardSetting[]>(`${getDevAPIBase()}/chancecubes/rewards/${name}/settings`, { requestData: getParams });
 
     const [mcVersion, setMcVersion] = useState('1.7.10');
     const [versionStatus, setVersionStatus] = useState(data.versions['1.7.10']);
@@ -56,6 +56,7 @@ export const ChanceCubesRewardEditModal = ({ show, requestClose, name, data }: C
     const updateVersionStatus = (ver: number) => {
         setVersionStatus(ver);
         setAllVersionsStatus(vs => {
+            // eslint-disable-next-line functional/immutable-data
             vs[mcVersion] = ver;
             return vs;
         });
@@ -72,7 +73,7 @@ export const ChanceCubesRewardEditModal = ({ show, requestClose, name, data }: C
                 rewardName: name,
                 status: allVersionsStatus[v] ?? 0
             }))), `${name}/status`))
-            .then(() => requestClose())
+            .then(requestClose)
             .catch(e => console.log(e.message));
 
     };
@@ -121,7 +122,7 @@ export const ChanceCubesRewardEditModal = ({ show, requestClose, name, data }: C
                         }
                     </tbody>
                 </RewardSettingsWrapper>
-                <ContainedButton onClick={() => save()}>
+                <ContainedButton onClick={save}>
                     Save
                 </ContainedButton>
             </ContentWrapper>

@@ -1,7 +1,6 @@
 import { ButtonRow, ContainedButton, Headline2, Headline6, useFetch } from 'gobble-lib-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { CircleLoadingBar } from '../../../components/circle-loading-bar';
 import { getParams } from '../../../network/auth-network';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { VideoGenRender } from './video-gen-render-data';

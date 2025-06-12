@@ -41,10 +41,10 @@ export const CFBMyPicks = () => {
     const navigate = useNavigate();
     const { pushToast } = useToast();
 
-    const [games, loadingGames] = useFetch<readonly GameData[]>(`${getDevAPIBase()}/predictions/fbs-bowl/games`, {
+    const [games] = useFetch<readonly GameData[]>(`${getDevAPIBase()}/predictions/fbs-bowl/games`, {
         requestData: getParams
     });
-    const [myPicks, loadingPicks, { setData }] = useFetch<readonly PicksData[]>(`${getDevAPIBase()}/predictions/fbs-bowl/group/${groupId}/my-picks`, {
+    const [myPicks, _, { setData }] = useFetch<readonly PicksData[]>(`${getDevAPIBase()}/predictions/fbs-bowl/group/${groupId}/my-picks`, {
         requestData: getParams
     });
 
@@ -80,7 +80,7 @@ export const CFBMyPicks = () => {
                 ...(origPick ?? {
                     picksId: -1,
                     gameId,
-                    pick: games?.find(g => g.id === gameId)?.homeId!,
+                    pick: games?.find(g => g.id === gameId)?.homeId ?? -1,
                     points: 0
                 }),
                 points

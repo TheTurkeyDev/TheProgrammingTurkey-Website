@@ -1,7 +1,5 @@
 import { Anchor, Body1, Card, CardContent, CardHeader, Headline3, Headline5 } from 'gobble-lib-react';
 import styled from 'styled-components';
-import { LinkGroup } from '../components/link-group';
-import { StrikeThrough } from '../styles/common-styles';
 
 /*
 / Extra small devices (phones, 600px and down) /

@@ -16,7 +16,7 @@ type RewardImportModalProps = {
     readonly requestClose: () => void
     readonly nbt: Mapped
 }
-export const NBTEditModal = ({ show, requestClose, nbt }: RewardImportModalProps) => {
+export const NBTEditModal = ({ show, requestClose }: RewardImportModalProps) => {
     return (
         <Modal show={show} requestClose={requestClose}>
             <ContentWrapper>

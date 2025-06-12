@@ -43,7 +43,7 @@ export const DependencyList = ({ deps, changeValue, insertDependency, deleteDepe
                         <Dependency
                             type='Mod'
                             value={deps.mod!}
-                            color={'#c1fda1'}
+                            color='#c1fda1'
                             changeValue={value => changeValue('mod', value)}
                             deleteDependency={() => deleteDependency('mod')}
                         />
@@ -53,7 +53,7 @@ export const DependencyList = ({ deps, changeValue, insertDependency, deleteDepe
                         <Dependency
                             type='Minecraft Version'
                             value={deps.mcVersion!}
-                            color={'#af2ea2'}
+                            color='#af2ea2'
                             changeValue={value => changeValue('mcVersion', value)}
                             deleteDependency={() => deleteDependency('mcVersion')}
                         />

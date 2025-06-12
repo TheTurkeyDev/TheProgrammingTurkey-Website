@@ -1,4 +1,4 @@
-import { Body1, ButtonRow, ContainedButton, Headline3, Input, InputsWrapper, Modal, Option, OutlinedButton, Select, Subtitle1, ToggleSwitch } from 'gobble-lib-react';
+import { ButtonRow, ContainedButton, Headline3, Input, InputsWrapper, Modal, Option, OutlinedButton, Select, Subtitle1, ToggleSwitch } from 'gobble-lib-react';
 import { months } from '../../../components/calendar/calendar';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -12,16 +12,10 @@ const ModalWrapper = styled.div`
 `;
 
 const formatDate = (d: Date) => {
-    var month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2)
-        month = '0' + month;
-    if (day.length < 2)
-        day = '0' + day;
-
-    return [year, month, day].join('-');
+    const month = '' + (d.getMonth() + 1);
+    const day = '' + d.getDate();
+    const year = d.getFullYear();
+    return [year, (month.length < 2 ? '0' : '') + month, (day.length < 2 ? '0' : '') + day].join('-');
 };
 
 type AddEventProps = {

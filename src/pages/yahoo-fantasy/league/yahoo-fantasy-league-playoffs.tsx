@@ -27,7 +27,7 @@ export const YahooFantasyLeaguePlayoffs = ({ league, weeks }: YahooFantasyLeague
     const numTeams = league.settings.numPlayoffTeams;
     const totalTeams = Math.pow(2, Math.ceil(Math.log2(numTeams)));
     const teams = league.standings.standings.filter(st => st.teamStandings.playoffSeed >= numTeams);
-    const paddedTeams = [...teams, ...Array(totalTeams - numTeams).fill(undefined)];
+    const paddedTeams = [...teams, ...Array.from({length: totalTeams - numTeams}, () => undefined)];
     const numRounds = numTeams > 0 ? Math.ceil(Math.log2(numTeams)) - 1 : 0;
 
     const contests = Array.from({ length: totalTeams - 1 }, (_, i) => i).map(v => {

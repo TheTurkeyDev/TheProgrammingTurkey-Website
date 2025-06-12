@@ -1,7 +1,6 @@
 import { Accordion, Body1, Headline4, HorizontalRule, Icon, Input, OutlinedButton, SpaceBetween, TextButton } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { ScoreboardData } from './scoreboard-data';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -22,18 +21,8 @@ const InputLine = styled.div`
     align-items: center;
 `;
 
-const FineTuneCtrlHeader = styled.div`
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 8px;
-    align-items: center;
-    &:hover {
-        cursor: pointer;
-    }
-`;
-
 export type ScoreboardSegmentData = {
-    readonly isHome: Boolean,
+    readonly isHome: boolean,
     readonly split?: number,
     readonly primaryText: readonly string[],
     readonly primaryColor?: string
@@ -97,15 +86,6 @@ export const ScoreboardVideoSegment = ({ segmentData, setSegmentData }: Scoreboa
             secondaryText: [
                 ...segmentData.secondaryText.slice(0, index),
                 val,
-                ...segmentData.secondaryText.slice(index + 1),
-            ]
-        });
-    };
-    const deleteSecondaryText = (index: number) => {
-        setSegmentData({
-            ...segmentData,
-            secondaryText: [
-                ...segmentData.secondaryText.slice(0, index),
                 ...segmentData.secondaryText.slice(index + 1),
             ]
         });

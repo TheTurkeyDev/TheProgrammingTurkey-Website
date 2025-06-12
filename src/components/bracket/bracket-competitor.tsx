@@ -47,7 +47,7 @@ type BracketCompetitorProps = {
     readonly teamClick?: (competitor: Competitor, isTop: boolean) => void
 }
 
-export const BracketCompetitor = ({ isTop, competitor, hasWinner, isLoser, state = -1, teamClick }: BracketCompetitorProps) => {
+export const BracketCompetitor = ({ isTop, competitor, isLoser, state = -1, teamClick }: BracketCompetitorProps) => {
     const pickable = !!teamClick;
 
     const logo = competitor.team.logo;

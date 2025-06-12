@@ -104,10 +104,10 @@ export const F1DriverPredictions = () => {
                 </span>
                 {
                     orderedStandings.map(t => {
-                        const driver = drivers?.find(c => c.id === t.driverId)!;
+                        const driver = drivers?.find(c => c.id === t.driverId);
                         return (
                             <ConstructorWrapper key={t.driverId}>
-                                <F1DriverItem driver={driver} />
+                                {driver && <F1DriverItem driver={driver} />}
                                 <span>{t.points}</span>
                             </ ConstructorWrapper>
                         );

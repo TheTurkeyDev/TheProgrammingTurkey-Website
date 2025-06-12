@@ -46,7 +46,8 @@ export function LoginPlatform({ platform, color, icon }: PlatformLogin) {
 
     const login = () => {
         getLoginURL(undefined, platform, `returnurl=${params.from ?? getSiteURLBase()}`)
-            .then(resp => { if (!!resp) location.href = resp.url; });
+            // eslint-disable-next-line functional/immutable-data
+            .then(resp => { if (resp) location.href = resp.url; });
     };
 
     return (

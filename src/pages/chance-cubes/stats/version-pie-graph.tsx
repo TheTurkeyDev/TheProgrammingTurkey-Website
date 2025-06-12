@@ -1,5 +1,5 @@
 import { ChanceCubesStats } from '../../../types/chance-cubes/chance-cubes-stats';
-import { ChartWrapper, versionCompare } from './chart-helper';
+import { versionCompare } from './chart-helper';
 import { ReactChart } from 'chartjs-react';
 import { Loading } from 'gobble-lib-react';
 

@@ -33,5 +33,5 @@ export type ChanceCubesBooleanSettingDef = ChanceCubesSettingDef & {
 
 export type ChanceCubesNBTSettingsDef = ChanceCubesSettingDef & {
     readonly type: 'nbt'
-    readonly default: {}
+    readonly default: object
 }

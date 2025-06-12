@@ -31,6 +31,7 @@ const SteamKeyManagementRouter = lazy(() => import(/* webpackChunkName: "Steam K
 const GameSettingsRouter = lazy(() => import(/* webpackChunkName: "Game Settings" */ './pages/game-settings/game-settings-router'));
 const PredictionRouter = lazy(() => import(/* webpackChunkName: "Predictions" */ './pages/prediction/prediction-router'));
 const YahooRouter = lazy(() => import(/* webpackChunkName: "Yahoo Fantasy" */ './pages/yahoo-fantasy/yahoo-router'));
+const SoftkeyManagementRouter = lazy(() => import(/* webpackChunkName: "Softkey" */ './pages/softkey-management/softkey-router'));
 
 export const authWrap = (element: JSX.Element, perm?: string) => <AuthRoute perm={perm}>{element}</AuthRoute>;
 
@@ -50,6 +51,7 @@ export const Routing = () => (
             <Route path='/gamesettings/*' element={<GameSettingsRouter />} />
             <Route path='/predictions/*' element={<PredictionRouter />} />
             <Route path='/yahoo-fantasy/*' element={authWrap(<YahooRouter />)} />
+            <Route path='/softkey/*' element={authWrap(<SoftkeyManagementRouter />, 'softkey')} />
 
             <Route path='/mod-support' element={<MCModSupport />} />
             <Route path='/ld-stats' element={<LDStats />} />

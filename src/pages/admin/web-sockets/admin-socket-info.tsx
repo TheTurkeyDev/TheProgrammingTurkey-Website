@@ -1,4 +1,4 @@
 export type AdminSocketInfo = {
-    readonly service: String;
-	readonly userID: String
+    readonly service: string;
+	readonly userID: string
 }

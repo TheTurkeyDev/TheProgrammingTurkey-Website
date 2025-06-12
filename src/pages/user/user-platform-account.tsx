@@ -1,4 +1,4 @@
-import { Body1, ContainedButton, OutlinedButton } from 'gobble-lib-react';
+import { Body1, OutlinedButton } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { UserConnection } from '../../types/user-connection';
 

@@ -28,7 +28,8 @@ export function versionCompare(v1: string, v2: string): number {
     const v1partsNums = v1parts.map(Number);
     const v2partsNums = v2parts.map(Number);
 
-    // eslint-disable-next-line functional/no-let
+     
+    // eslint-disable-next-line functional/no-loop-statements
     for (let i = 0; i < v1partsNums.length; ++i) {
         if (v2partsNums.length === i)
             return 1;

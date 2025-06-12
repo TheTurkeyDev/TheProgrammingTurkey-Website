@@ -27,7 +27,7 @@ type ChanceCubesRewardInfoModalProps = {
 
 export const ChanceCubesRewardInfoModal = ({ show, requestClose, name, data }: ChanceCubesRewardInfoModalProps) => {
 
-    const [settings, loading] = useFetch<readonly ChanceCubesRewardSetting[]>(`${getDevAPIBase()}/chancecubes/rewards/${name}/settings`, { requestData: getParams });
+    const [settings] = useFetch<readonly ChanceCubesRewardSetting[]>(`${getDevAPIBase()}/chancecubes/rewards/${name}/settings`, { requestData: getParams });
 
     return (
         <Modal show={show} requestClose={requestClose}>

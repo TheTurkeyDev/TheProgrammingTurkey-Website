@@ -134,10 +134,10 @@ export const ChanceCubesStatsCharts = () => {
         const toSet = {
             ...json,
             mc_versions: {
-                ...Object.fromEntries(Object.entries(json.mc_versions).map(([v, runs]) => [v, [...Array(numDates - runs.length).fill(0), ...runs]]))
+                ...Object.fromEntries(Object.entries(json.mc_versions).map(([v, runs]) => [v, [...Array.from({length: numDates - runs.length}, () => 0), ...runs]]))
             },
             versions: {
-                ...Object.fromEntries(Object.entries(json.versions).map(([v, runs]) => [v, [...Array(numDates - runs.length).fill(0), ...runs]]))
+                ...Object.fromEntries(Object.entries(json.versions).map(([v, runs]) => [v, [...Array.from({length: numDates - runs.length}, () => 0), ...runs]]))
             },
         };
         setStats(toSet);

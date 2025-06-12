@@ -17,7 +17,7 @@ export const DinkumIntegrationItemAdjustment = ({ setting, update, remove, nums 
 
     return (
         <>
-            <Icon className='fas fa-trash-alt' onClick={() => remove()} />
+            <Icon className='fas fa-trash-alt' onClick={remove} />
             <Input placeholder='Item Id' type='number' value={setting.itemId} onChange={e => update({ ...setting, itemId: getValidNumber(parseInt(e.target.value)) })} />
             <Input placeholder='Value' type='number' value={setting.value} onChange={e => update({ ...setting, value: parseInt(e.target.value) })} />
         </>

@@ -6,8 +6,8 @@
   "scripts": {
     "start": "vite serve",
     "build": "vite build",
-    "lint": "eslint ./src/**/*.{js,jsx} --quiet",
-    "lint-fix": "eslint --fix ./src/**/*.{js,jsx}"
+    "lint": "eslint ./src/**/*.{ts,tsx} --quiet",
+    "lint-fix": "eslint --fix ./src/**/*.{ts,tsx}"
   },
   "author": "",
   "license": "ISC",
@@ -31,6 +31,7 @@
     "react-colorful": "^5.6.1",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.1",
+    "react-screen-wake-lock": "^3.1.1",
     "reconnecting-websocket": "^4.4.0",
     "styled-components": "^6.1.16"
   }

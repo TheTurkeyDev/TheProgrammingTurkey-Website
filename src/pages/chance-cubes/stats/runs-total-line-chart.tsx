@@ -1,5 +1,3 @@
-import { createRef, useEffect } from 'react';
-import Chart from 'chart.js/auto';
 import { ChanceCubesStats } from '../../../types/chance-cubes/chance-cubes-stats';
 import { ReactChart } from 'chartjs-react';
 import { Loading } from 'gobble-lib-react';

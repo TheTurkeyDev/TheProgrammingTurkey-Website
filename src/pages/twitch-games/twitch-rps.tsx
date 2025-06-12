@@ -34,7 +34,7 @@ export const TwitchRPSSetup = () => {
     useEffect(() => {
         async function loadDisplay() {
             api.getTwitchGameSettings(gameName, token).then(data => {
-                if (!!data) {
+                if (data) {
                     setTwitchWins(data.twitch_wins);
                     setCpuWins(data.cpu_wins);
                     setTies(data.ties);
@@ -75,7 +75,7 @@ export const TwitchRPSSetup = () => {
             <SecretURL url={rpsURL} regen={regenToken} />
             <HorizontalRule />
             <Headline4>Settings</Headline4>
-            <InputsWrapper fullWidth={true}>
+            <InputsWrapper $fullWidth={true}>
                 <Input type='number' name='twitchWins' label='Twitch Wins' value={twitchWins} onChange={e => setTwitchWins(parseInt(e.target.value))} />
                 <Input type='number' name='cpuWins' label='CPU Wins' value={cpuWins} onChange={e => setCpuWins(parseInt(e.target.value))} />
                 <Input type='number' name='ties' label='Ties' value={ties} onChange={e => setTies(parseInt(e.target.value))} />
@@ -84,7 +84,7 @@ export const TwitchRPSSetup = () => {
                 </Select>
                 <Input type='number' name='votingRoundTime' label='Voting Round Time' value={votingTimer} onChange={e => setVotingTimer(parseInt(e.target.value))} />
                 <Input type='number' name='startDelay' label='Start Delay' value={startDelay} onChange={e => setStartDelay(parseInt(e.target.value))} />
-                <ColorPicker label='Text Color' color={`#${textColor}`} onClose={color => setTextColor(color)} />
+                <ColorPicker label='Text Color' color={`#${textColor}`} onClose={setTextColor} />
             </InputsWrapper>
             <ButtonRow>
                 <ContainedButton onClick={saveDisplaySettings}>Save</ContainedButton>

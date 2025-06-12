@@ -50,7 +50,19 @@ export default tseslint.config(
             "functional/no-mixed-types": "off",
             "functional/readonly-type": ["error", "keyword"],
             "functional/no-conditional-statements": "off",
-            "react/jsx-curly-brace-presence": ["error", { props: "never", children: "never" }]
+            "react/jsx-curly-brace-presence": ["error", { props: "never", children: "never" }],
+            "@typescript-eslint/no-unused-vars": [
+                "error",
+                {
+                    "args": "all",
+                    "argsIgnorePattern": "^_",
+                    "caughtErrors": "all",
+                    "caughtErrorsIgnorePattern": "^_",
+                    "destructuredArrayIgnorePattern": "^_",
+                    "varsIgnorePattern": "^_",
+                    "ignoreRestSiblings": true
+                }
+            ]
         },
         ignores: [
             './eslint.config.ts',

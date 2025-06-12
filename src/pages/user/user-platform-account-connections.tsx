@@ -30,7 +30,7 @@ export const UserPlatformAccountConnections = () => {
 
     const login = (platform: string) => {
         getLoginURL(undefined, platform, `returnurl=${getSiteURLBase()}${location.pathname}`)
-            .then(resp => { if (!!resp) location.href = resp.url; });
+            .then(resp => { if (resp) location.href = resp.url; });
     };
 
     return (

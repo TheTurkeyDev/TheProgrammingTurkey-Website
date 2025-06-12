@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BracketCompetitor } from './bracket-competitor';
-import { Body1, Icon } from 'gobble-lib-react';
+import { Icon } from 'gobble-lib-react';
 import { useNavigate } from 'react-router-dom';
 import { Competitor } from './competitor';
 import { useBracket } from './bracket-context';
@@ -40,11 +40,6 @@ const EmptyTeam = styled.div`
     min-height: 20px;
 `;
 
-const Text = styled(Body1)`
-    font-size: 12px;
-    line-height: 12px;
-`;
-
 type BracketGameProps = {
     readonly round: number
     readonly bracketGameId: string
@@ -75,7 +70,7 @@ export const BracketGame = ({ round, bracketGameId, insetSide }: BracketGameProp
     const hasBotTeam = hasRBT || !!pick?.bot?.team?.id;
     const hasWinner = contest.top.isWinner || contest.bot.isWinner;
 
-    const onTeamClick = !!teamClick ? (comp: Competitor, isTop: boolean) => teamClick(pick ?? contest, comp, isTop) : undefined;
+    const onTeamClick = teamClick ? (comp: Competitor, isTop: boolean) => teamClick(pick ?? contest, comp, isTop) : undefined;
 
     return (
         <FullWrapper style={styles}>

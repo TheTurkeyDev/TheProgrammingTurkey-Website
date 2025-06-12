@@ -1,4 +1,4 @@
-import { Body1, Headline4, Loading, useFetch, useQuery } from 'gobble-lib-react';
+import { Body1, Loading, useQuery } from 'gobble-lib-react';
 import { getDevAPIBase } from '../../../network/network-helper';
 import { useParams } from 'react-router-dom';
 import { YahooFantasyTeam } from '../rest/yahoo-fantasy-team';

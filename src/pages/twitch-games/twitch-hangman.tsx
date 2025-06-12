@@ -36,7 +36,7 @@ export const TwitchHangmanSetup = () => {
             return;
 
         api.getTwitchGameSettings(gameName, token).then(data => {
-            if (!!data) {
+            if (data) {
                 setBGColor(data.bg_color);
                 setWordColor(data.word_color);
                 setCorrectLetterColor(data.correct_letter_color);
@@ -71,11 +71,11 @@ export const TwitchHangmanSetup = () => {
             <SecretURL url={hangmanURL} regen={regenToken} />
             <HorizontalRule />
             <Headline4>Settings</Headline4>
-            <InputsWrapper fullWidth={true}>
-                <ColorPicker label='Background Color' color={bgColor} onClose={color => setBGColor(color)} />
-                <ColorPicker label='Word Color' color={wordColor} onClose={color => setWordColor(color)} />
-                <ColorPicker label='Correct Letter Color' color={correctLetterColor} onClose={color => setCorrectLetterColor(color)} />
-                <ColorPicker label='Wrong Letter Color' color={wrongLetterColor} onClose={color => setWrongLetterColor(color)} />
+            <InputsWrapper $fullWidth={true}>
+                <ColorPicker label='Background Color' color={bgColor} onClose={setBGColor} />
+                <ColorPicker label='Word Color' color={wordColor} onClose={setWordColor} />
+                <ColorPicker label='Correct Letter Color' color={correctLetterColor} onClose={setCorrectLetterColor} />
+                <ColorPicker label='Wrong Letter Color' color={wrongLetterColor} onClose={setWrongLetterColor} />
             </InputsWrapper>
             <ButtonRow>
                 <ContainedButton onClick={saveDisplaySettings}>Save</ContainedButton>

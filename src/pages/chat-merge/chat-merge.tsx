@@ -6,6 +6,7 @@ import { useWebSocket } from '../../hooks/use-websocket';
 import { getDevAPIBase, getSocketURLBase } from '../../network/network-helper';
 import { Loading, useFetch } from 'gobble-lib-react';
 import { getParams } from '../../network/auth-network';
+import { useWakeLock } from 'react-screen-wake-lock';
 
 const Wrapper = styled.div`
     display: grid;
@@ -23,7 +24,7 @@ const Chat = styled.div`
 `;
 
 export const ChatMerge = () => {
-    const [chatMessages, setMessages] = useState<readonly ChatMessage[]>([]);
+    useWakeLock({ reacquireOnPageVisible: true });
 
     const [token, loading] = useFetch<{ readonly token: string }>(`${getDevAPIBase()}/chat-merge/token`, { requestData: getParams });
 
@@ -31,6 +32,8 @@ export const ChatMerge = () => {
         const msg = JSON.parse(e.data);
         processMessage(msg);
     });
+
+    const [chatMessages, setMessages] = useState<readonly ChatMessage[]>([]);
 
     useEffect(() => {
         if (!token)

@@ -1,8 +1,7 @@
-import { Headline4, Modal, OutlinedButton, TextArea } from 'gobble-lib-react';
+import { Modal, OutlinedButton, TextArea } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Directive } from './directive';
-import { DirectiveType } from './directives-type';
 
 const Wrapper = styled.div`
     display: grid;

@@ -21,7 +21,7 @@ type YahooFantasyTeamPageHeaderProps = {
 export const YahooFantasyTeamPageHeader = ({ team, date, setDate }: YahooFantasyTeamPageHeaderProps) => {
 
     const addDay = (count: number) => {
-        var nd = new Date(date);
+        const nd = new Date(date);
         nd.setDate(date.getDate() + count);
         setDate(nd);
     };

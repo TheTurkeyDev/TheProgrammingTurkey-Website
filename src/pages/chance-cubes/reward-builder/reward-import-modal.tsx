@@ -1,4 +1,4 @@
-import { Button, ButtonRow, ContainedButton, Input, Modal, OutlinedButton, TextArea, ToggleSwitch } from 'gobble-lib-react';
+import { Button, ButtonRow, ContainedButton, Modal, OutlinedButton, TextArea } from 'gobble-lib-react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { MultiChanceCubesRewards } from './multi-chance-cubes-rewards';
@@ -16,7 +16,6 @@ type RewardImportModalProps = {
     readonly importRewards: (rewards: MultiChanceCubesRewards) => void
 }
 export const RewardImportModal = ({ show, requestClose, importRewards }: RewardImportModalProps) => {
-    const [fileJson, setFileJson] = useState('');
     const [inputJson, setInputJson] = useState('');
     const [inputType, setInputType] = useState(0);
 
@@ -50,10 +49,10 @@ export const RewardImportModal = ({ show, requestClose, importRewards }: RewardI
                     />
                 }
                 <ButtonRow>
-                    <OutlinedButton onClick={() => requestClose()}>
+                    <OutlinedButton onClick={requestClose}>
                         Cancel
                     </OutlinedButton>
-                    <ContainedButton onClick={() => create()}>
+                    <ContainedButton onClick={create}>
                         Import
                     </ContainedButton>
                 </ButtonRow>

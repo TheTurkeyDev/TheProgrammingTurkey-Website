@@ -3,16 +3,9 @@ import { useAuth } from '../../contexts/auth-context';
 import * as api from '../../network/twitch-games-network';
 import { getAppsSiteBase } from '../../network/network-helper';
 import { SecretURL } from '../../components/secret-url';
-import styled from 'styled-components';
 import { ButtonRow, ContainedButton, Headline2, Headline4, HorizontalRule, Input, InputsWrapper, Option, Select, TextToast, useToast } from 'gobble-lib-react';
 import { ContentWrapper } from '../../components/setup-page-content';
 import { ColorPicker } from '../../components/inputs/color-input';
-
-const SettingsContent = styled.div`
-    display: grid;
-    grid-template-columns: 600px;
-    gap: 8px;
-`;
 
 export const TwitchBattleshipSetup = () => {
     const { authState, authChecked } = useAuth();
@@ -40,7 +33,7 @@ export const TwitchBattleshipSetup = () => {
     useEffect(() => {
         async function loadDisplay() {
             api.getTwitchGameSettings('battleship', token).then(data => {
-                if (!!data) {
+                if (data) {
                     setTwitchWins(data.twitch_wins);
                     setCpuWins(data.cpu_wins);
                     setGamePlayType(data.game_play_type);
@@ -82,7 +75,7 @@ export const TwitchBattleshipSetup = () => {
             <SecretURL url={battleshipURL} regen={regenToken} />
             <HorizontalRule />
             <Headline4>Settings</Headline4>
-            <InputsWrapper fullWidth={true}>
+            <InputsWrapper $fullWidth={true}>
                 <Input type='number' name='twitchWins' label='Twitch Wins' value={twitchWins} onChange={e => setTwitchWins(parseInt(e.target.value))} />
                 <Input type='number' name='cpuWins' label='CPU Wins' value={cpuWins} onChange={e => setCpuWins(parseInt(e.target.value))} />
                 <Select label='Game Play Style'>
@@ -91,7 +84,7 @@ export const TwitchBattleshipSetup = () => {
                 <Input type='number' name='votingRoundTime' label='Voting Round Time' value={votingTimer} onChange={e => setVotingTimer(parseInt(e.target.value))} />
                 <Input type='number' name='voteDisplayTime' label='Vote Display Time' value={voteDisplayTimer} onChange={e => setVoteDisplayTimer(parseInt(e.target.value))} />
                 <Input type='number' name='startDelay' label='Start Delay' value={startDelay} onChange={e => setStartDelay(parseInt(e.target.value))} />
-                <ColorPicker label='Text Color' color={textColor} onClose={color => setTextColor(color)} />
+                <ColorPicker label='Text Color' color={textColor} onClose={setTextColor} />
             </InputsWrapper>
             <ButtonRow>
                 <ContainedButton onClick={saveDisplaySettings}>Save</ContainedButton>
