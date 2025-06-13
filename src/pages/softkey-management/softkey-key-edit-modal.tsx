@@ -30,7 +30,7 @@ export const SoftkeyKeyEditModal = ({ appId, softKey, show, requestClose, onSave
                 <Headline4>Edit Key</Headline4>
                 <InputsWrapper>
                     <Input label='Key' value={softKey.uuid} disabled />
-                    <Input label='Owner' value={owner} onChange={e => setOwner(e.target.value)} />
+                    <Input label='Owner' value={owner} onChange={e => setOwner(e.target.value)} maxLength={120}/>
                     <ToggleSwitch label='Active' checked={active} onClick={() => setActive(old => !old)} />
                 </InputsWrapper>
                 <ButtonRow>

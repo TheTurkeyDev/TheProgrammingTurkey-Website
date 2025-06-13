@@ -37,6 +37,7 @@ export const SoftkeyManagementApp = () => {
             <Table>
                 <thead>
                     <tr>
+                        <TH>Created</TH>
                         <TH>UUID</TH>
                         <TH>Owner</TH>
                         <TH>Active</TH>
@@ -46,6 +47,7 @@ export const SoftkeyManagementApp = () => {
                     {
                         [...(keys ?? [])].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()).map(key => (
                             <TR onClick={() => setEditingKey(keys?.find(k => k.uuid === key.uuid))}>
+                                <TD>{new Date(key.createdAt).toLocaleString()}</TD>
                                 <TD>{key.uuid}</TD>
                                 <TD>{key.owner}</TD>
                                 <TD>
