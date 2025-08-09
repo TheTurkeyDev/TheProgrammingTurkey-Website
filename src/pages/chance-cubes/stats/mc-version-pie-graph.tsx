@@ -1,7 +1,7 @@
 import { Loading } from 'gobble-lib-react';
-import { ReactChart } from 'chartjs-react';
 import { ChanceCubesStats } from '../../../types/chance-cubes/chance-cubes-stats';
 import { versionCompare } from './chart-helper';
+import { Chart } from 'react-chartjs-2';
 
 type MCVersionPieChartProps = {
     readonly stats?: ChanceCubesStats
@@ -23,7 +23,7 @@ export const MCVersionPieChart = ({ stats, getColorForKey }: MCVersionPieChartPr
     const labelColors = info.map(i => i.color);
 
     return (
-        <ReactChart
+        <Chart
             type='pie'
             data={{
                 labels: [...labels],

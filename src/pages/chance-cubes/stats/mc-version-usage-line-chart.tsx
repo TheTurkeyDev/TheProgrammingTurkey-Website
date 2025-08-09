@@ -1,6 +1,6 @@
+import { Chart } from 'react-chartjs-2';
 import { ChanceCubesStats } from '../../../types/chance-cubes/chance-cubes-stats';
 import { versionCompare } from './chart-helper';
-import { ReactChart } from 'chartjs-react';
 import { Loading } from 'gobble-lib-react';
 
 type MCVersionUsageLineChartProps = {
@@ -22,7 +22,7 @@ export const MCVersionUsageLineChart = ({ stats, getColorForKey }: MCVersionUsag
     });
 
     return (
-        <ReactChart
+        <Chart
             type='line'
             data={{
                 labels: [...stats.dates],

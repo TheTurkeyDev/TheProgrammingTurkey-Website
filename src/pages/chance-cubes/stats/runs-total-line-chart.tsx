@@ -1,5 +1,5 @@
+import { Chart } from 'react-chartjs-2';
 import { ChanceCubesStats } from '../../../types/chance-cubes/chance-cubes-stats';
-import { ReactChart } from 'chartjs-react';
 import { Loading } from 'gobble-lib-react';
 
 type RunTotalsLinechartProps = {
@@ -10,7 +10,7 @@ export const RunTotalsLinechart = ({ stats }: RunTotalsLinechartProps) => {
         return <Loading />;
 
     return (
-        <ReactChart
+        <Chart
             type='line'
             data={{
                 labels: [...stats.dates],

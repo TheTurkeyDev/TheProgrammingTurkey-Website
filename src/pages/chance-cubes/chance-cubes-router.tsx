@@ -4,6 +4,7 @@ import { ChanceCubesManageContentCreators } from './content-creators/chance-cube
 import { ChanceCubesRewardBuilder } from './reward-builder/chance-cubes-reward-builder';
 import { ChanceCubesStatsCharts } from './stats/chance-cubes-stats';
 import { authWrap } from '../../router';
+import 'chart.js/auto';
 
 export const ChanceCubesRouter = () => (
     <Routes>

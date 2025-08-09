@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { Headline2, Headline4, Loading, useFetch } from 'gobble-lib-react';
 import { LDEvent } from '../../types/ld-event';
-import { ChartProps, ReactChart } from 'chartjs-react';
 import { getDevAPIBase } from '../../network/network-helper';
 import { getParams } from '../../network/auth-network';
+import { Chart, ChartProps } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 const catergories = [
     { label: 'Overall', color: '#229954' },
@@ -43,7 +44,7 @@ const getPercentile = (cat: string, comps: readonly LDEvent[]) => {
     });
 };
 
-export const LDStats = () => {
+const LDStats = () => {
 
     const [data, fetching] = useFetch<readonly LDEvent[]>(`${getDevAPIBase()}/ludumdare/stats`,{
         requestData: getParams
@@ -154,7 +155,9 @@ const ChartGroup = ({ text, ...props }: ChartGroupProps) => {
     return (
         <ChartWrapper>
             <Headline4>{text}</Headline4>
-            <ReactChart {...props} />
+            <Chart {...props} />
         </ChartWrapper>
     );
 };
+
+export default LDStats;

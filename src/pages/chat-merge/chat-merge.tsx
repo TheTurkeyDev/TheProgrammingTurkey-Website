@@ -7,6 +7,7 @@ import { getDevAPIBase, getSocketURLBase } from '../../network/network-helper';
 import { Loading, useFetch } from 'gobble-lib-react';
 import { getParams } from '../../network/auth-network';
 import { useWakeLock } from 'react-screen-wake-lock';
+import { ChatEvent } from './chat-event';
 
 const Wrapper = styled.div`
     display: grid;
@@ -23,6 +24,13 @@ const Chat = styled.div`
     gap: 4px;
 `;
 
+type ChatLine = ChatEvent | ChatMessageWrapper
+
+type ChatMessageWrapper = {
+    readonly type: string,
+    readonly data: ChatMessage
+}
+
 export const ChatMerge = () => {
     useWakeLock({ reacquireOnPageVisible: true });
 
@@ -33,7 +41,9 @@ export const ChatMerge = () => {
         processMessage(msg);
     });
 
-    const [chatMessages, setMessages] = useState<readonly ChatMessage[]>([]);
+    const [_, setMessages] = useState<readonly ChatMessage[]>([]);
+    const [__, setEvents] = useState<readonly ChatEvent[]>([]);
+    const [chatLines, setChatLines] = useState<readonly ChatLine[]>([]);
 
     useEffect(() => {
         if (!token)
@@ -47,12 +57,37 @@ export const ChatMerge = () => {
 
     }, [token]);
 
+    const getEventDate = (data: ChatLine) => {
+        switch (data.type) {
+            case 'message':
+                return new Date((data as ChatMessageWrapper).data.timeStamp);
+            case 'sub':
+            case 'giftSub':
+                return new Date((data as ChatEvent).data.timeStamp);
+            default:
+                return new Date();
+        }
+    };
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const processMessage = (msg: any) => {
-        if (msg.action === 'init')
+        if (msg.action === 'init') {
             setMessages(msg.messages);
-        if (msg.action === 'message')
-            setMessages(old => [...old, msg.data as ChatMessage]);
+            setEvents(msg.events);
+            setChatLines(() => [
+                ...(msg.messages as readonly ChatMessage[])
+                    .map(cm => { return ({ type: 'message', data: cm } as ChatMessageWrapper); }),
+                ...(msg.events as readonly ChatEvent[])
+            ].sort((a, b) => getEventDate(a).getTime() - getEventDate(b).getTime()));
+        }
+        if (msg.action === 'message') {
+            setMessages(old => [...old, msg.data]);
+            setChatLines(old => [...old, msg.data]);
+        }
+        if (msg.action === 'event') {
+            setEvents(old => [...old, msg.data]);
+            setChatLines(old => [...old, msg.data]);
+        }
     };
 
     if (loading)
@@ -62,7 +97,7 @@ export const ChatMerge = () => {
         <Wrapper>
             <Chat>
                 {
-                    chatMessages.map(m => <ChatLine message={m} />)
+                    chatLines.map((m, i) => m.type === 'message' ? <ChatLine key={i} message={m.data as ChatMessage} /> : <div key={i} />)
                 }
             </Chat>
         </Wrapper>

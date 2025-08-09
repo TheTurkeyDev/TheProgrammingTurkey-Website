@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import { MainPage } from './pages/main-page';
 import { Info } from './pages/info';
 import { MCModSupport } from './pages/mods/mc-mod-support';
-import { LDStats } from './pages/game-jam/ld-stats';
 import { Support } from './pages/support/support';
 import { StreamLEDControl } from './pages/projects/stream-led-control';
 import { Login } from './pages/auth/login';
@@ -32,6 +31,7 @@ const GameSettingsRouter = lazy(() => import(/* webpackChunkName: "Game Settings
 const PredictionRouter = lazy(() => import(/* webpackChunkName: "Predictions" */ './pages/prediction/prediction-router'));
 const YahooRouter = lazy(() => import(/* webpackChunkName: "Yahoo Fantasy" */ './pages/yahoo-fantasy/yahoo-router'));
 const SoftkeyManagementRouter = lazy(() => import(/* webpackChunkName: "Softkey" */ './pages/softkey-management/softkey-router'));
+const LDStatsPage = lazy(() => import(/* webpackChunkName: "LDStats" */ './pages/game-jam/ld-stats'));
 
 export const authWrap = (element: JSX.Element, perm?: string) => <AuthRoute perm={perm}>{element}</AuthRoute>;
 
@@ -54,9 +54,9 @@ export const Routing = () => (
             <Route path='/softkey/*' element={authWrap(<SoftkeyManagementRouter />, 'softkey')} />
 
             <Route path='/mod-support' element={<MCModSupport />} />
-            <Route path='/ld-stats' element={<LDStats />} />
+            <Route path='/ld-stats' element={<LDStatsPage />} />
             <Route path='/stream-led-control' element={<StreamLEDControl />} />
-            <Route path='/chat-merge' element={<ChatMerge />} />
+            <Route path='/chat-merge' element={authWrap(<ChatMerge />)} />
             <Route path='/twitch-clip-shoutout' element={authWrap(<TwitchClipShoutout />)} />
             <Route path='/info' element={<Info />} />
             <Route path='/support' element={<Support />} />

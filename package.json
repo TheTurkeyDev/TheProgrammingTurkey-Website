@@ -25,9 +25,10 @@
     "vite": "^6.3.5"
   },
   "dependencies": {
-    "chartjs-react": "^4.3.0",
+    "chart.js": "^4.5.0",
     "gobble-lib-react": "^3.0.5",
     "react": "^19.1.0",
+    "react-chartjs-2": "^5.3.0",
     "react-colorful": "^5.6.1",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.1",
