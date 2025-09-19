@@ -1,10 +1,10 @@
 import { Body1, Caption, HorizontalRule, Table, TD, TH } from 'gobble-lib-react';
-import { YahooFantasyTeamRoster } from '../rest/yahoo-fantasy-team-roster';
+import { YahooFantasyTeamRoster } from '../../rest/yahoo-fantasy-team-roster';
 import { styled } from 'styled-components';
-import { YahooFantasyPlayerStatsStatEnum } from '../rest/yahoo-fantasy-player-stats-stat-enum';
-import { YahooFantasyTeamStartingIcon } from './yahoo-fantasy-team-starting-icon';
+import { YahooFantasyTeamStartingIcon } from '../yahoo-fantasy-team-starting-icon';
+import { YAHOO_FANTASY_ASSIST_STAT, YAHOO_FANTASY_BLOCKS_STAT, YAHOO_FANTASY_GA_STAT, YAHOO_FANTASY_GOALS_STAT, YAHOO_FANTASY_GWG_STAT, YAHOO_FANTASY_HITS_STAT, YAHOO_FANTASY_PPP_STAT, YAHOO_FANTASY_SAVES_STAT, YAHOO_FANTASY_SHP_STAT, YAHOO_FANTASY_SO_STAT, YAHOO_FANTASY_SOG_STAT, YAHOO_FANTASY_WINS_STAT } from '../../rest/yahoo-fantasy-player-stats-stat-enum';
 
-type YahooFantasyTeamRosterProps = {
+type YahooFantasyTeamRosterGridHockeyProps = {
     readonly roster: YahooFantasyTeamRoster
 }
 
@@ -39,7 +39,7 @@ const StatusBody = styled(Body1)`
     font-weight: 600;
 `;
 
-export const YahooFantasyTeamRosterGrid = ({ roster }: YahooFantasyTeamRosterProps) => {
+export const YahooFantasyTeamRosterGridHockey = ({ roster }: YahooFantasyTeamRosterGridHockeyProps) => {
     return (
         <div>
             <Table>
@@ -74,14 +74,14 @@ export const YahooFantasyTeamRosterGrid = ({ roster }: YahooFantasyTeamRosterPro
                                         </PlayerInfo>
                                     </TD>
                                     <CTD>{p.playerPoints.total}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.GOALS)?.value}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.ASSIST)?.value}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.POWER_PLAY_POINTS)?.value}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.SHORT_HANDED_POINTS)?.value}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.GAME_WINNING_GOALS)?.value}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.SHOTS_ON_GOAL)?.value}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.HITS)?.value}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.BLOCKS)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_GOALS_STAT)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_ASSIST_STAT)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_PPP_STAT)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_SHP_STAT)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_GWG_STAT)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_SOG_STAT)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_HITS_STAT)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_BLOCKS_STAT)?.value}</CTD>
                                 </tr>
                             );
                         })
@@ -117,10 +117,10 @@ export const YahooFantasyTeamRosterGrid = ({ roster }: YahooFantasyTeamRosterPro
                                         </PlayerInfo>
                                     </TD>
                                     <CTD>{p.playerPoints.total}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.WINS)?.value}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.GOALS_AGAINST)?.value}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.SAVES)?.value}</CTD>
-                                    <CTD>{stats.find(s => s.statId === YahooFantasyPlayerStatsStatEnum.SHOUT_OUTS)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_WINS_STAT)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_GA_STAT)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_SAVES_STAT)?.value}</CTD>
+                                    <CTD>{stats.find(s => s.statId === YAHOO_FANTASY_SO_STAT)?.value}</CTD>
                                 </tr>
                             );
                         })

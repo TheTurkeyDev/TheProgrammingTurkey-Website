@@ -1,14 +1,40 @@
-export enum YahooFantasyPlayerStatsStatEnum {
-    GOALS = 1,
-    ASSIST = 2,
-    POWER_PLAY_POINTS = 8,
-    SHORT_HANDED_POINTS = 11,
-    GAME_WINNING_GOALS = 12,
-    SHOTS_ON_GOAL = 14,
-    WINS = 19,
-	GOALS_AGAINST = 22,
-	SAVES = 25,
-	SHOUT_OUTS = 27,
-    HITS = 31,
-    BLOCKS = 32
-}
+//HOCKEY
+export const YAHOO_FANTASY_GOALS_STAT = 1;
+export const YAHOO_FANTASY_ASSIST_STAT = 2;
+export const YAHOO_FANTASY_PPP_STAT = 8;
+export const YAHOO_FANTASY_SHP_STAT = 11;
+export const YAHOO_FANTASY_GWG_STAT = 12;
+export const YAHOO_FANTASY_SOG_STAT = 14;
+export const YAHOO_FANTASY_WINS_STAT = 19;
+export const YAHOO_FANTASY_GA_STAT = 22;
+export const YAHOO_FANTASY_SAVES_STAT = 25;
+export const YAHOO_FANTASY_SO_STAT = 27;
+export const YAHOO_FANTASY_HITS_STAT = 31;
+export const YAHOO_FANTASY_BLOCKS_STAT = 32;
+
+//FOOTBALL
+export const YAHOO_FANTASY_PASS_YDS_STAT = 4;
+export const YAHOO_FANTASY_PASS_TD_STAT = 5;
+export const YAHOO_FANTASY_PASS_INT_STAT = 6;
+export const YAHOO_FANTASY_RUSH_ATT_STAT = 8;
+export const YAHOO_FANTASY_RUSH_YDS_STAT = 9;
+export const YAHOO_FANTASY_RUSH_TD_STAT = 10;
+export const YAHOO_FANTASY_REC_REC_STAT = 11;
+export const YAHOO_FANTASY_REC_YDS_STAT = 12;
+export const YAHOO_FANTASY_REC_TD_STAT = 13;
+export const YAHOO_FANTASY_RET_YDS_OFF_STAT = 14;
+export const YAHOO_FANTASY_RET_TD_OFF_STAT = 15;
+export const YAHOO_FANTASY_2PT_STAT = 16;
+export const YAHOO_FANTASY_FUM_LOST_STAT = 18;
+export const YAHOO_FANTASY_PAT_MADE_STAT = 29;
+export const YAHOO_FANTASY_PTS_VS_STAT = 31;
+export const YAHOO_FANTASY_SACK_STAT = 32;
+export const YAHOO_FANTASY_SAFETY_STAT = 33;
+export const YAHOO_FANTASY_INT_STAT = 34;
+export const YAHOO_FANTASY_FUM_REC_STAT = 35;
+export const YAHOO_FANTASY_TD_STAT = 36;
+export const YAHOO_FANTASY_BLK_KICK_STAT = 37;
+export const YAHOO_FANTASY_RET_YDS_DEF_STAT = 48;
+export const YAHOO_FANTASY_RET_TD_DEF_STAT = 49;
+export const YAHOO_FANTASY_REC_TARGETS_STAT = 78;
+export const YAHOO_FANTASY_FGS_YDS_STAT = 84;

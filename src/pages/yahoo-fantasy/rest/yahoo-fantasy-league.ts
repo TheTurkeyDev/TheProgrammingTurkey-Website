@@ -12,6 +12,7 @@ export type YahooFantasyLeague = {
     readonly numTeams: number
     readonly editKey: number
     readonly leagueUpdateTimestamp: number
+    readonly rosterType: string
     readonly scoringType: string
     readonly leagueType: string
     readonly renew: string

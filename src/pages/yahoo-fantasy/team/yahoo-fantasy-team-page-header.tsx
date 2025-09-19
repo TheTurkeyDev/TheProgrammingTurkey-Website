@@ -16,9 +16,11 @@ type YahooFantasyTeamPageHeaderProps = {
     readonly team: YahooFantasyTeam
     readonly date: Date
     readonly setDate: (date: Date) => void
+    readonly week: number
+    readonly setWeek: (week: number | undefined) => void
 }
 
-export const YahooFantasyTeamPageHeader = ({ team, date, setDate }: YahooFantasyTeamPageHeaderProps) => {
+export const YahooFantasyTeamPageHeader = ({ team, date, setDate, week, setWeek }: YahooFantasyTeamPageHeaderProps) => {
 
     const addDay = (count: number) => {
         const nd = new Date(date);
@@ -26,14 +28,32 @@ export const YahooFantasyTeamPageHeader = ({ team, date, setDate }: YahooFantasy
         setDate(nd);
     };
 
+    const addWeek = (count: number) => {
+        setWeek(Math.max(week + count, 0));
+    };
+
     return (
         <HeaderWrapper>
             <img src={team.teamLogos[0]?.url} width={64} height={64} />
             <Headline4>{team.name}</Headline4>
             <Spacer />
-            <Icon className='fa fa-arrow-left' onClick={() => addDay(-1)} />
-            <Body1>{date.toLocaleDateString('en-us', { year: 'numeric', month: '2-digit', day: '2-digit' })}</Body1>
-            <Icon className='fa fa-arrow-right' onClick={() => addDay(1)} />
+            {
+                team.roster.coverageType === 'week' &&
+                <>
+                    <Icon className='fa fa-arrow-left' onClick={() => addWeek(-1)} />
+                    <Body1>Week {week}</Body1>
+                    <Icon className='fa fa-arrow-right' onClick={() => addWeek(1)} />
+                </>
+            }
+            {
+                team.roster.coverageType === 'date' &&
+                <>
+                    <Icon className='fa fa-arrow-left' onClick={() => addDay(-1)} />
+                    <Body1>{date.toLocaleDateString('en-us', { year: 'numeric', month: '2-digit', day: '2-digit' })}</Body1>
+                    <Icon className='fa fa-arrow-right' onClick={() => addDay(1)} />
+                </>
+            }
+
         </HeaderWrapper>
     );
 };
