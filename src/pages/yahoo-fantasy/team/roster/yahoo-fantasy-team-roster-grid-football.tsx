@@ -48,11 +48,6 @@ const PlayerRow = styled.tr<PlayerRowProps>`
     background-color: ${({ theme, $selPos }) => $selPos === 'BN' ? `${theme.background.on}22` : ''};
 `;
 
-const HWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
 export const YahooFantasyTeamRosterGridFootball = ({ roster }: YahooFantasyTeamRosterGridFootballProps) => {
     const offense = ['QB', 'WR', 'RB', 'TE'];
     return (
