@@ -1,10 +1,14 @@
-import { Body1, Headline4, Icon } from 'gobble-lib-react';
+import { Body1, Headline4, Icon, OutlinedButton } from 'gobble-lib-react';
 import { YahooFantasyTeam } from '../rest/yahoo-fantasy-team';
 import { styled } from 'styled-components';
+import { useState } from 'react';
+import { YahooFantasyStartActiveModal } from './yahoo-fantasy-team-start-active-modal';
+import { YahooFantasyLeague } from '../rest/yahoo-fantasy-league';
 
 const HeaderWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 8px;
 `;
 
@@ -18,9 +22,14 @@ type YahooFantasyTeamPageHeaderProps = {
     readonly setDate: (date: Date) => void
     readonly week: number
     readonly setWeek: (week: number | undefined) => void
+    readonly gameId: string
+    readonly league: YahooFantasyLeague
+    readonly teamId: string
 }
 
-export const YahooFantasyTeamPageHeader = ({ team, date, setDate, week, setWeek }: YahooFantasyTeamPageHeaderProps) => {
+export const YahooFantasyTeamPageHeader = ({ team, date, setDate, week, setWeek, gameId, league, teamId }: YahooFantasyTeamPageHeaderProps) => {
+
+    const [showStartActiveModal, setShowStartActiveModal] = useState(false);
 
     const addDay = (count: number) => {
         const nd = new Date(date);
@@ -37,6 +46,7 @@ export const YahooFantasyTeamPageHeader = ({ team, date, setDate, week, setWeek 
             <img src={team.teamLogos[0]?.url} width={64} height={64} />
             <Headline4>{team.name}</Headline4>
             <Spacer />
+            <OutlinedButton onClick={() => setShowStartActiveModal(true)}>Start Active Players</OutlinedButton>
             {
                 team.roster.coverageType === 'week' &&
                 <>
@@ -53,7 +63,14 @@ export const YahooFantasyTeamPageHeader = ({ team, date, setDate, week, setWeek 
                     <Icon className='fa fa-arrow-right' onClick={() => addDay(1)} />
                 </>
             }
-
+            {showStartActiveModal && <YahooFantasyStartActiveModal
+                show={showStartActiveModal}
+                requestClose={() => setShowStartActiveModal(false)}
+                gameId={gameId}
+                league={league}
+                teamId={teamId}
+                date={date}
+            />}
         </HeaderWrapper>
     );
 };

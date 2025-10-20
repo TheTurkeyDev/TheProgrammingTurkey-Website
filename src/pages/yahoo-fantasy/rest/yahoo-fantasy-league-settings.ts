@@ -1,3 +1,5 @@
+import { YahooFantasyLeagueStatCategories } from './yahoo-fantasy-league-stat-categories';
+
 export type YahooFantasyLeagueSettings = {
     readonly draftType: string
     readonly isAuctionDraft: boolean
@@ -25,7 +27,7 @@ export type YahooFantasyLeagueSettings = {
     readonly draftTogether: boolean
     readonly sendbirdChannelURL: string
     // rosterPositions: YahooFantasyLeagueRosterPosition[]
-    // statCategories: YahooFantasyLeagueStatCategories
+    readonly statCategories: YahooFantasyLeagueStatCategories
     // statModifiers: YahooFantasyLeagueStatModifiers
     readonly maxWeeklyAdds: number
     readonly usesMedianScore: boolean

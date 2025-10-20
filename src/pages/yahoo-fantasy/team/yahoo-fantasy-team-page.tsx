@@ -57,7 +57,7 @@ export const YahooFantasyTeamPage = () => {
 
     return (
         <PageContent>
-            <YahooFantasyTeamPageHeader team={team} date={date} setDate={setDate} week={week ?? league.currentWeek} setWeek={setWeek} />
+            <YahooFantasyTeamPageHeader team={team} date={date} setDate={setDate} week={week ?? league.currentWeek} setWeek={setWeek} gameId={gameId ?? ''} league={league} teamId={teamId ?? ''} />
             <YahooFantasyTeamRosterGrid league={league} roster={team.roster} />
         </PageContent>
     );

@@ -15,6 +15,7 @@ export const getParams: RequestInit = paramsForType('GET');
 export const postParams: RequestInit = paramsForType('POST');
 export const deleteParams: RequestInit = paramsForType('DELETE');
 export const patchParams: RequestInit = paramsForType('PATCH');
+export const putParams: RequestInit = paramsForType('PUT');
 
 export function getGetAuthParams(): RequestInit {
     return {
