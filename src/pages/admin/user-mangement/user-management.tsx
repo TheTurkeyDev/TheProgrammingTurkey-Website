@@ -28,11 +28,13 @@ export const UserManagement = () => {
     const [usernameFilter, setUsernameFilter] = useState('');
 
     const updateUsers = () => {
-        getAllUsers(undefined, '', `filter=${usernameFilter}&platforms=${['twitch', 'discord', 'github'].join(',')}`)
+        getAllUsers(undefined, '', `filter=${usernameFilter}&platforms=${['twitch', 'discord', 'github', 'yahoo'].join(',')}`)
             .then(resp => setUserList(resp ?? []));
     };
 
-    useEffect(() => updateUsers(), []);
+    useEffect(() => {
+        updateUsers();
+    }, []);
 
     return (
         <PageWrapper>
