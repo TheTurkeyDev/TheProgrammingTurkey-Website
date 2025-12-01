@@ -58,7 +58,7 @@ export const YahooFantasyTeamRosterGridGroup = ({ posType, players, statCategori
                     <TH>Player</TH>
                     <TH>FAN PTS</TH>
                     {
-                        [...statsToShow].map(s => <TH>{s.displayName}</TH>)
+                        [...statsToShow].map(s => <TH key={s.statId}>{s.displayName}</TH>)
                     }
                 </tr>
             </thead>
@@ -79,7 +79,7 @@ export const YahooFantasyTeamRosterGridGroup = ({ posType, players, statCategori
                                 </TD>
                                 <CTD>{p.playerPoints.total}</CTD>
                                 {
-                                    [...statsToShow].map(sc => <CTD>{stats.find(s => s.statId === sc.statId)?.value}</CTD>)
+                                    [...statsToShow].map(sc => <CTD key={sc.statId}>{stats.find(s => s.statId === sc.statId)?.value}</CTD>)
                                 }
                             </tr>
                         );

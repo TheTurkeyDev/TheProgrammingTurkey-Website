@@ -42,7 +42,7 @@ export const StreamAnimationItem = ({ animation, channelPointRewards, animSettin
             <ActionsWrapper>
                 <Icon className='fas fa-trash' title='Delete' onClick={() => setShowConfirmationModal(true)} />
                 <Icon className='fas fa-edit' title='Edit' onClick={() => setShowSettingsModal(true)} />
-                <Icon className='fas fa-play' title='Test' onClick={() => test()} />
+                <Icon className='fas fa-play' title='Test' onClick={test} />
             </ActionsWrapper>
             <Body1>{animation.display}</Body1>
             <Body1>//Coming soon!</Body1>

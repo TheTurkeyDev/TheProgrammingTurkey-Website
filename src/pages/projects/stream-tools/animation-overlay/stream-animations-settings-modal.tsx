@@ -7,6 +7,7 @@ import { StreamAnimationSettingDef } from '../../../../types/stream-animations/s
 import { TwitchChannelPointReward } from '../../../../types/stream-animations/twitch-channel-point-reward';
 import { UserAnimationSetting } from './mapped-stream-animation-user-data';
 import { getDevAPIBase } from '../../../../network/network-helper';
+import { getGetAuthParams } from '../../../../network/auth-network';
 
 const ContentWrapper = styled.div`
     display: grid;
@@ -44,7 +45,7 @@ type StreamAnimationSettingsModalProps = {
 export const StreamAnimationSettingsModal = ({ show, requestClose, animation, animSettings, channelPointRewards, save }: StreamAnimationSettingsModalProps) => {
     const [values, setValues] = useState<Mapped>();
 
-    const [settingsDefs] = useFetch<readonly StreamAnimationSettingDef[]>(`${getDevAPIBase()}/stream-animations/user-data/${animation.id}/default-settings`);
+    const [settingsDefs] = useFetch<readonly StreamAnimationSettingDef[]>(`${getDevAPIBase()}/stream-animations/user-data/${animation.id}/default-settings`, { requestData: getGetAuthParams() });
 
     useEffect(() => {
         if (!settingsDefs)
