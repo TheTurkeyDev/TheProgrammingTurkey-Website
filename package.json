@@ -14,26 +14,26 @@
   "devDependencies": {
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.4",
+    "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^9.38.0",
     "eslint-plugin-functional": "^9.0.4",
     "eslint-plugin-react": "^7.37.5",
     "jiti": "^2.6.1",
-    "ts-loader": "^9.5.4",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.0",
-    "vite": "^7.3.1"
+    "ts-loader": "^9.5.7",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.58.1",
+    "vite": "^8.0.8"
   },
   "dependencies": {
     "chart.js": "^4.5.1",
     "gobble-lib-react": "^3.0.12",
-    "react": "^19.2.4",
+    "react": "^19.2.5",
     "react-chartjs-2": "^5.3.1",
     "react-colorful": "^5.6.1",
-    "react-dom": "^19.2.4",
-    "react-router-dom": "^7.13.1",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.14.0",
     "react-screen-wake-lock": "^3.1.1",
     "reconnecting-websocket": "^4.4.0",
-    "styled-components": "^6.3.11"
+    "styled-components": "^6.4.0"
   }
 }
