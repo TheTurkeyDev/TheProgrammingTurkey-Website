@@ -31,7 +31,7 @@
     "react-chartjs-2": "^5.3.1",
     "react-colorful": "^5.6.1",
     "react-dom": "^19.2.5",
-    "react-router-dom": "^7.14.0",
+    "react-router-dom": "^7.16.0",
     "react-screen-wake-lock": "^3.1.1",
     "reconnecting-websocket": "^4.4.0",
     "styled-components": "^6.4.0"
