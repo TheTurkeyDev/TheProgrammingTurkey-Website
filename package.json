@@ -22,7 +22,7 @@
     "ts-loader": "^9.5.7",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.1",
-    "vite": "^8.0.8"
+    "vite": "^8.0.16"
   },
   "dependencies": {
     "chart.js": "^4.5.1",
