@@ -1,9 +1,9 @@
-import { Body1, Headline3, useFetch } from 'gobble-lib-react';
+import { Body1, Headline3, OutlinedButton, useFetch, useQuery } from 'gobble-lib-react';
 import styled from 'styled-components';
 import { ProcessHealth } from '../../../types/process-health';
 import { ProcessEntry } from './process-entry';
 import { getDevAPIBase } from '../../../network/network-helper';
-import { getParams } from '../../../network/auth-network';
+import { getParams, postParams } from '../../../network/auth-network';
 
 const ProcessManagerWrapper = styled.div`
     text-align: center;
@@ -19,10 +19,12 @@ const ProcessWrapper = styled.div`
 export const ProcessManagement = () => {
     const [processes] = useFetch<readonly ProcessHealth[]>(`${getDevAPIBase()}/admin/processes`, { requestData: getParams });
     const [_] = useFetch<readonly unknown[]>(`${getDevAPIBase()}/twitch/eventsubs`, { requestData: getParams });
+    const [fixSubs] = useQuery<readonly unknown[]>(`${getDevAPIBase()}/twitch/eventsubs/fix`, { requestData: postParams });
 
     return (
         <ProcessManagerWrapper>
             <Headline3>Process Manager</Headline3>
+            <OutlinedButton onClick={() => fixSubs()}>Fix Twitch Event Subs</OutlinedButton>
             <ProcessWrapper>
                 <Body1>Actions</Body1>
                 <Body1>Process ID</Body1>
