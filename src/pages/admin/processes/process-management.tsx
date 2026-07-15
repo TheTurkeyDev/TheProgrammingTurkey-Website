@@ -18,6 +18,7 @@ const ProcessWrapper = styled.div`
 
 export const ProcessManagement = () => {
     const [processes] = useFetch<readonly ProcessHealth[]>(`${getDevAPIBase()}/admin/processes`, { requestData: getParams });
+    const [_] = useFetch<readonly unknown[]>(`${getDevAPIBase()}/twitch/eventsubs`, { requestData: getParams });
 
     return (
         <ProcessManagerWrapper>
